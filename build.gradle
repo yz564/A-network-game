@@ -22,9 +22,9 @@ subprojects{
         testCompile "org.mockito:mockito-core:2.+"
     }
     clover{
-    compiler{
-        additionalArgs = "-g:lines,source,vars"
-    }
+        compiler{
+            additionalArgs = "-g:lines,source,vars"
+        }
     }
     test{
         testLogging{
@@ -47,10 +47,40 @@ subprojects{
         from sourceSets.test.output
     }
     
-    
     artifacts {
         testPkg testCode
     }
+
+    task resolveDependencies {
+
+	    doLast {
+
+		    project.rootProject.allprojects.each { subProject ->
+
+			    subProject.buildscript.configurations.each { configuration->
+
+				    if(configuration.canBeResolved) {
+
+					        configuration.resolve()
+
+				    }
+
+			    }
+
+			    subProject.configurations.each { configuration ->
+
+				    if(configuration.canBeResolved) {configuration.resolve()
+
+				    }
+
+			    }
+
+		    }
+
+        }
+
+    }
+
 }
 
 // Project specific stuff
@@ -67,6 +97,13 @@ project (':client'){
         implementation project(':shared')
         testImplementation project(path: ':shared', configuration: "testPkg")
     } 
+}
+
+clover{
+    report {
+        json = true
+        html = true
+    }
 }
 
 tasks.register("run-server") {
