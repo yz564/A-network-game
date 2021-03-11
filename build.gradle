@@ -22,9 +22,14 @@ subprojects{
         testCompile "org.mockito:mockito-core:2.+"
     }
     clover{
-    compiler{
-        additionalArgs = "-g:lines,source,vars"
-    }
+        enabled = true
+        report {
+            json = true
+            html = true
+        }
+        compiler{
+            additionalArgs = "-g:lines,source,vars"
+        }
     }
     test{
         testLogging{
@@ -67,17 +72,6 @@ project (':client'){
         implementation project(':shared')
         testImplementation project(path: ':shared', configuration: "testPkg")
     } 
-}
-
-clover{
-    enabled = true
-    report {
-        json = true
-        html = true
-    }
-    compiler{
-        additionalArgs = "-g:lines,source,vars"
-    }
 }
 
 tasks.register("run-server") {
