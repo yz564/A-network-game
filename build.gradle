@@ -69,6 +69,17 @@ project (':client'){
     } 
 }
 
+clover{
+    enabled = true
+    report {
+        json = true
+        html = true
+    }
+    compiler{
+        additionalArgs = "-g:lines,source,vars"
+    }
+}
+
 tasks.register("run-server") {
     dependsOn project('server').getTasksByName('run',false)
     group = 'Run Client/Server'
