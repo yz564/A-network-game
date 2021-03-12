@@ -1,8 +1,8 @@
 # Ignore Gradle project-specific cache directory
 .gradle
-.project
+**/.project
 .classpath
-.settings/org.eclipse.buildship.core.prefs
+**/.settings/
 
 # Ignore Gradle build output directory
 build
@@ -11,4 +11,7 @@ build
 *~
 
 # Ignore .DS_Store files
-*.DS_Store
+**/.DS_Store
+
+# Ignore Vscode files
+**/.vscode/
