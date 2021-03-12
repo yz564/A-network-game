@@ -1,36 +1,34 @@
 package edu.duke.ece651.risk.shared;
 
+/*
+ * Represents an interface for classes that would 
+ * represent territories in a RISK Map.
+ *
+ * Each Territory contains a number of units that
+ * could be used to either attack or defend in a combat.
+ */
 public interface Territory {
   /*
-   * Represents an interface for classes that would 
-   * represent territories in a RISK Map.
-   */
-
-  /*
-   * Adds a unit (e.g. a soldier) to the territory.
-   *
+   * Adds units to the territory.
+   * 
+   * @param toAdd is the number of units to add.
+   * 
    * @returns true if add is successful, false if not.
    */
-  boolean tryAddUnit();
+  public boolean tryAddUnits(int toAdd);
 
   /*
-   * Remove a unit (e.g. a soldier) from the territory.
+   * Remove units from the territory.
    * 
+   * @param toRemove is the number of units to remove.
+   *
    * @returns true if unit is removed is successful, false if not.
    */
-  boolean tryRemoveUnit();
+  public boolean tryRemoveUnits(int toRemove);
 
   /*
-   * Returns whether or not an arbitrary territory shares a boundary 
-   * with this territory (aka neighbor). 
-   *
-   * @param otherTerritory is the territory that we want to know whether or 
-   * not shares a boundary with this territorythe neighobor.
-   *
-   * @param map is the map that contains otherTerritory.
-   *
-   * @returns true if otherTerritory shares a boundary with this territory, 
-   * false if not.
+   * Returns the total number of units inside a territory.
    */
-  boolean isAdjacent(Territory otherTerritory, WorldMap map);  
+  public int getNumUnits();
+
 }
