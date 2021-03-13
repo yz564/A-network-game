@@ -76,5 +76,25 @@ public class BasicTroopTest {
     assertEquals(false, t2.equals(4));
   }
 
+  @Test
+  public void test_set_num_troops() {
+    BasicTroop t1 = new BasicTroop("Soldiers", 5, 100);
+    assertEquals(true, t1.trySetNumUnits(12));
+    assertEquals(12, t1.getNumUnits());
+    assertEquals(false, t1.trySetNumUnits(101));
+    assertEquals(12, t1.getNumUnits());
+  }
+
 }
+
+
+
+
+
+
+
+
+
+
+
 
