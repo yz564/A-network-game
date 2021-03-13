@@ -42,8 +42,7 @@ public class BasicTerritory implements Territory {
     return myTroop.getNumUnits();
   }
 
-  /* Return territory name.
-   */
+  @Override
   public String getName() {
     return territoryName;
   }
@@ -54,6 +53,11 @@ public class BasicTerritory implements Territory {
     return myTroop;
   }
 
+  @Override
+  public boolean trySetNumUnits(int numUnits) {
+    return myTroop.trySetNumUnits(numUnits);
+  }
+  
   @Override
   public boolean equals(Object o) {
     if (o != null && o.getClass().equals(getClass())) {

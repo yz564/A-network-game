@@ -72,4 +72,24 @@ public class BasicTerritoryTest {
     BasicTerritory territory = new BasicTerritory("Narnia", 10);
     assertEquals(-517134432, territory.hashCode());
   }
+
+  @Test
+  public void test_set_num_units() {
+    BasicTerritory t = new BasicTerritory("Narnia", 10);
+    assertEquals(true, t.trySetNumUnits(100));
+    assertEquals(100, t.getNumUnits());
+    assertEquals(false, t.trySetNumUnits(1000));
+    assertEquals(100, t.getNumUnits());
+  }
 }
+
+
+
+
+
+
+
+
+
+
+

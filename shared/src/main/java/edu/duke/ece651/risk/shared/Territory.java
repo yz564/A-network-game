@@ -31,4 +31,25 @@ public interface Territory {
    */
   public int getNumUnits();
 
+  /* Return territory name.
+   */
+  public String getName();
+  
+  /* Set number of units present in a territory.
+   * @param numUnits is the number of units that is set for this terriroty..
+   */
+  public boolean trySetNumUnits(int numUnits);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
