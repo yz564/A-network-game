@@ -5,28 +5,41 @@ import java.util.HashSet;
 /*
  * BasicTerritory is a simple territory that contains a
  * single troop of units inside it and has a name.
+ * 
+ * It also contains a hashset of neighboring territories 
+ * that it is adjacent to and its owner's name.
  */
 public class BasicTerritory implements Territory {
   private Troop myTroop;
   private String territoryName;
+  private HashSet<Territory> myNeighbors;
+  private String myOwnerName;
 
-  /* Construct a BasicTerritory object.
+  /*
+   * Construct a BasicTerritory object.
+   * 
    * @param name is the name to assign to the territory.
+   * 
    * @param toAdd is the Troop to add the the territory.
    */
   public BasicTerritory(String name, Troop toAdd) {
     this.myTroop = toAdd;
     this.territoryName = name;
+    this.myNeighbors = new HashSet<Territory>();
+    this.myOwnerName = null;
   }
 
-  /* Construct a BasicTerritory object.
+  /*
+   * Construct a BasicTerritory object.
+   * 
    * @param name is the name to assign to the territory.
+   * 
    * @param numUnits is the number of units to add to the territory.
    */
   public BasicTerritory(String name, int numUnits) {
     this(name, new BasicTroop(numUnits));
   }
-  
+
   @Override
   public boolean tryAddUnits(int toAdd) {
     return myTroop.tryAddUnits(toAdd);
@@ -47,7 +60,8 @@ public class BasicTerritory implements Territory {
     return territoryName;
   }
 
-  /* Return the troop present inside the territory.
+  /*
+   * Return the troop present inside the territory.
    */
   public Troop getTroop() {
     return myTroop;
@@ -69,8 +83,7 @@ public class BasicTerritory implements Territory {
 
   @Override
   public String toString() {
-    return "Territory " + this.territoryName +
-      " contains the following troop:\n" + myTroop.toString();
+    return "Territory " + this.territoryName + " contains the following troop:\n" + myTroop.toString();
   }
 
   @Override
@@ -78,4 +91,32 @@ public class BasicTerritory implements Territory {
     return toString().hashCode();
   }
 
+  @Override
+  public boolean isAdjacentTo(Territory neighbor) {
+    return this.myNeighbors.contains(neighbor);
+  }
+
+  @Override
+  public boolean tryAddNeighbor(Territory neighbor) {
+    return this.myNeighbors.add(neighbor);
+  }
+
+  @Override
+  public String getOwnerName() {
+    return myOwnerName;
+  }
+
+  @Override
+  public boolean isBelongTo(String playerName) {
+    if (myOwnerName != null) {
+      return this.myOwnerName.equals(playerName);
+    } else {
+      return false;
+    }
+  }
+
+  @Override
+  public void tryAssignOwner(String playerName) {
+    this.myOwnerName = playerName;
+  }
 }
