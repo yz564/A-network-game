@@ -31,4 +31,20 @@ public interface Territory {
    */
   public int getNumUnits();
 
+  /* Return territory name.
+   */
+  public String getName();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

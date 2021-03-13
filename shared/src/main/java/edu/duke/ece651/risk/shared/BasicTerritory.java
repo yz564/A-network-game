@@ -42,12 +42,11 @@ public class BasicTerritory implements Territory {
     return myTroop.getNumUnits();
   }
 
-  /* Return territory name.
-   */
+  @Override
   public String getName() {
     return territoryName;
   }
-
+  
   /* Return the troop present inside the territory.
    */
   public Troop getTroop() {
