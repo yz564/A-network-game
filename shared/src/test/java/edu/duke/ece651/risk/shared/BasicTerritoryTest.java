@@ -1,6 +1,8 @@
 package edu.duke.ece651.risk.shared;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -59,17 +61,33 @@ public class BasicTerritoryTest {
   }
 
   /*
-  @Test
-  public void test_to_string() {
-    BasicTerritory territory = new BasicTerritory("North", 2);
-    String output = "Territory North contains the following troop.\nTroop with 2 units.\n";
-    assertEquals(true, territory.toString().equals(output));
-  }
-  */
+   * @Test public void test_to_string() { BasicTerritory territory = new
+   * BasicTerritory("North", 2); String output =
+   * "Territory North contains the following troop.\nTroop with 2 units.\n";
+   * assertEquals(true, territory.toString().equals(output)); }
+   */
 
   @Test
   public void test_hash() {
     BasicTerritory territory = new BasicTerritory("Narnia", 10);
     assertEquals(-517134432, territory.hashCode());
+  }
+
+  @Test
+  public void test_adjacency() {
+    BasicTerritory t1 = new BasicTerritory("Narnia", 10);
+    BasicTerritory t2 = new BasicTerritory("Elantris", 10);
+    assertFalse(t1.isAdjacentTo(t2));
+    assertTrue(t1.tryAddNeighbor(t2));
+    assertTrue(t1.isAdjacentTo(t2));
+  }
+
+  @Test
+  public void test_owner() {
+    BasicTerritory t1 = new BasicTerritory("Narnia", 10);
+    assertFalse(t1.isBelongTo("Player 1"));
+    t1.tryAssignOwner("Player 1");
+    assertTrue(t1.isBelongTo("Player 1"));
+    assertEquals("Player 1", t1.getOwnerName());
   }
 }
