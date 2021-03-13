@@ -76,12 +76,20 @@ public class BasicTroop implements Troop {
 		return numUnits;
 	}
 
-  /* Return troop name.
-   */
+  @Override
   public String getName() {
     return troopName;
   }
 
+  @Override
+  public boolean trySetNumUnits(int numUnits) {
+    if (numUnits > this.unitLimit) {
+      return false;
+    }
+    this.numUnits = numUnits;
+    return true;
+  }
+  
   @Override
   public boolean equals(Object o) {
     if (o != null && o.getClass().equals(getClass())) {
