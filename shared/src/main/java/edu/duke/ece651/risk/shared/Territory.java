@@ -39,6 +39,46 @@ public interface Territory {
    * @param numUnits is the number of units that is set for this terriroty..
    */
   public boolean trySetNumUnits(int numUnits);
+
+  /*
+   * Check if territory is adjacent to a given territory
+   * 
+   * @param neighbor is the territory to check adjacency with
+   * 
+   * @returns true if the two territories are adjacent, false if not.
+   */
+  public boolean isAdjacentTo(Territory neighbor);
+
+  /*
+   * Add a given territory to the list of neghboring territories of the current
+   * territory
+   * 
+   * @param neighbor is the territory to add
+   * 
+   * @returns true if the add is successful, false if not.
+   */
+  public boolean tryAddNeighbor(Territory neighbor);
+
+  /*
+   * Returns the name of the owner of the current territory.
+   */
+  public String getOwnerName();
+
+  /*
+   * Check if territory belongs to a given player
+   * 
+   * @param playerName is the name of the player to check ownership with
+   * 
+   * @returns true if the two territories are adjacent, false if not.
+   */
+  public boolean isBelongTo(String playerName);
+
+  /*
+   * Assigns the owner of the current territory to a given player name
+   * 
+   * @param playerName is the name of the owner
+   */
+  public void tryAssignOwner(String playerName);
 }
 
 
