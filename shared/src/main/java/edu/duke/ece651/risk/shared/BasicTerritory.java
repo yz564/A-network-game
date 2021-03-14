@@ -71,7 +71,7 @@ public class BasicTerritory implements Territory {
   public boolean trySetNumUnits(int numUnits) {
     return myTroop.trySetNumUnits(numUnits);
   }
-  
+
   @Override
   public boolean equals(Object o) {
     if (o != null && o.getClass().equals(getClass())) {
@@ -116,7 +116,12 @@ public class BasicTerritory implements Territory {
   }
 
   @Override
-  public void tryAssignOwner(String playerName) {
-    this.myOwnerName = playerName;
+  public boolean tryAssignOwner(String playerName) {
+    if (playerName != null) {
+      this.myOwnerName = playerName;
+      return true;
+    } else {
+      return false;
+    }
   }
 }

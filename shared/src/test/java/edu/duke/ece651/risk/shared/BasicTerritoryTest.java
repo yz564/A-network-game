@@ -95,7 +95,8 @@ public class BasicTerritoryTest {
   public void test_owner() {
     BasicTerritory t1 = new BasicTerritory("Narnia", 10);
     assertFalse(t1.isBelongTo("Player 1"));
-    t1.tryAssignOwner("Player 1");
+    assertTrue(t1.tryAssignOwner("Player 1"));
+    assertFalse(t1.tryAssignOwner(null));
     assertTrue(t1.isBelongTo("Player 1"));
     assertEquals("Player 1", t1.getOwnerName());
   }
