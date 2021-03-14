@@ -77,8 +77,10 @@ public interface Territory {
    * Assigns the owner of the current territory to a given player name
    * 
    * @param playerName is the name of the owner
+   *
+   * @returns true if assignment is succesfful, false if not
    */
-  public void tryAssignOwner(String playerName);
+  public boolean tryAssignOwner(String playerName);
 }
 
 

@@ -1,6 +1,7 @@
 package edu.duke.ece651.risk.shared;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /*
  * Represents an interface for classes that would 
@@ -16,8 +17,10 @@ public interface WorldMap {
    * Territory is created with no troops, neighbors or owner.
    * 
    * @param toAdd is the name of the territory to add
+   *
+   * @returns true if add is successful, false if not.
    */
-  public void tryAddTerritory(String toAdd);
+  public boolean tryAddTerritory(String toAdd);
 
   /*
    * Returns the territory on map with the given name
@@ -34,7 +37,7 @@ public interface WorldMap {
    * 
    * @returns true if add is successful, false if not.
    */
-  public void tryAddInitGroup(int group, String toAdd);
+  public boolean tryAddInitGroup(int group, String toAdd);
 
   /*
    * Returns a list of territory names in a given initial group
@@ -48,6 +51,36 @@ public interface WorldMap {
    * 
    * @param group is the initial grouping number
    * @param playerName is the name of the owner  
+   * 
+   * @returns true if assignment is successful, false if not.
    */
-  public void tryAssignInitOwner(int group, String playerName);
+  public boolean tryAssignInitOwner(int group, String playerName);
+
+  /*
+   * Returns a hashset of territories belonging to a given player
+   * 
+   * @param playerName is the name of the owner  
+   */
+  public HashSet<Territory> getPlayerTerritories(String playerName);
+
+  /*
+   * Change the owner of a given territory
+   * 
+   * @param territoryName is the name of the territory to change ownership
+   * @param playerName is the name of the owner  
+   * 
+   * @returns true if change is successful, false if not.
+   */
+  public boolean tryChangeOwner(String territoryName, String playerName);
 }
+
+
+
+
+
+
+
+
+
+
+
