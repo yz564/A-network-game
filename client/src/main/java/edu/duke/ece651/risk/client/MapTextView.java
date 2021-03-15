@@ -4,26 +4,16 @@ import edu.duke.ece651.risk.shared.*;
 
 public class MapTextView {
 
-    private WorldMap currentMap;
+    private ArrayList<String> playerNames;
+    final private String myPlayerName;
 
-    public MapTextView() {
-        this.currentMap = null;
-    }
-
-    public MapTextView(WorldMap currentMap) {
-        this.currentMap = currentMap;
+    public MapTextView(ArrayList<String> playerNames, String myPlayerName) {
+        this.playerNames = playerNames;
+        this.myPlayerName = myPlayerName;
     }
 
     public String displayMap(WorldMap toDisplay) {
         return "the map";
-    }
-
-    private WorldMap getCurrentMap() {
-        return currentMap;
-    }
-
-    private void replaceMap(WorldMap newMap) {
-        this.currentMap = newMap;
     }
 
 }
