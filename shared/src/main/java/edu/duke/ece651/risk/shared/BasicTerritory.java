@@ -124,4 +124,9 @@ public class BasicTerritory implements Territory {
       return false;
     }
   }
+
+  @Override
+  public HashSet<Territory> getMyNeighbors() {
+    return this.myNeighbors;
+  }
 }

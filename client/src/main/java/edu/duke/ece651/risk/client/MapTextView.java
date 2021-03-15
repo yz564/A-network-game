@@ -1,5 +1,7 @@
 package edu.duke.ece651.risk.client;
 
+import java.util.ArrayList;
+
 import edu.duke.ece651.risk.shared.*;
 
 public class MapTextView {
@@ -14,6 +16,17 @@ public class MapTextView {
 
     public String displayMap(WorldMap toDisplay) {
         return "the map";
+    }
+
+    private String onePlayerSection(String playerName) {
+        String ans = playerName + ":\n-------------";
+
+        return ans;
+    }
+
+    private String oneTerritoryLine(Territory territory) {
+        // ArrayList neighbors = territory.ge
+        return "";
     }
 
 }

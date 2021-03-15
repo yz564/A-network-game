@@ -10,17 +10,17 @@ import edu.duke.ece651.risk.shared.*;
 public class MapTextViewTest {
     @Test
     public void test_constructor() {
-        ArrayList<String> playerNames = new ArrayList();
+        ArrayList<String> playerNames = new ArrayList<String>();
         playerNames.add("Green player");
         playerNames.add("Blue player");
         playerNames.add("Red player");
+        MapTextView view = new MapTextView(playerNames, "Green player");
 
         WorldMapFactory mf = new V1MapFactory();
         WorldMap map1 = mf.makeWorldMap(3);
-        map1.tryAssignInitOwner(1, playerNames[1]);
-        map1.tryAssignInitOwner(2, playerNames[2]);
-        map1.tryAssignInitOwner(3, playerNames[3]);
+        map1.tryAssignInitOwner(1, playerNames.get(0));
+        map1.tryAssignInitOwner(2, playerNames.get(1));
+        map1.tryAssignInitOwner(3, playerNames.get(2));
 
-        MapTextView view = new MapTextView(map1, playerNames, "Green player");
     }
 }

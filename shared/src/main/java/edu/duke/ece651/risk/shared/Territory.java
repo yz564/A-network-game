@@ -1,5 +1,7 @@
 package edu.duke.ece651.risk.shared;
 
+import java.util.HashSet;
+
 /*
  * Represents an interface for classes that would 
  * represent territories in a RISK Map.
@@ -31,11 +33,14 @@ public interface Territory {
    */
   public int getNumUnits();
 
-  /* Return territory name.
+  /*
+   * Return territory name.
    */
   public String getName();
-  
-  /* Set number of units present in a territory.
+
+  /*
+   * Set number of units present in a territory.
+   * 
    * @param numUnits is the number of units that is set for this terriroty..
    */
   public boolean trySetNumUnits(int numUnits);
@@ -81,17 +86,11 @@ public interface Territory {
    * @returns true if assignment is succesfful, false if not
    */
   public boolean tryAssignOwner(String playerName);
+
+  /**
+   * Get the neighbors of the Territory.
+   * 
+   * @return a HashSet of Territory, which are neighbors of this Territory.
+   */
+  public HashSet<Territory> getMyNeighbors();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
