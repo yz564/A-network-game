@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.HashSet;
+
 import org.junit.jupiter.api.Test;
 
 public class BasicTerritoryTest {
@@ -81,7 +83,7 @@ public class BasicTerritoryTest {
     assertEquals(false, t.trySetNumUnits(1000));
     assertEquals(100, t.getNumUnits());
   }
-  
+
   @Test
   public void test_adjacency() {
     BasicTerritory t1 = new BasicTerritory("Narnia", 10);
@@ -100,16 +102,20 @@ public class BasicTerritoryTest {
     assertTrue(t1.isBelongTo("Player 1"));
     assertEquals("Player 1", t1.getOwnerName());
   }
+
+  @Test
+  public void test_get_my_neighbors() {
+    BasicTerritory t1 = new BasicTerritory("Narnia", 10);
+    HashSet<BasicTerritory> expectedNeighbors = new HashSet<BasicTerritory>();
+
+    BasicTerritory t2 = new BasicTerritory("Elantris", 10);
+    BasicTerritory t3 = new BasicTerritory("North", 10);
+
+    expectedNeighbors.add(t2);
+    expectedNeighbors.add(t3);
+    assertTrue(t1.tryAddNeighbor(t2));
+    assertTrue(t1.tryAddNeighbor(t3));
+
+    assertEquals(expectedNeighbors, t1.getMyNeighbors());
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
