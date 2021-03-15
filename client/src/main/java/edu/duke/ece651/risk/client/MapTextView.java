@@ -1,32 +1,62 @@
 package edu.duke.ece651.risk.client;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import edu.duke.ece651.risk.shared.*;
 
 public class MapTextView {
 
     private ArrayList<String> playerNames;
-    final private String myPlayerName;
 
-    public MapTextView(ArrayList<String> playerNames, String myPlayerName) {
+    public MapTextView(ArrayList<String> playerNames) {
         this.playerNames = playerNames;
-        this.myPlayerName = myPlayerName;
     }
 
     public String displayMap(WorldMap toDisplay) {
-        return "the map";
+        String ans = "";
+        for (String name : playerNames) {
+            ans = ans + onePlayerSection(name, toDisplay);
+        }
+        return ans;
     }
 
-    private String onePlayerSection(String playerName) {
-        String ans = playerName + ":\n-------------";
-
+    private String onePlayerSection(String playerName, WorldMap toDisplay) {
+        String ans = playerName + ":\n-------------\n";
+        HashSet<Territory> myTerritories = toDisplay.getPlayerTerritories(playerName);
+        for (Territory t : myTerritories) {
+            ans = ans + oneTerritoryLine(t);
+        }
         return ans;
     }
 
     private String oneTerritoryLine(Territory territory) {
-        // ArrayList neighbors = territory.ge
-        return "";
+        String ans = "";
+        HashSet<Territory> neighbors = territory.getMyNeighbors();
+        String unitNum = String.valueOf(territory.getNumUnits());
+
+        // unit number part
+        int digitLength = 5;
+        for (int i = 0; i < digitLength - unitNum.length(); i++) {
+            ans = ans + " ";
+        }
+        ans = ans + unitNum;
+        ans = ans + " units in ";
+
+        // this territory name part
+        ans = ans + territory.getName();
+
+        // neighbors part;
+        ans = ans + " (next to: ";
+        String sep = "";
+        for (Territory t : neighbors) {
+            ans = ans + sep;
+            ans = ans + t.getName();
+            sep = ", ";
+        }
+        ans = ans + ")\n";
+
+        return ans;
     }
 
 }
