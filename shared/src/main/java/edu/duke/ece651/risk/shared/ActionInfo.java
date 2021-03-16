@@ -18,7 +18,7 @@ public class ActionInfo implements java.io.Serializable {
     /**
      * The destination Territory name of the action.
      */
-    private String disName;
+    private String desName;
 
     /**
      * The number of units assigned to the action.
@@ -30,7 +30,7 @@ public class ActionInfo implements java.io.Serializable {
      */
     public ActionInfo() {
         this.srcName = null;
-        this.disName = null;
+        this.desName = null;
         this.unitNum = 0;
     }
 
@@ -38,12 +38,12 @@ public class ActionInfo implements java.io.Serializable {
      * Constructes a ActionInfo
      * 
      * @param srcName is the source Territory name of the action.
-     * @param disName is the destination Territory name of the action.
+     * @param desName is the destination Territory name of the action.
      * @param unitNum is the number of units assigned to the action.
      */
-    public ActionInfo(String srcName, String disName, int unitNum) {
+    public ActionInfo(String srcName, String desName, int unitNum) {
         this.srcName = srcName;
-        this.disName = disName;
+        this.desName = desName;
         this.unitNum = unitNum;
     }
 
@@ -57,12 +57,12 @@ public class ActionInfo implements java.io.Serializable {
     }
 
     /**
-     * Getter of disName field.
+     * Getter of desName field.
      * 
      * @return a String represents the destination Territory name of the action.
      */
-    public String getDisName() {
-        return this.disName;
+    public String getDesName() {
+        return this.desName;
     }
 
     /**
@@ -84,13 +84,13 @@ public class ActionInfo implements java.io.Serializable {
     }
 
     /**
-     * Sets the disName.
+     * Sets the desName.
      * 
-     * @param disName a String represents the destination Territory name of the
+     * @param desName a String represents the destination Territory name of the
      *                action.
      */
-    public void setDisName(String disName) {
-        this.disName = disName;
+    public void setDesName(String desName) {
+        this.desName = desName;
     }
 
     /**

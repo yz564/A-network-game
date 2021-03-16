@@ -8,7 +8,7 @@ public class ActionInfoTest {
     public void test_getters() {
         ActionInfo info = new ActionInfo("abc", "cde", 123);
         assertEquals("abc", info.getSrcName());
-        assertEquals("cde", info.getDisName());
+        assertEquals("cde", info.getDesName());
         assertEquals(123, info.getUnitNum());
         assertNotEquals("123", info.getUnitNum());
         assertNotEquals(1234, info.getUnitNum());
@@ -18,13 +18,13 @@ public class ActionInfoTest {
     public void test_setters() {
         ActionInfo info = new ActionInfo();
         assertEquals(null, info.getSrcName());
-        assertEquals(null, info.getDisName());
+        assertEquals(null, info.getDesName());
         assertEquals(0, info.getUnitNum());
         info.setSrcName("aaa");
-        info.setDisName("bbb");
+        info.setDesName("bbb");
         info.setUnitNum(111);
         assertEquals("aaa", info.getSrcName());
-        assertEquals("bbb", info.getDisName());
+        assertEquals("bbb", info.getDesName());
         assertEquals(111, info.getUnitNum());
         assertNotEquals("111", info.getUnitNum());
         assertNotEquals(-111, info.getUnitNum());
