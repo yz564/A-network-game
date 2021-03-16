@@ -80,7 +80,7 @@ public class BasicTerritoryTest {
     BasicTerritory t = new BasicTerritory("Narnia", 10);
     assertEquals(true, t.trySetNumUnits(100));
     assertEquals(100, t.getNumUnits());
-    assertEquals(false, t.trySetNumUnits(1000));
+    assertEquals(false, t.trySetNumUnits(100000));
     assertEquals(100, t.getNumUnits());
   }
 

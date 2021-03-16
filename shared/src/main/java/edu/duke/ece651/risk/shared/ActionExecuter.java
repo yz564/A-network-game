@@ -21,11 +21,8 @@ public class ActionExecuter {
      */
     public void sendTroops(WorldMap map, ActionInfo info) {
         Territory src = map.getTerritory(info.getSrcName());
-        Territory dis = map.getTerritory(info.getDisName());
         int sendNum = info.getUnitNum();
-
         src.trySetNumUnits(src.getNumUnits() - sendNum);
-        dis.trySetNumUnits(dis.getNumUnits() + sendNum);
     }
 
 }
