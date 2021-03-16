@@ -1,10 +1,25 @@
 package edu.duke.ece651.risk.shared;
 
+import java.util.Random;
+
 public class ActionExecuter {
     /**
-     * Constructes a ActionExecuter helper class.
+     * The random generator for rolling dice in a fight.
+     */
+    final private Random rng;
+
+    /**
+     * Constructes a ActionExecuter helper class with a given random seed.
+     */
+    public ActionExecuter(long seed) {
+        this.rng = new Random(seed);
+    }
+
+    /**
+     * Constructes a ActionExecuter helper class with default random seed.
      */
     public ActionExecuter() {
+        this.rng = new Random(1);
     }
 
     /**
@@ -45,4 +60,33 @@ public class ActionExecuter {
         des.trySetNumUnits(des.getNumUnits() + sendNum);
     }
 
+    public void executeAttack(WorldMap map, ActionInfo info) {
+        Territory src = map.getTerritory(info.getSrcName());
+        Territory des = map.getTerritory(info.getDesName());
+        int attackerUnitNum = info.getUnitNum();
+        int defenderUnitNum = des.getNumUnits();
+        while (attackerUnitNum > 0 && defenderUnitNum > 0) {
+            if (isAttackerWinFight()) {
+                defenderUnitNum--;
+            } else {
+                attackerUnitNum--;
+            }
+        }
+        if (attackerUnitNum > 0) { // attacker wins the combat in attack
+            // des Territory changes owner and updates unit to attackerUnitNum
+            des.trySetNumUnits(attackerUnitNum);
+            des.tryAssignOwner(src.getOwnerName());
+        } else { // defender wins the combat in attack
+            // des Territory loses units to defenderUnitNum
+            des.trySetNumUnits(defenderUnitNum);
+        }
+    }
+
+    private int rollOneDice() {
+        return rng.nextInt(20);
+    }
+
+    private boolean isAttackerWinFight() {
+        return rollOneDice() > rollOneDice();
+    }
 }
