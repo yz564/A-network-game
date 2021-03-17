@@ -87,7 +87,7 @@ public class ActionExecuter {
         if (attackerUnitNum > 0) { // attacker wins the combat in attack
             // des Territory changes owner and updates unit to attackerUnitNum
             des.trySetNumUnits(attackerUnitNum);
-            assert (des.tryAssignOwner(src.getOwnerName()));
+            des.tryAssignOwner(info.getSrcOwnerName());
         } else { // defender wins the combat in attack
             // des Territory loses units to defenderUnitNum
             des.trySetNumUnits(defenderUnitNum);
