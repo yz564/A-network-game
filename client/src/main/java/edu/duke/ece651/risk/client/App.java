@@ -11,10 +11,8 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Iterator;
 
-import edu.duke.ece651.risk.shared.WorldMap;
 import edu.duke.ece651.risk.shared.ObjectIO;
 
 public class App {
@@ -22,39 +20,40 @@ public class App {
   ObjectOutputStream out;
   ObjectIO tmp;
   BufferedReader stdIn;
-  
+  String pleyerName;
 
   public App(ObjectInputStream in, ObjectOutputStream out, ObjectIO tmp) {
     this.in = in;
     this.out = out;
     this.tmp = tmp;
-    this.stdIn=new BufferedReader(new InputStreamReader(System.in));
+    this.stdIn = new BufferedReader(new InputStreamReader(System.in));
   }
-  
-  public void doInitialization() throws Exception{
+
+  public void doInitialization() throws Exception {
     String tmpS;
     if ((tmp = (ObjectIO) in.readObject()) != null) {
+    }
+    while (true) {
+      System.out.println(tmp.message);
+      System.out.println("Your available choices are: ");
+      Iterator itr = (tmp.groups).iterator();
+      while (itr.hasNext()) {
+        Integer g = (Integer) itr.next();
+        System.out.println(Integer.toString(g) + " : " + tmp.map.getInitGroup(g));
       }
-      while (true) {
-          System.out.println(tmp.message);
-          System.out.println("Your available choices are: ");
-          Iterator itr = (tmp.groups).iterator();
-          while (itr.hasNext()) {
-            Integer g = (Integer) itr.next();
-            System.out.println(Integer.toString(g) + " : " + tmp.map.getInitGroup(g));
-          }
-        
-        if ((tmpS=stdIn.readLine())!=null){
-        }
-        if (tmp.groups.contains(Integer.parseInt(tmpS))) {
-          break;
-        }
-        System.out.println("Your input is not valid, please retry");
+
+      if ((tmpS = stdIn.readLine()) != null) {
       }
+      if (tmp.groups.contains(Integer.parseInt(tmpS))) {
+        break;
+      }
+      System.out.println("Your input is not valid, please retry");
+    }
     out.writeObject(new ObjectIO(tmpS));
     out.flush();
-      
+
   }
+
   public static void main(String[] args) throws Exception {
     System.out.println("Please enter server address: (default is localhost by hitting Enter)");
     BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
@@ -71,35 +70,29 @@ public class App {
       portNumber = Integer.parseInt(tmpS);
     }
     try (var server = new Socket(ServerAddress, portNumber)) {
-      ObjectOutputStream out=new ObjectOutputStream(server.getOutputStream());
-      ObjectInputStream in=new ObjectInputStream(server.getInputStream());
-      ObjectIO tmp=null;
-      App client = new App(in,out,tmp);
+      ObjectOutputStream out = new ObjectOutputStream(server.getOutputStream());
+      ObjectInputStream in = new ObjectInputStream(server.getInputStream());
+      ObjectIO tmp = null;
+      App client = new App(in, out, tmp);
       System.out.println("wait other players...");
       client.doInitialization();
-      
+
       while (true) {
-        
+
         System.out.println("-----waitServerInput-----");
-        if((tmp=(ObjectIO) in.readObject())!=null){
+        if ((tmp = (ObjectIO) in.readObject()) != null) {
           System.out.println(tmp.playerNames);
           MapTextView mapview = new MapTextView(tmp.playerNames);
           System.out.println(mapview.displayMap(tmp.map));
           System.out.println(tmp.message);
-        }      
+        }
         String userInput;
-        if ((userInput=stdIn.readLine())!=null){
-          out.writeObject(new ObjectIO(userInput,tmp.id,null));
+        if ((userInput = stdIn.readLine()) != null) {
+          out.writeObject(new ObjectIO(userInput, tmp.id, null));
           out.flush();
         }
-        
+
       }
     }
   }
 }
-
-
-
-
-
-

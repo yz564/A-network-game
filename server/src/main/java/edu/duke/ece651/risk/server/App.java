@@ -12,7 +12,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import edu.duke.ece651.risk.shared.Territory;
 import edu.duke.ece651.risk.shared.V1MapFactory;
 import edu.duke.ece651.risk.shared.WorldMap;
 import edu.duke.ece651.risk.shared.WorldMapFactory;
@@ -37,44 +36,44 @@ public class App {
     this.availableGroups = new HashSet<Integer>();
   }
 
-  public void acceptConnections() throws IOException{
+  public void acceptConnections() throws IOException {
     System.out.println("Please set the player number:");
     this.numPlayers = Integer.parseInt(stdIn.readLine());
-    this.theMap=factory.makeWorldMap(numPlayers);
-    System.out.println("wait for players to join... "+"0/"+numPlayers);
-    for(int i=0; i<numPlayers;i++){
-      Socket client=listener.accept();
-      System.out.println("New player connected... "+(i+1)+"/"+numPlayers);
+    this.theMap = factory.makeWorldMap(numPlayers);
+    System.out.println("wait for players to join... " + "0/" + numPlayers);
+    for (int i = 0; i < numPlayers; i++) {
+      Socket client = listener.accept();
+      System.out.println("New player connected... " + (i + 1) + "/" + numPlayers);
       String name = "Player " + (i + 1);
       playerNames.add(name);
       availableGroups.add(i + 1);
-      Player p = new Player(client,i,name);
+      Player p = new Player(client, i, name);
       playerList.add(p);
       Thread t = new Thread(p);
       t.start();
     }
   }
 
-public void doPlacement(Player p) throws Exception {
+  public void doPlacement(Player p) throws Exception {
     int TotalUnitNum = 20;
     int unitNum = 1;
     /*
-    for (Territory t : theMap.getPlayerTerritories(p.getName())) {
-      t.trySetNumUnits(unitNum);
-    }
-    */
+     * for (Territory t : theMap.getPlayerTerritories(p.getName())) {
+     * t.trySetNumUnits(unitNum); }
+     */
   }
-  public void doInitialization() throws Exception{
+
+  public void doInitialization() throws Exception {
     for (int i = 0; i < numPlayers; i++) {
-      Player p=playerList.get(i);
-      ObjectIO m=new ObjectIO(p.getName()+" ,please select your territory groups: ",i,theMap,availableGroups);
+      Player p = playerList.get(i);
+      ObjectIO m = new ObjectIO(p.getName() + " ,please select your territory groups: ", i, theMap, availableGroups);
       p.out.writeObject(m);
       p.out.flush();
       p.out.reset();
-      while (!p.isReady()){
+      while (!p.isReady()) {
       }
       if (theMap.tryAssignInitOwner(Integer.parseInt(p.tmp.message), p.getName())) {
-        System.out.println(p.getName()+" selected group "+p.tmp.message);
+        System.out.println(p.getName() + " selected group " + p.tmp.message);
       }
       availableGroups.remove(Integer.parseInt(p.tmp.message));
       // doPlacement(p);
@@ -82,32 +81,27 @@ public void doPlacement(Player p) throws Exception {
     }
   }
 
-  
-  public void doOneTurn() throws IOException{
-     for (int i = 0; i < numPlayers; i++) {
-      Player p=playerList.get(i);
-      //MapTextView mapview = new MapTextView(playerNames);
-      //System.out.println(mapview.displayMap(theMap));
-      p.out.writeObject(new ObjectIO(p.getName()+" ,please select your action: ",i,theMap,playerNames));
-      //p.out.writeObject(theMap);
+  public void doOneTurn() throws IOException {
+    for (int i = 0; i < numPlayers; i++) {
+      Player p = playerList.get(i);
+      // MapTextView mapview = new MapTextView(playerNames);
+      // System.out.println(mapview.displayMap(theMap));
+      p.out.writeObject(new ObjectIO(p.getName() + " ,please select your action: ", i, theMap, playerNames));
+      // p.out.writeObject(theMap);
       p.out.flush();
       p.out.reset();
       p.setNotReady();
-     }
-     int readyNum=0;
-     while(readyNum<numPlayers){
-       readyNum=0;
-       for(int i=0; i<numPlayers; i++){
-         if(playerList.get(i).isReady()){
-           readyNum++;
-         }
-       }
-     }
+    }
+    int readyNum = 0;
+    while (readyNum < numPlayers) {
+      readyNum = 0;
+      for (int i = 0; i < numPlayers; i++) {
+        if (playerList.get(i).isReady()) {
+          readyNum++;
+        }
+      }
+    }
   }
-
- 
-
-  
 
   public static void main(String[] args) throws IOException {
     WorldMapFactory factory = new V1MapFactory();
@@ -126,11 +120,10 @@ public void doPlacement(Player p) throws Exception {
       game.acceptConnections();// player threads are created at here
       game.doInitialization();
       System.out.println("Initialization finished");
-      while(true){
+      while (true) {
         game.doOneTurn();
       }
     } catch (Exception e) {
     }
   }
 }
-
