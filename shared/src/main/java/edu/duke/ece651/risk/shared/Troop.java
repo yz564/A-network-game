@@ -12,7 +12,7 @@ public interface Troop {
    * 
    * @returns true is adding is successful, else returns false.
    */
-  boolean tryAddUnits(int toAdd);
+  public boolean tryAddUnits(int toAdd);
 
   /*
    * Remove units from the troop.
@@ -21,10 +21,32 @@ public interface Troop {
    * 
    * @returns true is removal is successful, else returns false.
    */
-  boolean tryRemoveUnits(int toRemove);
+  public boolean tryRemoveUnits(int toRemove);
 
   /*
    * Return number of units in the troop.
    */
-  int getNumUnits();
+  public int getNumUnits();
+
+  /* Return troop name.
+   */
+  public String getName();
+  
+  /* Set the number of units in a troop.
+   * @param numUnits is the number of units that this troop will be assigned.  
+   */
+  public boolean trySetNumUnits(int numUnits);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,6 +1,10 @@
 package edu.duke.ece651.risk.shared;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
 
@@ -59,17 +63,80 @@ public class BasicTerritoryTest {
   }
 
   /*
-  @Test
-  public void test_to_string() {
-    BasicTerritory territory = new BasicTerritory("North", 2);
-    String output = "Territory North contains the following troop.\nTroop with 2 units.\n";
-    assertEquals(true, territory.toString().equals(output));
-  }
-  */
+   * @Test public void test_to_string() { BasicTerritory territory = new
+   * BasicTerritory("North", 2); String output =
+   * "Territory North contains the following troop.\nTroop with 2 units.\n";
+   * assertEquals(true, territory.toString().equals(output)); }
+   */
 
   @Test
   public void test_hash() {
     BasicTerritory territory = new BasicTerritory("Narnia", 10);
     assertEquals(-517134432, territory.hashCode());
+  }
+
+  @Test
+  public void test_set_num_units() {
+    BasicTerritory t = new BasicTerritory("Narnia", 10);
+    assertEquals(true, t.trySetNumUnits(100));
+    assertEquals(100, t.getNumUnits());
+    assertEquals(false, t.trySetNumUnits(100000));
+    assertEquals(100, t.getNumUnits());
+  }
+
+  @Test
+  public void test_adjacency() {
+    BasicTerritory t1 = new BasicTerritory("Narnia", 10);
+    BasicTerritory t2 = new BasicTerritory("Elantris", 10);
+    assertFalse(t1.isAdjacentTo(t2));
+    assertTrue(t1.tryAddNeighbor(t2));
+    assertFalse(t1.tryAddNeighbor(t2));
+    assertTrue(t1.isAdjacentTo(t2));
+  }
+
+  @Test
+  public void test_owner() {
+    BasicTerritory t1 = new BasicTerritory("Narnia", 10);
+    assertFalse(t1.isBelongTo("Player 1"));
+    assertTrue(t1.tryAssignOwner("Player 1"));
+    assertFalse(t1.tryAssignOwner(null));
+    assertTrue(t1.isBelongTo("Player 1"));
+    assertEquals("Player 1", t1.getOwnerName());
+  }
+
+  @Test
+  public void test_get_my_neighbors() {
+    BasicTerritory t1 = new BasicTerritory("Narnia", 10);
+    HashMap<String, Territory> expectedNeighbors = new HashMap<String, Territory>();
+
+    BasicTerritory t2 = new BasicTerritory("Elantris", 10);
+    BasicTerritory t3 = new BasicTerritory("North", 10);
+
+    expectedNeighbors.put("Elantris", t2);
+    expectedNeighbors.put("North", t3);
+    assertTrue(t1.tryAddNeighbor(t2));
+    assertTrue(t1.tryAddNeighbor(t3));
+
+    assertEquals(expectedNeighbors, t1.getMyNeighbors());
+  }
+
+  @Test
+  public void test_isreachable() {
+    BasicTerritory t1 = new BasicTerritory("Narnia", 10);
+    BasicTerritory t2 = new BasicTerritory("Midkemia", 10);
+    BasicTerritory t3 = new BasicTerritory("Oz", 10);
+    BasicTerritory t4 = new BasicTerritory("Hogwarts", 10);
+    t1.tryAssignOwner("Player 1");
+    t2.tryAssignOwner("Player 1");
+    t3.tryAssignOwner("Player 1");
+    t4.tryAssignOwner("Player 2");
+    t1.tryAddNeighbor(t2);
+    t2.tryAddNeighbor(t1);
+    t2.tryAddNeighbor(t3);
+    t3.tryAddNeighbor(t2);
+    t1.tryAddNeighbor(t4);
+    assertTrue(t1.isReachableTo(t2));
+    assertTrue(t1.isReachableTo(t3));
+    assertFalse(t1.isReachableTo(t4));
   }
 }

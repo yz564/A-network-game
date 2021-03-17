@@ -27,14 +27,14 @@ public class BasicTroopTest {
     BasicTroop t2 = new BasicTroop(10);
     assertEquals("Troop", t2.getName());
     assertEquals(10, t2.getNumUnits());
-    
+
     assertEquals(true, t2.tryAddUnits(989));
     assertEquals(999, t2.getNumUnits());
 
     assertEquals(true, t2.tryRemoveUnits(999));
     assertEquals(0, t2.getNumUnits());
-    
-    assertEquals(false, t2.tryAddUnits(1000));
+
+    assertEquals(false, t2.tryAddUnits(100000));
     assertEquals(0, t2.getNumUnits());
 
     BasicTroop t3 = new BasicTroop(10, 20);
@@ -43,7 +43,7 @@ public class BasicTroopTest {
 
     assertEquals(false, t3.tryRemoveUnits(11));
     assertEquals(10, t3.getNumUnits());
-    
+
     assertEquals(false, t3.tryAddUnits(11));
     assertEquals(10, t3.getNumUnits());
 
@@ -76,5 +76,13 @@ public class BasicTroopTest {
     assertEquals(false, t2.equals(4));
   }
 
-}
+  @Test
+  public void test_set_num_troops() {
+    BasicTroop t1 = new BasicTroop("Soldiers", 5, 100);
+    assertEquals(true, t1.trySetNumUnits(12));
+    assertEquals(12, t1.getNumUnits());
+    assertEquals(false, t1.trySetNumUnits(101));
+    assertEquals(12, t1.getNumUnits());
+  }
 
+}
