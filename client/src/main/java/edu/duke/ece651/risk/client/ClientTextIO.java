@@ -29,53 +29,58 @@ public class ClientTextIO implements ClientIO {
     String clientInput = inputReader.readLine();
     return clientInput;
   }
-    
+
+  /* Whether or not an action choice inputted by user is a valid action.
+   * @param choice is a string inputted by player in order to select an action.
+   * @returns true is choice is either "M" for move, "A" for attack, or "D"
+   * for done, otherwise false.  
+   */
+  boolean isValidAction(String choice) {
+    return choice == "M" || choice == "A" || choice == "D";
+  }
+  
 	@Override
 	public String readActionName() {
       String prompt = "Choose an action.\n" +
-        "Enter 'm' (without the quotes) if you want to move troops.\n" +
-        "Enter 'a' (without the quotes) if you want to attack a neighboring territory.\n";
-      String reprompt = "Invalid choice of action. Retry!";
+        "(M)ove\n" +
+        "(A)ttack\n" +
+        "(D)one\n";
       String choice = "";
-      while (choice != "move" || choice != "attack") {
+      while (true) {
         try {
-          choice = readClientInput(prompt);
-          if (choice == "m" || choice == "move") {
-            choice = "move";
+          choice = readClientInput(prompt).toUpperCase();
+          if (isValidAction(choice)) {
+            break;
           }
-          else if (choice == "a" || choice == "attack") {
-            choice = "attack";
-          }
-          break;
         }
         catch (IOException ioe) {
+          out.println(ioe.getMessage());
         }
-        out.println(reprompt);
+        out.println("Invalid choice of action. Retry!");
       }
       return choice;
 	}
 
 	@Override
-	public String readTerritoryName(WorldMap map) {
-      String prompt = "Enter the name of the territory you want to attack: ";
-      String reprompt = "Invalid territory name choice. Please try again.";
+	public String readTerritoryName(String prompt) {
       String choice = "";
       while (true) {
         try {
           choice = readClientInput(prompt);
+          if (choice == null) {
+            throw new IOException("Invalid territory name.");
+          }
           break;
         }
         catch (IOException ioe) {
+          out.println(ioe.getMessage());
         }
-        out.println(reprompt);
       }
-      return choice.toLowerCase();
+      return choice;
 	}
 
 	@Override
-	public int readNumUnits() {
-      String prompt = "Enter the number of units to move.";
-      String reprompt = "Input is not a positive integer. Retry!";
+	public int readNumUnits(String prompt) {
       String choice = "";
       int numUnits;
       while (true) {
@@ -87,10 +92,12 @@ public class ClientTextIO implements ClientIO {
           }
         }
         catch (NumberFormatException nfe) {
+          out.println(nfe.getMessage());
         }
         catch (IOException ioe) {
+          out.println(ioe.getMessage());
         }
-        out.println(reprompt);
+        out.println("Input is not a positive integer. Retry!");
       }
       return numUnits;
 	}

@@ -9,24 +9,26 @@ import edu.duke.ece651.risk.shared.WorldMap;
  */
 public interface ClientIO {
 
-  /* Read an action (either move or attack) from a player.
-   * @returns A string which is either "move" if player wants to move units 
-   * to one of their other territories, or "attack" if player wants to attack 
-   * an enemy territory.
+  /* Read an action (either move, attack or done) from a player.
+   * @returns A string which is either 
+   * "M" if a player wants to Move units from their current territory to some 
+   * other own territory.
+   * "A" if player wants to Attack enemy territory.
+   * "D" if player is Done and does not want to either Move or Attack.
    */
   public String readActionName();
 
   /* Read a territory name from a player.
-   * @param map is the map that must contain the territory input 
-   * by the player.
-   * @returns A string containing territory name.
+   * @param prompt is the text message that a user sees asking to input 
+   * territory name.
+   * @returns territory name as a String.
    */
-  public String readTerritoryName(WorldMap map);
+  public String readTerritoryName(String prompt);
 
   /* Read the number of units that a player wants to move.
    * @returns an integer inputted by a player.
    */
-  public int readNumUnits();
+  public int readNumUnits(String prompt);
 
   /* Print a textual represntation of the RISK map.
    * @param view computes the string that represents
