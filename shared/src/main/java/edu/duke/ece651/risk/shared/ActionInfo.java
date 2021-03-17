@@ -11,6 +11,11 @@ public class ActionInfo implements java.io.Serializable {
     private static final long serialVersionUID = 4297826252791846347L;
 
     /**
+     * The onwer's name of the source Territory.
+     */
+    private final String srcOwnerName;
+
+    /**
      * The source Territory name of the action.
      */
     private String srcName;
@@ -27,8 +32,11 @@ public class ActionInfo implements java.io.Serializable {
 
     /**
      * Default constructor of ActionInfo.
+     * 
+     * @param srcOwnerName is the onwer's name of the source Territory.
      */
-    public ActionInfo() {
+    public ActionInfo(String srcOwnerName) {
+        this.srcOwnerName = srcOwnerName;
         this.srcName = null;
         this.desName = null;
         this.unitNum = 0;
@@ -37,14 +45,25 @@ public class ActionInfo implements java.io.Serializable {
     /**
      * Constructes a ActionInfo
      * 
-     * @param srcName is the source Territory name of the action.
-     * @param desName is the destination Territory name of the action.
-     * @param unitNum is the number of units assigned to the action.
+     * @param srcOwnerName is the onwer's name of the source Territory.
+     * @param srcName      is the source Territory name of the action.
+     * @param desName      is the destination Territory name of the action.
+     * @param unitNum      is the number of units assigned to the action.
      */
-    public ActionInfo(String srcName, String desName, int unitNum) {
+    public ActionInfo(String srcOwnerName, String srcName, String desName, int unitNum) {
+        this.srcOwnerName = srcOwnerName;
         this.srcName = srcName;
         this.desName = desName;
         this.unitNum = unitNum;
+    }
+
+    /**
+     * Getter of srcOwnerName field.
+     * 
+     * @return a String represents onwer's name of the source Territory.
+     */
+    public String getSrcOwnerName() {
+        return this.srcOwnerName;
     }
 
     /**
