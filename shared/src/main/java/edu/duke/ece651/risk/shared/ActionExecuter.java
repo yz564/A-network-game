@@ -60,6 +60,18 @@ public class ActionExecuter {
         des.trySetNumUnits(des.getNumUnits() + sendNum);
     }
 
+    /**
+     * Executes the attack order with given action info for attack.
+     * 
+     * Info of src, dis, and troop to send is in ActionInfo info argument.
+     * 
+     * Validity of this action should be checked by rule checker, so this method
+     * doesn't throw error.
+     * 
+     * @param map  a WorldMap object where the action is implemented.
+     * @param info a ActionInfo object that contains the information of src, dis,
+     *             and troop to send.
+     */
     public void executeAttack(WorldMap map, ActionInfo info) {
         Territory src = map.getTerritory(info.getSrcName());
         Territory des = map.getTerritory(info.getDesName());
@@ -75,17 +87,28 @@ public class ActionExecuter {
         if (attackerUnitNum > 0) { // attacker wins the combat in attack
             // des Territory changes owner and updates unit to attackerUnitNum
             des.trySetNumUnits(attackerUnitNum);
-            des.tryAssignOwner(src.getOwnerName());
+            assert (des.tryAssignOwner(src.getOwnerName()));
         } else { // defender wins the combat in attack
             // des Territory loses units to defenderUnitNum
             des.trySetNumUnits(defenderUnitNum);
         }
     }
 
+    /***
+     * Rolls a 20-sided dice, and returns the result number.
+     * 
+     * @return an int that is between 0 to 19.
+     */
     private int rollOneDice() {
         return rng.nextInt(20);
     }
 
+    /***
+     * Rolls two 20-sided dice (one for the attacker, one for the defender) If the
+     * attacker has higher roll (not equal), return true.
+     * 
+     * @return true if the attacker wins the fight, false otherwise.
+     */
     private boolean isAttackerWinFight() {
         return rollOneDice() > rollOneDice();
     }
