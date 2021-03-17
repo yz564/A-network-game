@@ -90,9 +90,9 @@ public class ActionExecuterTest {
         map.getTerritory("Forest of Qohor").trySetNumUnits(5);
         map.getTerritory("Lhaxar").trySetNumUnits(500);
         ActionInfo info4 = new ActionInfo("Green player", "Forest of Qohor", "Lhaxar", 3);
-        executer.sendTroops(map, info4);
-        executer.executeAttack(map, info4);
+        executer0.sendTroops(map, info4);
+        executer0.executeAttack(map, info4);
         assertEquals("Blue player", map.getTerritory("Lhaxar").getOwnerName());
-        assertEquals(496, map.getTerritory("Lhaxar").getNumUnits());
+        assertEquals(497, map.getTerritory("Lhaxar").getNumUnits());
     }
 }
