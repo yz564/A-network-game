@@ -73,7 +73,6 @@ public class ActionExecuter {
      *             and troop to send.
      */
     public void executeAttack(WorldMap map, ActionInfo info) {
-        Territory src = map.getTerritory(info.getSrcName());
         Territory des = map.getTerritory(info.getDesName());
         int attackerUnitNum = info.getUnitNum();
         int defenderUnitNum = des.getNumUnits();
