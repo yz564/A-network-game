@@ -1,47 +1,82 @@
 package edu.duke.ece651.risk.client;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 
-import edu.duke.ece651.risk.shared.*;
+import org.junit.jupiter.api.Test;
+
+import edu.duke.ece651.risk.shared.V1MapFactory;
+import edu.duke.ece651.risk.shared.WorldMap;
+import edu.duke.ece651.risk.shared.WorldMapFactory;
 
 public class MapTextViewTest {
-    @Test
-    public void test_display_map1() {
-        ArrayList<String> playerNames = new ArrayList<String>();
-        playerNames.add("Green player");
-        playerNames.add("Blue player");
-        playerNames.add("Red player");
-        MapTextView view = new MapTextView(playerNames);
+  @Test
+  public void test_display_testmap() {
+    ArrayList<String> playerNames = new ArrayList<String>();
+    playerNames.add("Green player");
+    playerNames.add("Blue player");
+    playerNames.add("Red player");
+    MapTextView view = new MapTextView(playerNames);
 
-        WorldMapFactory mf = new V1MapFactory();
-        WorldMap map = mf.makeWorldMap(3);
-        map.tryAssignInitOwner(1, playerNames.get(0));
-        map.tryAssignInitOwner(2, playerNames.get(1));
-        map.tryAssignInitOwner(3, playerNames.get(2));
+    WorldMapFactory mf = new V1MapFactory();
+    WorldMap map = mf.makeTestWorldMap();
 
-        String expected = "";
-        expected = expected + "Green player:\n" + "-------------\n"
-                + "    0 units in Western Dothraki Sea (next to: Lower Rnoyne, Eastern Dothraki Sea, Forest of Qohor, Lhaxar, Mantarys, Northern Dothraki Sea)\n"
-                + "    0 units in Braavosian Coastlands (next to: Myr, Hills of Horvos)\n"
-                + "    0 units in Forest of Qohor (next to: Lower Rnoyne, Western Dothraki Sea, Hills of Horvos, Northern Dothraki Sea)\n"
-                + "    0 units in Hills of Horvos (next to: Myr, Lower Rnoyne, Braavosian Coastlands, Forest of Qohor)\n"
-                + "    0 units in Northern Dothraki Sea (next to: Western Dothraki Sea, Eastern Dothraki Sea, Forest of Qohor)\n";
-        expected = expected + "Blue player:\n" + "-------------\n"
-                + "    0 units in Myr (next to: Lower Rnoyne, Braavosian Coastlands, Hills of Horvos)\n"
-                + "    0 units in Lower Rnoyne (next to: Myr, Western Dothraki Sea, Forest of Qohor, Hills of Horvos, Mantarys)\n"
-                + "    0 units in Lhaxar (next to: The Red Waste, Western Dothraki Sea, Eastern Dothraki Sea, Old Ohis, Mantarys)\n"
-                + "    0 units in Old Ohis (next to: The Red Waste, Lhaxar)\n"
-                + "    0 units in Mantarys (next to: Lower Rnoyne, Western Dothraki Sea, Lhaxar)\n";
-        expected = expected + "Red player:\n" + "-------------\n"
-                + "    0 units in Bayasabhad (next to: The Red Waste, Northern Jade Sea)\n"
-                + "    0 units in The Red Waste (next to: Bayasabhad, Northern Jade Sea, Eastern Dothraki Sea, Lhaxar, Old Ohis)\n"
-                + "    0 units in Northern Jade Sea (next to: Bayasabhad, The Red Waste, Eastern Dothraki Sea, Vaes Dothrak)\n"
-                + "    0 units in Eastern Dothraki Sea (next to: The Red Waste, Northern Jade Sea, Western Dothraki Sea, Lhaxar, Vaes Dothrak, Northern Dothraki Sea)\n"
-                + "    0 units in Vaes Dothrak (next to: Northern Jade Sea, Eastern Dothraki Sea)\n";
-        String actual = view.displayMap(map);
-        assertEquals(expected, actual);
-    }
+    map.tryAssignInitOwner(1, playerNames.get(0));
+    map.tryAssignInitOwner(2, playerNames.get(1));
+    map.tryAssignInitOwner(3, playerNames.get(2));
+
+    String expected = "";
+    expected = expected + "Green player:\n" + "-------------\n"
+        + "    0 units in Narnia (next to: Elantris, Midkemia)\n"
+        + "    0 units in Midkemia (next to: Elantris, Narnia, Oz, Roshar)\n"
+        + "    0 units in Oz (next to: Mordor, Scadrial, Midkemia, Gondor)\n";
+    expected = expected + "Blue player:\n" + "-------------\n"
+        + "    0 units in Elantris (next to: Narnia, Scadrial, Midkemia, Roshar)\n"
+        + "    0 units in Scadrial (next to: Elantris, Mordor, Hogwarts, Midkemia, Oz, Roshar)\n"
+        + "    0 units in Roshar (next to: Elantris, Hogwarts, Scadrial)\n";
+    expected = expected + "Red player:\n" + "-------------\n"
+        + "    0 units in Mordor (next to: Hogwarts, Scadrial, Gondor, Oz)\n"
+        + "    0 units in Hogwarts (next to: Mordor, Scadrial, Roshar)\n"
+        + "    0 units in Gondor (next to: Mordor, Oz)\n";
+    String actual = view.displayMap(map);
+    assertEquals(expected, actual);
+  }
+
+  @Test
+  public void test_display_map1() {
+    ArrayList<String> playerNames = new ArrayList<String>();
+    playerNames.add("Green player");
+    playerNames.add("Blue player");
+    playerNames.add("Red player");
+    MapTextView view = new MapTextView(playerNames);
+
+    WorldMapFactory mf = new V1MapFactory();
+    WorldMap map = mf.makeWorldMap(3);
+    map.tryAssignInitOwner(1, playerNames.get(0));
+    map.tryAssignInitOwner(2, playerNames.get(1));
+    map.tryAssignInitOwner(3, playerNames.get(2));
+
+    String expected = "";
+    expected = expected + "Green player:\n" + "-------------\n"
+        + "    0 units in Hills of Horvos (next to: Braavosian Coastlands, Myr, Forest of Qohor, Lower Rnoyne)\n"
+        + "    0 units in Braavosian Coastlands (next to: Hills of Horvos, Myr)\n"
+        + "    0 units in Forest of Qohor (next to: Hills of Horvos, Lower Rnoyne, Western Dothraki Sea, Northern Dothraki Sea)\n"
+        + "    0 units in Western Dothraki Sea (next to: Lhaxar, Mantarys, Forest of Qohor, Lower Rnoyne, Eastern Dothraki Sea, Northern Dothraki Sea)\n"
+        + "    0 units in Northern Dothraki Sea (next to: Forest of Qohor, Eastern Dothraki Sea, Western Dothraki Sea)\n";
+    expected = expected + "Blue player:\n" + "-------------\n"
+        + "    0 units in Lhaxar (next to: Old Ohis, Mantarys, The Red Waste, Eastern Dothraki Sea, Western Dothraki Sea)\n"
+        + "    0 units in Old Ohis (next to: Lhaxar, The Red Waste)\n"
+        + "    0 units in Myr (next to: Hills of Horvos, Braavosian Coastlands, Lower Rnoyne)\n"
+        + "    0 units in Mantarys (next to: Lhaxar, Lower Rnoyne, Western Dothraki Sea)\n"
+        + "    0 units in Lower Rnoyne (next to: Hills of Horvos, Myr, Mantarys, Forest of Qohor, Western Dothraki Sea)\n";
+    expected = expected + "Red player:\n" + "-------------\n"
+        + "    0 units in Vaes Dothrak (next to: Northern Jade Sea, Eastern Dothraki Sea)\n"
+        + "    0 units in Bayasabhad (next to: The Red Waste, Northern Jade Sea)\n"
+        + "    0 units in The Red Waste (next to: Lhaxar, Bayasabhad, Old Ohis, Northern Jade Sea, Eastern Dothraki Sea)\n"
+        + "    0 units in Northern Jade Sea (next to: Vaes Dothrak, Bayasabhad, The Red Waste, Eastern Dothraki Sea)\n"
+        + "    0 units in Eastern Dothraki Sea (next to: Vaes Dothrak, Lhaxar, The Red Waste, Northern Jade Sea, Western Dothraki Sea, Northern Dothraki Sea)\n";
+    String actual = view.displayMap(map);
+    assertEquals(expected, actual);
+  }
 }

@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.HashSet;
+import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
 
@@ -90,6 +90,7 @@ public class BasicTerritoryTest {
     BasicTerritory t2 = new BasicTerritory("Elantris", 10);
     assertFalse(t1.isAdjacentTo(t2));
     assertTrue(t1.tryAddNeighbor(t2));
+    assertFalse(t1.tryAddNeighbor(t2));
     assertTrue(t1.isAdjacentTo(t2));
   }
 
@@ -106,16 +107,36 @@ public class BasicTerritoryTest {
   @Test
   public void test_get_my_neighbors() {
     BasicTerritory t1 = new BasicTerritory("Narnia", 10);
-    HashSet<BasicTerritory> expectedNeighbors = new HashSet<BasicTerritory>();
+    HashMap<String, Territory> expectedNeighbors = new HashMap<String, Territory>();
 
     BasicTerritory t2 = new BasicTerritory("Elantris", 10);
     BasicTerritory t3 = new BasicTerritory("North", 10);
 
-    expectedNeighbors.add(t2);
-    expectedNeighbors.add(t3);
+    expectedNeighbors.put("Elantris", t2);
+    expectedNeighbors.put("North", t3);
     assertTrue(t1.tryAddNeighbor(t2));
     assertTrue(t1.tryAddNeighbor(t3));
 
     assertEquals(expectedNeighbors, t1.getMyNeighbors());
+  }
+
+  @Test
+  public void test_isreachable() {
+    BasicTerritory t1 = new BasicTerritory("Narnia", 10);
+    BasicTerritory t2 = new BasicTerritory("Midkemia", 10);
+    BasicTerritory t3 = new BasicTerritory("Oz", 10);
+    BasicTerritory t4 = new BasicTerritory("Hogwarts", 10);
+    t1.tryAssignOwner("Player 1");
+    t2.tryAssignOwner("Player 1");
+    t3.tryAssignOwner("Player 1");
+    t4.tryAssignOwner("Player 2");
+    t1.tryAddNeighbor(t2);
+    t2.tryAddNeighbor(t1);
+    t2.tryAddNeighbor(t3);
+    t3.tryAddNeighbor(t2);
+    t1.tryAddNeighbor(t4);
+    assertTrue(t1.isReachableTo(t2));
+    assertTrue(t1.isReachableTo(t3));
+    assertFalse(t1.isReachableTo(t4));
   }
 }

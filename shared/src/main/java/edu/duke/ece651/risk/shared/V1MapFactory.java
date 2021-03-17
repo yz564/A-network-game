@@ -99,4 +99,21 @@ public class V1MapFactory implements WorldMapFactory {
       return makeEvenMap(numPlayers);
     }
   }
+
+  /*
+   * Makes a testing world map for 3 players which follows the design in the
+   * instructions
+   * 
+   * @returns a World Map object
+   */
+  public WorldMap makeTestWorldMap() {
+    String[] names = { "Narnia", "Midkemia", "Oz", "Elantris", "Roshar", "Scadrial", "Gondor", "Mordor", "Hogwarts" };
+    int[][] adjacency = { { 1, 3 }, { 0, 2, 3, 4 }, { 1, 5, 6, 7 }, { 0, 1, 4, 5 }, { 3, 5, 8 }, { 1, 2, 3, 4, 7, 8 },
+        { 2, 7 }, { 2, 5, 6, 8 }, { 4, 5, 7 } };
+    WorldMap worldmap = new RiskWorldMap();
+    makeTerritories(worldmap, names, adjacency);
+    int[] groups = { 1, 1, 1, 2, 2, 2, 3, 3, 3 };
+    makeInitGroups(worldmap, names, groups);
+    return worldmap;
+  }
 }
