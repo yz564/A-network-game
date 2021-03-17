@@ -17,6 +17,8 @@ public interface WorldMapFactory {
    * @returns the World Map object
    */
   public WorldMap makeWorldMap(int numPlayes);
+
+  public WorldMap makeTestWorldMap();
 }
 
 

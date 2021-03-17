@@ -45,4 +45,15 @@ public class V1MapFactoryTest {
     checkMap(map4p, names2, adjacency2, groups4p);
     checkMap(map5p, names1, adjacency1, groups5p);
   }
+
+  @Test
+  public void test_maketestmap() {
+    WorldMapFactory factory = new V1MapFactory();
+    WorldMap map = factory.makeTestWorldMap();
+    String[] names = { "Narnia", "Midkemia", "Oz", "Elantris", "Roshar", "Scadrial", "Gondor", "Mordor", "Hogwarts" };
+    int[][] adjacency = { { 1, 3 }, { 0, 2, 3, 4 }, { 1, 5, 6, 7 }, { 0, 1, 4, 5 }, { 3, 5, 8 }, { 1, 2, 3, 4, 7, 8 },
+        { 2, 7 }, { 2, 5, 6, 8 }, { 4, 5, 7 } };
+    int[] groups = { 1, 1, 1, 2, 2, 2, 3, 3, 3 };
+    checkMap(map, names, adjacency, groups);
+  }
 }
