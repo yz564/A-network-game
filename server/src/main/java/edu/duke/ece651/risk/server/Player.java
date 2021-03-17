@@ -15,6 +15,8 @@ public class Player implements Runnable{
   public ObjectInputStream in;
   public ObjectOutputStream out;
   private volatile Boolean ready; //volatile: always updates this variable before being accessed by other threads
+  public volatile int availableUnitNum;
+  public volatile int unitNum;
   public ObjectIO tmp;
 
   public Player(Socket client, int id,String name){
@@ -23,6 +25,8 @@ public class Player implements Runnable{
     this.name = name;
     this.isEnd=false;
     this.ready = false;
+    this.availableUnitNum=30;
+    this.unitNum = 1;
   }
 
   public String getName() {

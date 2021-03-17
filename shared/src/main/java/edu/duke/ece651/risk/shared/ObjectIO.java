@@ -30,6 +30,14 @@ public class ObjectIO implements java.io.Serializable{
     this.playerNames = new ArrayList<String>();
   }
 
+  public ObjectIO(String message, int num){
+    this.message=message;
+    this.id = num;
+    this.map=null;
+    this.groups = new HashSet<Integer>();
+    this.playerNames = new ArrayList<String>();
+  }
+
   public ObjectIO(String message, int id, WorldMap map){
     this.message=message;
     this.id = id;
