@@ -9,7 +9,7 @@ import java.util.HashMap;
  * Each Territory contains a number of units that could be used to either attack
  * or defend in a combat.
  */
-public interface Territory {
+public interface Territory extends java.io.Serializable{
   /**
    * Adds units to the territory.
    * 
