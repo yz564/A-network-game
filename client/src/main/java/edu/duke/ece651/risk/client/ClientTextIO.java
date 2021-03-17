@@ -40,8 +40,9 @@ public class ClientTextIO implements ClientIO {
   }
   
 	@Override
-	public String readActionName() {
-      String prompt = "Choose an action.\n" +
+	public String readActionName(String playerName) {
+      String prompt = "You are the " + playerName +
+        " player. What would you like to do?\n" +
         "(M)ove\n" +
         "(A)ttack\n" +
         "(D)one\n";
