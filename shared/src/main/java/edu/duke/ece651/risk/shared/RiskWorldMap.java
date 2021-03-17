@@ -9,6 +9,8 @@ import java.util.HashMap;
  * to its name, and the mapping of initial grouping to list of territories names
  */
 public class RiskWorldMap implements WorldMap {
+
+  private static final long serialVersionUID = -8601217585700186444L;
   private HashMap<String, Territory> myTerritories;
   private HashMap<Integer, ArrayList<String>> initGroups;
   // private HashMap<String, ArrayList<Territory>> territoryAdjacentLists;

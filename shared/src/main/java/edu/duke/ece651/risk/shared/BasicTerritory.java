@@ -10,6 +10,8 @@ import java.util.HashMap;
  * and its owner's name.
  */
 public class BasicTerritory implements Territory {
+
+  private static final long serialVersionUID = -8815409601117401416L;
   private Troop myTroop;
   private String territoryName;
   private HashMap<String, Territory> myNeighbors;
