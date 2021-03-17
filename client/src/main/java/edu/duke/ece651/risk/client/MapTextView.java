@@ -2,7 +2,6 @@ package edu.duke.ece651.risk.client;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 
 import edu.duke.ece651.risk.shared.Territory;
 import edu.duke.ece651.risk.shared.WorldMap;
@@ -50,7 +49,7 @@ public class MapTextView {
         String ans = playerName + ":\n-------------\n";
         HashMap<String, Territory> myTerritories = toDisplay.getPlayerTerritories(playerName);
         for (String name : myTerritories.keySet()) {
-          ans = ans + oneTerritoryLine(myTerritories.get(name));
+            ans = ans + oneTerritoryLine(myTerritories.get(name));
         }
         return ans;
     }
@@ -91,7 +90,3 @@ public class MapTextView {
     }
 
 }
-
-
-
-
