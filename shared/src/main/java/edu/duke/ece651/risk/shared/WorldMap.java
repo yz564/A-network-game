@@ -1,7 +1,7 @@
 package edu.duke.ece651.risk.shared;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 
 /*
  * Represents an interface for classes that would 
@@ -57,11 +57,11 @@ public interface WorldMap {
   public boolean tryAssignInitOwner(int group, String playerName);
 
   /*
-   * Returns a hashset of territories belonging to a given player
+   * Returns a hashmap of territories mapped to its name belonging to a given player
    * 
    * @param playerName is the name of the owner  
    */
-  public HashSet<Territory> getPlayerTerritories(String playerName);
+  public HashMap<String, Territory> getPlayerTerritories(String playerName);
 
   /*
    * Change the owner of a given territory

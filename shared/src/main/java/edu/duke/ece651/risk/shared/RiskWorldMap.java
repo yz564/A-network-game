@@ -2,7 +2,6 @@ package edu.duke.ece651.risk.shared;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 
 /*
  * RiskWorldMap implements the WorldMap interface
@@ -67,12 +66,12 @@ public class RiskWorldMap implements WorldMap {
   }
 
   @Override
-  public HashSet<Territory> getPlayerTerritories(String playerName) {
-    HashSet<Territory> territories = new HashSet<Territory>();
+  public HashMap<String, Territory> getPlayerTerritories(String playerName) {
+    HashMap<String, Territory> territories = new HashMap<String, Territory>();
     for (String territoryName : myTerritories.keySet()) {
       Territory t = getTerritory(territoryName);
       if (t.getOwnerName().equals(playerName)) {
-        territories.add(t);
+        territories.put(territoryName, t);
       }
     }
     return territories;

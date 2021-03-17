@@ -1,9 +1,11 @@
 package edu.duke.ece651.risk.client;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 
-import edu.duke.ece651.risk.shared.*;
+import edu.duke.ece651.risk.shared.Territory;
+import edu.duke.ece651.risk.shared.WorldMap;
 
 public class MapTextView {
 
@@ -46,9 +48,9 @@ public class MapTextView {
      */
     private String onePlayerSection(String playerName, WorldMap toDisplay) {
         String ans = playerName + ":\n-------------\n";
-        HashSet<Territory> myTerritories = toDisplay.getPlayerTerritories(playerName);
-        for (Territory t : myTerritories) {
-            ans = ans + oneTerritoryLine(t);
+        HashMap<String, Territory> myTerritories = toDisplay.getPlayerTerritories(playerName);
+        for (String name : myTerritories.keySet()) {
+          ans = ans + oneTerritoryLine(myTerritories.get(name));
         }
         return ans;
     }
@@ -61,7 +63,7 @@ public class MapTextView {
      */
     private String oneTerritoryLine(Territory territory) {
         String ans = "";
-        HashSet<Territory> neighbors = territory.getMyNeighbors();
+        HashMap<String, Territory> neighbors = territory.getMyNeighbors();
         String unitNum = String.valueOf(territory.getNumUnits());
 
         // unit number part
@@ -78,9 +80,9 @@ public class MapTextView {
         // neighbors part;
         ans = ans + " (next to: ";
         String sep = "";
-        for (Territory t : neighbors) {
+        for (String name : neighbors.keySet()) {
             ans = ans + sep;
-            ans = ans + t.getName();
+            ans = ans + name;
             sep = ", ";
         }
         ans = ans + ")\n";
@@ -89,3 +91,7 @@ public class MapTextView {
     }
 
 }
+
+
+
+

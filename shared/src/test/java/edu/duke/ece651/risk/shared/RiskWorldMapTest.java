@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
 
@@ -52,9 +52,9 @@ public class RiskWorldMapTest {
     Territory t2 = new BasicTerritory("Elantris", 0);
     assertTrue(t1.tryAssignOwner("Player 1"));
     assertTrue(t2.tryAssignOwner("Player 1"));
-    HashSet<Territory> expected = new HashSet<Territory>();
-    expected.add(t1);
-    expected.add(t2);
+    HashMap<String, Territory> expected = new HashMap<String, Territory>();
+    expected.put(t1.getName(), t1);
+    expected.put(t2.getName(), t2);
     assertTrue(worldmap.tryAddTerritory("Narnia"));
     assertTrue(worldmap.tryAddTerritory("Elantris"));
     assertTrue(worldmap.tryAddTerritory("Oz"));
