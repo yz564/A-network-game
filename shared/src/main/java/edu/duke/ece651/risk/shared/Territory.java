@@ -104,3 +104,16 @@ public interface Territory {
    */
   public boolean isReachableTo(Territory toReach);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
