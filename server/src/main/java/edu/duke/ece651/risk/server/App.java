@@ -30,6 +30,7 @@ public class App {
   private volatile ArrayList<Player> playerList;
   private volatile ArrayList<String> playerNames;
   private volatile HashSet<Integer> availableGroups;
+  private ServerOrderHelper soh;
 
   public App(ServerSocket listener, WorldMapFactory factory, BufferedReader in) {
     this.listener = listener;
@@ -38,6 +39,7 @@ public class App {
     this.playerList = new ArrayList<Player>();
     this.playerNames = new ArrayList<String>();
     this.availableGroups = new HashSet<Integer>();
+    this.soh = new ServerOrderHelper();
   }
 
   public void acceptConnections() throws IOException {
@@ -105,68 +107,108 @@ public class App {
       availableGroups.remove(Integer.parseInt(p.tmp.message));
       p.setNotReady();
     }
+    /*
+    Player p = playerList.get(numPlayers-1);
+    if (theMap.tryAssignInitOwner(availableGroups.iterator().next(), p.getName())) {
+        System.out.println(p.getName() + " auto selected ");
+      }
+    */
   }
 
-  public void doOneTurn() throws IOException{
-    int readyNum=0;
-     for (int i = 0; i < numPlayers; i++) {
-      Player p=playerList.get(i);
+  public void doOneTurn() throws IOException {
+    int readyNum = 0;
+    for (int i = 0; i < numPlayers; i++) {
+      Player p = playerList.get(i);
+      HashMap<String, Territory> tlist = theMap.getPlayerTerritories(p.getName());
+      if (tlist.size() == 0) {
+        p.isEnd = true;
+        p.ready = true;
+      }
+      if (!p.isEnd) {
+        p.out.writeObject(new ObjectIO(p.getName(), i, theMap, playerNames));
+        p.out.flush();
+        p.out.reset();
+        p.setNotReady();
+      } else {
+        p.out.writeObject(new ObjectIO(p.getName() + ", you are watching the game ", -1, theMap, playerNames));
+        p.out.flush();
+        p.out.reset();
+      }
+    }
+    while (readyNum < numPlayers) {
+      readyNum = 0;
+      for (int i = 0; i < numPlayers; i++) {
+        if (playerList.get(i).isReady()) {
+          readyNum++;
+        }
+      }
+    }
+    for (int i = 0; i < numPlayers; i++) {
+      soh.collectOrders(playerList.get(i).tmp);
+    }
+    System.out.println("Move Error: " + soh.tryResolveMoveOrders(theMap));
+    System.out.println("Attack Error: " + soh.tryResolveAttackOrders(theMap));
+    soh.clearAllOrders();
+  }
+
+  public void doRefresh() {
+    for (int i = 0; i < numPlayers; i++) {
+      Player p = playerList.get(i);
+      if (!p.isEnd) {
         HashMap<String, Territory> tlist = theMap.getPlayerTerritories(p.getName());
         if (tlist.size() == 0) {
           p.isEnd = true;
           p.ready = true;
-        }
-        if (!p.isEnd) {
-          p.out.writeObject(new ObjectIO(p.getName() + ", please select your action: ", i, theMap, playerNames));
-          p.out.flush();
-          p.out.reset();
-          p.setNotReady();
         } else {
-          p.out.writeObject(new ObjectIO(p.getName() + ", you are watching the game ", -1, theMap, playerNames));
-          p.out.flush();
-          p.out.reset();
-        }
-      }
-     while(readyNum<numPlayers){
-       readyNum=0;
-       for(int i=0; i<numPlayers; i++){
-         if(playerList.get(i).isReady()){
-           readyNum++;
-         }
-       }
-     }
-  }
-
-  
-  public void doRefresh() {
-    for (int i = 0; i < numPlayers; i++) {
-      Player p=playerList.get(i);
-      if (p.isEnd) {
-        
-      }
-      else {
-        HashMap<String, Territory> tlist=theMap.getPlayerTerritories(p.getName());
-        if (tlist.size() == 0) {
-          p.isEnd=true;
-          p.ready = true;
-        }
-        else{
-          for (String tname : tlist.keySet() ) {
+          for (String tname : tlist.keySet()) {
             Territory t = tlist.get(tname);
-            t.tryAddUnits(-1);
-            if(t.getNumUnits()==0){
+            t.tryAddUnits(1);
+            /*t.tryAddUnits(-2);
+            if (t.getNumUnits() < 0) {
               t.tryAssignOwner("Player 1");
-            }
+              }*/ //the setting is for quick check the game's result
+
           }
         }
       }
     }
   }
 
- 
+  public Boolean checkWinner() throws Exception {
+    int count = 0;
+    int winnerID = 0;
+    for (int i = 0; i < numPlayers; i++) {
+      Player p = playerList.get(i);
+      if (!p.isEnd) {
+        HashMap<String, Territory> tlist = theMap.getPlayerTerritories(p.getName());
+        if (tlist.size() == 0) {
+          p.isEnd = true;
+          p.ready = true;
+        } else {
+          count++;
+          winnerID=i;
+        }
+      }
+    }
 
-  
-
+    if (count == 1) {
+      String info = "Winner is " + playerList.get(winnerID).getName();
+      System.out.println(info);
+      for (int i = 0; i < numPlayers; i++) {
+        Player p = playerList.get(i);
+        if (i == winnerID) {
+          p.out.writeObject(new ObjectIO(info, -3, theMap, playerNames));
+        }
+        else {
+          p.out.writeObject(new ObjectIO(info, -2, theMap, playerNames));
+        }
+        p.out.flush();
+        p.out.reset();
+      }
+      return true;
+    }
+    return false;
+  }
 
   public static void main(String[] args) throws IOException {
     WorldMapFactory factory = new V1MapFactory();
@@ -189,9 +231,17 @@ public class App {
       while (true) {
         game.doOneTurn();
         game.doRefresh();
-      }  
+        if (game.checkWinner()) {
+          return;
+        }
+      }
     } catch (Exception e) {
     }
   }
 }
+
+
+
+
+
 
