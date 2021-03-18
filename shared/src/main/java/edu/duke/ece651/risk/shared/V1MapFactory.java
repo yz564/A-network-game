@@ -58,7 +58,7 @@ public class V1MapFactory implements WorldMapFactory {
       int[] groups = { 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 2, 4, 1 };
       makeInitGroups(worldmap, names, groups);
     } else {
-      int[] groups = { 1, 1, 1, 2, 2, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1 };
+      int[] groups = { 1, 1, 1, 2, 2, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1 };
       makeInitGroups(worldmap, names, groups);
     }
     return worldmap;

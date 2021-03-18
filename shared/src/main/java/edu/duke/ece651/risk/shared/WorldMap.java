@@ -10,7 +10,7 @@ import java.util.HashMap;
  * The World Map contains a number of territories and 
  * the initial grouping of territories for a given number of players.
  */
-public interface WorldMap {
+public interface WorldMap extends java.io.Serializable{
 
   /*
    * Adds a new territory with a given name on the world map.

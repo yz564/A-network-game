@@ -4,7 +4,7 @@ package edu.duke.ece651.risk.shared;
  * A troop contains an arbitrary number of a particular kind of units. E.g. a
  * troop could contain 10 soldiers or 5 knights but not both.
  */
-public interface Troop {
+public interface Troop extends java.io.Serializable{
   /*
    * Add units to the troop.
    * 
