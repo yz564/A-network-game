@@ -40,13 +40,13 @@ public class ClientOrderHelper {
         this.out = out;
     }
 
-    public ObjectIO issueOrders(WorldMap map, ArrayList<String> playerNames) {
+    public ObjectIO issueActionOrders(WorldMap map, ArrayList<String> playerNames) {
         WorldMap temp = (WorldMap) SerializationUtils.clone(map); // temp map for checking move action
         ObjectIO orders = new ObjectIO();
         String newOrderType;
         out.println("You may order Move actions now then order Attack actions.\n"
                 + "Or you may skip ordering Move actions by ordering Attack action directly.");
-        while (! ((newOrderType = stdIO.readActionName(playerName)).equals("D"))) {
+        while (!((newOrderType = stdIO.readActionName(playerName)).equals("D"))) {
             ActionInfo newOrder = new ActionInfo(playerName);
             if (newOrderType.equals("M")) {
                 String srcName = stdIO.readTerritoryName("What territory do you want to move your unit(s) from?");
@@ -63,7 +63,7 @@ public class ClientOrderHelper {
                     orders.moveOrders.add(newOrder);
                     executer.executeMove(temp, newOrder);
                     out.println("Your order is taken.");
-                    stdIO.printMap(new MapTextView(playerNames),temp, playerNames);
+                    stdIO.printMap(new MapTextView(playerNames), temp, playerNames);
                 }
             } else { // done with move action, go for attack action
                 break;
@@ -90,6 +90,33 @@ public class ClientOrderHelper {
                 }
             } else {
                 out.println("You can only order Attack actions now. Move orders are down.");
+            }
+        }
+        return orders;
+    }
+
+    public ObjectIO issuePlaceOrders(int totalUnitNum, ArrayList<String> territoryNames) {
+        ObjectIO orders = new ObjectIO();
+        out.println("You may place your units now.\n");
+        int territoryNum = territoryNames.size();
+        for (String territoryName : territoryNames) {
+            while (true) {
+                out.println("You have <" + totalUnitNum + "> units to place.");
+                Integer toPlace = stdIO.readNumUnits("How many units you want to place at <" + territoryName + ">?");
+                if (toPlace > totalUnitNum) {
+                    out.println("Invalid input: You have  only <" + totalUnitNum
+                            + "> units to place, but you want to place <" + toPlace + "> units.");
+                    out.println("You may place again.");
+                } else if (totalUnitNum - toPlace < territoryNum - 1) {
+                    out.println(
+                            "Invalid input: You have to leave at least one unit for the rest of territory (territories).");
+                    out.println("You may place again.");
+                } else { // successful order
+                    orders.placeOrders.put(territoryName, toPlace);
+                    totalUnitNum = totalUnitNum - toPlace;
+                    territoryNum = territoryNum - 1;
+                    break;
+                }
             }
         }
         return orders;
