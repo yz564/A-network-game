@@ -40,74 +40,73 @@ public class App {
     this.availableGroups = new HashSet<Integer>();
   }
 
-  public void acceptConnections() throws IOException{
+  public void acceptConnections() throws IOException {
     System.out.println("Please set the player number:");
     this.numPlayers = Integer.parseInt(stdIn.readLine());
-    this.theMap=factory.makeWorldMap(numPlayers);
-    System.out.println("wait for players to join... "+"0/"+numPlayers);
-    for(int i=0; i<numPlayers;i++){
-      Socket client=listener.accept();
-      System.out.println("New player connected... "+(i+1)+"/"+numPlayers);
+    this.theMap = factory.makeWorldMap(numPlayers);
+    System.out.println("wait for players to join... " + "0/" + numPlayers);
+    for (int i = 0; i < numPlayers; i++) {
+      Socket client = listener.accept();
+      System.out.println("New player connected... " + (i + 1) + "/" + numPlayers);
       String name = "Player " + (i + 1);
       playerNames.add(name);
       availableGroups.add(i + 1);
-      Player p = new Player(client,i,name);
+      Player p = new Player(client, i, name);
       playerList.add(p);
       Thread t = new Thread(p);
       t.start();
     }
   }
 
-public void doPlacement() throws Exception {
-  for (int i = 0; i < numPlayers; i++) {
-      Player p=playerList.get(i);
-    HashMap<String, Territory> tlist=theMap.getPlayerTerritories(p.getName());
-    int count=tlist.size();
-    p.out.writeObject(new ObjectIO(Integer.toString(count)));
-    p.out.flush();
-    p.out.reset();
-    for (String tname : tlist.keySet() ) {
-      Territory t = tlist.get(tname);
-      if (count > 1) {
-        ObjectIO m = new ObjectIO(p.getName() + " ,please add units on territory " + tname+ " (available unit number: "+p.availableUnitNum+")", p.availableUnitNum);
-        p.out.writeObject(m);
-        p.out.flush();
-        p.out.reset();
-        while (!p.isReady()) {
+  public void doPlacement() throws Exception {
+    for (int i = 0; i < numPlayers; i++) {
+      Player p = playerList.get(i);
+      HashMap<String, Territory> tlist = theMap.getPlayerTerritories(p.getName());
+      int count = tlist.size();
+      p.out.writeObject(new ObjectIO(Integer.toString(count)));
+      p.out.flush();
+      p.out.reset();
+      for (String tname : tlist.keySet()) {
+        Territory t = tlist.get(tname);
+        if (count > 1) {
+          ObjectIO m = new ObjectIO(p.getName() + " ,please add units on territory " + tname
+              + " (available unit number: " + p.availableUnitNum + ")", p.availableUnitNum);
+          p.out.writeObject(m);
+          p.out.flush();
+          p.out.reset();
+          while (!p.isReady()) {
+          }
+          p.setNotReady();
+          p.unitNum = Integer.parseInt(p.tmp.message);
+          p.availableUnitNum -= p.unitNum;
+          count--;
+        } else {
+          p.unitNum = p.availableUnitNum;
         }
-        p.setNotReady();
-        p.unitNum = Integer.parseInt(p.tmp.message);
-        p.availableUnitNum -= p.unitNum;
-        count--;
+        if (t.trySetNumUnits(p.unitNum)) {
+          System.out.println(p.getName() + " placed " + p.unitNum + " on territory " + tname);
+        }
       }
-      else{
-        p.unitNum=p.availableUnitNum;
-      }
-      if (t.trySetNumUnits(p.unitNum)) {
-        System.out.println(p.getName() + " placed " + p.unitNum + " on territory " + tname);
-       }
     }
   }
-}
-  
-  public void doInitialization() throws Exception{
+
+  public void doInitialization() throws Exception {
     for (int i = 0; i < numPlayers; i++) {
-      Player p=playerList.get(i);
-      ObjectIO m=new ObjectIO(p.getName()+" ,please select your territory groups: ",i,theMap,availableGroups);
+      Player p = playerList.get(i);
+      ObjectIO m = new ObjectIO(p.getName() + " ,please select your territory groups: ", i, theMap, availableGroups);
       p.out.writeObject(m);
       p.out.flush();
       p.out.reset();
-      while (!p.isReady()){
+      while (!p.isReady()) {
       }
       if (theMap.tryAssignInitOwner(Integer.parseInt(p.tmp.message), p.getName())) {
-        System.out.println(p.getName()+" selected group "+p.tmp.message);
+        System.out.println(p.getName() + " selected group " + p.tmp.message);
       }
       availableGroups.remove(Integer.parseInt(p.tmp.message));
       p.setNotReady();
     }
   }
 
-  
   public void doOneTurn() throws IOException{
     int readyNum=0;
      for (int i = 0; i < numPlayers; i++) {
@@ -168,6 +167,7 @@ public void doPlacement() throws Exception {
 
   
 
+
   public static void main(String[] args) throws IOException {
     WorldMapFactory factory = new V1MapFactory();
     BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
@@ -186,7 +186,7 @@ public void doPlacement() throws Exception {
       game.doInitialization();
       game.doPlacement();
       System.out.println("Initialization finished");
-      while(true){
+      while (true) {
         game.doOneTurn();
         game.doRefresh();
       }  
@@ -194,12 +194,4 @@ public void doPlacement() throws Exception {
     }
   }
 }
-
-
-
-
-
-
-
-
 
