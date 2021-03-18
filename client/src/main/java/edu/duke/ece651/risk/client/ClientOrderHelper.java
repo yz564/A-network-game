@@ -1,7 +1,5 @@
 package edu.duke.ece651.risk.client;
 
-import edu.duke.ece651.risk.shared.ActionInfo;
-
 import java.io.BufferedReader;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -96,41 +94,47 @@ public class ClientOrderHelper {
         WorldMap temp = (WorldMap) SerializationUtils.clone(map); // temp map for checking move action
         ObjectIO orders = new ObjectIO();
         String newOrderType;
-        out.println("You may order Move actions now then order Attack actions.\n"
-                + "Or you may skip ordering Move actions by ordering Attack action directly.");
-        while (!((newOrderType = stdIO.readActionName(playerName)).equals("D"))) {
+        out.println("---------------------- New Action Trun -----------------------");
+        out.println("---------------------- Move Action Phase ---------------------");
+        out.println(playerName + ": You may order Move actions now.\n");
+        String prompt = playerName + ": What would you like to do?\n" + "(M)ove\n"
+                + "(A)ttack (go to Attack Action Phase)\n" + "(D)one\n";
+        while (!((newOrderType = stdIO.readActionName(playerName, prompt)).equals("D"))) {
             if (newOrderType.equals("M")) {
                 ActionInfo newOrder = readMoveOrder();
                 String problem = moveChecker.checkAction(newOrder, temp);
                 if (problem != null) {
                     out.println(problem);
-                    out.println("You may order action again.");
+                    out.println("You may order action again.\n");
                 } else {
                     orders.moveOrders.add(newOrder);
                     executer.executeMove(temp, newOrder);
-                    out.println("Your Move action order is taken.");
+                    out.println("*** Your Move action order is taken, here is your current map. ***\n");
                     stdIO.printMap(new MapTextView(playerNames), temp, playerNames);
                 }
             } else { // done with move action, go for attack action
                 break;
             }
         }
-        out.println("You may order Attack actions now.");
-        while (!((newOrderType = stdIO.readActionName(playerName)).equals("D"))) {
+        out.println("---------------------- Attack Action Phase ---------------------");
+        out.println(playerName + ": You may order Attack actions now.\n");
+        prompt = playerName + ": What would you like to do?\n" + "(A)ttack\n" + "(D)one\n";
+        while (!(newOrderType.equals("D"))
+                && !((newOrderType = stdIO.readActionName(playerName, prompt)).equals("D"))) {
             if (newOrderType.equals("A")) {
                 // Attack order
                 ActionInfo newOrder = readAttackOrder();
                 String problem = attackChecker.checkAction(newOrder, temp);
                 if (problem != null) {
                     out.println(problem);
-                    out.println("You may order action again.");
+                    out.println("You may order action again.\n");
                 } else {
                     orders.attackOrders.add(newOrder);
-                    out.println("Your Action action order is taken.");
+                    out.println("*** Your Action action order is taken. ***\n");
                 }
             } else {
                 out.println("You can only order Attack actions now. Move orders are all set.");
-                out.println("You may order action again.");
+                out.println("You may order action again.\n");
             }
         }
         return orders;

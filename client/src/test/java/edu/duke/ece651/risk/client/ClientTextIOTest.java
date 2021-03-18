@@ -2,17 +2,12 @@ package edu.duke.ece651.risk.client;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.PrintStream;
-import java.io.Reader;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import edu.duke.ece651.risk.shared.V1MapFactory;
@@ -26,19 +21,19 @@ public class ClientTextIOTest {
     ClientTextIO ctio = new ClientTextIO(inputReader, System.out);
     return ctio;
   }
-  
+
   @Test
   public void test_read_action_name() {
     String move = "m\n";
     String attack = "a\n";
     String done = "d\n";
-    String nullAction = "";
     ClientTextIO ctio_move = getClientTextIOObject(move);
     ClientTextIO ctio_attack = getClientTextIOObject(attack);
     ClientTextIO ctio_done = getClientTextIOObject(done);
-    assertEquals("M", ctio_move.readActionName("Green"));
-    assertEquals("A", ctio_attack.readActionName("Blue"));
-    assertEquals("D", ctio_done.readActionName("Red"));
+    String prompt = "Hi!";
+    assertEquals("M", ctio_move.readActionName("Green", prompt));
+    assertEquals("A", ctio_attack.readActionName("Blue", prompt));
+    assertEquals("D", ctio_done.readActionName("Red", prompt));
   }
 
   @Test
@@ -51,7 +46,7 @@ public class ClientTextIOTest {
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream output = new PrintStream(bytes, true);
     ClientTextIO ctio2 = new ClientTextIO(inputReader, output);
-    //assertEquals("Invalid territory name.", bytes.toString());
+    // assertEquals("Invalid territory name.", bytes.toString());
     assertEquals("Haryana", ctio2.readTerritoryName("Enter territory name:\n"));
   }
 
