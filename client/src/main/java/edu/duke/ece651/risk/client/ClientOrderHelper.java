@@ -62,9 +62,10 @@ public class ClientOrderHelper {
                 } else {
                     orders.moveOrders.add(newOrder);
                     executer.executeMove(temp, newOrder);
+                    out.println("Your order is taken.");
                     stdIO.printMap(temp, playerNames);
                 }
-            } else { // down with move action, go for attack action
+            } else { // done with move action, go for attack action
                 break;
             }
         }
@@ -85,6 +86,7 @@ public class ClientOrderHelper {
                     out.println("You may order action again.");
                 } else {
                     orders.attackOrders.add(newOrder);
+                    out.println("Your order is taken.");
                 }
             } else {
                 out.println("You can only order Attack actions now. Move orders are down.");
