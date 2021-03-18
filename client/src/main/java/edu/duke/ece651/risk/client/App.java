@@ -73,9 +73,9 @@ public class App {
             break;
           }
         } catch (NumberFormatException e) {
-          System.out.println("Input should be numbers");
+          System.out.println("Input should be a number");
         }
-        System.out.println("Your input exceeds the available unit number, please retry");
+        System.out.println("Your input number is not valid, please retry");
       }
       out.writeObject(new ObjectIO(tmpS));
       out.flush();
@@ -111,7 +111,9 @@ public class App {
 
         System.out.println("-----waitServerInput-----");
         if ((tmp = (ObjectIO) in.readObject()) != null) {
-          System.out.println(tmp.playerNames);
+          if (tmp.id == -1) {
+            break;
+          }
           MapTextView mapview = new MapTextView(tmp.playerNames);
           System.out.println(mapview.displayMap(tmp.map));
           System.out.println(tmp.message);
@@ -123,6 +125,31 @@ public class App {
         }
 
       }
+      System.out.println("Your lost all territories...");
+      while (true) {
+        if ((tmp = (ObjectIO) in.readObject()) != null) {
+          MapTextView mapview = new MapTextView(tmp.playerNames);
+          System.out.println(mapview.displayMap(tmp.map));
+          System.out.println(tmp.message);
+        }
+        String tmpstr;
+        System.out.println("Do you want watch? you can quit by /q");
+        if ((tmpstr = stdIn.readLine()) != null) {
+          if (tmpstr.toLowerCase().startsWith("/q")) {
+            System.out.println("quited");
+            break;
+          }
+        }
+      }
+      while(true){}
+
     }
   }
 }
+
+
+
+
+
+
+
