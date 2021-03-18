@@ -49,7 +49,6 @@ public class ServerOrderHelperTest {
         assert (0 == oh.getMoveOrders().size());
     }
 
-    @Disabled
     @Test
     public void test_resolve_move() {
         // create map
@@ -70,6 +69,7 @@ public class ServerOrderHelperTest {
         assertEquals(281, map.getTerritory("Western Dothraki Sea").getNumUnits());
         assertEquals(119, map.getTerritory("Braavosian Coastlands").getNumUnits());
 
+        oh.clearAllOrders();
         ObjectIO obj2 = new ObjectIO();
         ActionInfo info2 = new ActionInfo("Green player", "Braavosian Coastlands", "Western Dothraki Sea", 19);
         obj2.moveOrders.add(info2);
@@ -79,7 +79,6 @@ public class ServerOrderHelperTest {
         assertEquals(100, map.getTerritory("Braavosian Coastlands").getNumUnits());
     }
 
-    @Disabled
     @Test
     public void test_resolve_move_fail() {
         // create map
@@ -100,7 +99,7 @@ public class ServerOrderHelperTest {
         ActionInfo info2 = new ActionInfo("Green player", "B", "Western Dothraki Sea", 20);
         obj2.moveOrders.add(info2);
         oh.collectOrders(obj2);
-        assert (oh.tryResolveMoveOrders(map) != null);
+        assertEquals("That action is invalid: source Territory does not exist", oh.tryResolveMoveOrders(map));
         assertEquals(300, map.getTerritory("Western Dothraki Sea").getNumUnits());
         assertEquals(100, map.getTerritory("Braavosian Coastlands").getNumUnits());
     }
