@@ -1,9 +1,10 @@
 package edu.duke.ece651.risk.client;
 
-import java.util.ArrayList;
 import java.io.BufferedReader;
-import java.io.PrintStream;
+import java.io.EOFException;
 import java.io.IOException;
+import java.io.PrintStream;
+import java.util.ArrayList;
 
 import edu.duke.ece651.risk.shared.WorldMap;
 
@@ -61,9 +62,9 @@ public class ClientTextIO implements ClientIO {
         catch (IOException ioe) {
           out.println(ioe.getMessage());
         }
-        catch (NullPointerException npe) {
-          out.println(npe.getMessage());
-        }
+        //catch (NullPointerException npe) {
+        //  out.println(npe.getMessage());
+        //}
         out.println("Invalid choice of action. Retry!");
       }
       return choice;
@@ -75,18 +76,20 @@ public class ClientTextIO implements ClientIO {
       while (true) {
         try {
           choice = readClientInput(prompt);
-          out.println("Entered territory name is `"+ choice + "`\n");
           if (choice == null) {
-            throw new IOException("Invalid territory name.");
+            throw new IOException("Invalid territory name.\n");
           }
-          break;
+          else {
+            out.println("Entered territory name is `" + choice + "`\n");
+            break;
+          }
         }
         catch (IOException ioe) {
           out.println(ioe.getMessage());
         }
-        catch (NullPointerException npe) {
-          out.println(npe.getMessage());
-        }
+        //catch (NullPointerException npe) {
+        //  out.println(npe.getMessage());
+        //}
       }
       return choice;
 	}
@@ -112,9 +115,9 @@ public class ClientTextIO implements ClientIO {
         catch (IOException ioe) {
           out.println(ioe.getMessage());
         }
-        catch (NullPointerException npe) {
-          out.println(npe.getMessage());
-        }
+        //catch (NullPointerException npe) {
+        //  out.println(npe.getMessage());
+        //}
         out.println("Input is not a positive integer. Retry!");
       }
       return numUnits;
