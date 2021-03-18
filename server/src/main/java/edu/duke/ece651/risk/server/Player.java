@@ -16,7 +16,7 @@ public class Player implements Runnable{
   public ObjectOutputStream out;
   public volatile Boolean ready; //volatile: always updates this variable before being accessed by other threads
   public volatile int availableUnitNum;
-  public volatile int unitNum;
+  // public volatile int unitNum;
   public Boolean watch;
   public ObjectIO tmp;
 
@@ -27,7 +27,7 @@ public class Player implements Runnable{
     this.isEnd=false;
     this.ready = false;
     this.availableUnitNum=30;
-    this.unitNum = 1;
+    //this.unitNum = 1;
   }
 
   public String getName() {
@@ -52,7 +52,7 @@ public class Player implements Runnable{
       try{
         System.out.println("-----waitClientInput------");
         if ((tmp=(ObjectIO)in.readObject())!=null){
-          System.out.println("-----ReadClientInput-----");
+          System.out.println("-----ReadClientInput------");
           ready=true;
         }
       }
