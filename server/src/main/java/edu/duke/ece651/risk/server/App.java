@@ -4,18 +4,22 @@
 
 package edu.duke.ece651.risk.server;
 
+//import static org.mockito.Answers.values;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 
+import edu.duke.ece651.risk.shared.ObjectIO;
+import edu.duke.ece651.risk.shared.Territory;
 import edu.duke.ece651.risk.shared.V1MapFactory;
 import edu.duke.ece651.risk.shared.WorldMap;
 import edu.duke.ece651.risk.shared.WorldMapFactory;
-import edu.duke.ece651.risk.shared.ObjectIO;
 
 public class App {
   private ServerSocket listener;
@@ -54,13 +58,36 @@ public class App {
     }
   }
 
-  public void doPlacement(Player p) throws Exception {
-    int TotalUnitNum = 20;
-    int unitNum = 1;
-    /*
-     * for (Territory t : theMap.getPlayerTerritories(p.getName())) {
-     * t.trySetNumUnits(unitNum); }
-     */
+  public void doPlacement() throws Exception {
+    for (int i = 0; i < numPlayers; i++) {
+      Player p = playerList.get(i);
+      HashMap<String, Territory> tlist = theMap.getPlayerTerritories(p.getName());
+      int count = tlist.size();
+      p.out.writeObject(new ObjectIO(Integer.toString(count)));
+      p.out.flush();
+      p.out.reset();
+      for (String tname : tlist.keySet()) {
+        Territory t = tlist.get(tname);
+        if (count > 1) {
+          ObjectIO m = new ObjectIO(p.getName() + " ,please add units on territory " + tname
+              + " (available unit number: " + p.availableUnitNum + ")", p.availableUnitNum);
+          p.out.writeObject(m);
+          p.out.flush();
+          p.out.reset();
+          while (!p.isReady()) {
+          }
+          p.setNotReady();
+          p.unitNum = Integer.parseInt(p.tmp.message);
+          p.availableUnitNum -= p.unitNum;
+          count--;
+        } else {
+          p.unitNum = p.availableUnitNum;
+        }
+        if (t.trySetNumUnits(p.unitNum)) {
+          System.out.println(p.getName() + " placed " + p.unitNum + " on territory " + tname);
+        }
+      }
+    }
   }
 
   public void doInitialization() throws Exception {
@@ -76,7 +103,6 @@ public class App {
         System.out.println(p.getName() + " selected group " + p.tmp.message);
       }
       availableGroups.remove(Integer.parseInt(p.tmp.message));
-      // doPlacement(p);
       p.setNotReady();
     }
   }
@@ -119,6 +145,7 @@ public class App {
       App game = new App(listener, factory, input);
       game.acceptConnections();// player threads are created at here
       game.doInitialization();
+      game.doPlacement();
       System.out.println("Initialization finished");
       while (true) {
         game.doOneTurn();

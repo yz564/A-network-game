@@ -1,6 +1,7 @@
 package edu.duke.ece651.risk.shared;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * BasicTerritory is a simple territory that contains a single troop of units
@@ -143,7 +144,8 @@ public class BasicTerritory implements Territory {
     reachable.put(this.territoryName, this);
     while (size != reachable.size()) {
       size = reachable.size();
-      for (String name : reachable.keySet()) {
+      HashSet<String> names = new HashSet(reachable.keySet());
+      for (String name : names) {
         HashMap<String, Territory> neighbors = reachable.get(name).getMyNeighbors();
         for (String neighborName : neighbors.keySet()) {
           if (neighbors.get(neighborName).isBelongTo(this.myOwnerName)) {

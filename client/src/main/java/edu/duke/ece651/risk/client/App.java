@@ -20,7 +20,6 @@ public class App {
   ObjectOutputStream out;
   ObjectIO tmp;
   BufferedReader stdIn;
-  String pleyerName;
 
   public App(ObjectInputStream in, ObjectOutputStream out, ObjectIO tmp) {
     this.in = in;
@@ -51,7 +50,37 @@ public class App {
     }
     out.writeObject(new ObjectIO(tmpS));
     out.flush();
+    out.reset();
+  }
 
+  public void doPlacement() throws Exception {
+    if ((tmp = (ObjectIO) in.readObject()) != null) {
+    }
+    int count = Integer.parseInt(tmp.message);
+    System.out.println("number of territory: " + count);
+    for (int i = 1; i < count; i++) {
+      String tmpS;
+      if ((tmp = (ObjectIO) in.readObject()) != null) {
+      }
+      while (true) {
+        System.out.println(tmp.message);
+
+        if ((tmpS = stdIn.readLine()) != null) {
+        }
+        try {
+          System.out.println(tmp.id);
+          if (Integer.parseInt(tmpS) <= tmp.id - (count - i) && Integer.parseInt(tmpS) > 0) {
+            break;
+          }
+        } catch (NumberFormatException e) {
+          System.out.println("Input should be numbers");
+        }
+        System.out.println("Your input exceeds the available unit number, please retry");
+      }
+      out.writeObject(new ObjectIO(tmpS));
+      out.flush();
+      out.reset();
+    }
   }
 
   public static void main(String[] args) throws Exception {
@@ -76,7 +105,8 @@ public class App {
       App client = new App(in, out, tmp);
       System.out.println("wait other players...");
       client.doInitialization();
-
+      client.doPlacement();
+      System.out.println("Initialization is done");
       while (true) {
 
         System.out.println("-----waitServerInput-----");
