@@ -83,49 +83,49 @@ public class App {
     }
   }
 
-  public void doAction() throws Exception{
+  public void doAction() throws Exception {
     while (true) {
-        System.out.println("-----waitServerInput-----");
-        if ((tmp = (ObjectIO) in.readObject()) != null) {
-          if (tmp.id <0) {
-            break;
-          }
-          MapTextView mapview = new MapTextView(tmp.playerNames);
-          System.out.println(mapview.displayMap(tmp.map));
-          System.out.println(tmp.message);
-          String playerName = tmp.message;
-          ClientOrderHelper coh=new ClientOrderHelper(playerName, stdIn, new PrintStream(System.out));
-          out.writeObject(coh.issueOrders(tmp.map, tmp.playerNames));
-          
+      System.out.println("-----waitServerInput-----");
+      if ((tmp = (ObjectIO) in.readObject()) != null) {
+        if (tmp.id < 0) {
+          break;
         }
+        MapTextView mapview = new MapTextView(tmp.playerNames);
+        System.out.println(mapview.displayMap(tmp.map));
+        System.out.println(tmp.message);
+        String playerName = tmp.message;
+        ClientOrderHelper coh = new ClientOrderHelper(playerName, stdIn, new PrintStream(System.out));
+        out.writeObject(coh.issueActionOrders(tmp.map, tmp.playerNames));
+
       }
-    if(tmp.id==-1){
+    }
+    if (tmp.id == -1) {
       System.out.println("Your lost all territories...");
     }
     if (tmp.id == -2) {
       System.out.println(tmp.message);
     }
-    if(tmp.id==-3){
+    if (tmp.id == -3) {
       System.out.println("You win!");
     }
   }
 
   public void doWatch() throws Exception {
     while (true) {
-        if ((tmp = (ObjectIO) in.readObject()) != null) {
-          MapTextView mapview = new MapTextView(tmp.playerNames);
-          System.out.println(mapview.displayMap(tmp.map));
-          System.out.println(tmp.message);
-        }
-        String tmpstr;
-        System.out.println("Do you want watch? you can quit by /q");
-        if ((tmpstr = stdIn.readLine()) != null) {
-          if (tmpstr.toLowerCase().startsWith("/q")) {
-            System.out.println("quited");
-            break;
-          }
+      if ((tmp = (ObjectIO) in.readObject()) != null) {
+        MapTextView mapview = new MapTextView(tmp.playerNames);
+        System.out.println(mapview.displayMap(tmp.map));
+        System.out.println(tmp.message);
+      }
+      String tmpstr;
+      System.out.println("Do you want watch? you can quit by /q");
+      if ((tmpstr = stdIn.readLine()) != null) {
+        if (tmpstr.toLowerCase().startsWith("/q")) {
+          System.out.println("quited");
+          break;
         }
       }
+    }
   }
 
   public static void main(String[] args) throws Exception {
@@ -154,16 +154,9 @@ public class App {
       System.out.println("Initialization is done");
       client.doAction();
       client.doWatch();
-      while(true){}
+      while (true) {
+      }
 
     }
   }
 }
-
-
-
-
-
-
-
-
