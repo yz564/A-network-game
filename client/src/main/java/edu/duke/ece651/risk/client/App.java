@@ -11,10 +11,8 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Iterator;
 
-import edu.duke.ece651.risk.shared.WorldMap;
 import edu.duke.ece651.risk.shared.ObjectIO;
 
 public class App {
@@ -59,7 +57,7 @@ public class App {
     if ((tmp = (ObjectIO) in.readObject()) != null) {
     }
     int count = Integer.parseInt(tmp.message);
-    System.out.println("number of territory: "+count);
+    System.out.println("number of territory: " + count);
     for (int i = 1; i < count; i++) {
       String tmpS;
       if ((tmp = (ObjectIO) in.readObject()) != null) {
@@ -69,13 +67,12 @@ public class App {
 
         if ((tmpS = stdIn.readLine()) != null) {
         }
-        try{
+        try {
           System.out.println(tmp.id);
-          if (Integer.parseInt(tmpS)<=tmp.id-(count-i) && Integer.parseInt(tmpS)>0){
-          break;
+          if (Integer.parseInt(tmpS) <= tmp.id - (count - i) && Integer.parseInt(tmpS) > 0) {
+            break;
           }
-        }
-        catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
           System.out.println("Input should be numbers");
         }
         System.out.println("Your input exceeds the available unit number, please retry");

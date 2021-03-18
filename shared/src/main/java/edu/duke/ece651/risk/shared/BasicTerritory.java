@@ -11,6 +11,8 @@ import java.util.HashSet;
  * and its owner's name.
  */
 public class BasicTerritory implements Territory {
+
+  private static final long serialVersionUID = -8815409601117401416L;
   private Troop myTroop;
   private String territoryName;
   private HashMap<String, Territory> myNeighbors;
@@ -142,7 +144,7 @@ public class BasicTerritory implements Territory {
     reachable.put(this.territoryName, this);
     while (size != reachable.size()) {
       size = reachable.size();
-      HashSet<String> names = new HashSet(reachable.keySet());
+      HashSet<String> names = new HashSet<String>(reachable.keySet());
       for (String name : names) {
         HashMap<String, Territory> neighbors = reachable.get(name).getMyNeighbors();
         for (String neighborName : neighbors.keySet()) {

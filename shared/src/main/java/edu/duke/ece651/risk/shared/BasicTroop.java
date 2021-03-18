@@ -5,6 +5,7 @@ package edu.duke.ece651.risk.shared;
  * troop could contain 10 soldiers or 5 knights but not both.
  */
 public class BasicTroop implements Troop {
+  private static final long serialVersionUID = -1788807224514071854L;
   private final String troopName;
   private final int unitLimit;
   private int numUnits;
