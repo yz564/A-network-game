@@ -54,33 +54,18 @@ public class App {
     out.reset();
   }
 
-  public void doPlacement() throws Exception {
-    if ((tmp = (ObjectIO) in.readObject()) != null) {
-    }
-    int count = Integer.parseInt(tmp.message);
-    System.out.println("number of territory: " + count);
-    for (int i = 1; i < count; i++) {
-      String tmpS;
-      if ((tmp = (ObjectIO) in.readObject()) != null) {
-      }
-      while (true) {
-        System.out.println(tmp.message);
+public void doPlacement() throws Exception {
 
-        if ((tmpS = stdIn.readLine()) != null) {
-        }
-        try {
-          if (Integer.parseInt(tmpS) <= tmp.id - (count - i) && Integer.parseInt(tmpS) > 0) {
-            break;
-          }
-        } catch (NumberFormatException e) {
-          System.out.println("Input should be a number");
-        }
-        System.out.println("Your input number is not valid, please retry");
+  System.out.println("-----waitServerInput-----");
+      if ((tmp = (ObjectIO) in.readObject()) != null) {
+        //MapTextView mapview = new MapTextView(tmp.playerNames);
+        //System.out.println(mapview.displayMap(tmp.map));
+        //System.out.println(tmp.message);
+        String playerName = tmp.message;
+        ClientOrderHelper coh = new ClientOrderHelper(playerName, stdIn, new PrintStream(System.out));
+        out.writeObject(coh.issuePlaceOrders(tmp.id, tmp.playerNames)); //here tmp.playerNames is territory names... better naming is needed in ObjectIO...
       }
-      out.writeObject(new ObjectIO(tmpS));
-      out.flush();
-      out.reset();
-    }
+    
   }
 
   public void doAction() throws Exception {
@@ -154,6 +139,7 @@ public class App {
       System.out.println("Initialization is done");
       client.doAction();
       client.doWatch();
+      //System.exit(0);
       while (true) {
       }
 

@@ -61,38 +61,36 @@ public class App {
   }
 
   public void doPlacement() throws Exception {
+    int readyNum = 0;
     for (int i = 0; i < numPlayers; i++) {
       Player p = playerList.get(i);
       HashMap<String, Territory> tlist = theMap.getPlayerTerritories(p.getName());
-      int count = tlist.size();
-      p.out.writeObject(new ObjectIO(Integer.toString(count)));
-      p.out.flush();
-      p.out.reset();
-      for (String tname : tlist.keySet()) {
-        Territory t = tlist.get(tname);
-        if (count > 1) {
-          ObjectIO m = new ObjectIO(p.getName() + " ,please add units on territory " + tname
-              + " (available unit number: " + p.availableUnitNum + ")", p.availableUnitNum);
-          p.out.writeObject(m);
-          p.out.flush();
-          p.out.reset();
-          while (!p.isReady()) {
-          }
-          p.setNotReady();
-          p.unitNum = Integer.parseInt(p.tmp.message);
-          p.availableUnitNum -= p.unitNum;
-          count--;
-        } else {
-          p.unitNum = p.availableUnitNum;
-        }
-        if (t.trySetNumUnits(p.unitNum)) {
-          System.out.println(p.getName() + " placed " + p.unitNum + " on territory " + tname);
+      ArrayList<String> territoryNames = new ArrayList<String> (tlist.keySet());
+        p.out.writeObject(new ObjectIO(p.getName(), p.availableUnitNum, theMap, territoryNames));
+        p.out.flush();
+        p.out.reset();
+        p.setNotReady();
+    }
+    while (readyNum < numPlayers) {
+      readyNum = 0;
+      for (int i = 0; i < numPlayers; i++) {
+        if (playerList.get(i).isReady()) {
+          readyNum++;
         }
       }
     }
-  }
-
-  public void doInitialization() throws Exception {
+    for (int i = 0; i < numPlayers; i++) {
+      Player p = playerList.get(i);
+      HashMap<String,Integer> po=p.tmp.placeOrders;
+      for (String t : po.keySet()) {
+        if (theMap.getTerritory(t).trySetNumUnits(po.get(t))) {
+          System.out.println(p.getName() + " placed " + po.get(t) + " on territory " + t);
+        }
+      }
+    }
+    }
+    
+    public void doInitialization() throws Exception {
     for (int i = 0; i < numPlayers; i++) {
       Player p = playerList.get(i);
       ObjectIO m = new ObjectIO(p.getName() + " ,please select your territory groups: ", i, theMap, availableGroups);
@@ -107,7 +105,7 @@ public class App {
       availableGroups.remove(Integer.parseInt(p.tmp.message));
       p.setNotReady();
     }
-    /*
+    /* try to make the last player auto choice but has a IO porblem...
     Player p = playerList.get(numPlayers-1);
     if (theMap.tryAssignInitOwner(availableGroups.iterator().next(), p.getName())) {
         System.out.println(p.getName() + " auto selected ");
@@ -163,7 +161,7 @@ public class App {
           for (String tname : tlist.keySet()) {
             Territory t = tlist.get(tname);
             t.tryAddUnits(1);
-            /*t.tryAddUnits(-2);
+            /* t.tryAddUnits(-2);
             if (t.getNumUnits() < 0) {
               t.tryAssignOwner("Player 1");
               }*/ //the setting is for quick check the game's result
@@ -232,7 +230,7 @@ public class App {
         game.doOneTurn();
         game.doRefresh();
         if (game.checkWinner()) {
-          return;
+          System.exit(0);
         }
       }
     } catch (Exception e) {
