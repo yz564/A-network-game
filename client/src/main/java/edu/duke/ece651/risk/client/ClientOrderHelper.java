@@ -99,14 +99,8 @@ public class ClientOrderHelper {
         out.println("You may order Move actions now then order Attack actions.\n"
                 + "Or you may skip ordering Move actions by ordering Attack action directly.");
         while (!((newOrderType = stdIO.readActionName(playerName)).equals("D"))) {
-            ActionInfo newOrder = new ActionInfo(playerName);
             if (newOrderType.equals("M")) {
-                String srcName = stdIO.readTerritoryName("What territory do you want to move your unit(s) from?");
-                String desName = stdIO.readTerritoryName("What territory do you want to move your unit(s) to?");
-                int unitNum = stdIO.readNumUnits("How many units do you want to Move?");
-                newOrder.setSrcName(srcName);
-                newOrder.setDesName(desName);
-                newOrder.setUnitNum(unitNum);
+                ActionInfo newOrder = readMoveOrder();
                 String problem = moveChecker.checkAction(newOrder, temp);
                 if (problem != null) {
                     out.println(problem);
@@ -114,7 +108,7 @@ public class ClientOrderHelper {
                 } else {
                     orders.moveOrders.add(newOrder);
                     executer.executeMove(temp, newOrder);
-                    out.println("Your Moven action order is taken.");
+                    out.println("Your Move action order is taken.");
                     stdIO.printMap(new MapTextView(playerNames), temp, playerNames);
                 }
             } else { // done with move action, go for attack action
@@ -123,15 +117,9 @@ public class ClientOrderHelper {
         }
         out.println("You may order Attack actions now.");
         while (!((newOrderType = stdIO.readActionName(playerName)).equals("D"))) {
-            ActionInfo newOrder = new ActionInfo(playerName);
             if (newOrderType.equals("A")) {
                 // Attack order
-                String srcName = stdIO.readTerritoryName("What territory do you want to send your unit(s) from?");
-                String desName = stdIO.readTerritoryName("What territory do you want to attack?");
-                int unitNum = stdIO.readNumUnits("How many units do you want to send for this attck?");
-                newOrder.setSrcName(srcName);
-                newOrder.setDesName(desName);
-                newOrder.setUnitNum(unitNum);
+                ActionInfo newOrder = readAttackOrder();
                 String problem = attackChecker.checkAction(newOrder, temp);
                 if (problem != null) {
                     out.println(problem);
@@ -141,10 +129,45 @@ public class ClientOrderHelper {
                     out.println("Your Action action order is taken.");
                 }
             } else {
-                out.println("You can only order Attack actions now. Move orders are down.");
+                out.println("You can only order Attack actions now. Move orders are all set.");
+                out.println("You may order action again.");
             }
         }
         return orders;
+    }
+
+    /**
+     * Reads a attack order from stdIO.
+     * 
+     * @return an ActionInfo object that contains the information needed for the
+     *         attack new order.
+     */
+    private ActionInfo readAttackOrder() {
+        ActionInfo newOrder = new ActionInfo(playerName);
+        String srcName = stdIO.readTerritoryName("What territory do you want to send your unit(s) from?");
+        String desName = stdIO.readTerritoryName("What territory do you want to attack?");
+        int unitNum = stdIO.readNumUnits("How many units do you want to send for this attck?");
+        newOrder.setSrcName(srcName);
+        newOrder.setDesName(desName);
+        newOrder.setUnitNum(unitNum);
+        return newOrder;
+    }
+
+    /**
+     * Reads a move order from stdIO.
+     * 
+     * @return an ActionInfo object that contains the information needed for the
+     *         move new order.
+     */
+    private ActionInfo readMoveOrder() {
+        ActionInfo newOrder = new ActionInfo(playerName);
+        String srcName = stdIO.readTerritoryName("What territory do you want to move your unit(s) from?");
+        String desName = stdIO.readTerritoryName("What territory do you want to move your unit(s) to?");
+        int unitNum = stdIO.readNumUnits("How many units do you want to Move?");
+        newOrder.setSrcName(srcName);
+        newOrder.setDesName(desName);
+        newOrder.setUnitNum(unitNum);
+        return newOrder;
     }
 
     /**
