@@ -116,25 +116,26 @@ public class ClientOrderHelper {
                 break;
             }
         }
-        out.println("---------------------- Attack Action Phase ---------------------");
-        out.println(playerName + ": You may order Attack actions now.\n");
-        prompt = playerName + ": What would you like to do?\n" + "(A)ttack\n" + "(D)one\n";
-        while (!(newOrderType.equals("D"))
-                && !((newOrderType = stdIO.readActionName(playerName, prompt)).equals("D"))) {
-            if (newOrderType.equals("A")) {
-                // Attack order
-                ActionInfo newOrder = readAttackOrder();
-                String problem = attackChecker.checkAction(newOrder, temp);
-                if (problem != null) {
-                    out.println(problem);
-                    out.println("You may order action again.\n");
+        if (!(newOrderType.equals("D"))) {
+            out.println("---------------------- Attack Action Phase ---------------------");
+            out.println(playerName + ": You may order Attack actions now.\n");
+            prompt = playerName + ": What would you like to do?\n" + "(A)ttack\n" + "(D)one\n";
+            while (!((newOrderType = stdIO.readActionName(playerName, prompt)).equals("D"))) {
+                if (newOrderType.equals("A")) {
+                    // Attack order
+                    ActionInfo newOrder = readAttackOrder();
+                    String problem = attackChecker.checkAction(newOrder, temp);
+                    if (problem != null) {
+                        out.println(problem);
+                        out.println("You may order action again.\n");
+                    } else {
+                        orders.attackOrders.add(newOrder);
+                        out.println("*** Your Attack action order is taken. ***\n");
+                    }
                 } else {
-                    orders.attackOrders.add(newOrder);
-                    out.println("*** Your Action action order is taken. ***\n");
+                    out.println("You can only order Attack actions now. Move orders are all set.");
+                    out.println("You may order action again.\n");
                 }
-            } else {
-                out.println("You can only order Attack actions now. Move orders are all set.");
-                out.println("You may order action again.\n");
             }
         }
         return orders;
@@ -186,7 +187,8 @@ public class ClientOrderHelper {
      */
     public ObjectIO issuePlaceOrders(int totalUnitNum, ArrayList<String> territoryNames) {
         ObjectIO orders = new ObjectIO();
-        out.println("You may place your units now.\n");
+        out.println("---------------------- Units Placement Phase -------------------");
+        out.println(playerName + ": You may place your units now.\n");
         int territoryNum = territoryNames.size();
         for (String territoryName : territoryNames) {
             while (true) {
@@ -196,16 +198,17 @@ public class ClientOrderHelper {
                 if (toPlace > totalUnitNum) {
                     out.println("Invalid input: You have  only <" + totalUnitNum
                             + "> unit(s) to place, but you want to place <" + toPlace + "> units.");
-                    out.println("You may place again.");
-                } else if (totalUnitNum - toPlace < territoryNum - 1) {
-                    out.println(
-                            "Invalid input: You have to leave at least one unit for the rest of territory (territories).");
-                    out.println("You may place again.");
-                } else { // successful order
+                    out.println("You may place again.\n");
+                }
+                // else if (totalUnitNum - toPlace < territoryNum - 1) {
+                // out.println("Invalid input: You have to leave at least one unit for the rest
+                // of territory (territories).");
+                // out.println("You may place again.\n");}
+                else { // successful order
                     orders.placeOrders.put(territoryName, toPlace);
                     totalUnitNum = totalUnitNum - toPlace;
                     territoryNum = territoryNum - 1;
-                    out.println("Your placement order is taken.");
+                    out.println("*** Your placement order is taken. ***\n");
                     break;
                 }
             }

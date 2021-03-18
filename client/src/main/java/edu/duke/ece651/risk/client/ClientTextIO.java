@@ -66,7 +66,7 @@ public class ClientTextIO implements ClientIO {
       } catch (NullPointerException npe) {
         out.println(npe.getMessage());
       }
-      out.println("Invalid choice of action. Retry!");
+      out.println("Invalid choice of action. Retry!\n");
     }
     return choice;
   }
@@ -79,7 +79,7 @@ public class ClientTextIO implements ClientIO {
         choice = readClientInput(prompt);
         out.println("Entered territory name is `" + choice + "`\n");
         if (choice == null) {
-          throw new IOException("Invalid territory name.");
+          throw new IOException("Invalid territory name.\n");
         }
         break;
       } catch (IOException ioe) {
@@ -99,10 +99,10 @@ public class ClientTextIO implements ClientIO {
       try {
         choice = readClientInput(prompt);
         numUnits = Integer.parseInt(choice);
-        if (numUnits > 0) {
+        if (numUnits >= 0) {
           break;
         } else {
-          throw new IOException("Number of units must be positive!\n");
+          throw new IOException("Number of units must be positive or zero!\n");
         }
       } catch (NumberFormatException nfe) {
         out.println(nfe.getMessage());
@@ -111,7 +111,7 @@ public class ClientTextIO implements ClientIO {
       } catch (NullPointerException npe) {
         out.println(npe.getMessage());
       }
-      out.println("Input is not a positive integer. Retry!");
+      out.println("Input is not a positive integer or zero. Retry!\n");
     }
     return numUnits;
   }

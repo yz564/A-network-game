@@ -62,7 +62,7 @@ public class Player implements Runnable {
     }
     while (!isEnd) {
       try {
-        System.out.println("-----waitClientInput------");
+        // System.out.println("-----waitClientInput------");
         if ((tmp = (ObjectIO) in.readObject()) != null) { // blocked when waiting for a Object sent from the client
           System.out.println("-----ReadClientInput------");
           ready = true; // let the main thread know this player's thread is ready for sending next
