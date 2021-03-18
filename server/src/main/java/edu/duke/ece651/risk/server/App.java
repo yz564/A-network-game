@@ -109,17 +109,25 @@ public void doPlacement() throws Exception {
 
   
   public void doOneTurn() throws IOException{
+    int readyNum=0;
      for (int i = 0; i < numPlayers; i++) {
       Player p=playerList.get(i);
-      //MapTextView mapview = new MapTextView(playerNames);
-      //System.out.println(mapview.displayMap(theMap));
-      p.out.writeObject(new ObjectIO(p.getName()+" ,please select your action: ",i,theMap,playerNames));
-      //p.out.writeObject(theMap);
-      p.out.flush();
-      p.out.reset();
-      p.setNotReady();
-     }
-     int readyNum=0;
+        HashMap<String, Territory> tlist = theMap.getPlayerTerritories(p.getName());
+        if (tlist.size() == 0) {
+          p.isEnd = true;
+          p.ready = true;
+        }
+        if (!p.isEnd) {
+          p.out.writeObject(new ObjectIO(p.getName() + ", please select your action: ", i, theMap, playerNames));
+          p.out.flush();
+          p.out.reset();
+          p.setNotReady();
+        } else {
+          p.out.writeObject(new ObjectIO(p.getName() + ", you are watching the game ", -1, theMap, playerNames));
+          p.out.flush();
+          p.out.reset();
+        }
+      }
      while(readyNum<numPlayers){
        readyNum=0;
        for(int i=0; i<numPlayers; i++){
@@ -128,6 +136,32 @@ public void doPlacement() throws Exception {
          }
        }
      }
+  }
+
+  
+  public void doRefresh() {
+    for (int i = 0; i < numPlayers; i++) {
+      Player p=playerList.get(i);
+      if (p.isEnd) {
+        
+      }
+      else {
+        HashMap<String, Territory> tlist=theMap.getPlayerTerritories(p.getName());
+        if (tlist.size() == 0) {
+          p.isEnd=true;
+          p.ready = true;
+        }
+        else{
+          for (String tname : tlist.keySet() ) {
+            Territory t = tlist.get(tname);
+            t.tryAddUnits(-1);
+            if(t.getNumUnits()==0){
+              t.tryAssignOwner("Player 1");
+            }
+          }
+        }
+      }
+    }
   }
 
  
@@ -154,11 +188,15 @@ public void doPlacement() throws Exception {
       System.out.println("Initialization finished");
       while(true){
         game.doOneTurn();
+        game.doRefresh();
       }  
     } catch (Exception e) {
     }
   }
 }
+
+
+
 
 
 

@@ -11,12 +11,13 @@ public class Player implements Runnable{
   private Socket client;
   private int id;
   private String name;
-  private Boolean isEnd;
+  public volatile Boolean isEnd;
   public ObjectInputStream in;
   public ObjectOutputStream out;
-  private volatile Boolean ready; //volatile: always updates this variable before being accessed by other threads
+  public volatile Boolean ready; //volatile: always updates this variable before being accessed by other threads
   public volatile int availableUnitNum;
   public volatile int unitNum;
+  public Boolean watch;
   public ObjectIO tmp;
 
   public Player(Socket client, int id,String name){
@@ -57,8 +58,24 @@ public class Player implements Runnable{
       }
       catch(Exception e){}
     }
+    
+    while (watch) {
+      /*try{
+      if ((tmp = (ObjectIO) in.readObject()) != null) {
+        if(tmp.message.equals("q")){
+          watch=false;
+        }
+      }
+      }catch(Exception e){}
+      */
+    }
   }
 }
+
+
+
+
+
 
 
 

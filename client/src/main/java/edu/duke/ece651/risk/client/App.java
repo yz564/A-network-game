@@ -11,10 +11,8 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Iterator;
 
-import edu.duke.ece651.risk.shared.WorldMap;
 import edu.duke.ece651.risk.shared.ObjectIO;
 
 public class App {
@@ -59,7 +57,7 @@ public class App {
     if ((tmp = (ObjectIO) in.readObject()) != null) {
     }
     int count = Integer.parseInt(tmp.message);
-    System.out.println("number of territory: "+count);
+    System.out.println("number of territory: " + count);
     for (int i = 1; i < count; i++) {
       String tmpS;
       if ((tmp = (ObjectIO) in.readObject()) != null) {
@@ -69,16 +67,15 @@ public class App {
 
         if ((tmpS = stdIn.readLine()) != null) {
         }
-        try{
+        try {
           System.out.println(tmp.id);
-          if (Integer.parseInt(tmpS)<=tmp.id-(count-i) && Integer.parseInt(tmpS)>0){
-          break;
+          if (Integer.parseInt(tmpS) <= tmp.id - (count - i) && Integer.parseInt(tmpS) > 0) {
+            break;
           }
+        } catch (NumberFormatException e) {
+          System.out.println("Input should be a number");
         }
-        catch(NumberFormatException e){
-          System.out.println("Input should be numbers");
-        }
-        System.out.println("Your input exceeds the available unit number, please retry");
+        System.out.println("Your input number is not valid, please retry");
       }
       out.writeObject(new ObjectIO(tmpS));
       out.flush();
@@ -114,7 +111,9 @@ public class App {
 
         System.out.println("-----waitServerInput-----");
         if ((tmp = (ObjectIO) in.readObject()) != null) {
-          System.out.println(tmp.playerNames);
+          if (tmp.id == -1) {
+            break;
+          }
           MapTextView mapview = new MapTextView(tmp.playerNames);
           System.out.println(mapview.displayMap(tmp.map));
           System.out.println(tmp.message);
@@ -126,6 +125,31 @@ public class App {
         }
 
       }
+      System.out.println("Your lost all territories...");
+      while (true) {
+        if ((tmp = (ObjectIO) in.readObject()) != null) {
+          MapTextView mapview = new MapTextView(tmp.playerNames);
+          System.out.println(mapview.displayMap(tmp.map));
+          System.out.println(tmp.message);
+        }
+        String tmpstr;
+        System.out.println("Do you want watch? you can quit by /q");
+        if ((tmpstr = stdIn.readLine()) != null) {
+          if (tmpstr.toLowerCase().startsWith("/q")) {
+            System.out.println("quited");
+            break;
+          }
+        }
+      }
+      while(true){}
+
     }
   }
 }
+
+
+
+
+
+
+
