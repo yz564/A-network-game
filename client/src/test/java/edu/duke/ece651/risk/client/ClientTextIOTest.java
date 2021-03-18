@@ -58,7 +58,7 @@ public class ClientTextIOTest {
     ctio = getClientTextIOObject("-3\n2");
     assertEquals(2, ctio.readNumUnits("Enter number of units:\n"));
 
-    ctio = getClientTextIOObject("-3\n0\n-2\n-100\n5\n");
+    ctio = getClientTextIOObject("-3\n-1\n-2\n-100\n5\n");
     assertEquals(5, ctio.readNumUnits("Enter number of units:\n"));
 
     ctio = getClientTextIOObject("abcd\n-3\n4");
