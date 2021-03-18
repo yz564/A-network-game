@@ -2,17 +2,12 @@ package edu.duke.ece651.risk.client;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.PrintStream;
-import java.io.Reader;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import edu.duke.ece651.risk.shared.V1MapFactory;
@@ -41,41 +36,37 @@ public class ClientTextIOTest {
     bytes.reset();
     ClientTextIO ctio_done = getClientTextIOObject(done, bytes);
     bytes.reset();
-    assertEquals("M", ctio_move.readActionName("Green"));
-    assertEquals("A", ctio_attack.readActionName("Blue"));
-    assertEquals("D", ctio_done.readActionName("Red"));
+    String prompt = "You are the Green player. What would you like to do?\n" + "(M)ove\n" + "(A)ttack\n" + "(D)one\n";
+    assertEquals("M", ctio_move.readActionName("Green", prompt));
+    assertEquals("A", ctio_attack.readActionName("Green", prompt));
+    assertEquals("D", ctio_done.readActionName("Green", prompt));
   }
 
   @Test
   public void test_read_action_error_handling() {
-    String prompt = "You are the Green player. What would you like to do?\n"
-      + "(M)ove\n"
-      + "(A)ttack\n"
-      + "(D)one\n";
+    String prompt = "You are the Green player. What would you like to do?\n" + "(M)ove\n" + "(A)ttack\n" + "(D)one\n";
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     ClientTextIO ctio = getClientTextIOObject("f\na\n", bytes);
-    ctio.readActionName("Green");
-    String expected = prompt + "\n"
-      + "Action must either be \"M\" for move, \"A\" for attack or \"D\" for done.\n\n"
-      + "Invalid choice of action. Retry!\n" + prompt + "\n";
+    ctio.readActionName("Green", prompt);
+    String expected = prompt + "\n" + "Action must either be \"M\" for move, \"A\" for attack or \"D\" for done.\n\n"
+        + "Invalid choice of action. Retry!\n\n" + prompt + "\n";
     assertEquals(expected, bytes.toString());
   }
-  
+
   @Test
   public void test_read_territory_name() {
     String territoryName = "Narnia";
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     ClientTextIO ctio = getClientTextIOObject(territoryName, bytes);
     assertEquals(territoryName, ctio.readTerritoryName("Enter territory name:\n"));
-    
+
     BufferedReader inputReader = new BufferedReader(new StringReader("Haryana"));
     bytes.reset();
     PrintStream output = new PrintStream(bytes, true);
     ClientTextIO ctio2 = new ClientTextIO(inputReader, output);
-    //assertEquals("Invalid territory name.", bytes.toString());
+    // assertEquals("Invalid territory name.", bytes.toString());
     assertEquals("Haryana", ctio2.readTerritoryName("Enter territory name:\n"));
   }
-
 
   @Test
   public void test_read_num_units() {
@@ -86,7 +77,7 @@ public class ClientTextIOTest {
     ctio = getClientTextIOObject("-3\n2", bytes);
     assertEquals(2, ctio.readNumUnits("Enter number of units:\n"));
 
-    ctio = getClientTextIOObject("-3\n0\n-2\n-100\n5\n", bytes);
+    ctio = getClientTextIOObject("-3\n-1\n-2\n-100\n5\n", bytes);
     assertEquals(5, ctio.readNumUnits("Enter number of units:\n"));
 
     ctio = getClientTextIOObject("abcd\n-3\n4", bytes);
