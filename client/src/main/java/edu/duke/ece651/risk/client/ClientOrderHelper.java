@@ -46,9 +46,9 @@ public class ClientOrderHelper {
         String newOrderType;
         out.println("You may order Move actions now then order Attack actions.\n"
                 + "Or you may skip ordering Move actions by ordering Attack action directly.");
-        while ((newOrderType = stdIO.readActionName(playerName)) != "D") {
+        while (! ((newOrderType = stdIO.readActionName(playerName)).equals("D"))) {
             ActionInfo newOrder = new ActionInfo(playerName);
-            if (newOrderType == "M") {
+            if (newOrderType.equals("M")) {
                 String srcName = stdIO.readTerritoryName("What territory do you want to move your unit(s) from?");
                 String desName = stdIO.readTerritoryName("What territory do you want to move your unit(s) to?");
                 int unitNum = stdIO.readNumUnits("How many units do you want to Move?");
@@ -63,16 +63,16 @@ public class ClientOrderHelper {
                     orders.moveOrders.add(newOrder);
                     executer.executeMove(temp, newOrder);
                     out.println("Your order is taken.");
-                    stdIO.printMap(temp, playerNames);
+                    stdIO.printMap(new MapTextView(playerNames),temp, playerNames);
                 }
             } else { // done with move action, go for attack action
                 break;
             }
         }
         out.println("You may order Attack actions now.");
-        while ((newOrderType = stdIO.readActionName(playerName)) != "D") {
+        while (!((newOrderType = stdIO.readActionName(playerName)).equals("D"))) {
             ActionInfo newOrder = new ActionInfo(playerName);
-            if (newOrderType == "A") {
+            if (newOrderType.equals("A")) {
                 // Attack order
                 String srcName = stdIO.readTerritoryName("What territory do you want to send your unit(s) from?");
                 String desName = stdIO.readTerritoryName("What territory do you want to attack?");

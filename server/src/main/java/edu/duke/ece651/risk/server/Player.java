@@ -60,14 +60,6 @@ public class Player implements Runnable{
     }
     
     while (watch) {
-      /*try{
-      if ((tmp = (ObjectIO) in.readObject()) != null) {
-        if(tmp.message.equals("q")){
-          watch=false;
-        }
-      }
-      }catch(Exception e){}
-      */
     }
   }
 }
