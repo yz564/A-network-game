@@ -16,19 +16,30 @@ import java.util.Iterator;
 
 import edu.duke.ece651.risk.shared.ObjectIO;
 
+/**
+ *in and out are objectIOStream
+ *tmp stores the most recent ObjectIO read by the client (sent from the server)
+ */
 public class App {
   ObjectInputStream in;
   ObjectOutputStream out;
   ObjectIO tmp;
   BufferedReader stdIn;
-
+  /**
+   * A simple constructor
+   */
   public App(ObjectInputStream in, ObjectOutputStream out, ObjectIO tmp) {
     this.in = in;
     this.out = out;
     this.tmp = tmp;
     this.stdIn = new BufferedReader(new InputStreamReader(System.in));
   }
-
+  
+  /**
+   *first wait to read the ObjectIO sent by the server.
+   *then let the user to select the available group
+   *finnaly send the ObjectIO with the selection to the server.  
+   */
   public void doInitialization() throws Exception {
     String tmpS;
     if ((tmp = (ObjectIO) in.readObject()) != null) {
@@ -36,7 +47,7 @@ public class App {
     while (true) {
       System.out.println(tmp.message);
       System.out.println("Your available choices are: ");
-      Iterator itr = (tmp.groups).iterator();
+      Iterator<Integer> itr = (tmp.groups).iterator();
       while (itr.hasNext()) {
         Integer g = (Integer) itr.next();
         System.out.println(Integer.toString(g) + " : " + tmp.map.getInitGroup(g));
@@ -53,36 +64,23 @@ public class App {
     out.flush();
     out.reset();
   }
-
-  public void doPlacement() throws Exception {
-    if ((tmp = (ObjectIO) in.readObject()) != null) {
-    }
-    int count = Integer.parseInt(tmp.message);
-    System.out.println("number of territory: " + count);
-    for (int i = 1; i < count; i++) {
-      String tmpS;
+  /**
+   *first wait the ObjectIO from server, then call the placeOrder method in the helper class, finally send ObjectIO to server.
+   */
+public void doPlacement() throws Exception {
+  System.out.println("-----waitServerInput-----");
       if ((tmp = (ObjectIO) in.readObject()) != null) {
+        String playerName = tmp.message;
+        ClientOrderHelper coh = new ClientOrderHelper(playerName, stdIn, new PrintStream(System.out));
+        out.writeObject(coh.issuePlaceOrders(tmp.id, tmp.playerNames)); //here tmp.playerNames is territory names...
       }
-      while (true) {
-        System.out.println(tmp.message);
-
-        if ((tmpS = stdIn.readLine()) != null) {
-        }
-        try {
-          if (Integer.parseInt(tmpS) <= tmp.id - (count - i) && Integer.parseInt(tmpS) > 0) {
-            break;
-          }
-        } catch (NumberFormatException e) {
-          System.out.println("Input should be a number");
-        }
-        System.out.println("Your input number is not valid, please retry");
-      }
-      out.writeObject(new ObjectIO(tmpS));
-      out.flush();
-      out.reset();
-    }
+    
   }
-
+  
+  /**
+   *first wait the ObjectIO from server, then call the placeOrder method in the helper class, finally send ObjectIO to server
+   *need to check the status of the player: win or lose
+   */
   public void doAction() throws Exception {
     while (true) {
       System.out.println("-----waitServerInput-----");
@@ -109,7 +107,11 @@ public class App {
       System.out.println("You win!");
     }
   }
-
+  
+  /**
+   *each turn ask the user watch or not, enter something start with /q will quit, no longer print the game
+   *enter others will update the game's map  
+   */
   public void doWatch() throws Exception {
     while (true) {
       if ((tmp = (ObjectIO) in.readObject()) != null) {
@@ -128,6 +130,10 @@ public class App {
     }
   }
 
+/**
+ *the enter point of the client.
+ *after connecting with the server, new App, and call its method to communicate with the server(game).
+ */
   public static void main(String[] args) throws Exception {
     System.out.println("Please enter server address: (default is localhost by hitting Enter)");
     BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
@@ -154,6 +160,7 @@ public class App {
       System.out.println("Initialization is done");
       client.doAction();
       client.doWatch();
+      //System.exit(0);
       while (true) {
       }
 
