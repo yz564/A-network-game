@@ -139,4 +139,28 @@ public class BasicTerritoryTest {
     assertTrue(t1.isReachableTo(t3));
     assertFalse(t1.isReachableTo(t4));
   }
+
+  @Test
+  public void test_isreachable2() {
+    WorldMapFactory factory = new V1MapFactory();
+    WorldMap map = factory.makeTestWorldMap();
+    map.tryAssignInitOwner(1, "Player 1");
+    map.tryAssignInitOwner(2, "Player 2");
+    map.tryAssignInitOwner(3, "Player 3");
+    Territory t1 = map.getTerritory("Narnia");
+    Territory t2 = map.getTerritory("Oz");
+    assertTrue(t1.isReachableTo(t2));
+  }
+
+  @Test
+  public void test_isreachable3() {
+    WorldMapFactory factory = new V1MapFactory();
+    WorldMap map = factory.makeWorldMap(3);
+    map.tryAssignInitOwner(1, "Player 1");
+    map.tryAssignInitOwner(2, "Player 2");
+    map.tryAssignInitOwner(3, "Player 3");
+    Territory t1 = map.getTerritory("Western Dothraki Sea");
+    Territory t2 = map.getTerritory("Braavosian Coastlands");
+    assertTrue(t1.isReachableTo(t2));
+  }
 }
