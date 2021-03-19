@@ -195,10 +195,10 @@ public class App {
           for (String tname : tlist.keySet()) {
             Territory t = tlist.get(tname);
             t.tryAddUnits(1);
-            /* t.tryAddUnits(-2);
+            /*t.tryAddUnits(-2);
             if (t.getNumUnits() < 0) {
               t.tryAssignOwner("Player 1");
-              }*/ //the setting is for quick check the game's result
+              } *///the setting is for quick check the game's result
 
           }
         }
