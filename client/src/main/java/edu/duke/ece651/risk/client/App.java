@@ -55,8 +55,10 @@ public class App {
 
       if ((tmpS = stdIn.readLine()) != null) {
       }
-      if (tmp.groups.contains(Integer.parseInt(tmpS))) {
+      try{if (tmp.groups.contains(Integer.parseInt(tmpS))) {
         break;
+        }}catch(NumberFormatException e){
+        System.out.println("Input should be a number, please retry");
       }
       System.out.println("Your input is not valid, please retry");
     }
@@ -163,7 +165,18 @@ public void doPlacement() throws Exception {
       //System.exit(0);
       while (true) {
       }
-
-    }
+    }catch(Exception e){}
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
