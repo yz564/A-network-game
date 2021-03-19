@@ -79,16 +79,15 @@ public class ClientTextIO implements ClientIO {
         choice = readClientInput(prompt);
         if (choice == null) {
           throw new IOException("Invalid territory name.\n");
-        }
-        else {
-          out.println("Entered territory name is `" + choice + "`\n"); 
+        } else {
+          out.println("Entered territory name is `" + choice + "`\n");
           break;
         }
       } catch (IOException ioe) {
         out.println(ioe.getMessage());
-      } //catch (NullPointerException npe) {
-        //out.println(npe.getMessage());
-      //}
+      } // catch (NullPointerException npe) {
+        // out.println(npe.getMessage());
+      // }
     }
     return choice;
   }

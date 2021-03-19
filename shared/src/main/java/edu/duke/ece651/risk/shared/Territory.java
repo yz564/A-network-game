@@ -104,3 +104,16 @@ public interface Territory extends java.io.Serializable{
    */
   public boolean isReachableTo(Territory toReach);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

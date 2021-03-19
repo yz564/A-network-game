@@ -4,6 +4,10 @@
 .classpath
 **/.settings/
 
+# Ignore all .class files
+*.class
+**/*.class
+
 # Ignore Gradle build output directory
 build
 
