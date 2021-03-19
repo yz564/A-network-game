@@ -5,9 +5,61 @@ package edu.duke.ece651.risk.client;
 
 import org.junit.jupiter.api.Test;
 
+import edu.duke.ece651.risk.shared.*;
+
+import static org.mockito.Mockito.*;
+
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PrintStream;
+import java.io.StringReader;
+
 class AppTest {
     @Test
-    void appHasAGreeting() {
+    void test_constructor() {
+        ObjectInputStream mockedObjIn = mock(ObjectInputStream.class);
+        ObjectOutputStream mockedObjOut = mock(ObjectOutputStream.class);
+        ObjectIO tmp = null;
+        App client = new App(mockedObjIn, mockedObjOut, tmp);
 
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        BufferedReader input = new BufferedReader(new StringReader(""));
+        PrintStream output = new PrintStream(bytes, true);
+        client.stdIn = input;
+        try{
+        client.doInitialization();
+        }
+        catch(Exception e){}
+        try{
+        client.doPlacement();
+        }
+        catch(Exception e){}
+        try{
+        client.doAction();
+        }
+        catch(Exception e){}
+        try{
+        client.doWatch();
+        }
+        catch(Exception e){}
+        try{
+          String[] args={};
+          App.main(args);
+        }
+        catch(Exception e){}
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+

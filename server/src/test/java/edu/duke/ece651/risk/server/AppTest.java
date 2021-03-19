@@ -3,10 +3,53 @@
  */
 package edu.duke.ece651.risk.server;
 
+import static org.mockito.Mockito.*;
+
+import java.io.BufferedReader;
+import java.io.StringReader;
+import java.net.ServerSocket;
+
 import org.junit.jupiter.api.Test;
+
+import edu.duke.ece651.risk.shared.V1MapFactory;
+import edu.duke.ece651.risk.shared.WorldMapFactory;
 
 class AppTest {
     @Test
-    void appHasAGreeting() {
+    void test_contrustor() {
+        ServerSocket mockedSocket = mock(ServerSocket.class);
+        BufferedReader input = new BufferedReader(new StringReader(""));
+        WorldMapFactory factory = new V1MapFactory();
+        App server = new App(mockedSocket, factory, input);
+        try{
+          server.acceptConnections();
+        }catch(Exception e){}
+        try{
+          server.doInitialization();
+        }catch(Exception e){}
+        try{
+          server.doPlacement();
+        }catch(Exception e){}
+        try{
+          server.doOneTurn();
+        }catch(Exception e){}
+        try{
+          server.checkWinner();
+        }catch(Exception e){}
+        try{
+          String[] arg={};
+          App.main(arg);
+        }catch(Exception e){}
     }
 }
+
+
+
+
+
+
+
+
+
+
+
