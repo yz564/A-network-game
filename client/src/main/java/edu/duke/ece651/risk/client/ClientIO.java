@@ -1,7 +1,6 @@
 package edu.duke.ece651.risk.client;
 
 import java.util.ArrayList;
-import java.io.IOException;
 
 import edu.duke.ece651.risk.shared.WorldMap;
 
@@ -12,6 +11,9 @@ public interface ClientIO {
   /*
    * Read an action (either move, attack or done) from a player.
    * 
+   * @param prompt is the text message that a user sees asking to input action
+   * name.
+   * 
    * @param playerName is the name of the player who will be prompted for action.
    * 
    * @returns A string which is either: "M" if a player wants to Move units from
@@ -21,7 +23,7 @@ public interface ClientIO {
    * 
    * @returns "M", "A" or "D" depending on players choice.
    */
-  public String readActionName(String playerName);
+  public String readActionName(String playerName, String prompt);
 
   /*
    * Read a territory name from a player.

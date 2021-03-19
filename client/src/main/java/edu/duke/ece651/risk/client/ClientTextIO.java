@@ -1,9 +1,9 @@
 package edu.duke.ece651.risk.client;
 
-import java.util.ArrayList;
 import java.io.BufferedReader;
-import java.io.PrintStream;
 import java.io.IOException;
+import java.io.PrintStream;
+import java.util.ArrayList;
 
 import edu.duke.ece651.risk.shared.WorldMap;
 
@@ -48,10 +48,10 @@ public class ClientTextIO implements ClientIO {
     return choice.equals("M") || choice.equals("A") || choice.equals("D");
   }
 
+  // String prompt = "You are the " + playerName + " player. What would you like
+  // to do?\n" + "(M)ove\n" +"(A)ttack\n" +"(D)one\n";
   @Override
-  public String readActionName(String playerName) {
-    String prompt = "You are the " + playerName + " player. What would you like to do?\n" + "(M)ove\n" + "(A)ttack\n"
-        + "(D)one\n";
+  public String readActionName(String playerName, String prompt) {
     String choice = "";
     while (true) {
       try {
@@ -63,10 +63,10 @@ public class ClientTextIO implements ClientIO {
         }
       } catch (IOException ioe) {
         out.println(ioe.getMessage());
-      } catch (NullPointerException npe) {
-        out.println(npe.getMessage());
-      }
-      out.println("Invalid choice of action. Retry!");
+      } // catch (NullPointerException npe) {
+        // out.println(npe.getMessage());
+      // }
+      out.println("Invalid choice of action. Retry!\n");
     }
     return choice;
   }
@@ -77,16 +77,17 @@ public class ClientTextIO implements ClientIO {
     while (true) {
       try {
         choice = readClientInput(prompt);
-        out.println("Entered territory name is `" + choice + "`\n");
         if (choice == null) {
-          throw new IOException("Invalid territory name.");
+          throw new IOException("Invalid territory name.\n");
+        } else {
+          out.println("Entered territory name is `" + choice + "`\n");
+          break;
         }
-        break;
       } catch (IOException ioe) {
         out.println(ioe.getMessage());
-      } catch (NullPointerException npe) {
-        out.println(npe.getMessage());
-      }
+      } // catch (NullPointerException npe) {
+        // out.println(npe.getMessage());
+      // }
     }
     return choice;
   }
@@ -99,19 +100,19 @@ public class ClientTextIO implements ClientIO {
       try {
         choice = readClientInput(prompt);
         numUnits = Integer.parseInt(choice);
-        if (numUnits > 0) {
+        if (numUnits >= 0) {
           break;
         } else {
-          throw new IOException("Number of units must be positive!\n");
+          throw new IOException("Number of units must be positive or zero!\n");
         }
       } catch (NumberFormatException nfe) {
         out.println(nfe.getMessage());
       } catch (IOException ioe) {
         out.println(ioe.getMessage());
-      } catch (NullPointerException npe) {
-        out.println(npe.getMessage());
-      }
-      out.println("Input is not a positive integer. Retry!");
+      } // catch (NullPointerException npe) {
+        // out.println(npe.getMessage());
+      // }
+      out.println("Input is not a positive integer or zero. Retry!\n");
     }
     return numUnits;
   }

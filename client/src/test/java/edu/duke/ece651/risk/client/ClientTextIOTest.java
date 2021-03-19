@@ -2,17 +2,12 @@ package edu.duke.ece651.risk.client;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.PrintStream;
-import java.io.Reader;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import edu.duke.ece651.risk.shared.V1MapFactory;
@@ -21,58 +16,77 @@ import edu.duke.ece651.risk.shared.WorldMapFactory;
 
 public class ClientTextIOTest {
 
-  public ClientTextIO getClientTextIOObject(String input) {
+  public ClientTextIO getClientTextIOObject(String input, ByteArrayOutputStream bytes) {
     BufferedReader inputReader = new BufferedReader(new StringReader(input));
-    ClientTextIO ctio = new ClientTextIO(inputReader, System.out);
+    PrintStream out = new PrintStream(bytes, true);
+    ClientTextIO ctio = new ClientTextIO(inputReader, out);
     return ctio;
   }
-  
+
   @Test
   public void test_read_action_name() {
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     String move = "m\n";
     String attack = "a\n";
     String done = "d\n";
     String nullAction = "";
-    ClientTextIO ctio_move = getClientTextIOObject(move);
-    ClientTextIO ctio_attack = getClientTextIOObject(attack);
-    ClientTextIO ctio_done = getClientTextIOObject(done);
-    assertEquals("M", ctio_move.readActionName("Green"));
-    assertEquals("A", ctio_attack.readActionName("Blue"));
-    assertEquals("D", ctio_done.readActionName("Red"));
+    ClientTextIO ctio_move = getClientTextIOObject(move, bytes);
+    bytes.reset();
+    ClientTextIO ctio_attack = getClientTextIOObject(attack, bytes);
+    bytes.reset();
+    ClientTextIO ctio_done = getClientTextIOObject(done, bytes);
+    bytes.reset();
+    String prompt = "You are the Green player. What would you like to do?\n" + "(M)ove\n" + "(A)ttack\n" + "(D)one\n";
+    assertEquals("M", ctio_move.readActionName("Green", prompt));
+    assertEquals("A", ctio_attack.readActionName("Green", prompt));
+    assertEquals("D", ctio_done.readActionName("Green", prompt));
+  }
+
+  @Test
+  public void test_read_action_error_handling() {
+    String prompt = "You are the Green player. What would you like to do?\n" + "(M)ove\n" + "(A)ttack\n" + "(D)one\n";
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    ClientTextIO ctio = getClientTextIOObject("f\na\n", bytes);
+    ctio.readActionName("Green", prompt);
+    String expected = prompt + "\n" + "Action must either be \"M\" for move, \"A\" for attack or \"D\" for done.\n\n"
+        + "Invalid choice of action. Retry!\n\n" + prompt + "\n";
+    assertEquals(expected, bytes.toString());
   }
 
   @Test
   public void test_read_territory_name() {
     String territoryName = "Narnia";
-    ClientTextIO ctio = getClientTextIOObject(territoryName);
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    ClientTextIO ctio = getClientTextIOObject(territoryName, bytes);
     assertEquals(territoryName, ctio.readTerritoryName("Enter territory name:\n"));
 
     BufferedReader inputReader = new BufferedReader(new StringReader("Haryana"));
-    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    bytes.reset();
     PrintStream output = new PrintStream(bytes, true);
     ClientTextIO ctio2 = new ClientTextIO(inputReader, output);
-    //assertEquals("Invalid territory name.", bytes.toString());
+    // assertEquals("Invalid territory name.", bytes.toString());
     assertEquals("Haryana", ctio2.readTerritoryName("Enter territory name:\n"));
   }
 
   @Test
   public void test_read_num_units() {
-    ClientTextIO ctio = getClientTextIOObject("5");
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    ClientTextIO ctio = getClientTextIOObject("5", bytes);
     assertEquals(5, ctio.readNumUnits("Enter number of units:\n"));
 
-    ctio = getClientTextIOObject("-3\n2");
+    ctio = getClientTextIOObject("-3\n2", bytes);
     assertEquals(2, ctio.readNumUnits("Enter number of units:\n"));
 
-    ctio = getClientTextIOObject("-3\n0\n-2\n-100\n5\n");
+    ctio = getClientTextIOObject("-3\n-1\n-2\n-100\n5\n", bytes);
     assertEquals(5, ctio.readNumUnits("Enter number of units:\n"));
 
-    ctio = getClientTextIOObject("abcd\n-3\n4");
+    ctio = getClientTextIOObject("abcd\n-3\n4", bytes);
     assertEquals(4, ctio.readNumUnits("Enter number of units:\n"));
 
-    ctio = getClientTextIOObject("6abcd\n8");
+    ctio = getClientTextIOObject("6abcd\n8", bytes);
     assertEquals(8, ctio.readNumUnits("Enter number of units:\n"));
 
-    ctio = getClientTextIOObject("\n\n\n204");
+    ctio = getClientTextIOObject("\n\n\n204", bytes);
     assertEquals(204, ctio.readNumUnits("Enter number of units:\n"));
   }
 
