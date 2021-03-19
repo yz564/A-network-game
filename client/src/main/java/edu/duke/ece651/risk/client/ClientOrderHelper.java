@@ -130,6 +130,7 @@ public class ClientOrderHelper {
                         out.println("You may order action again.\n");
                     } else {
                         orders.attackOrders.add(newOrder);
+                        executer.sendTroops(temp, newOrder);
                         out.println("*** Your Attack action order is taken. ***\n");
                     }
                 } else {

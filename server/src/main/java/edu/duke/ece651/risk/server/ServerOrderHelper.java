@@ -125,6 +125,7 @@ public class ServerOrderHelper {
                 executer.executeMove(temp, order); // execute a move on temp map
             }
         }
+        // real executions
         for (ActionInfo order : moveOrders) {
             executer.executeMove(map, order);
         }
@@ -141,13 +142,17 @@ public class ServerOrderHelper {
      *         problem, returns null.
      */
     public String tryResolveAttackOrders(WorldMap map) {
+        WorldMap temp = (WorldMap) SerializationUtils.clone(map);
         String problem = null;
         for (ActionInfo order : attackOrders) {
-            problem = attackChecker.checkAction(order, map);
+            problem = attackChecker.checkAction(order, temp);
             if (problem != null) {
                 return problem;
+            } else {
+                executer.sendTroops(temp, order);
             }
         }
+        // real executions
         for (ActionInfo order : attackOrders) {
             executer.sendTroops(map, order);
         }
