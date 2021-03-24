@@ -6,4 +6,4 @@ ECE 651 Project: Risk Game
 An implementation of RISK game in Java.
 
 ## Coverage
-[Detailed coverage](https://NETID.pages.oit.duke.edu/PROJECT/dashboard.html)
+[Detailed coverage](https://ar543.pages.oit.duke.edu/risk/dashboard.html)
