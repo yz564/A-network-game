@@ -1,6 +1,6 @@
 package edu.duke.ece651.risk.shared;
 
-public class V1MapFactory implements WorldMapFactory {
+public class V2MapFactory implements WorldMapFactory {
 
   /*
    * Makes a world map with even number of territories for even number of players
@@ -11,17 +11,17 @@ public class V1MapFactory implements WorldMapFactory {
    * @returns a World Map object
    */
   private WorldMap makeEvenMap(int numPlayers) {
-    String[] names = { "Braavosian Coastlands", "Hills of Horvos", "Forest of Qohor", "Myr", "Lower Rnoyne", "Mantarys",
-        "Lhaxar", "Old Ohis", "The Red Waste", "Bayasabhad", "Northern Jade Sea", "Vaes Dothrak",
-        "Eastern Dothraki Sea", "Western Dothraki Sea", "Northern Dothraki Sea", "Sarnor" };
-    int[][] adjacency = { { 1, 3 }, { 0, 2, 3, 4 }, { 1, 4, 13, 15 }, { 0, 1, 4 }, { 1, 2, 3, 5, 13 }, { 4, 6, 13 },
-        { 5, 7, 8, 12, 13 }, { 6, 8 }, { 6, 7, 9, 10, 12 }, { 8, 10 }, { 8, 9, 11, 12 }, { 10, 12 },
-        { 6, 8, 10, 11, 13, 14 }, { 2, 4, 5, 6, 12, 14, 15 }, { 12, 13, 15 }, { 2, 13, 14 } };
+    String[] names = { "Fuqua", "Law", "Gross Hall", "FFRC", "Bryan Center", "LSRC", "Pratt", "Perkins Library",
+        "Duke Hospital", "Duke Clinics", "Duke Garden", "Duke Chapel", "Student Housing", "Wilson Gym",
+        "Cameron Stadium", "Wallace Stadium" };
+    int[][] adjacency = { { 1, 2, 14 }, { 0, 2, 4, 14 }, { 0, 1, 3, 4, 5 }, { 2, 4, 5, 6 }, { 1, 2, 3, 6, 11, 12, 14 },
+        { 2, 3, 6, 8 }, { 3, 4, 5, 7, 8, 9, 10, 11 }, { 6, 9, 10, 11 }, { 5, 6, 9 }, { 6, 7, 8, 10 }, { 7, 9, 10, 11 },
+        { 4, 6, 7, 10, 12 }, { 4, 10, 11, 13, 14 }, { 12, 14, 15 }, { 0, 1, 4, 12, 13, 15 }, { 14, 15 } };
     if (numPlayers == 4) {
-      int[] groups = { 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 2, 4, 1 };
+      int[] groups = { 1, 1, 2, 1, 1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4 };
       return new RiskWorldMap(names, adjacency, groups);
     } else {
-      int[] groups = { 1, 1, 1, 2, 2, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1 };
+      int[] groups = { 1, 2, 1, 2, 2, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1 };
       return new RiskWorldMap(names, adjacency, groups);
     }
   }
@@ -35,17 +35,17 @@ public class V1MapFactory implements WorldMapFactory {
    * @returns a World Map object
    */
   private WorldMap makeOddMap(int numPlayers) {
-    String[] names = { "Braavosian Coastlands", "Hills of Horvos", "Forest of Qohor", "Myr", "Lower Rnoyne", "Mantarys",
-        "Lhaxar", "Old Ohis", "The Red Waste", "Bayasabhad", "Northern Jade Sea", "Vaes Dothrak",
-        "Eastern Dothraki Sea", "Western Dothraki Sea", "Northern Dothraki Sea" };
-    int[][] adjacency = { { 1, 3 }, { 0, 2, 3, 4 }, { 1, 4, 13, 14 }, { 0, 1, 4 }, { 1, 2, 3, 5, 13 }, { 4, 6, 13 },
-        { 5, 7, 8, 12, 13 }, { 6, 8 }, { 6, 7, 9, 10, 12 }, { 8, 10 }, { 8, 9, 11, 12 }, { 10, 12 },
-        { 6, 8, 10, 11, 13, 14 }, { 2, 4, 5, 6, 12, 14 }, { 2, 12, 13 } };
+    String[] names = { "Fuqua", "Law", "Gross Hall", "FFRC", "Bryan Center", "LSRC", "Pratt", "Perkins Library",
+        "Duke Hospital", "Duke Clinics", "Duke Garden", "Duke Chapel", "Student Housing", "Wilson Gym",
+        "Cameron Stadium" };
+    int[][] adjacency = { { 1, 2, 14 }, { 0, 2, 4, 14 }, { 0, 1, 3, 4, 5 }, { 2, 4, 5, 6 }, { 1, 2, 3, 6, 11, 12, 14 },
+        { 2, 3, 6, 8 }, { 3, 4, 5, 7, 8, 9, 10, 11 }, { 6, 9, 10, 11 }, { 5, 6, 9 }, { 6, 7, 8, 10 }, { 7, 9, 10, 11 },
+        { 4, 6, 7, 10, 12 }, { 4, 10, 11, 13, 14 }, { 12, 14 }, { 0, 1, 4, 12, 13 } };
     if (numPlayers == 5) {
-      int[] groups = { 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5 };
+      int[] groups = { 1, 1, 1, 2, 2, 3, 3, 3, 4, 4, 4, 2, 5, 5, 5 };
       return new RiskWorldMap(names, adjacency, groups);
     } else {
-      int[] groups = { 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 1, 1 };
+      int[] groups = { 1, 1, 1, 2, 1, 2, 1, 3, 2, 2, 2, 3, 3, 3, 3 };
       return new RiskWorldMap(names, adjacency, groups);
     }
   }
