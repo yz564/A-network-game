@@ -19,3 +19,7 @@ build
 
 # Ignore Vscode files
 **/.vscode/
+
+# Ignore IntelliJ files
+.idea
+**/.idea/
