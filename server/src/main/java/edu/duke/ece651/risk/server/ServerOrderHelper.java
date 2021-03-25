@@ -150,6 +150,7 @@ public class ServerOrderHelper {
                 return problem;
             } else {
                 executer.sendTroops(temp, order);
+                executer.executeAttack(temp, order);
             }
         }
         // real executions
