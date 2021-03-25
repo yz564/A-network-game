@@ -36,6 +36,12 @@ public interface Troop extends java.io.Serializable{
    * @param numUnits is the number of units that this troop will be assigned.  
    */
   public boolean trySetNumUnits(int numUnits);
+
+  /**
+   * Get the bonus amount of the units in the Troop.
+   * @return an int that represents the bonus amount for attacking.
+   */
+  public int getBonus();
 }
 
 
