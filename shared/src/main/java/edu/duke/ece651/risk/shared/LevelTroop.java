@@ -12,6 +12,11 @@ public class LevelTroop extends AbstractTroop {
      */
     private final int bonus;
 
+    /**
+     * The total cost needed to upgrade a 0-level unit to a unit in this troop
+     */
+    private final int cost;
+
     /*
      * Constructs a LevelTroop object.
      *
@@ -23,10 +28,11 @@ public class LevelTroop extends AbstractTroop {
      *
      * @param bonus is the bonus for units in the Troop.
      */
-    public LevelTroop(String name, int numUnits, int unitLimit, int bonus, int techLevelReq) {
+    public LevelTroop(String name, int numUnits, int unitLimit, int bonus, int techLevelReq, int cost) {
         super(name, numUnits, unitLimit);
         this.techLevelReq = techLevelReq;
         this.bonus = bonus;
+        this.cost = cost;
     }
 
     /*
@@ -38,13 +44,18 @@ public class LevelTroop extends AbstractTroop {
      *
      * @param bonus is the bonus for units in the Troop.
      */
-    public LevelTroop(String name, int numUnits, int bonus, int techLevelReq) {
-        this(name, numUnits, 99999, bonus, techLevelReq);
+    public LevelTroop(String name, int numUnits, int bonus, int techLevelReq, int cost) {
+        this(name, numUnits, 99999, bonus, techLevelReq, cost);
     }
 
     @Override
     public int getTechLevelReq() {
         return techLevelReq;
+    }
+
+    @Override
+    public int getCost() {
+        return cost;
     }
 
     @Override

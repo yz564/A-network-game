@@ -89,6 +89,7 @@ public class BasicTroopTest {
     BasicTroop t1 = new BasicTroop(5, 100);
     assertEquals(0, t1.getBonus());
     assertEquals(0, t1.getTechLevelReq());
+    assertEquals(0, t1.getCost());
   }
 
 }
