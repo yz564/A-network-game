@@ -20,6 +20,7 @@ public class BasicTerritory implements Territory {
 
     /**
      * Makes initial troops for a new territory.
+     * Pass makeTroops() in constructor of V2 territory.
      *
      * @return a HashMap with String key as the Troop name, and Troop object value.
      */
