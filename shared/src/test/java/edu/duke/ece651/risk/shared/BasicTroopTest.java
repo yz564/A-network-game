@@ -8,8 +8,7 @@ public class BasicTroopTest {
   @Test
   public void test_constructor() {
     String troopName = "soldiers";
-    BasicTroop t1 = new BasicTroop(troopName, 5, 100);
-    assertEquals(troopName, t1.getName());
+    BasicTroop t1 = new BasicTroop(5, 100);
     assertEquals(5, t1.getNumUnits());
 
     assertEquals(true, t1.tryAddUnits(3));
@@ -25,7 +24,7 @@ public class BasicTroopTest {
     assertEquals(2, t1.getNumUnits());
 
     BasicTroop t2 = new BasicTroop(10);
-    assertEquals("Troop", t2.getName());
+    assertEquals("Basic", t2.getName());
     assertEquals(10, t2.getNumUnits());
 
     assertEquals(true, t2.tryAddUnits(989));
@@ -38,7 +37,7 @@ public class BasicTroopTest {
     assertEquals(0, t2.getNumUnits());
 
     BasicTroop t3 = new BasicTroop(10, 20);
-    assertEquals("Troop", t3.getName());
+    assertEquals("Basic", t3.getName());
     assertEquals(10, t3.getNumUnits());
 
     assertEquals(false, t3.tryRemoveUnits(11));
@@ -53,23 +52,23 @@ public class BasicTroopTest {
 
   @Test
   public void test_to_string() {
-    BasicTroop t1 = new BasicTroop("Soldiers", 5, 100);
-    assertEquals("Soldiers with 5 units.\n", t1.toString());
+    BasicTroop t1 = new BasicTroop(5, 100);
+    assertEquals("Basic with 5 units.\n", t1.toString());
 
     BasicTroop t2 = new BasicTroop(10);
-    assertEquals("Troop with 10 units.\n", t2.toString());
+    assertEquals("Basic with 10 units.\n", t2.toString());
   }
 
   @Test
   public void test_to_hashcode() {
-    BasicTroop t1 = new BasicTroop("Soldiers", 5, 100);
-    assertEquals(-2088635851, t1.hashCode());
+    BasicTroop t1 = new BasicTroop(5, 100);
+    assertEquals(1895559128, t1.hashCode());
   }
 
   @Test
   public void test_equals() {
-    BasicTroop t1 = new BasicTroop("Soldiers", 5, 100);
-    BasicTroop t2 = new BasicTroop("Soldiers", 7, 100);
+    BasicTroop t1 = new BasicTroop(5, 100);
+    BasicTroop t2 = new BasicTroop(7, 100);
     assertEquals(false, t2.equals(t1));
     t2.tryRemoveUnits(2);
     assertEquals(true, t2.equals(t1));
@@ -78,7 +77,7 @@ public class BasicTroopTest {
 
   @Test
   public void test_set_num_troops() {
-    BasicTroop t1 = new BasicTroop("Soldiers", 5, 100);
+    BasicTroop t1 = new BasicTroop(5, 100);
     assertEquals(true, t1.trySetNumUnits(12));
     assertEquals(12, t1.getNumUnits());
     assertEquals(false, t1.trySetNumUnits(101));
