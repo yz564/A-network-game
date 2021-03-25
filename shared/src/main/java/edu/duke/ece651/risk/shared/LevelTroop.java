@@ -2,6 +2,21 @@ package edu.duke.ece651.risk.shared;
 
 public class LevelTroop extends AbstractTroop {
 
+    /**
+     * Required tech level for using this troop.
+     */
+    private final int techLevelReq;
+
+    /**
+     * The attack bonus amount the units in this troop have.
+     */
+    private final int bonus;
+
+    /**
+     * The total cost needed to upgrade a 0-level unit to a unit in this troop
+     */
+    private final int cost;
+
     /*
      * Constructs a LevelTroop object.
      *
@@ -13,8 +28,11 @@ public class LevelTroop extends AbstractTroop {
      *
      * @param bonus is the bonus for units in the Troop.
      */
-    public LevelTroop(String name, int numUnits, int unitLimit, int bonus) {
-        super(name, numUnits, unitLimit, bonus);
+    public LevelTroop(String name, int numUnits, int unitLimit, int bonus, int techLevelReq, int cost) {
+        super(name, numUnits, unitLimit);
+        this.techLevelReq = techLevelReq;
+        this.bonus = bonus;
+        this.cost = cost;
     }
 
     /*
@@ -26,7 +44,22 @@ public class LevelTroop extends AbstractTroop {
      *
      * @param bonus is the bonus for units in the Troop.
      */
-    public LevelTroop(String name, int numUnits, int bonus) {
-        super(name, numUnits, 99999, bonus);
+    public LevelTroop(String name, int numUnits, int bonus, int techLevelReq, int cost) {
+        this(name, numUnits, 99999, bonus, techLevelReq, cost);
+    }
+
+    @Override
+    public int getTechLevelReq() {
+        return techLevelReq;
+    }
+
+    @Override
+    public int getCost() {
+        return cost;
+    }
+
+    @Override
+    public int getBonus() {
+        return bonus;
     }
 }

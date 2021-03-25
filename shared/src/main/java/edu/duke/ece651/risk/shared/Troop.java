@@ -42,6 +42,18 @@ public interface Troop extends java.io.Serializable{
    * @return an int that represents the bonus amount for attacking.
    */
   public int getBonus();
+
+  /**
+   * Get the tech level required for using this Troop.
+   * @return an int that represents tech level required.
+   */
+  public int getTechLevelReq();
+
+  /**
+   * Get the total cost needed to upgrade a 0-level unit to a unit in this troop.
+   * @return int that represents the total cost.
+   */
+  public int getCost();
 }
 
 

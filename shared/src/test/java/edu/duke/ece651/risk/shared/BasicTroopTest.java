@@ -84,4 +84,12 @@ public class BasicTroopTest {
     assertEquals(12, t1.getNumUnits());
   }
 
+  @Test
+  public void test_get_bonus_and_techlevelreq(){
+    BasicTroop t1 = new BasicTroop(5, 100);
+    assertEquals(0, t1.getBonus());
+    assertEquals(0, t1.getTechLevelReq());
+    assertEquals(0, t1.getCost());
+  }
+
 }
