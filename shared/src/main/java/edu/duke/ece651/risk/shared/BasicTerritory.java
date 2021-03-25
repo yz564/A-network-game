@@ -13,7 +13,7 @@ import java.util.HashSet;
 public class BasicTerritory implements Territory {
 
   private static final long serialVersionUID = -8815409601117401416L;
-  private Troop myTroop;
+  private Troop myTroop; // change this to HashMap<String(troop name: level1 level2 level3 ....), Troop(Troop object)>
   private String territoryName;
   private HashMap<String, Territory> myNeighbors;
   private String myOwnerName;
