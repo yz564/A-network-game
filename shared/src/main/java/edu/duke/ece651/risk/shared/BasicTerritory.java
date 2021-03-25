@@ -18,6 +18,10 @@ public class BasicTerritory implements Territory {
   private HashMap<String, Territory> myNeighbors;
   private String myOwnerName;
 
+  static HashMap<String, Troop> makeTroops(){
+    return null;
+  }
+
   /**
    * Construct a BasicTerritory object.
    * 

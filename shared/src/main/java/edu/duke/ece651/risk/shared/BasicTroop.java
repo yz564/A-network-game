@@ -14,7 +14,7 @@ public class BasicTroop extends AbstractTroop {
      * @param unitLimit is the maximum amount of units that a troop can contain.
      */
     public BasicTroop(int numUnits, int unitLimit) {
-        super("Basic", numUnits, unitLimit, 0);
+        super("Basic", numUnits, unitLimit);
     }
 
     /*
@@ -46,4 +46,13 @@ public class BasicTroop extends AbstractTroop {
         return toString().hashCode();
     }
 
+    @Override
+    public int getBonus() {
+        return 0;
+    }
+
+    @Override
+    public int getTechLevelReq(){
+        return 0;
+    }
 }

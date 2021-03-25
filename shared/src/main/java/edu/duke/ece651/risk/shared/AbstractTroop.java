@@ -1,11 +1,10 @@
 package edu.duke.ece651.risk.shared;
 
-public class AbstractTroop implements Troop {
+public abstract class AbstractTroop implements Troop {
     protected static final long serialVersionUID = -1788807224514071854L;
     protected final String troopName;
     protected final int unitLimit;
     protected int numUnits;
-    final protected int bonus;
 
     /*
      * Constructs a AbstractTroop object.
@@ -15,10 +14,8 @@ public class AbstractTroop implements Troop {
      * @param numUnits is the number of units put in the troop.
      *
      * @param unitLimit is the maximum amount of units that a troop can contain.
-     *
-     * @param bonus is the bonus for units in the Troop.
      */
-    public AbstractTroop(String name, int numUnits, int unitLimit, int bonus) {
+    public AbstractTroop(String name, int numUnits, int unitLimit) {
         this.troopName = name;
         if (numUnits < 0) {
             throw new IllegalArgumentException("A troop cannot have negative number of units.");
@@ -29,7 +26,6 @@ public class AbstractTroop implements Troop {
             throw new IllegalArgumentException("Number of units in " + this.troopName + " exceed troop limit.");
         }
         this.numUnits = numUnits;
-        this.bonus = bonus;
     }
 
     @Override
@@ -67,10 +63,5 @@ public class AbstractTroop implements Troop {
         }
         this.numUnits = numUnits;
         return true;
-    }
-
-    @Override
-    public int getBonus() {
-        return bonus;
     }
 }
