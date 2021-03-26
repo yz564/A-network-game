@@ -13,16 +13,6 @@ import java.util.HashMap;
 public interface WorldMap extends java.io.Serializable{
 
   /**
-   * Adds a new territory with a given name on the world map.
-   * Territory is created with no troops, neighbors or owner.
-   * 
-   * @param toAdd is the name of the territory to add
-   *
-   * @return true if add is successful, false if not.
-   */
-  public boolean tryAddTerritory(String toAdd);
-
-  /**
    * Return the territory on map with the given name
    * 
    * @param name is the name of the territory to retrieve
