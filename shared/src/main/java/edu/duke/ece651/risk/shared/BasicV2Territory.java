@@ -1,14 +1,15 @@
 package edu.duke.ece651.risk.shared;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class BasicV2Territory implements V2Territory {
     private static final long serialVersionUID = -8815409601117401416L;
-    private HashMap<String, Troop> myTroops;
     private final String territoryName;
-    private HashMap<String, Territory> myNeighbors;
-    private String ownerName;
     private final HashMap<String, Integer> resProduction;
+    private HashMap<String, Troop> myTroops;
+    private HashMap<String, V2Territory> myNeighbors;
+    private String ownerName;
 
     /**
      * Makes initial troops for a new territory. Pass makeTroops() in constructor of V2 territory.
@@ -89,6 +90,11 @@ public class BasicV2Territory implements V2Territory {
     }
 
     @Override
+    public int getTroopNumUnits(String troopName) {
+        return myTroops.get(troopName).getNumUnits();
+    }
+
+    @Override
     public String getName() {
         return territoryName;
     }
@@ -99,15 +105,17 @@ public class BasicV2Territory implements V2Territory {
     }
 
     @Override
-    public boolean isAdjacentTo(Territory neighbor) {
-        // TODO
-        return false;
+    public boolean isAdjacentTo(V2Territory neighbor) {
+        return this.myNeighbors.containsKey(neighbor.getName());
     }
 
     @Override
-    public boolean tryAddNeighbor(Territory neighbor) {
-        // TODO
-        return false;
+    public boolean tryAddNeighbor(V2Territory neighbor) {
+        if (this.myNeighbors.put(neighbor.getName(), neighbor) != null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override
@@ -117,25 +125,44 @@ public class BasicV2Territory implements V2Territory {
 
     @Override
     public boolean isBelongTo(String playerName) {
-        // TODO
-        return false;
+        if (ownerName != null) {
+            return this.ownerName.equals(playerName);
+        } else {
+            return false;
+        }
     }
 
     @Override
-    public boolean tryAssignOwner(String playerName) {
-        // TODO
-        return false;
+    public void putOwnerName(String playerName) {
+        this.ownerName = playerName;
     }
 
     @Override
-    public HashMap<String, Territory> getMyNeighbors() {
-        // TODO
-        return null;
+    public HashMap<String, V2Territory> getMyNeighbors() {
+        return myNeighbors;
     }
 
     @Override
-    public boolean isReachableTo(Territory toReach) {
-        // TODO
-        return false;
+    public boolean isReachableTo(V2Territory toReach) {
+        HashMap<String, V2Territory> reachable = new HashMap<>();
+        int size = reachable.size();
+        reachable.put(this.territoryName, this);
+        while (size != reachable.size()) {
+            size = reachable.size();
+            HashSet<String> names = new HashSet<>(reachable.keySet());
+            for (String name : names) {
+                HashMap<String, V2Territory> neighbors = reachable.get(name).getMyNeighbors();
+                for (String neighborName : neighbors.keySet()) {
+                    if (neighbors.get(neighborName).isBelongTo(this.ownerName)) {
+                        reachable.put(neighborName, neighbors.get(neighborName));
+                    }
+                }
+            }
+        }
+        if (reachable.containsValue(toReach)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

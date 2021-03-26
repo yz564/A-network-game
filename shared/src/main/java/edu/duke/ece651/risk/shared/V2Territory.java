@@ -28,6 +28,13 @@ public interface V2Territory extends java.io.Serializable {
     public HashMap<String, Integer> getAllNumUnits();
 
     /**
+     * Gets the number of units in a specific troop with the troop name given.
+     *
+     * @return an int represents the number of units in the given troop.
+     */
+    public int getTroopNumUnits(String troopName);
+
+    /**
      * Returns territory name.
      *
      * @return a String that represents the territory's name.
@@ -55,7 +62,7 @@ public interface V2Territory extends java.io.Serializable {
      * @param neighbor is the territory to check adjacency with.
      * @return true if the two territories are adjacent, false if not.
      */
-    public boolean isAdjacentTo(Territory neighbor);
+    public boolean isAdjacentTo(V2Territory neighbor);
 
     /**
      * Add a given territory to the list of neghboring territories of the current territory.
@@ -63,7 +70,7 @@ public interface V2Territory extends java.io.Serializable {
      * @param neighbor is the territory to add.
      * @return true if the add is successful, false if not.
      */
-    public boolean tryAddNeighbor(Territory neighbor);
+    public boolean tryAddNeighbor(V2Territory neighbor);
 
     /**
      * Returns the name of the owner of the current territory.
@@ -84,16 +91,15 @@ public interface V2Territory extends java.io.Serializable {
      * Assigns the owner of this territory to a given player name.
      *
      * @param playerName is the name of the owner to assign territory.
-     * @return true if assignment is successful, false if not.
      */
-    public boolean tryAssignOwner(String playerName);
+    public void putOwnerName(String playerName);
 
     /**
      * Get the neighbors of the Territory.
      *
      * @return a HashMap of Territory, which are neighbors of this Territory mapped to their names.
      */
-    public HashMap<String, Territory> getMyNeighbors();
+    public HashMap<String, V2Territory> getMyNeighbors();
 
     /**
      * Check if a territory is reachable from the current territory
@@ -102,5 +108,5 @@ public interface V2Territory extends java.io.Serializable {
      *     the same player.
      * @return true if reachable, false if not.
      */
-    public boolean isReachableTo(Territory toReach);
+    public boolean isReachableTo(V2Territory toReach);
 }
