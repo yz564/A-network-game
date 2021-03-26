@@ -51,8 +51,18 @@ public class V1RiskWorldMap extends RiskWorldMap {
     if (myTerritories.keySet().contains(toAdd)) {
       return false;
     } else {
-      myTerritories.put(toAdd, new BasicTerritory(toAdd, 0));
+      myTerritories.put(toAdd, new BasicV2Territory(toAdd, 0, 0));
       return true;
     }
   }
 }
+
+
+
+
+
+
+
+
+
+

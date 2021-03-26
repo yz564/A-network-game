@@ -11,7 +11,7 @@ import java.util.HashMap;
 public abstract class RiskWorldMap implements WorldMap {
 
   private static final long serialVersionUID = -8601217585700186444L;
-  protected HashMap<String, Territory> myTerritories;
+  protected HashMap<String, V2Territory> myTerritories;
   protected HashMap<Integer, ArrayList<String>> initGroups;
 
   /**
