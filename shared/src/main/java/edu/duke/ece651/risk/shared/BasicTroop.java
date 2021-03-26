@@ -52,12 +52,12 @@ public class BasicTroop extends AbstractTroop {
     }
 
     @Override
-    public int getTechLevelReq(){
+    public int getTechLevelReq() {
         return 0;
     }
 
     @Override
-    public int getCost(){
+    public int getTechCost() {
         return 0;
     }
 }
