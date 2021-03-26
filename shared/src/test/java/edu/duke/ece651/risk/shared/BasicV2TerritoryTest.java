@@ -133,4 +133,11 @@ public class BasicV2TerritoryTest {
         assertTrue(t1.isReachableTo(t3));
         assertFalse(t1.isReachableTo(t4));
     }
+
+    @Test
+    public void test_res_production() {
+        BasicV2Territory t1 = new BasicV2Territory("ABC", 1, 2);
+        assertEquals(1, t1.getResProduction().get("food"));
+        assertEquals(2, t1.getResProduction().get("tech"));
+    }
 }

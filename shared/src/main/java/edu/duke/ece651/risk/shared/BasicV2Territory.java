@@ -56,6 +56,25 @@ public class BasicV2Territory implements V2Territory {
         this(name, resProduction, makeTroops());
     }
 
+    /**
+     * Construct a BasicTerritory object with default Troops made by makeTroops(), and given food
+     * and tech production rate.
+     *
+     * @param name is the name to assign to the territory.
+     * @param foodProduction is the int represents the foodProduction rate of this territory.
+     * @param techProduction is the int represents the techProduction rate of this territory.
+     */
+    public BasicV2Territory(String name, Integer foodProduction, Integer techProduction) {
+        this(name, new HashMap<>());
+        resProduction.put("food", foodProduction);
+        resProduction.put("tech", techProduction);
+    }
+
+    @Override
+    public HashMap<String, Integer> getResProduction() {
+        return this.resProduction;
+    }
+
     @Override
     public void addUnits(HashMap<String, Integer> toAdd) {
         for (String troopName : toAdd.keySet()) {

@@ -4,6 +4,14 @@ import java.util.HashMap;
 
 public interface V2Territory extends java.io.Serializable {
     /**
+     * Gets the production rate HashMap of the territory.
+     *
+     * @return a HashMap that is the production rate of different types of resources. HashMap key is
+     *     * the resource name, and value is the production rate.
+     */
+    public HashMap<String, Integer> getResProduction();
+
+    /**
      * Adds units to the territory.
      *
      * @param toAdd is a HashMap with String keys are the Troops to add units and Integer values are
