@@ -43,8 +43,8 @@ public class LevelTroop extends AbstractTroop {
      *
      * @param bonus is the bonus for units in the Troop.
      */
-    public LevelTroop(String name, int numUnits, int bonus, int techLevelReq, int cost) {
-        this(name, numUnits, 99999, bonus, techLevelReq, cost);
+    public LevelTroop(String name, int numUnits, int bonus, int techLevelReq, int techCost) {
+        this(name, numUnits, 99999, bonus, techLevelReq, techCost);
     }
 
     @Override

@@ -2,13 +2,12 @@ package edu.duke.ece651.risk.shared;
 
 import java.util.HashMap;
 
-/** @author group7 */
 public class BasicV2Territory implements V2Territory {
     private static final long serialVersionUID = -8815409601117401416L;
     private HashMap<String, Troop> myTroops;
     private final String territoryName;
     private HashMap<String, Territory> myNeighbors;
-    private String myOwnerName;
+    private String ownerName;
     private final HashMap<String, Integer> resProduction;
 
     /**
@@ -17,14 +16,14 @@ public class BasicV2Territory implements V2Territory {
      * @return a HashMap with String key as the Troop name, and Troop object value.
      */
     private static HashMap<String, Troop> makeTroops() {
-        HashMap<String, Troop> myTroops = new HashMap<String, Troop>();
+        HashMap<String, Troop> myTroops = new HashMap<>();
         myTroops.put("level0", new LevelTroop("level0", 0, 0, 0, 0));
         myTroops.put("level1", new LevelTroop("level1", 0, 1, 1, 3));
-        myTroops.put("level2", new LevelTroop("level2", 0, 3, 2, 11));
-        myTroops.put("level3", new LevelTroop("level3", 0, 5, 3, 30));
-        myTroops.put("level4", new LevelTroop("level4", 0, 8, 4, 55));
-        myTroops.put("level5", new LevelTroop("level5", 0, 11, 5, 90));
-        myTroops.put("level6", new LevelTroop("level6", 0, 15, 6, 140));
+        myTroops.put("level2", new LevelTroop("level2", 0, 3, 2, 8));
+        myTroops.put("level3", new LevelTroop("level3", 0, 5, 3, 19));
+        myTroops.put("level4", new LevelTroop("level4", 0, 8, 4, 25));
+        myTroops.put("level5", new LevelTroop("level5", 0, 11, 5, 35));
+        myTroops.put("level6", new LevelTroop("level6", 0, 15, 6, 50));
         return myTroops;
     }
 
@@ -33,8 +32,8 @@ public class BasicV2Territory implements V2Territory {
             String name, HashMap<String, Integer> resProduction, HashMap<String, Troop> myTroops) {
         this.territoryName = name;
         this.myTroops = myTroops;
-        this.myNeighbors = new HashMap<String, Territory>();
-        this.myOwnerName = null;
+        this.myNeighbors = new HashMap<>();
+        this.ownerName = null;
         this.resProduction = resProduction;
     }
 
@@ -94,36 +93,42 @@ public class BasicV2Territory implements V2Territory {
 
     @Override
     public boolean isAdjacentTo(Territory neighbor) {
+        // TODO
         return false;
     }
 
     @Override
     public boolean tryAddNeighbor(Territory neighbor) {
+        // TODO
         return false;
     }
 
     @Override
     public String getOwnerName() {
-        return null;
+        return ownerName;
     }
 
     @Override
     public boolean isBelongTo(String playerName) {
+        // TODO
         return false;
     }
 
     @Override
     public boolean tryAssignOwner(String playerName) {
+        // TODO
         return false;
     }
 
     @Override
     public HashMap<String, Territory> getMyNeighbors() {
+        // TODO
         return null;
     }
 
     @Override
     public boolean isReachableTo(Territory toReach) {
+        // TODO
         return false;
     }
 }

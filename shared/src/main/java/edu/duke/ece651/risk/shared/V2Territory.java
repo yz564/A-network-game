@@ -2,7 +2,6 @@ package edu.duke.ece651.risk.shared;
 
 import java.util.HashMap;
 
-/** @author group7 */
 public interface V2Territory extends java.io.Serializable {
     /**
      * Adds units to the territory.
