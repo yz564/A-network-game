@@ -27,7 +27,14 @@ public class BasicV2Territory implements V2Territory {
         return myTroops;
     }
 
-    /** Construct a BasicTerritory object. */
+    /**
+     * Construct a BasicTerritory object.
+     *
+     * @param name is the name to assign to the territory.
+     * @param resProduction is the production rate of different types of resources. HashMap key is
+     *     the resource name, and value is the production rate.
+     * @param myTroops is the troops in the territory.
+     */
     public BasicV2Territory(
             String name, HashMap<String, Integer> resProduction, HashMap<String, Troop> myTroops) {
         this.territoryName = name;
