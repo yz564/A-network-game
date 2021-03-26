@@ -4,6 +4,13 @@ import java.util.HashMap;
 
 public interface V2Territory extends java.io.Serializable {
     /**
+     * Gets the size (food cost to move through) this territory.
+     *
+     * @return an int that represents the size of the territory.
+     */
+    public int getSize();
+
+    /**
      * Gets the production rate HashMap of the territory.
      *
      * @return a HashMap that is the production rate of different types of resources. HashMap key is
