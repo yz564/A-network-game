@@ -7,6 +7,7 @@ public class BasicV2Territory implements V2Territory {
     private static final long serialVersionUID = -8815409601117401416L;
     private final String territoryName;
     private final HashMap<String, Integer> resProduction;
+    private final int size;
     private HashMap<String, Troop> myTroops;
     private HashMap<String, V2Territory> myNeighbors;
     private String ownerName;
@@ -35,14 +36,19 @@ public class BasicV2Territory implements V2Territory {
      * @param resProduction is the production rate of different types of resources. HashMap key is
      *     the resource name, and value is the production rate.
      * @param myTroops is the troops in the territory.
+     * @param size is an integer represents the size of the territory.
      */
     public BasicV2Territory(
-            String name, HashMap<String, Integer> resProduction, HashMap<String, Troop> myTroops) {
+            String name,
+            HashMap<String, Integer> resProduction,
+            HashMap<String, Troop> myTroops,
+            int size) {
         this.territoryName = name;
         this.myTroops = myTroops;
         this.myNeighbors = new HashMap<>();
         this.ownerName = null;
         this.resProduction = resProduction;
+        this.size = size;
     }
 
     /**
@@ -51,9 +57,10 @@ public class BasicV2Territory implements V2Territory {
      * @param name is the name to assign to the territory.
      * @param resProduction is the production rate of different types of resources. HashMap key is
      *     the resource name, and value is the production rate.
+     * @param size is an integer represents the size of the territory.
      */
-    public BasicV2Territory(String name, HashMap<String, Integer> resProduction) {
-        this(name, resProduction, makeTroops());
+    public BasicV2Territory(String name, HashMap<String, Integer> resProduction, int size) {
+        this(name, resProduction, makeTroops(), size);
     }
 
     /**
@@ -63,11 +70,17 @@ public class BasicV2Territory implements V2Territory {
      * @param name is the name to assign to the territory.
      * @param foodProduction is the int represents the foodProduction rate of this territory.
      * @param techProduction is the int represents the techProduction rate of this territory.
+     * @param size is an integer represents the size of the territory.
      */
-    public BasicV2Territory(String name, Integer foodProduction, Integer techProduction) {
-        this(name, new HashMap<>());
+    public BasicV2Territory(String name, Integer foodProduction, Integer techProduction, int size) {
+        this(name, new HashMap<>(), size);
         resProduction.put("food", foodProduction);
         resProduction.put("tech", techProduction);
+    }
+
+    @Override
+    public int getSize() {
+        return size;
     }
 
     @Override
