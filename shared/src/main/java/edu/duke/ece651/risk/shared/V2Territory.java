@@ -2,35 +2,31 @@ package edu.duke.ece651.risk.shared;
 
 import java.util.HashMap;
 
-/**
- * @author group7
- */
+/** @author group7 */
 public interface V2Territory extends java.io.Serializable {
     /**
      * Adds units to the territory.
      *
      * @param toAdd is a HashMap with String keys are the Troops to add units and Integer values are
-     *              the number of units to add to the Troop.
-     * @return true if add is successful, false if not.
+     *     the number of units to add to the Troop.
      */
-    public boolean tryAddUnits(HashMap<String, Integer> toAdd);
+    public void addUnits(HashMap<String, Integer> toAdd);
 
     /**
      * Removes units from the territory.
      *
-     * @param toRemove is a HashMap with String keys are the Troops to remove units and Integer values
-     *                 are the number of units to remove from the Troop.
-     * @return true if unit is removed is successful, false if not.
+     * @param toRemove is a HashMap with String keys are the Troops to remove units and Integer
+     *     values are the number of units to remove from the Troop.
      */
-    public boolean tryRemoveUnits(HashMap<String, Integer> toRemove);
+    public void removeUnits(HashMap<String, Integer> toRemove);
 
     /**
      * Returns the total number of units of each Troop inside a territory.
      *
-     * @return a HashMap<String, Integer> with keys are Troop names, and values are number of units in
-     * the corresponding troop.
+     * @return a HashMap<String, Integer> with keys are Troop names, and values are number of units
+     *     in the corresponding troop.
      */
-    public HashMap<String, Integer> getNumUnits();
+    public HashMap<String, Integer> getAllNumUnits();
 
     /**
      * Returns territory name.
@@ -40,13 +36,19 @@ public interface V2Territory extends java.io.Serializable {
     public String getName();
 
     /**
+     * Returns the troops in a territory.
+     *
+     * @return a HashMap with keys are troop name, and values are number of units in the troop.
+     */
+    public HashMap<String, Troop> getMyTroops();
+
+    /**
      * Sets number of units present in a territory.
      *
-     * @param toSet is a HashMap with String keys are the Troops to set units and Integer values
-     *              are the number of units to set to the Troop.
-     * @return true if the units are successfully set, false otherwise.
+     * @param toSet is a HashMap with String keys are the Troops to set units and Integer values are
+     *     the number of units to set to the Troop.
      */
-    public boolean trySetNumUnits(HashMap<String, Integer> toSet);
+    public void setNumUnits(HashMap<String, Integer> toSet);
 
     /**
      * Checks if territory is adjacent to a given territory.
@@ -97,8 +99,8 @@ public interface V2Territory extends java.io.Serializable {
     /**
      * Check if a territory is reachable from the current territory
      *
-     * @param toReach is the territory to check for a path of adjacent territories that belong to the
-     *                same player.
+     * @param toReach is the territory to check for a path of adjacent territories that belong to
+     *     the same player.
      * @return true if reachable, false if not.
      */
     public boolean isReachableTo(Territory toReach);

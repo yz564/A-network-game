@@ -4,42 +4,24 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 /**
- * BasicTerritory is a simple territory that contains a single troop of units
- * inside it and has a name.
- * <p>
- * It also contains a hashset of neighboring territories that it is adjacent to
- * and its owner's name.
+ * BasicTerritory is a simple territory that contains a single troop of units inside it and has a
+ * name.
+ *
+ * <p>It also contains a hashset of neighboring territories that it is adjacent to and its owner's
+ * name.
  */
 public class BasicTerritory implements Territory {
 
     private static final long serialVersionUID = -8815409601117401416L;
-    private Troop myTroop; // change this to HashMap<String(troop name: level1 level2 level3 ....), Troop(Troop object)>
+    private Troop myTroop;
     private String territoryName;
     private HashMap<String, Territory> myNeighbors;
     private String myOwnerName;
 
     /**
-     * Makes initial troops for a new territory.
-     * Pass makeTroops() in constructor of V2 territory.
-     *
-     * @return a HashMap with String key as the Troop name, and Troop object value.
-     */
-    static HashMap<String, Troop> makeTroops() {
-        HashMap<String, Troop> myTroops = new HashMap<String, Troop>();
-        myTroops.put("level0", new LevelTroop("level0", 0, 0, 0, 0));
-        myTroops.put("level1", new LevelTroop("level1", 0, 1, 1, 3));
-        myTroops.put("level2", new LevelTroop("level2", 0, 3, 2, 11));
-        myTroops.put("level3", new LevelTroop("level3", 0, 5, 3, 30));
-        myTroops.put("level4", new LevelTroop("level4", 0, 8, 4, 55));
-        myTroops.put("level5", new LevelTroop("level5", 0, 11, 5, 90));
-        myTroops.put("level6", new LevelTroop("level6", 0, 15, 6, 140));
-        return myTroops;
-    }
-
-    /**
      * Construct a BasicTerritory object.
      *
-     * @param name  is the name to assign to the territory.
+     * @param name is the name to assign to the territory.
      * @param toAdd is the Troop to add the the territory.
      */
     public BasicTerritory(String name, Troop toAdd) {
@@ -52,7 +34,7 @@ public class BasicTerritory implements Territory {
     /**
      * Construct a BasicTerritory object.
      *
-     * @param name     is the name to assign to the territory.
+     * @param name is the name to assign to the territory.
      * @param numUnits is the number of units to add to the territory.
      */
     public BasicTerritory(String name, int numUnits) {
@@ -79,9 +61,7 @@ public class BasicTerritory implements Territory {
         return territoryName;
     }
 
-    /**
-     * Return the troop present inside the territory.
-     */
+    /** Return the troop present inside the territory. */
     public Troop getTroop() {
         return myTroop;
     }
@@ -95,14 +75,18 @@ public class BasicTerritory implements Territory {
     public boolean equals(Object o) {
         if (o != null && o.getClass().equals(getClass())) {
             BasicTerritory other = (BasicTerritory) o;
-            return this.myTroop.equals(other.getTroop()) && this.territoryName.equals(other.getName());
+            return this.myTroop.equals(other.getTroop())
+                    && this.territoryName.equals(other.getName());
         }
         return false;
     }
 
     @Override
     public String toString() {
-        return "Territory " + this.territoryName + " contains the following troop:\n" + myTroop.toString();
+        return "Territory "
+                + this.territoryName
+                + " contains the following troop:\n"
+                + myTroop.toString();
     }
 
     @Override
@@ -176,5 +160,4 @@ public class BasicTerritory implements Territory {
             return false;
         }
     }
-
 }
