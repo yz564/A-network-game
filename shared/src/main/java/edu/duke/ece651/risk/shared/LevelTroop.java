@@ -2,20 +2,16 @@ package edu.duke.ece651.risk.shared;
 
 public class LevelTroop extends AbstractTroop {
 
-    /**
-     * Required tech level for using this troop.
-     */
+    /** Required tech level for using this troop. */
     private final int techLevelReq;
 
-    /**
-     * The attack bonus amount the units in this troop have.
-     */
+    /** The attack bonus amount the units in this troop have. */
     private final int bonus;
 
     /**
-     * The total cost needed to upgrade a 0-level unit to a unit in this troop
+     * The cost needed to upgrade a unit from troop that is 1 level lower to a unit in this troop.
      */
-    private final int cost;
+    private final int techCost;
 
     /*
      * Constructs a LevelTroop object.
@@ -27,12 +23,15 @@ public class LevelTroop extends AbstractTroop {
      * @param unitLimit is the maximum amount of units that a troop can contain.
      *
      * @param bonus is the bonus for units in the Troop.
+     *
+     * @param techCost is the cost needed to upgrade a unit from troop that is 1 level lower to a unit in this troop.
      */
-    public LevelTroop(String name, int numUnits, int unitLimit, int bonus, int techLevelReq, int cost) {
+    public LevelTroop(
+            String name, int numUnits, int unitLimit, int bonus, int techLevelReq, int techCost) {
         super(name, numUnits, unitLimit);
         this.techLevelReq = techLevelReq;
         this.bonus = bonus;
-        this.cost = cost;
+        this.techCost = techCost;
     }
 
     /*
@@ -44,8 +43,8 @@ public class LevelTroop extends AbstractTroop {
      *
      * @param bonus is the bonus for units in the Troop.
      */
-    public LevelTroop(String name, int numUnits, int bonus, int techLevelReq, int cost) {
-        this(name, numUnits, 99999, bonus, techLevelReq, cost);
+    public LevelTroop(String name, int numUnits, int bonus, int techLevelReq, int techCost) {
+        this(name, numUnits, 99999, bonus, techLevelReq, techCost);
     }
 
     @Override
@@ -54,8 +53,8 @@ public class LevelTroop extends AbstractTroop {
     }
 
     @Override
-    public int getCost() {
-        return cost;
+    public int getTechCost() {
+        return techCost;
     }
 
     @Override

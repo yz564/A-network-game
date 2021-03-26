@@ -163,16 +163,4 @@ public class BasicTerritoryTest {
         Territory t2 = map.getTerritory("Braavosian Coastlands");
         assertTrue(t1.isReachableTo(t2));
     }
-
-    @Test
-    public void test_make_troops() {
-        WorldMapFactory factory = new V1MapFactory();
-        WorldMap map = factory.makeWorldMap(3);
-        map.tryAssignInitOwner(1, "Player 1");
-        map.tryAssignInitOwner(2, "Player 2");
-        map.tryAssignInitOwner(3, "Player 3");
-        BasicTerritory t1 = (BasicTerritory) map.getTerritory("Western Dothraki Sea");
-        HashMap<String, Troop> troops = t1.makeTroops();
-        assertEquals("level1", troops.get("level1").getName());
-    }
 }
