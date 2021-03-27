@@ -31,7 +31,7 @@ public class BasicTroop extends AbstractTroop {
   public boolean equals(Object o) {
     if (o != null && o.getClass().equals(getClass())) {
       BasicTroop other = (BasicTroop) o;
-      return this.troopName == other.getName() && this.numUnits == other.getNumUnits();
+      return this.troopName.equals(other.getName()) && this.numUnits == other.getNumUnits();
     }
     return false;
   }

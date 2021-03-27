@@ -124,7 +124,7 @@ public abstract class AbstractTerritory implements Territory {
   @Override
   public boolean tryRemoveTroopUnits(String troopName, int removeNum) {
     if (isExistTroop(troopName)) {
-      myTroops.get(troopName).tryRemoveUnits(removeNum);
+      return myTroops.get(troopName).tryRemoveUnits(removeNum);
     }
     return false;
   }

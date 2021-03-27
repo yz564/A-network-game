@@ -1,6 +1,7 @@
 package edu.duke.ece651.risk.shared;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.HashMap;
 
@@ -56,6 +57,22 @@ public class V2TerritoryTest {
     assertEquals(3, myTroops.get("level1").getNumUnits());
     t1.trySetTroopUnits("level1", 2);
     assertEquals(2, myTroops.get("level1").getNumUnits());
+  }
+
+  @Test
+  public void test_set_all_untis() {
+    V2Territory t1 = new V2Territory("ABC", new HashMap<String, Integer>(), 0);
+    HashMap<String, Integer> toSet = new HashMap<String, Integer>();
+    toSet.put("level0", 5);
+    toSet.put("level5", 7);
+    t1.trySetNumUnits(toSet);
+    assertEquals(5, t1.getTroopNumUnits("level0"));
+    assertEquals(7, t1.getTroopNumUnits("level5"));
+    toSet.put("Random", 10);
+    assertFalse(t1.trySetNumUnits(toSet));
+    toSet.remove("Random");
+    toSet.put("level0", 1000000000);
+    assertFalse(t1.trySetNumUnits(toSet));
   }
 
   @Test

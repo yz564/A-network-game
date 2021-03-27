@@ -70,29 +70,7 @@ public class BasicTerritory extends AbstractTerritory {
   public int hashCode() {
     return toString().hashCode();
   }
-  /*
-  public int getNumUnits() {
-    return getTroopNumUnits("Basic");
-  }
 
-  public boolean tryAddUnits(int toAdd) {
-    return tryAddTroopUnits("Basic", toAdd);
-  }
-
-  public boolean tryRemoveUnits(int toRemove) {
-    return tryRemoveTroopUnits("Basic", toRemove);
-  }
-
-  public boolean trySetNumUnits(int numUnits) {
-    HashMap<String, Integer> toSet = new HashMap<String, Integer>();
-    toSet.put("Basic", numUnits);
-    return trySetNumUnits(toSet);
-  }
-  
-  public Troop getTroop() {
-    return getTroop("Basic");
-  }
-  */
   @Override
   public int getSize() {
     return 0;

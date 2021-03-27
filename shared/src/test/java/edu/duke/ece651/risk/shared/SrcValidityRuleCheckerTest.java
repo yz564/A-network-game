@@ -2,8 +2,6 @@ package edu.duke.ece651.risk.shared;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.HashMap;
-
 import org.junit.jupiter.api.Test;
 
 public class SrcValidityRuleCheckerTest {
@@ -17,11 +15,8 @@ public class SrcValidityRuleCheckerTest {
     worldmap.tryAssignInitOwner(3, "Player 3");
     Territory t1 = worldmap.getTerritory("Narnia");
     Territory t2 = worldmap.getTerritory("Midkemia");
-    HashMap<String, Integer> toAdd = new HashMap<>();
-    toAdd.put("level0", 10);
-    t1.addUnits(toAdd);
-    toAdd.put("level0", 12);
-    t2.addUnits(toAdd);
+    t1.tryAddTroopUnits("Basic", 10);
+    t2.tryAddTroopUnits("Basic", 12);
     ActionInfo a1 = new ActionInfo("Player 1", "Narnia", "Midkemia", 3);
     ActionInfo a2 = new ActionInfo("Player 1", "Elantris", "Midkemia", 3);
     ActionInfo a3 = new ActionInfo("Player 1", "Narnia", "Midkemia", 11);
