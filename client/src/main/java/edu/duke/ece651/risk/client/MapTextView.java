@@ -63,7 +63,7 @@ public class MapTextView {
     private String oneTerritoryLine(Territory territory) {
         String ans = "";
         HashMap<String, Territory> neighbors = territory.getMyNeighbors();
-        String unitNum = String.valueOf(territory.getNumUnits());
+        String unitNum = String.valueOf(territory.getTroopNumUnits("level0"));
 
         // unit number part
         int digitLength = 5;

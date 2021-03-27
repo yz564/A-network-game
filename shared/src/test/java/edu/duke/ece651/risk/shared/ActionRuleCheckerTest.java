@@ -2,6 +2,8 @@ package edu.duke.ece651.risk.shared;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.HashMap;
+
 import org.junit.jupiter.api.Test;
 
 public class ActionRuleCheckerTest {
@@ -17,7 +19,9 @@ public class ActionRuleCheckerTest {
     worldmap.tryAssignInitOwner(2, "Player 2");
     worldmap.tryAssignInitOwner(3, "Player 3");
     Territory t1 = worldmap.getTerritory("Narnia");
-    t1.tryAddUnits(10);
+    HashMap<String, Integer> toAdd = new HashMap<>();
+    toAdd.put("level0", 5);
+    t1.addUnits(toAdd);
     ActionInfo a1 = new ActionInfo("Player 1", "Narnia", "Oz", 3);
     ActionInfo a2 = new ActionInfo("Player 1", "Narnia", "Elantris", 3);
     ActionInfo a3 = new ActionInfo("Player 1", "Narnia", "Hogwarts", 3);

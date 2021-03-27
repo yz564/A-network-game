@@ -8,6 +8,8 @@ import edu.duke.ece651.risk.shared.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.HashMap;
+
 public class ServerOrderHelperTest {
     @Test
     public void test_collect_orders() {
@@ -55,8 +57,12 @@ public class ServerOrderHelperTest {
         map.tryAssignInitOwner(1, "Green player");
         map.tryAssignInitOwner(2, "Blue player");
         map.tryAssignInitOwner(3, "Red player");
-        map.getTerritory("Western Dothraki Sea").trySetNumUnits(300);
-        map.getTerritory("Braavosian Coastlands").trySetNumUnits(100);
+        HashMap<String, Integer> toAdd1 = new HashMap<>();
+        toAdd1.put("level0", 300);
+        map.getTerritory("Western Dothraki Sea").setNumUnits(toAdd1);
+        HashMap<String, Integer> toAdd2 = new HashMap<>();
+        toAdd2.put("level0", 100);
+        map.getTerritory("Braavosian Coastlands").setNumUnits(toAdd2);
 
         ServerOrderHelper oh = new ServerOrderHelper();
         ObjectIO obj1 = new ObjectIO();
@@ -64,8 +70,8 @@ public class ServerOrderHelperTest {
         obj1.moveOrders.add(info1);
         oh.collectOrders(obj1);
         assert (oh.tryResolveMoveOrders(map) == null);
-        assertEquals(281, map.getTerritory("Western Dothraki Sea").getNumUnits());
-        assertEquals(119, map.getTerritory("Braavosian Coastlands").getNumUnits());
+        assertEquals(281, map.getTerritory("Western Dothraki Sea").getTroopNumUnits("level0"));
+        assertEquals(119, map.getTerritory("Braavosian Coastlands").getTroopNumUnits("level0"));
 
         oh.clearAllOrders();
         ObjectIO obj2 = new ObjectIO();
@@ -73,8 +79,8 @@ public class ServerOrderHelperTest {
         obj2.moveOrders.add(info2);
         oh.collectOrders(obj2);
         assert (oh.tryResolveMoveOrders(map) == null);
-        assertEquals(300, map.getTerritory("Western Dothraki Sea").getNumUnits());
-        assertEquals(100, map.getTerritory("Braavosian Coastlands").getNumUnits());
+        assertEquals(300, map.getTerritory("Western Dothraki Sea").getTroopNumUnits("level0"));
+        assertEquals(100, map.getTerritory("Braavosian Coastlands").getTroopNumUnits("level0"));
     }
 
     @Test
@@ -85,8 +91,12 @@ public class ServerOrderHelperTest {
         map.tryAssignInitOwner(1, "Green player");
         map.tryAssignInitOwner(2, "Blue player");
         map.tryAssignInitOwner(3, "Red player");
-        map.getTerritory("Western Dothraki Sea").trySetNumUnits(300);
-        map.getTerritory("Braavosian Coastlands").trySetNumUnits(100);
+        HashMap<String, Integer> toAdd1 = new HashMap<>();
+        toAdd1.put("level0", 300);
+        map.getTerritory("Western Dothraki Sea").setNumUnits(toAdd1);
+        HashMap<String, Integer> toAdd2 = new HashMap<>();
+        toAdd2.put("level0", 100);
+        map.getTerritory("Braavosian Coastlands").setNumUnits(toAdd2);
 
         ServerOrderHelper oh = new ServerOrderHelper();
         ObjectIO obj1 = new ObjectIO();
@@ -98,8 +108,8 @@ public class ServerOrderHelperTest {
         obj2.moveOrders.add(info2);
         oh.collectOrders(obj2);
         assertEquals("That action is invalid: source Territory does not exist", oh.tryResolveMoveOrders(map));
-        assertEquals(300, map.getTerritory("Western Dothraki Sea").getNumUnits());
-        assertEquals(100, map.getTerritory("Braavosian Coastlands").getNumUnits());
+        assertEquals(300, map.getTerritory("Western Dothraki Sea").getTroopNumUnits("level0"));
+        assertEquals(100, map.getTerritory("Braavosian Coastlands").getTroopNumUnits("level0"));
     }
 
     @Test
@@ -112,8 +122,12 @@ public class ServerOrderHelperTest {
 
         // resolve fail
         ServerOrderHelper oh = new ServerOrderHelper();
-        map.getTerritory("Western Dothraki Sea").trySetNumUnits(300);
-        map.getTerritory("Myr").trySetNumUnits(100);
+        HashMap<String, Integer> toAdd1 = new HashMap<>();
+        toAdd1.put("level0", 300);
+        map.getTerritory("Western Dothraki Sea").setNumUnits(toAdd1);
+        HashMap<String, Integer> toAdd2 = new HashMap<>();
+        toAdd2.put("level0", 100);
+        map.getTerritory("Myr").setNumUnits(toAdd2);
         ActionInfo info1 = new ActionInfo("Green player", "Western Dothraki Sea", "Myr", 300);
         ActionInfo info2 = new ActionInfo("Blue player", "Myr", "Western Dothraki Sea", 100);
         ObjectIO obj1 = new ObjectIO();
@@ -122,23 +136,27 @@ public class ServerOrderHelperTest {
         oh.collectOrders(obj1);
         assertEquals("That action is invalid: destination Territory is not adjacent to source Territory",
                 oh.tryResolveAttackOrders(map)); // try resolve
-        assertEquals(100, map.getTerritory("Myr").getNumUnits());
+        assertEquals(100, map.getTerritory("Myr").getTroopNumUnits("level0"));
         assertEquals("Blue player", map.getTerritory("Myr").getOwnerName());
-        assertEquals(300, map.getTerritory("Western Dothraki Sea").getNumUnits());
+        assertEquals(300, map.getTerritory("Western Dothraki Sea").getTroopNumUnits("level0"));
         assertEquals("Green player", map.getTerritory("Western Dothraki Sea").getOwnerName());
 
         // resolve success
         oh.clearAllOrders();
-        map.getTerritory("Hills of Horvos").trySetNumUnits(300);
-        map.getTerritory("Lower Rnoyne").trySetNumUnits(3);
+        HashMap<String, Integer> toAdd3 = new HashMap<>();
+        toAdd3.put("level0", 300);
+        map.getTerritory("Hills of Horvos").setNumUnits(toAdd3);
+        HashMap<String, Integer> toAdd4 = new HashMap<>();
+        toAdd4.put("level0", 3);
+        map.getTerritory("Lower Rnoyne").setNumUnits(toAdd4);
         ActionInfo info3 = new ActionInfo("Green player", "Hills of Horvos", "Lower Rnoyne", 300);
         ObjectIO obj2 = new ObjectIO();
         obj2.attackOrders.add(info3);
         oh.collectOrders(obj2);
         assert (oh.tryResolveAttackOrders(map) == null);
         assertEquals("Green player", map.getTerritory("Hills of Horvos").getOwnerName());
-        assertEquals(0, map.getTerritory("Hills of Horvos").getNumUnits());
+        assertEquals(0, map.getTerritory("Hills of Horvos").getTroopNumUnits("level0"));
         assertEquals("Green player", map.getTerritory("Lower Rnoyne").getOwnerName());
-        assertEquals(298, map.getTerritory("Lower Rnoyne").getNumUnits());
+        assertEquals(298, map.getTerritory("Lower Rnoyne").getTroopNumUnits("level0"));
     }
 }
