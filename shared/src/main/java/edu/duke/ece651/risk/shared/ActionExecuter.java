@@ -1,5 +1,6 @@
 package edu.duke.ece651.risk.shared;
 
+import java.util.HashMap;
 import java.util.Random;
 
 public class ActionExecuter {
@@ -37,7 +38,9 @@ public class ActionExecuter {
     public void sendTroops(WorldMap map, ActionInfo info) {
         Territory src = map.getTerritory(info.getSrcName());
         int sendNum = info.getUnitNum();
-        src.trySetNumUnits(src.getNumUnits() - sendNum);
+        HashMap<String, Integer> toRemove = new HashMap<>();
+        toRemove.put("level0", sendNum);
+        src.removeUnits(toRemove);
     }
 
     /**
@@ -56,8 +59,10 @@ public class ActionExecuter {
         Territory src = map.getTerritory(info.getSrcName());
         Territory des = map.getTerritory(info.getDesName());
         int sendNum = info.getUnitNum();
-        src.trySetNumUnits(src.getNumUnits() - sendNum);
-        des.trySetNumUnits(des.getNumUnits() + sendNum);
+        HashMap<String, Integer> toChange = new HashMap<>();
+        toChange.put("level0", sendNum);
+        src.removeUnits(toChange);
+        des.addUnits(toChange);
     }
 
     /**
@@ -75,7 +80,7 @@ public class ActionExecuter {
     public void executeAttack(WorldMap map, ActionInfo info) {
         Territory des = map.getTerritory(info.getDesName());
         int attackerUnitNum = info.getUnitNum();
-        int defenderUnitNum = des.getNumUnits();
+        int defenderUnitNum = des.getTroopNumUnits("level0");
         while (attackerUnitNum > 0 && defenderUnitNum > 0) {
             if (isAttackerWinFight()) {
                 defenderUnitNum--;
@@ -85,11 +90,15 @@ public class ActionExecuter {
         }
         if (attackerUnitNum > 0) { // attacker wins the combat in attack
             // des Territory changes owner and updates unit to attackerUnitNum
-            des.trySetNumUnits(attackerUnitNum);
-            des.tryAssignOwner(info.getSrcOwnerName());
+            HashMap<String, Integer> toChange = new HashMap<>();
+            toChange.put("level0", attackerUnitNum);
+            des.setNumUnits(toChange);
+            des.putOwnerName(info.getSrcOwnerName());
         } else { // defender wins the combat in attack
             // des Territory loses units to defenderUnitNum
-            des.trySetNumUnits(defenderUnitNum);
+            HashMap<String, Integer> toChange = new HashMap<>();
+            toChange.put("level0", defenderUnitNum);
+            des.setNumUnits(toChange);
         }
     }
 

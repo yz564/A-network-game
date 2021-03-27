@@ -31,7 +31,7 @@ public class SrcValidityRuleChecker extends ActionRuleChecker {
     if (!src.isBelongTo(action.getSrcOwnerName())) {
       return "That action is invalid: source Territory belong to a different player";
     }
-    if (src.getNumUnits() < action.getUnitNum()) {
+    if (src.getTroopNumUnits("level0") < action.getUnitNum()) {
       return "That action is invalid: source Territory does not contain enough units";
     }
     return null;

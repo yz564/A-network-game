@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * RiskWorldMap implements the WorldMap interface
- * that contains the contains the mapping of territories
- * to its name, and the mapping of initial grouping to list of territories names
+ * RiskWorldMap implements the WorldMap interface that contains the contains the
+ * mapping of territories to its name, and the mapping of initial grouping to
+ * list of territories names
  */
 public class RiskWorldMap implements WorldMap {
 
@@ -19,10 +19,10 @@ public class RiskWorldMap implements WorldMap {
   /**
    * Creates the territories on the given world map
    * 
-   * @param names is the array of territories names
+   * @param names     is the array of territories names
    * 
    * @param adjacency is the array of adjacency lists that corresponds to the
-   * territory names
+   *                  territory names
    */
   private void makeTerritories(String[] names, int[][] adjacency) {
     for (int i = 0; i < names.length; i++) {
@@ -40,10 +40,10 @@ public class RiskWorldMap implements WorldMap {
   /**
    * Creates the initial grouping of territories on the given world map
    * 
-   * @param names is the array of territories names
+   * @param names  is the array of territories names
    * 
    * @param groups is the array of initial grouping number that corresponds to the
-   * territory names
+   *               territory names
    */
   private void makeInitGroups(String[] names, int[] groups) {
     for (int i = 0; i < names.length; i++) {
@@ -61,11 +61,13 @@ public class RiskWorldMap implements WorldMap {
   }
 
   /**
-   * Construct a RiskWorldMap object. 
+   * Construct a RiskWorldMap object.
    * 
-   * @param names is an array of strings of territory names
-   * @param adjacency is an array of arrays of indices of adjacent territories to each territory
-   * @param groups is an array of integers which is the initial groups id of each territory
+   * @param names     is an array of strings of territory names
+   * @param adjacency is an array of arrays of indices of adjacent territories to
+   *                  each territory
+   * @param groups    is an array of integers which is the initial groups id of
+   *                  each territory
    */
   public RiskWorldMap(String[] names, int[][] adjacency, int[] groups) {
     this.myTerritories = new HashMap<String, Territory>();
@@ -79,7 +81,7 @@ public class RiskWorldMap implements WorldMap {
     if (myTerritories.keySet().contains(toAdd)) {
       return false;
     } else {
-      myTerritories.put(toAdd, new BasicTerritory(toAdd, 0));
+      myTerritories.put(toAdd, new BasicTerritory(toAdd, 0, 0, 0));
       return true;
     }
   }
@@ -111,7 +113,7 @@ public class RiskWorldMap implements WorldMap {
       return false;
     }
     for (String territoryName : initGroups.get(group)) {
-      myTerritories.get(territoryName).tryAssignOwner(playerName);
+      myTerritories.get(territoryName).putOwnerName(playerName);
     }
     return true;
   }
@@ -132,7 +134,8 @@ public class RiskWorldMap implements WorldMap {
   public boolean tryChangeOwner(String territoryName, String playerName) {
     Territory territory = getTerritory(territoryName);
     if (territory != null) {
-      return territory.tryAssignOwner(playerName);
+      territory.putOwnerName(playerName);
+      return true;
     } else {
       return false;
     }
