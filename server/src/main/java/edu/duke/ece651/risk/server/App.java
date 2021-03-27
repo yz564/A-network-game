@@ -136,9 +136,7 @@ public class App {
       Player p = playerList.get(i);
       HashMap<String, Integer> po = p.tmp.placeOrders;
       for (String t : po.keySet()) {
-        HashMap<String, Integer> toSet = new HashMap<>();
-        toSet.put("level0", po.get(t));
-        theMap.getTerritory(t).setNumUnits(toSet);
+        theMap.getTerritory(t).trySetTroopUnits("Basic", po.get(t));
         System.out.println(p.getName() + " placed " + po.get(t) + " on territory " + t);
       }
     }
@@ -204,9 +202,7 @@ public class App {
         } else {
           for (String tname : tlist.keySet()) {
             Territory t = tlist.get(tname);
-            HashMap<String, Integer> toAdd = new HashMap<>();
-            toAdd.put("level0", 1);
-            t.addUnits(toAdd);
+            t.tryAddTroopUnits("Basic", 1);
             /*
              * t.tryAddUnits(-2); if (t.getNumUnits() < 0) { t.tryAssignOwner("Player 1"); }
              */// the setting is for quick check the game's result
