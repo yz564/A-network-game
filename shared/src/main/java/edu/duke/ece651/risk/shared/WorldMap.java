@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Represents an interface for classes that would 
- * represent the world map in a RISK game.
+ * Represents an interface for classes that would represent the world map in a
+ * RISK game.
  *
- * The World Map contains a number of territories and 
- * the initial grouping of territories for a given number of players.
+ * The World Map contains a number of territories and the initial grouping of
+ * territories for a given number of players.
  */
-public interface WorldMap extends java.io.Serializable{
+public interface WorldMap extends java.io.Serializable {
 
   /**
    * Return the territory on map with the given name
@@ -39,17 +39,18 @@ public interface WorldMap extends java.io.Serializable{
   /**
    * Assigns the owner of a given initial grouping of territories
    * 
-   * @param group is the initial grouping number
-   * @param playerName is the name of the owner  
+   * @param group      is the initial grouping number
+   * @param playerName is the name of the owner
    * 
    * @return true if assignment is successful, false if not.
    */
   public boolean tryAssignInitOwner(int group, String playerName);
 
   /**
-   * Returns a hashmap of territories mapped to its name belonging to a given player
+   * Returns a hashmap of territories mapped to its name belonging to a given
+   * player
    * 
-   * @param playerName is the name of the owner  
+   * @param playerName is the name of the owner
    */
   public HashMap<String, Territory> getPlayerTerritories(String playerName);
 
@@ -57,20 +58,18 @@ public interface WorldMap extends java.io.Serializable{
    * Change the owner of a given territory
    * 
    * @param territoryName is the name of the territory to change ownership
-   * @param playerName is the name of the owner  
+   * @param playerName    is the name of the owner
    * 
    * @return true if change is successful, false if not.
    */
   public boolean tryChangeOwner(String territoryName, String playerName);
+
+  /**
+   * Adds a new territory on the world map.
+   * 
+   * @param toAdd is the territory to add
+   *
+   * @return true if add is successful, false if not.
+   */
+  public boolean tryAddTerritory(Territory toAdd);
 }
-
-
-
-
-
-
-
-
-
-
-

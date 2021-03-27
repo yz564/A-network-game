@@ -11,8 +11,13 @@ import java.util.HashMap;
 public abstract class RiskWorldMap implements WorldMap {
 
   private static final long serialVersionUID = -8601217585700186444L;
-  protected HashMap<String, V2Territory> myTerritories;
+  protected HashMap<String, Territory> myTerritories;
   protected HashMap<Integer, ArrayList<String>> initGroups;
+
+  public RiskWorldMap() {
+    this.myTerritories = new HashMap<String, Territory>();
+    this.initGroups = new HashMap<Integer, ArrayList<String>>();
+  }
 
   /**
    * Creates the territories on the given world map
@@ -23,8 +28,7 @@ public abstract class RiskWorldMap implements WorldMap {
    *                  territory names
    */
   public RiskWorldMap(String[] names, int[] groups) {
-    this.myTerritories = new HashMap<String, Territory>();
-    this.initGroups = new HashMap<Integer, ArrayList<String>>();
+    this();
     makeInitGroups(names, groups);
   }
 
@@ -69,7 +73,7 @@ public abstract class RiskWorldMap implements WorldMap {
       return false;
     }
     for (String territoryName : initGroups.get(group)) {
-      myTerritories.get(territoryName).putOwnerName(playerName);
+      myTerritories.get(territoryName).setOwnerName(playerName);
     }
     return true;
   }
@@ -90,10 +94,20 @@ public abstract class RiskWorldMap implements WorldMap {
   public boolean tryChangeOwner(String territoryName, String playerName) {
     Territory territory = getTerritory(territoryName);
     if (territory != null) {
-      territory.putOwnerName(playerName);
+      territory.setOwnerName(playerName);
       return true;
     } else {
       return false;
+    }
+  }
+
+  @Override
+  public boolean tryAddTerritory(Territory toAdd) {
+    if (myTerritories.keySet().contains(toAdd.getName())) {
+      return false;
+    } else {
+      myTerritories.put(toAdd.getName(), toAdd);
+      return true;
     }
   }
 }
