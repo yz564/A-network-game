@@ -109,25 +109,43 @@ public abstract class AbstractTerritory implements Territory {
   }
 
   @Override
+  public boolean isExistTroop(String troopName) {
+    return myTroops.containsKey(troopName);
+  }
+
+  @Override
   public boolean tryAddTroopUnits(String troopName, int addNum) {
-    return myTroops.get(troopName).tryAddUnits(addNum);
+    if (isExistTroop(troopName)) {
+      return myTroops.get(troopName).tryAddUnits(addNum);
+    }
+    return false;
   }
 
   @Override
   public boolean tryRemoveTroopUnits(String troopName, int removeNum) {
-    return myTroops.get(troopName).tryRemoveUnits(removeNum);
+    if (isExistTroop(troopName)) {
+      myTroops.get(troopName).tryRemoveUnits(removeNum);
+    }
+    return false;
   }
 
   @Override
   public boolean trySetTroopUnits(String troopName, int setNum) {
-    return myTroops.get(troopName).trySetNumUnits(setNum);
+    if (isExistTroop(troopName)) {
+      return myTroops.get(troopName).trySetNumUnits(setNum);
+    }
+    return false;
   }
 
   @Override
   public boolean trySetNumUnits(HashMap<String, Integer> toSet) {
-    // Checks if all numUnits are valid for each troop
     for (String troopName : toSet.keySet()) {
       int setNum = toSet.get(troopName);
+      // Checks if troop exists
+      if (!isExistTroop(troopName)) {
+        return false;
+      }
+      // Checks if all numUnits are valid for each troop
       if (!myTroops.get(troopName).isValidUnits(setNum)) {
         return false;
       }

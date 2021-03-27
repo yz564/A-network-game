@@ -70,7 +70,7 @@ public class BasicTerritory extends AbstractTerritory {
   public int hashCode() {
     return toString().hashCode();
   }
-
+  /*
   public int getNumUnits() {
     return getTroopNumUnits("Basic");
   }
@@ -88,11 +88,11 @@ public class BasicTerritory extends AbstractTerritory {
     toSet.put("Basic", numUnits);
     return trySetNumUnits(toSet);
   }
-
+  
   public Troop getTroop() {
     return getTroop("Basic");
   }
-
+  */
   @Override
   public int getSize() {
     return 0;

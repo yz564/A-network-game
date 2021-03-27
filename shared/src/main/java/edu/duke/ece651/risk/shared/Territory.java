@@ -90,6 +90,13 @@ public interface Territory extends java.io.Serializable {
   public int getTroopNumUnits(String troopName);
 
   /**
+   * Checks if a specific troop with the troop name given exists in this territory
+   *
+   * @return true if troop is present, else return false.
+   */
+  public boolean isExistTroop(String troopName);
+
+  /**
    * Adds units to a specific troop in the territory.
    *
    * @param troopName is the name of the troop to add units to.
@@ -111,7 +118,7 @@ public interface Territory extends java.io.Serializable {
    * Sets the number of units to a specific troop in the territory.
    *
    * @param troopName is the name of the troop to set units.
-   * @param setNum is the number of units to set to the given troop.
+   * @param setNum    is the number of units to set to the given troop.
    * @return true if setting is successful, else return false.
    */
 

@@ -15,22 +15,22 @@ public class BasicTerritoryTest {
 
     int toAdd = 34;
     troop.tryAddUnits(toAdd);
-    territory.tryAddUnits(toAdd);
-    assertEquals(true, troop.equals(territory.getTroop()));
+    territory.tryAddTroopUnits("Basic", toAdd);
+    assertEquals(true, troop.equals(territory.getTroop("Basic")));
 
     int troopUnits = troop.getNumUnits();
-    int territoryUnits = territory.getNumUnits();
+    int territoryUnits = territory.getTroopNumUnits("Basic");
     assertEquals(troopUnits, territoryUnits);
 
     int toRemove = 20;
     troop.tryRemoveUnits(toRemove);
-    territory.tryRemoveUnits(toRemove);
-    assertEquals(true, troop.equals(territory.getTroop()));
-    assertEquals(troop.getNumUnits(), territory.getTroop().getNumUnits());
+    territory.tryRemoveTroopUnits("Basic", toRemove);
+    assertEquals(true, troop.equals(territory.getTroop("Basic")));
+    assertEquals(troop.getNumUnits(), territory.getTroopNumUnits("Basic"));
 
-    territory.tryRemoveUnits(100);
-    assertEquals(true, troop.equals(territory.getTroop()));
-    assertEquals(troop.getNumUnits(), territory.getTroop().getNumUnits());
+    territory.tryRemoveTroopUnits("Basic", 100);
+    assertEquals(true, troop.equals(territory.getTroop("Basic")));
+    assertEquals(troop.getNumUnits(), territory.getTroopNumUnits("Basic"));
 
     BasicTroop troop2 = new BasicTroop(5);
     BasicTerritory territory2 = new BasicTerritory("Elantris", 5);
@@ -38,14 +38,14 @@ public class BasicTerritoryTest {
 
     int addThree = 3;
     troop2.tryAddUnits(addThree);
-    territory2.tryAddUnits(addThree);
-    assertEquals(true, troop2.equals(territory2.getTroop()));
-    assertEquals(troop2.getNumUnits(), territory2.getTroop().getNumUnits());
+    territory2.tryAddTroopUnits("Basic", addThree);
+    assertEquals(true, troop2.equals(territory2.getTroop("Basic")));
+    assertEquals(troop2.getNumUnits(), territory2.getTroopNumUnits("Basic"));
 
     BasicTroop troop3 = new BasicTroop(5, 40);
     BasicTerritory territory3 = new BasicTerritory("Oz", 5);
     assertEquals("Oz", territory3.getName());
-    assertEquals(false, troop3.equals(territory3.getTroop()));
+    assertEquals(false, troop3.equals(territory3.getTroop("Basic")));
   }
 
   @Test
@@ -78,10 +78,10 @@ public class BasicTerritoryTest {
   @Test
   public void test_set_num_units() {
     BasicTerritory t = new BasicTerritory("Narnia", 10);
-    assertEquals(true, t.trySetNumUnits(100));
-    assertEquals(100, t.getNumUnits());
-    assertEquals(false, t.trySetNumUnits(100000));
-    assertEquals(100, t.getNumUnits());
+    assertEquals(true, t.trySetTroopUnits("Basic", 100));
+    assertEquals(100, t.getTroopNumUnits("Basic"));
+    assertEquals(false, t.trySetTroopUnits("Basic", 100000));
+    assertEquals(100, t.getTroopNumUnits("Basic"));
   }
 
   @Test
