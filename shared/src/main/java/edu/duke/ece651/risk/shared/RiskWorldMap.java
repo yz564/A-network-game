@@ -15,8 +15,12 @@ public abstract class RiskWorldMap implements WorldMap {
   protected HashMap<Integer, ArrayList<String>> initGroups;
 
   /**
-   * Construct a RiskWorldMap object. Initializes both the territories mapping and
-   * initial grouping to empty hashmap
+   * Creates the territories on the given world map
+   * 
+   * @param names     is the array of territories names
+   * 
+   * @param adjacency is the array of adjacency lists that corresponds to the
+   *                  territory names
    */
   public RiskWorldMap(String[] names, int[] groups) {
     this.myTerritories = new HashMap<String, Territory>();
@@ -65,7 +69,7 @@ public abstract class RiskWorldMap implements WorldMap {
       return false;
     }
     for (String territoryName : initGroups.get(group)) {
-      myTerritories.get(territoryName).tryAssignOwner(playerName);
+      myTerritories.get(territoryName).putOwnerName(playerName);
     }
     return true;
   }
@@ -86,7 +90,8 @@ public abstract class RiskWorldMap implements WorldMap {
   public boolean tryChangeOwner(String territoryName, String playerName) {
     Territory territory = getTerritory(territoryName);
     if (territory != null) {
-      return territory.tryAssignOwner(playerName);
+      territory.putOwnerName(playerName);
+      return true;
     } else {
       return false;
     }
