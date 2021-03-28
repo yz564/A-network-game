@@ -13,14 +13,16 @@ public class ActionInfoTest {
         assertNotEquals("123", info.getUnitNum());
         assertNotEquals(1234, info.getUnitNum());
         assertEquals("AAA", info.getSrcOwnerName());
+        assertEquals("move", info.getActionType());
     }
 
     @Test
     public void test_setters() {
         ActionInfo info = new ActionInfo("AAA", "move");
+        assertEquals("move", info.getActionType());
         assertEquals(null, info.getSrcName());
         assertEquals(null, info.getDesName());
-        assertEquals(0, info.getUnitNum());
+        assertEquals(null, info.getUnitNum());
         info.setSrcName("aaa");
         info.setDesName("bbb");
         info.setUnitNum(111);
