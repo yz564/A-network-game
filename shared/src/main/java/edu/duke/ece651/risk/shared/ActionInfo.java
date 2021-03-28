@@ -9,6 +9,9 @@ public class ActionInfo implements java.io.Serializable {
     /** The owner's name of the source Territory. */
     private final String srcOwnerName;
 
+    /** The action type of the action. */
+    private final String actionType;
+
     /** The source Territory name of the action. */
     private String srcName;
 
@@ -22,9 +25,11 @@ public class ActionInfo implements java.io.Serializable {
      * Default constructor of ActionInfo.
      *
      * @param srcOwnerName is the owner's name of the source Territory.
+     * @param actionType is a String represents the action type of the action.
      */
-    public ActionInfo(String srcOwnerName) {
+    public ActionInfo(String srcOwnerName, String actionType) {
         this.srcOwnerName = srcOwnerName;
+        this.actionType = actionType;
         this.srcName = null;
         this.desName = null;
         this.unitNum = 0;
@@ -34,12 +39,15 @@ public class ActionInfo implements java.io.Serializable {
      * Constructs a ActionInfo
      *
      * @param srcOwnerName is the owner's name of the source Territory.
+     * @param actionType is a String represents the action type of the action.
      * @param srcName is the source Territory name of the action.
      * @param desName is the destination Territory name of the action.
      * @param unitNum is the number of units assigned to the action.
      */
-    public ActionInfo(String srcOwnerName, String srcName, String desName, int unitNum) {
+    public ActionInfo(
+            String srcOwnerName, String actionType, String srcName, String desName, int unitNum) {
         this.srcOwnerName = srcOwnerName;
+        this.actionType = actionType;
         this.srcName = srcName;
         this.desName = desName;
         this.unitNum = unitNum;
@@ -48,7 +56,7 @@ public class ActionInfo implements java.io.Serializable {
     /**
      * Getter of srcOwnerName field.
      *
-     * @return a String represents onwer's name of the source Territory.
+     * @return a String represents owner's name of the source Territory.
      */
     public String getSrcOwnerName() {
         return this.srcOwnerName;

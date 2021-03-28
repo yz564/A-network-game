@@ -9,96 +9,92 @@ import org.apache.commons.lang3.SerializationUtils;
 import edu.duke.ece651.risk.shared.*;
 
 public class ClientOrderHelper {
-    /**
-     * A String represtending the player's name who is placeing the order.
-     */
+    /** A String represtending the player's name who is placeing the order. */
     private String playerName;
 
-    /**
-     * A ClientIO object for printing world map and reading required string or int.
-     */
+    /** A ClientIO object for printing world map and reading required string or int. */
     private ClientIO stdIO;
 
-    /**
-     * The rule checker for move action.
-     */
+    /** The rule checker for move action. */
     private ActionRuleChecker moveChecker;
 
-    /**
-     * The rule checker for attack action.
-     */
+    /** The rule checker for attack action. */
     private ActionRuleChecker attackChecker;
 
-    /**
-     * The executer for execute attack and move actions.
-     */
+    /** The executer for execute attack and move actions. */
     private ActionExecuter executer;
 
-    /**
-     * An output stream that prints out text to client.
-     */
+    /** An output stream that prints out text to client. */
     private PrintStream out;
 
     /**
-     * Constructs a ClientOrderhelper with the gievn client player's name, given
-     * text input and output stream. And set decault random seed for executing
-     * attack action.
-     * 
-     * @param playerName  a String represtending the player's name who is placeing
-     *                    the order.
+     * Constructs a ClientOrderhelper with the gievn client player's name, given text input and
+     * output stream. And set decault random seed for executing attack action.
+     *
+     * @param playerName a String represtending the player's name who is placeing the order.
      * @param inputReader a input stream that takes text input from client.
-     * @param out         an output stream that prints out text to client.
+     * @param out an output stream that prints out text to client.
      */
     public ClientOrderHelper(String playerName, BufferedReader inputReader, PrintStream out) {
         this.playerName = playerName;
         this.stdIO = new ClientTextIO(inputReader, out);
-        this.moveChecker = new TerritoryExistenceRuleChecker(
-                new SrcValidityRuleChecker(new DesReachableRuleChecker(null)));
-        this.attackChecker = new TerritoryExistenceRuleChecker(
-                new SrcValidityRuleChecker(new DesOwnershipRuleChecker(new DesAdjacencyRuleChecker(null))));
+        this.moveChecker =
+                new TerritoryExistenceRuleChecker(
+                        new SrcValidityRuleChecker(new DesReachableRuleChecker(null)));
+        this.attackChecker =
+                new TerritoryExistenceRuleChecker(
+                        new SrcValidityRuleChecker(
+                                new DesOwnershipRuleChecker(new DesAdjacencyRuleChecker(null))));
         this.executer = new ActionExecuter(); // default seed
         this.out = out;
     }
 
     /**
-     * Constructs a ClientOrderhelper with the gievn client player's name, given
-     * text input and output stream ,and a given random seed for executing attack
-     * action.
-     * 
-     * @param playerName  a String represtending the player's name who is placeing
-     *                    the order.
+     * Constructs a ClientOrderhelper with the gievn client player's name, given text input and
+     * output stream ,and a given random seed for executing attack action.
+     *
+     * @param playerName a String represtending the player's name who is placeing the order.
      * @param inputReader a input stream that takes text input from client.
-     * @param out         an output stream that prints out text to client.
-     * @param seed        the random seed for executing attack action.
+     * @param out an output stream that prints out text to client.
+     * @param seed the random seed for executing attack action.
      */
-    public ClientOrderHelper(String playerName, BufferedReader inputReader, PrintStream out, long seed) {
+    public ClientOrderHelper(
+            String playerName, BufferedReader inputReader, PrintStream out, long seed) {
         this.playerName = playerName;
         this.stdIO = new ClientTextIO(inputReader, out);
-        this.moveChecker = new TerritoryExistenceRuleChecker(
-                new SrcValidityRuleChecker(new DesReachableRuleChecker(null)));
-        this.attackChecker = new TerritoryExistenceRuleChecker(
-                new SrcValidityRuleChecker(new DesOwnershipRuleChecker(new DesAdjacencyRuleChecker(null))));
+        this.moveChecker =
+                new TerritoryExistenceRuleChecker(
+                        new SrcValidityRuleChecker(new DesReachableRuleChecker(null)));
+        this.attackChecker =
+                new TerritoryExistenceRuleChecker(
+                        new SrcValidityRuleChecker(
+                                new DesOwnershipRuleChecker(new DesAdjacencyRuleChecker(null))));
         this.out = out;
         this.executer = new ActionExecuter(seed);
     }
 
     /**
-     * Asks for action orders information from the client player, checks the order,
-     * and issues the order to the ObjectIO that takes the order.
-     * 
-     * @param map         the WroldMap to implement the order.
+     * Asks for action orders information from the client player, checks the order, and issues the
+     * order to the ObjectIO that takes the order.
+     *
+     * @param map the WroldMap to implement the order.
      * @param playerNames the list of all players name in the game.
      * @return an OjbectIO that takes the issued action order.
      */
     public ObjectIO issueActionOrders(WorldMap map, ArrayList<String> playerNames) {
-        WorldMap temp = (WorldMap) SerializationUtils.clone(map); // temp map for checking move action
+        WorldMap temp =
+                (WorldMap) SerializationUtils.clone(map); // temp map for checking move action
         ObjectIO orders = new ObjectIO();
         String newOrderType;
         out.println("---------------------- New Action Turn -----------------------");
         out.println("---------------------- Move Action Phase ---------------------");
         out.println(playerName + ": You may order Move actions now.\n");
-        String prompt = playerName + ": What would you like to do?\n" + "(M)ove\n"
-                + "(A)ttack (go to Attack Action Phase)\n" + "(D)one\n";
+        String prompt =
+                playerName
+                        + ": What would you like to do?\n"
+                        + "(M)ove\n"
+                        + "(A)ttack (go to Attack Action Phase)\n"
+                        + "(D)one\n";
         while (!((newOrderType = stdIO.readActionName(playerName, prompt)).equals("D"))) {
             if (newOrderType.equals("M")) {
                 ActionInfo newOrder = readMoveOrder();
@@ -109,7 +105,8 @@ public class ClientOrderHelper {
                 } else {
                     orders.moveOrders.add(newOrder);
                     executer.executeMove(temp, newOrder);
-                    out.println("*** Your Move action order is taken, here is your current map. ***\n");
+                    out.println(
+                            "*** Your Move action order is taken, here is your current map. ***\n");
                     stdIO.printMap(new MapTextView(playerNames), temp, playerNames);
                 }
             } else { // done with move action, go for attack action
@@ -144,13 +141,13 @@ public class ClientOrderHelper {
 
     /**
      * Reads a attack order from stdIO.
-     * 
-     * @return an ActionInfo object that contains the information needed for the
-     *         attack new order.
+     *
+     * @return an ActionInfo object that contains the information needed for the attack new order.
      */
     public ActionInfo readAttackOrder() {
-        ActionInfo newOrder = new ActionInfo(playerName);
-        String srcName = stdIO.readTerritoryName("What territory do you want to send your unit(s) from?");
+        ActionInfo newOrder = new ActionInfo(playerName, "attack");
+        String srcName =
+                stdIO.readTerritoryName("What territory do you want to send your unit(s) from?");
         String desName = stdIO.readTerritoryName("What territory do you want to attack?");
         int unitNum = stdIO.readNumUnits("How many units do you want to send for this attck?");
         newOrder.setSrcName(srcName);
@@ -161,14 +158,15 @@ public class ClientOrderHelper {
 
     /**
      * Reads a move order from stdIO.
-     * 
-     * @return an ActionInfo object that contains the information needed for the
-     *         move new order.
+     *
+     * @return an ActionInfo object that contains the information needed for the move new order.
      */
     public ActionInfo readMoveOrder() {
-        ActionInfo newOrder = new ActionInfo(playerName);
-        String srcName = stdIO.readTerritoryName("What territory do you want to move your unit(s) from?");
-        String desName = stdIO.readTerritoryName("What territory do you want to move your unit(s) to?");
+        ActionInfo newOrder = new ActionInfo(playerName, "move");
+        String srcName =
+                stdIO.readTerritoryName("What territory do you want to move your unit(s) from?");
+        String desName =
+                stdIO.readTerritoryName("What territory do you want to move your unit(s) to?");
         int unitNum = stdIO.readNumUnits("How many units do you want to Move?");
         newOrder.setSrcName(srcName);
         newOrder.setDesName(desName);
@@ -177,13 +175,13 @@ public class ClientOrderHelper {
     }
 
     /**
-     * Asks for initial placement orders information from the client player, checks
-     * the order and issues the order to the ObjectIO that takes the order.
-     * 
-     * @param totalUnitNum   is an int that represents the total unmber of unit to
-     *                       place on territories.
-     * @param territoryNames is an ArrayList of String represents all territoies'
-     *                       name on which to place units.
+     * Asks for initial placement orders information from the client player, checks the order and
+     * issues the order to the ObjectIO that takes the order.
+     *
+     * @param totalUnitNum is an int that represents the total number of unit to place on
+     *     territories.
+     * @param territoryNames is an ArrayList of String represents all territories' name on which to
+     *     place units.
      * @return an OjbectIO that takes the issued placement order.
      */
     public ObjectIO issuePlaceOrders(int totalUnitNum, ArrayList<String> territoryNames) {
@@ -195,10 +193,16 @@ public class ClientOrderHelper {
             while (true) {
                 out.println("You have <" + totalUnitNum + "> unit(s) to place.");
                 out.println("You have <" + territoryNum + "> territory(ies) to place unit(s).");
-                Integer toPlace = stdIO.readNumUnits("How many units you want to place at <" + territoryName + ">?");
+                Integer toPlace =
+                        stdIO.readNumUnits(
+                                "How many units you want to place at <" + territoryName + ">?");
                 if (toPlace > totalUnitNum) {
-                    out.println("Invalid input: You have  only <" + totalUnitNum
-                            + "> unit(s) to place, but you want to place <" + toPlace + "> units.");
+                    out.println(
+                            "Invalid input: You have  only <"
+                                    + totalUnitNum
+                                    + "> unit(s) to place, but you want to place <"
+                                    + toPlace
+                                    + "> units.");
                     out.println("You may place again.\n");
                 }
                 // else if (totalUnitNum - toPlace < territoryNum - 1) {
@@ -216,5 +220,4 @@ public class ClientOrderHelper {
         }
         return orders;
     }
-
 }
