@@ -7,6 +7,12 @@ public class UpgradeTechActionInfo implements java.io.Serializable {
     /** The new tech level of the upgrade tech level action. */
     private Integer newTechLevel;
 
+    /** Default constructor of UpgradeTechActionInfo. */
+    public UpgradeTechActionInfo() {
+        this.oldTechLevel = null;
+        this.newTechLevel = null;
+    }
+
     /**
      * Constructs a UpgradeTechActionInfo for upgrade tech level action.
      *
