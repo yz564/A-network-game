@@ -14,14 +14,14 @@ public class ActionInfo implements java.io.Serializable {
     /** The action type of the action. */
     private final String actionType;
 
-    /** The source Territory name of the action. */
-    private String srcName;
+    /** The detailed move or attach action info. */
+    private TerritoryActionInfo territoryActionInfo;
 
-    /** The destination Territory name of the action. */
-    private String desName;
+    /** The detailed upgrade tech action info. */
+    private UpgradeTechActionInfo upgradeTechActionInfo;
 
-    /** The number of units in tech type of troop assigned to the action. */
-    private HashMap<String, Integer> unitNum;
+    /** The detailed upgrade unit action info. */
+    private UpgradeUnitActionInfo upgradeUnitActionInfo;
 
     /**
      * Default constructor of ActionInfo.
@@ -32,52 +32,51 @@ public class ActionInfo implements java.io.Serializable {
     public ActionInfo(String srcOwnerName, String actionType) {
         this.srcOwnerName = srcOwnerName;
         this.actionType = actionType;
-        this.srcName = null;
-        this.desName = null;
-        this.unitNum = null;
     }
 
     /**
-     * Constructs a ActionInfo for move or attack action.
+     * Constructors an ActionInfo with given TerritoryActionInfo.
      *
      * @param srcOwnerName is the owner's name of the source Territory.
      * @param actionType is a String represents the action type of the action.
-     * @param srcName is the source Territory name of the action.
-     * @param desName is the destination Territory name of the action.
-     * @param unitNum is the number of units in tech type of troop assigned to the action..
+     * @param territoryActionInfo is a TerritoryActionInfo that contains detailed info of move or
+     *     attack action.
      */
     public ActionInfo(
-            String srcOwnerName,
-            String actionType,
-            String srcName,
-            String desName,
-            HashMap<String, Integer> unitNum) {
+            String srcOwnerName, String actionType, TerritoryActionInfo territoryActionInfo) {
         this.srcOwnerName = srcOwnerName;
         this.actionType = actionType;
-        this.srcName = srcName;
-        this.desName = desName;
-        this.unitNum = unitNum;
+        this.territoryActionInfo = territoryActionInfo;
     }
 
     /**
-     * Constructs a ActionInfo for upgrade units action.
+     * Constructors an ActionInfo with given UpgradeTechActionInfo.
      *
      * @param srcOwnerName is the owner's name of the source Territory.
      * @param actionType is a String represents the action type of the action.
-     * @param srcName is the source Territory name of the action.
-     * @param unitNum is the number of units number of units in tech type of troop assigned to the
-     *     action.
+     * @param upgradeTechActionInfo is an UpgradeTechActionInfo that contains detailed information
+     *     of upgrade tech level action.
      */
     public ActionInfo(
-            String srcOwnerName,
-            String actionType,
-            String srcName,
-            HashMap<String, Integer> unitNum) {
+            String srcOwnerName, String actionType, UpgradeTechActionInfo upgradeTechActionInfo) {
         this.srcOwnerName = srcOwnerName;
         this.actionType = actionType;
-        this.srcName = srcName;
-        this.desName = null;
-        this.unitNum = unitNum;
+        this.upgradeTechActionInfo = upgradeTechActionInfo;
+    }
+
+    /**
+     * Constructors an ActionInfo with given UpgradeUnitActionInfo.
+     *
+     * @param srcOwnerName is the owner's name of the source Territory.
+     * @param actionType is a String represents the action type of the action.
+     * @param upgradeUnitActionInfo is an UpgradeUnitActionInfo that contains detailed information
+     *     of upgrade unit action.
+     */
+    public ActionInfo(
+            String srcOwnerName, String actionType, UpgradeUnitActionInfo upgradeUnitActionInfo) {
+        this.srcOwnerName = srcOwnerName;
+        this.actionType = actionType;
+        this.upgradeUnitActionInfo = upgradeUnitActionInfo;
     }
 
     /**
@@ -99,57 +98,30 @@ public class ActionInfo implements java.io.Serializable {
     }
 
     /**
-     * Getter of srcName field.
+     * Getter of territoryActionInfo field.
      *
-     * @return a String represents the source Territory name of the action.
+     * @return a TerritoryActionInfo that contains detailed info of move or * attack action.
      */
-    public String getSrcName() {
-        return this.srcName;
+    public TerritoryActionInfo getTerritoryActionInfo() {
+        return territoryActionInfo;
     }
 
     /**
-     * Getter of desName field.
+     * Getter of upgradeTechActionInfo field.
      *
-     * @return a String represents the destination Territory name of the action.
-     */
-    public String getDesName() {
-        return this.desName;
-    }
-
-    /**
-     * Getter of unitNum field.
-     *
-     * @return an int represents the number of units in tech type of troop assigned to the action.
-     */
-    public HashMap<String, Integer> getUnitNum() {
-        return this.unitNum;
-    }
-
-    /**
-     * Sets the srcName.
-     *
-     * @param srcName a String represents the source Territory name of the action.
-     */
-    public void setSrcName(String srcName) {
-        this.srcName = srcName;
-    }
-
-    /**
-     * Sets the desName.
-     *
-     * @param desName a String represents the destination Territory name of the action.
-     */
-    public void setDesName(String desName) {
-        this.desName = desName;
-    }
-
-    /**
-     * Sets the unitNum.
-     *
-     * @param unitNum an int represents number of units in tech type of troop assigned to the
+     * @return an UpgradeTechActionInfo that contains detailed information of upgrade tech level
      *     action.
      */
-    public void setUnitNum(HashMap<String, Integer> unitNum) {
-        this.unitNum = unitNum;
+    public UpgradeTechActionInfo getUpgradeTechActionInfo() {
+        return upgradeTechActionInfo;
+    }
+
+    /**
+     * Getter of upgradeUnitActionInfo field.
+     *
+     * @return an UpgradeTechActionInfo that contains detailed information of upgrade unit action.
+     */
+    public UpgradeUnitActionInfo getUpgradeUnitActionInfo() {
+        return upgradeUnitActionInfo;
     }
 }
