@@ -5,13 +5,21 @@ public class UpgradeUnitActionInfo implements java.io.Serializable {
     private String srcName;
 
     /** The old unit level for the upgrade unit action. */
-    private int oldUnitLevel;
+    private Integer oldUnitLevel;
 
     /** The new unit level to the upgrade unit action. */
-    private int newUnitLevel;
+    private Integer newUnitLevel;
 
     /** The number of units to upgrade from the old level to the new level. */
-    private int numToUpgrade;
+    private Integer numToUpgrade;
+
+    /** Default constructor of the UpgradeUnitActionInfo. */
+    public UpgradeUnitActionInfo() {
+        this.srcName = null;
+        this.oldUnitLevel = null;
+        this.newUnitLevel = null;
+        this.numToUpgrade = null;
+    }
 
     /**
      * Constructs a UpgradeUnitActionInfo.
@@ -23,7 +31,7 @@ public class UpgradeUnitActionInfo implements java.io.Serializable {
      *     the new level.
      */
     public UpgradeUnitActionInfo(
-            String srcName, int oldUnitLevel, int newUnitLevel, int numToUpgrade) {
+            String srcName, Integer oldUnitLevel, Integer newUnitLevel, Integer numToUpgrade) {
         this.srcName = srcName;
         this.oldUnitLevel = oldUnitLevel;
         this.newUnitLevel = newUnitLevel;
@@ -53,7 +61,7 @@ public class UpgradeUnitActionInfo implements java.io.Serializable {
      *
      * @return an int represents the old unit level for the upgrade unit action.
      */
-    public int getOldUnitLevel() {
+    public Integer getOldUnitLevel() {
         return oldUnitLevel;
     }
 
@@ -62,7 +70,7 @@ public class UpgradeUnitActionInfo implements java.io.Serializable {
      *
      * @param oldUnitLevel an int represents the old unit level for the upgrade unit action.
      */
-    public void setOldUnitLevel(int oldUnitLevel) {
+    public void setOldUnitLevel(Integer oldUnitLevel) {
         this.oldUnitLevel = oldUnitLevel;
     }
 
@@ -71,7 +79,7 @@ public class UpgradeUnitActionInfo implements java.io.Serializable {
      *
      * @return an int represents the new unit level to the upgrade unit action.
      */
-    public int getNewUnitLevel() {
+    public Integer getNewUnitLevel() {
         return newUnitLevel;
     }
 
@@ -80,7 +88,7 @@ public class UpgradeUnitActionInfo implements java.io.Serializable {
      *
      * @param newUnitLevel an int represents the new unit level to the upgrade unit action.
      */
-    public void setNewUnitLevel(int newUnitLevel) {
+    public void setNewUnitLevel(Integer newUnitLevel) {
         this.newUnitLevel = newUnitLevel;
     }
 
@@ -90,7 +98,7 @@ public class UpgradeUnitActionInfo implements java.io.Serializable {
      * @return an int represents the number of units to upgrade from the old level to * the new
      *     level.
      */
-    public int getNumToUpgrade() {
+    public Integer getNumToUpgrade() {
         return numToUpgrade;
     }
 
@@ -100,7 +108,7 @@ public class UpgradeUnitActionInfo implements java.io.Serializable {
      * @param numToUpgrade an int represents the number of units to upgrade from the old level to *
      *     the new level.
      */
-    public void setNumToUpgrade(int numToUpgrade) {
+    public void setNumToUpgrade(Integer numToUpgrade) {
         this.numToUpgrade = numToUpgrade;
     }
 }
