@@ -23,12 +23,6 @@ public class ActionInfo implements java.io.Serializable {
     /** The number of units in tech type of troop assigned to the action. */
     private HashMap<String, Integer> unitNum;
 
-    /** The old tech level of the upgrade tech level action. */
-    private Integer oldTechLevel;
-
-    /** The new tech level of the upgrade tech level action. */
-    private Integer newTechLevel;
-
     /**
      * Default constructor of ActionInfo.
      *
@@ -41,8 +35,6 @@ public class ActionInfo implements java.io.Serializable {
         this.srcName = null;
         this.desName = null;
         this.unitNum = null;
-        this.oldTechLevel = null;
-        this.newTechLevel = null;
     }
 
     /**
@@ -65,8 +57,6 @@ public class ActionInfo implements java.io.Serializable {
         this.srcName = srcName;
         this.desName = desName;
         this.unitNum = unitNum;
-        this.oldTechLevel = null;
-        this.newTechLevel = null;
     }
 
     /**
@@ -88,27 +78,6 @@ public class ActionInfo implements java.io.Serializable {
         this.srcName = srcName;
         this.desName = null;
         this.unitNum = unitNum;
-        this.oldTechLevel = null;
-        this.newTechLevel = null;
-    }
-
-    /**
-     * Constructs a ActionInfo for upgrade tech level action.
-     *
-     * @param ownerName is the owner's name of the source Territory.
-     * @param actionType is a String represents the action type of the action.
-     * @param oldTechLevel is an Integer represents the old tech level for upgrade tech level field.
-     * @param newTechLevel is an Integer represents the new tech level for upgrade tech level field.
-     */
-    public ActionInfo(
-            String ownerName, String actionType, Integer oldTechLevel, Integer newTechLevel) {
-        this.srcOwnerName = ownerName;
-        this.actionType = actionType;
-        this.srcName = null;
-        this.desName = null;
-        this.unitNum = null;
-        this.oldTechLevel = oldTechLevel;
-        this.newTechLevel = newTechLevel;
     }
 
     /**
@@ -157,24 +126,6 @@ public class ActionInfo implements java.io.Serializable {
     }
 
     /**
-     * Getter of oldTechLevel field.
-     *
-     * @return an Integer represents the old tech level for upgrade tech level field.
-     */
-    public Integer getOldTechLevel() {
-        return this.oldTechLevel;
-    }
-
-    /**
-     * Getter of newTechLevel field.
-     *
-     * @return an Integer represents the new tech level for upgrade tech level field.
-     */
-    public Integer getNewTechLevel() {
-        return this.newTechLevel;
-    }
-
-    /**
      * Sets the srcName.
      *
      * @param srcName a String represents the source Territory name of the action.
@@ -200,23 +151,5 @@ public class ActionInfo implements java.io.Serializable {
      */
     public void setUnitNum(HashMap<String, Integer> unitNum) {
         this.unitNum = unitNum;
-    }
-
-    /**
-     * Sets the oldTechLevel field.
-     *
-     * @param oldTechLevel an Integer represents the old tech level for upgrade tech level field.
-     */
-    public void setOldTechLevel(Integer oldTechLevel) {
-        this.oldTechLevel = oldTechLevel;
-    }
-
-    /**
-     * Sets the newTechLevel field.
-     *
-     * @param newTechLevel an Integer represents the new tech level for upgrade tech level field.
-     */
-    public void setNewTechLevel(Integer newTechLevel) {
-        this.newTechLevel = newTechLevel;
     }
 }
