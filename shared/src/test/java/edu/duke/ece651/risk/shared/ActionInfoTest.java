@@ -1,17 +1,22 @@
 package edu.duke.ece651.risk.shared;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.HashMap;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ActionInfoTest {
     @Test
     public void test_getters() {
-        ActionInfo info = new ActionInfo("AAA", "move", "abc", "cde", 123);
+        HashMap<String, Integer> unitNum1 = new HashMap<>();
+        unitNum1.put("level0", 123);
+        ActionInfo info = new ActionInfo("AAA", "move", "abc", "cde", unitNum1);
         assertEquals("abc", info.getSrcName());
         assertEquals("cde", info.getDesName());
-        assertEquals(123, info.getUnitNum());
-        assertNotEquals("123", info.getUnitNum());
-        assertNotEquals(1234, info.getUnitNum());
+        assertEquals(123, info.getUnitNum().get("level0"));
+        assertNotEquals("123", info.getUnitNum().get("level0"));
+        assertNotEquals(1234, info.getUnitNum().get("level0"));
         assertEquals("AAA", info.getSrcOwnerName());
         assertEquals("move", info.getActionType());
     }
@@ -20,16 +25,18 @@ public class ActionInfoTest {
     public void test_setters() {
         ActionInfo info = new ActionInfo("AAA", "move");
         assertEquals("move", info.getActionType());
-        assertEquals(null, info.getSrcName());
-        assertEquals(null, info.getDesName());
-        assertEquals(null, info.getUnitNum());
+        assertNull(info.getSrcName());
+        assertNull(info.getDesName());
+        assertNull(info.getUnitNum());
         info.setSrcName("aaa");
         info.setDesName("bbb");
-        info.setUnitNum(111);
+        HashMap<String, Integer> unitNum1 = new HashMap<>();
+        unitNum1.put("level0", 111);
+        info.setUnitNum(unitNum1);
         assertEquals("aaa", info.getSrcName());
         assertEquals("bbb", info.getDesName());
-        assertEquals(111, info.getUnitNum());
-        assertNotEquals("111", info.getUnitNum());
-        assertNotEquals(-111, info.getUnitNum());
+        assertEquals(111, info.getUnitNum().get("level0"));
+        assertNotEquals("111", info.getUnitNum().get("level0"));
+        assertNotEquals(-111, info.getUnitNum().get("level0"));
     }
 }

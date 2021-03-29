@@ -62,13 +62,15 @@ public class ServerOrderHelperTest {
 
         ServerOrderHelper oh = new ServerOrderHelper();
         ObjectIO obj1 = new ObjectIO();
+        HashMap<String, Integer> unitNum1 = new HashMap<>();
+        unitNum1.put("level0", 19);
         ActionInfo info1 =
                 new ActionInfo(
                         "Green player",
                         "move",
                         "Western Dothraki Sea",
                         "Braavosian Coastlands",
-                        19);
+                        unitNum1);
         obj1.moveOrders.add(info1);
         oh.collectOrders(obj1);
         assert (oh.tryResolveMoveOrders(map) == null);
@@ -83,7 +85,7 @@ public class ServerOrderHelperTest {
                         "move",
                         "Braavosian Coastlands",
                         "Western Dothraki Sea",
-                        19);
+                        unitNum1);
         obj2.moveOrders.add(info2);
         oh.collectOrders(obj2);
         assert (oh.tryResolveMoveOrders(map) == null);
@@ -104,17 +106,22 @@ public class ServerOrderHelperTest {
 
         ServerOrderHelper oh = new ServerOrderHelper();
         ObjectIO obj1 = new ObjectIO();
+        HashMap<String, Integer> unitNum1 = new HashMap<>();
+        unitNum1.put("level0", 19);
         ActionInfo info1 =
                 new ActionInfo(
                         "Green player",
                         "move",
                         "Western Dothraki Sea",
                         "Braavosian Coastlands",
-                        19);
+                        unitNum1);
         obj1.moveOrders.add(info1);
         oh.collectOrders(obj1);
         ObjectIO obj2 = new ObjectIO();
-        ActionInfo info2 = new ActionInfo("Green player", "move", "B", "Western Dothraki Sea", 20);
+        HashMap<String, Integer> unitNum2 = new HashMap<>();
+        unitNum2.put("level0", 20);
+        ActionInfo info2 =
+                new ActionInfo("Green player", "move", "B", "Western Dothraki Sea", unitNum2);
         obj2.moveOrders.add(info2);
         oh.collectOrders(obj2);
         assertEquals(
@@ -136,10 +143,14 @@ public class ServerOrderHelperTest {
         ServerOrderHelper oh = new ServerOrderHelper();
         map.getTerritory("Western Dothraki Sea").trySetTroopUnits("Basic", 300);
         map.getTerritory("Myr").trySetTroopUnits("Basic", 100);
+        HashMap<String, Integer> unitNum1 = new HashMap<>();
+        unitNum1.put("level0", 300);
         ActionInfo info1 =
-                new ActionInfo("Green player", "attack", "Western Dothraki Sea", "Myr", 300);
+                new ActionInfo("Green player", "attack", "Western Dothraki Sea", "Myr", unitNum1);
+        HashMap<String, Integer> unitNum2 = new HashMap<>();
+        unitNum2.put("level0", 100);
         ActionInfo info2 =
-                new ActionInfo("Blue player", "attack", "Myr", "Western Dothraki Sea", 100);
+                new ActionInfo("Blue player", "attack", "Myr", "Western Dothraki Sea", unitNum2);
         ObjectIO obj1 = new ObjectIO();
         obj1.attackOrders.add(info1);
         obj1.attackOrders.add(info2);
@@ -157,7 +168,8 @@ public class ServerOrderHelperTest {
         map.getTerritory("Hills of Horvos").trySetTroopUnits("Basic", 300);
         map.getTerritory("Lower Rnoyne").trySetTroopUnits("Basic", 3);
         ActionInfo info3 =
-                new ActionInfo("Green player", "attack", "Hills of Horvos", "Lower Rnoyne", 300);
+                new ActionInfo(
+                        "Green player", "attack", "Hills of Horvos", "Lower Rnoyne", unitNum1);
         ObjectIO obj2 = new ObjectIO();
         obj2.attackOrders.add(info3);
         oh.collectOrders(obj2);

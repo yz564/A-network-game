@@ -1,5 +1,7 @@
 package edu.duke.ece651.risk.shared;
 
+import java.util.HashMap;
+
 /** Information used in a move or an attack action. */
 public class ActionInfo implements java.io.Serializable {
 
@@ -18,8 +20,8 @@ public class ActionInfo implements java.io.Serializable {
     /** The destination Territory name of the action. */
     private String desName;
 
-    /** The number of units assigned to the action. */
-    private Integer unitNum;
+    /** The number of units in tech type of troop assigned to the action. */
+    private HashMap<String, Integer> unitNum;
 
     /** The old tech level of the upgrade tech level action. */
     private Integer oldTechLevel;
@@ -50,10 +52,14 @@ public class ActionInfo implements java.io.Serializable {
      * @param actionType is a String represents the action type of the action.
      * @param srcName is the source Territory name of the action.
      * @param desName is the destination Territory name of the action.
-     * @param unitNum is the number of units assigned to the action.
+     * @param unitNum is the number of units in tech type of troop assigned to the action..
      */
     public ActionInfo(
-            String srcOwnerName, String actionType, String srcName, String desName, int unitNum) {
+            String srcOwnerName,
+            String actionType,
+            String srcName,
+            String desName,
+            HashMap<String, Integer> unitNum) {
         this.srcOwnerName = srcOwnerName;
         this.actionType = actionType;
         this.srcName = srcName;
@@ -69,9 +75,14 @@ public class ActionInfo implements java.io.Serializable {
      * @param srcOwnerName is the owner's name of the source Territory.
      * @param actionType is a String represents the action type of the action.
      * @param srcName is the source Territory name of the action.
-     * @param unitNum is the number of units assigned to the action.
+     * @param unitNum is the number of units number of units in tech type of troop assigned to the
+     *     action.
      */
-    public ActionInfo(String srcOwnerName, String actionType, String srcName, int unitNum) {
+    public ActionInfo(
+            String srcOwnerName,
+            String actionType,
+            String srcName,
+            HashMap<String, Integer> unitNum) {
         this.srcOwnerName = srcOwnerName;
         this.actionType = actionType;
         this.srcName = srcName;
@@ -139,9 +150,9 @@ public class ActionInfo implements java.io.Serializable {
     /**
      * Getter of unitNum field.
      *
-     * @return an int represents the number of units assigned to the action.
+     * @return an int represents the number of units in tech type of troop assigned to the action.
      */
-    public Integer getUnitNum() {
+    public HashMap<String, Integer> getUnitNum() {
         return this.unitNum;
     }
 
@@ -184,9 +195,10 @@ public class ActionInfo implements java.io.Serializable {
     /**
      * Sets the unitNum.
      *
-     * @param unitNum an int represents the number of units assigned to the action.
+     * @param unitNum an int represents number of units in tech type of troop assigned to the
+     *     action.
      */
-    public void setUnitNum(Integer unitNum) {
+    public void setUnitNum(HashMap<String, Integer> unitNum) {
         this.unitNum = unitNum;
     }
 

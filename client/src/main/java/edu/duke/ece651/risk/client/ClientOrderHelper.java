@@ -3,6 +3,7 @@ package edu.duke.ece651.risk.client;
 import java.io.BufferedReader;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.commons.lang3.SerializationUtils;
 
@@ -152,7 +153,9 @@ public class ClientOrderHelper {
         int unitNum = stdIO.readNumUnits("How many units do you want to send for this attck?");
         newOrder.setSrcName(srcName);
         newOrder.setDesName(desName);
-        newOrder.setUnitNum(unitNum);
+        HashMap<String, Integer> unitNums = new HashMap<>();
+        unitNums.put("level0", unitNum);
+        newOrder.setUnitNum(unitNums);
         return newOrder;
     }
 
@@ -170,7 +173,9 @@ public class ClientOrderHelper {
         int unitNum = stdIO.readNumUnits("How many units do you want to Move?");
         newOrder.setSrcName(srcName);
         newOrder.setDesName(desName);
-        newOrder.setUnitNum(unitNum);
+        HashMap<String, Integer> unitNums = new HashMap<>();
+        unitNums.put("level0", unitNum);
+        newOrder.setUnitNum(unitNums);
         return newOrder;
     }
 

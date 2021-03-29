@@ -23,9 +23,11 @@ public class ActionRuleCheckerTest {
         worldmap.tryAssignInitOwner(3, "Player 3");
         Territory t1 = worldmap.getTerritory("Narnia");
         t1.tryAddTroopUnits("Basic", 5);
-        ActionInfo a1 = new ActionInfo("Player 1", "move", "Narnia", "Oz", 3);
-        ActionInfo a2 = new ActionInfo("Player 1", "attack", "Narnia", "Elantris", 3);
-        ActionInfo a3 = new ActionInfo("Player 1", "move", "Narnia", "Hogwarts", 3);
+        HashMap<String, Integer> unitNum1 = new HashMap<>();
+        unitNum1.put("level0", 3);
+        ActionInfo a1 = new ActionInfo("Player 1", "move", "Narnia", "Oz", unitNum1);
+        ActionInfo a2 = new ActionInfo("Player 1", "attack", "Narnia", "Elantris", unitNum1);
+        ActionInfo a3 = new ActionInfo("Player 1", "move", "Narnia", "Hogwarts", unitNum1);
         assertNull(rc1.checkAction(a1, worldmap));
         assertNull(rc2.checkAction(a2, worldmap));
         assertEquals(
