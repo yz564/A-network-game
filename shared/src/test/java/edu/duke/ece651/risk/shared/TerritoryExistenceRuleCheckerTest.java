@@ -13,10 +13,11 @@ public class TerritoryExistenceRuleCheckerTest {
         WorldMapFactory factory = new V1MapFactory();
         WorldMap worldmap = factory.makeTestWorldMap();
         HashMap<String, Integer> unitNum1 = new HashMap<>();
-        unitNum1.put("level0", 3);
-        ActionInfo a1 = new ActionInfo("Player 1", "move", "Narnia", "Midkemia", unitNum1);
-        ActionInfo a2 = new ActionInfo("Player 1", "move", "Test", "Midkemia", unitNum1);
-        ActionInfo a3 = new ActionInfo("Player 1", "move", "Narnia", "Test", unitNum1);
+        unitNum1.put("Basic", 3);
+        ActionInfoFactory af = new ActionInfoFactory();
+        ActionInfo a1 = af.createMoveActionInfo("Player 1", "Narnia", "Midkemia", unitNum1);
+        ActionInfo a2 = af.createMoveActionInfo("Player 1", "Test", "Midkemia", unitNum1);
+        ActionInfo a3 = af.createMoveActionInfo("Player 1", "Narnia", "Test", unitNum1);
         assertNull(rc.checkMyRule(a1, worldmap));
         assertEquals(
                 "That action is invalid: source Territory does not exist",

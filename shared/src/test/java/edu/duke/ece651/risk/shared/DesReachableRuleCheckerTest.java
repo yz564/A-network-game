@@ -17,10 +17,11 @@ public class DesReachableRuleCheckerTest {
         worldmap.tryAssignInitOwner(3, "Player 3");
         HashMap<String, Integer> unitNum1 = new HashMap<>();
         unitNum1.put("level0", 3);
-        ActionInfo a1 = new ActionInfo("Player 1", "move", "Narnia", "Oz", unitNum1);
+        ActionInfoFactory af = new ActionInfoFactory();
+        ActionInfo a1 = af.createMoveActionInfo("Player 1", "Narnia", "Oz", unitNum1);
         HashMap<String, Integer> unitNum2 = new HashMap<>();
         unitNum2.put("level0", 3);
-        ActionInfo a2 = new ActionInfo("Player 1", "move", "Narnia", "Hogwarts", unitNum2);
+        ActionInfo a2 = af.createMoveActionInfo("Player 1", "Narnia", "Hogwarts", unitNum2);
         assertNull(rc.checkMyRule(a1, worldmap));
         assertEquals(
                 "That action is invalid: destination Territory is not reachable from source Territory",

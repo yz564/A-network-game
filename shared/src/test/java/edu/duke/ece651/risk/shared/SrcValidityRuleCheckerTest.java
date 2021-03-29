@@ -20,12 +20,13 @@ public class SrcValidityRuleCheckerTest {
         t1.tryAddTroopUnits("Basic", 10);
         t2.tryAddTroopUnits("Basic", 12);
         HashMap<String, Integer> unitNum1 = new HashMap<>();
-        unitNum1.put("level0", 3);
-        ActionInfo a1 = new ActionInfo("Player 1", "move", "Narnia", "Midkemia", unitNum1);
-        ActionInfo a2 = new ActionInfo("Player 1", "move", "Elantris", "Midkemia", unitNum1);
+        unitNum1.put("Basic", 3);
+        ActionInfoFactory af = new ActionInfoFactory();
+        ActionInfo a1 = af.createMoveActionInfo("Player 1", "Narnia", "Midkemia", unitNum1);
+        ActionInfo a2 = af.createMoveActionInfo("Player 1", "Elantris", "Midkemia", unitNum1);
         HashMap<String, Integer> unitNum2 = new HashMap<>();
-        unitNum2.put("level0", 11);
-        ActionInfo a3 = new ActionInfo("Player 1", "move", "Narnia", "Midkemia", unitNum2);
+        unitNum2.put("Basic", 11);
+        ActionInfo a3 = af.createMoveActionInfo("Player 1", "Narnia", "Midkemia", unitNum2);
         assertNull(rc.checkMyRule(a1, worldmap));
         assertEquals(
                 "That action is invalid: source Territory belong to a different player",

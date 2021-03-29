@@ -16,9 +16,10 @@ public class DesOwnershipRuleCheckerTest {
         worldmap.tryAssignInitOwner(2, "Player 2");
         worldmap.tryAssignInitOwner(3, "Player 3");
         HashMap<String, Integer> unitNum1 = new HashMap<>();
-        unitNum1.put("level0", 3);
-        ActionInfo a1 = new ActionInfo("Player 1", "attack", "Narnia", "Elantris", unitNum1);
-        ActionInfo a2 = new ActionInfo("Player 1", "attack", "Narnia", "Midkemia", unitNum1);
+        unitNum1.put("Basic", 3);
+        ActionInfoFactory af = new ActionInfoFactory();
+        ActionInfo a1 = af.createAttackActionInfo("Player 1", "Narnia", "Elantris", unitNum1);
+        ActionInfo a2 = af.createMoveActionInfo("Player 1", "Narnia", "Midkemia", unitNum1);
         assertNull(rc.checkMyRule(a1, worldmap));
         assertEquals(
                 "That action in invalid: destination Territory does not belong to a different player",

@@ -28,8 +28,8 @@ public class ActionExecuter {
      * @param info a ActionInfo object that contains the information of src, dis, and troop to send.
      */
     public void sendTroops(WorldMap map, ActionInfo info) {
-        Territory src = map.getTerritory(info.getSrcName());
-        int sendNum = info.getUnitNum().get("level0");
+        Territory src = map.getTerritory(info.getTerritoryActionInfo().getSrcName());
+        int sendNum = info.getTerritoryActionInfo().getUnitNum().get("Basic");
         src.tryRemoveTroopUnits("Basic", sendNum);
     }
 
@@ -45,9 +45,9 @@ public class ActionExecuter {
      * @param info a ActionInfo object that contains the information of src, dis, and troop to send.
      */
     public void executeMove(WorldMap map, ActionInfo info) {
-        Territory src = map.getTerritory(info.getSrcName());
-        Territory des = map.getTerritory(info.getDesName());
-        int sendNum = info.getUnitNum().get("level0");
+        Territory src = map.getTerritory(info.getTerritoryActionInfo().getSrcName());
+        Territory des = map.getTerritory(info.getTerritoryActionInfo().getDesName());
+        int sendNum = info.getTerritoryActionInfo().getUnitNum().get("Basic");
         src.tryRemoveTroopUnits("Basic", sendNum);
         des.tryAddTroopUnits("Basic", sendNum);
     }
@@ -64,8 +64,8 @@ public class ActionExecuter {
      * @param info a ActionInfo object that contains the information of src, dis, and troop to send.
      */
     public void executeAttack(WorldMap map, ActionInfo info) {
-        Territory des = map.getTerritory(info.getDesName());
-        int attackerUnitNum = info.getUnitNum().get("level0");
+        Territory des = map.getTerritory(info.getTerritoryActionInfo().getDesName());
+        int attackerUnitNum = info.getTerritoryActionInfo().getUnitNum().get("Basic");
         int defenderUnitNum = des.getTroopNumUnits("Basic");
         while (attackerUnitNum > 0 && defenderUnitNum > 0) {
             if (isAttackerWinFight()) {

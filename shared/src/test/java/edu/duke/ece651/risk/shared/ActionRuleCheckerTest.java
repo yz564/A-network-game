@@ -24,10 +24,11 @@ public class ActionRuleCheckerTest {
         Territory t1 = worldmap.getTerritory("Narnia");
         t1.tryAddTroopUnits("Basic", 5);
         HashMap<String, Integer> unitNum1 = new HashMap<>();
-        unitNum1.put("level0", 3);
-        ActionInfo a1 = new ActionInfo("Player 1", "move", "Narnia", "Oz", unitNum1);
-        ActionInfo a2 = new ActionInfo("Player 1", "attack", "Narnia", "Elantris", unitNum1);
-        ActionInfo a3 = new ActionInfo("Player 1", "move", "Narnia", "Hogwarts", unitNum1);
+        unitNum1.put("Basic", 3);
+        ActionInfoFactory af = new ActionInfoFactory();
+        ActionInfo a1 = af.createMoveActionInfo("Player 1", "Narnia", "Oz", unitNum1);
+        ActionInfo a2 = af.createAttackActionInfo("Player 1", "Narnia", "Elantris", unitNum1);
+        ActionInfo a3 = af.createMoveActionInfo("Player 1", "Narnia", "Hogwarts", unitNum1);
         assertNull(rc1.checkAction(a1, worldmap));
         assertNull(rc2.checkAction(a2, worldmap));
         assertEquals(

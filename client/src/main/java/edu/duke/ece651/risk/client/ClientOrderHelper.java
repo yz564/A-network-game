@@ -146,16 +146,14 @@ public class ClientOrderHelper {
      * @return an ActionInfo object that contains the information needed for the attack new order.
      */
     public ActionInfo readAttackOrder() {
-        ActionInfo newOrder = new ActionInfo(playerName, "attack");
+        ActionInfoFactory af = new ActionInfoFactory();
         String srcName =
                 stdIO.readTerritoryName("What territory do you want to send your unit(s) from?");
         String desName = stdIO.readTerritoryName("What territory do you want to attack?");
         int unitNum = stdIO.readNumUnits("How many units do you want to send for this attck?");
-        newOrder.setSrcName(srcName);
-        newOrder.setDesName(desName);
         HashMap<String, Integer> unitNums = new HashMap<>();
-        unitNums.put("level0", unitNum);
-        newOrder.setUnitNum(unitNums);
+        unitNums.put("Basic", unitNum);
+        ActionInfo newOrder = af.createAttackActionInfo(playerName, srcName, desName, unitNums);
         return newOrder;
     }
 
@@ -165,17 +163,15 @@ public class ClientOrderHelper {
      * @return an ActionInfo object that contains the information needed for the move new order.
      */
     public ActionInfo readMoveOrder() {
-        ActionInfo newOrder = new ActionInfo(playerName, "move");
+        ActionInfoFactory af = new ActionInfoFactory();
         String srcName =
                 stdIO.readTerritoryName("What territory do you want to move your unit(s) from?");
         String desName =
                 stdIO.readTerritoryName("What territory do you want to move your unit(s) to?");
         int unitNum = stdIO.readNumUnits("How many units do you want to Move?");
-        newOrder.setSrcName(srcName);
-        newOrder.setDesName(desName);
         HashMap<String, Integer> unitNums = new HashMap<>();
-        unitNums.put("level0", unitNum);
-        newOrder.setUnitNum(unitNums);
+        unitNums.put("Basic", unitNum);
+        ActionInfo newOrder = af.createMoveActionInfo(playerName, srcName, desName, unitNums);
         return newOrder;
     }
 

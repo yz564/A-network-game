@@ -26,11 +26,14 @@ public class SrcValidityRuleChecker extends ActionRuleChecker {
      */
     @Override
     protected String checkMyRule(ActionInfo action, WorldMap worldmap) {
-        Territory src = worldmap.getTerritory(action.getSrcName());
+        // TODO: this needs to be updated to check action type, then decide to get
+        // TerritoryActionInfo or UpgradeUnitActionInfo
+        Territory src = worldmap.getTerritory(action.getTerritoryActionInfo().getSrcName());
         if (!src.isBelongTo(action.getSrcOwnerName())) {
             return "That action is invalid: source Territory belong to a different player";
         }
-        if (src.getTroopNumUnits("Basic") < action.getUnitNum().get("level0")) {
+        if (src.getTroopNumUnits("Basic")
+                < action.getTerritoryActionInfo().getUnitNum().get("Basic")) {
             return "That action is invalid: source Territory does not contain enough units";
         }
         return null;

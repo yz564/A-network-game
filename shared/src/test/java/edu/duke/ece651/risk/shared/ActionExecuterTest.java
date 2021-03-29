@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ActionExecuterTest {
     @Test
     public void test_send_troops() {
+        ActionInfoFactory af = new ActionInfoFactory();
         // create map
         WorldMapFactory mf = new V1MapFactory();
         WorldMap map = mf.makeWorldMap(3);
@@ -19,14 +20,10 @@ public class ActionExecuterTest {
         map.getTerritory("Braavosian Coastlands").trySetTroopUnits("Basic", 100);
         ActionExecuter executer = new ActionExecuter();
         HashMap<String, Integer> unitNum1 = new HashMap<>();
-        unitNum1.put("level0", 19);
+        unitNum1.put("Basic", 19);
         ActionInfo info =
-                new ActionInfo(
-                        "Green player",
-                        "attack",
-                        "Western Dothraki Sea",
-                        "Braavosian Coastlands",
-                        unitNum1);
+                af.createAttackActionInfo(
+                        "Green player", "Western Dothraki Sea", "Braavosian Coastlands", unitNum1);
         executer.sendTroops(map, info);
         assertEquals(281, map.getTerritory("Western Dothraki Sea").getTroopNumUnits("Basic"));
         assertEquals(100, map.getTerritory("Braavosian Coastlands").getTroopNumUnits("Basic"));
@@ -34,6 +31,7 @@ public class ActionExecuterTest {
 
     @Test
     public void test_execute_move() {
+        ActionInfoFactory af = new ActionInfoFactory();
         // create map
         WorldMapFactory mf = new V1MapFactory();
         WorldMap map = mf.makeWorldMap(3);
@@ -45,27 +43,19 @@ public class ActionExecuterTest {
 
         ActionExecuter executer = new ActionExecuter();
         HashMap<String, Integer> unitNum1 = new HashMap<>();
-        unitNum1.put("level0", 19);
+        unitNum1.put("Basic", 19);
         ActionInfo info1 =
-                new ActionInfo(
-                        "Green player",
-                        "move",
-                        "Western Dothraki Sea",
-                        "Braavosian Coastlands",
-                        unitNum1);
+                af.createMoveActionInfo(
+                        "Green player", "Western Dothraki Sea", "Braavosian Coastlands", unitNum1);
         executer.executeMove(map, info1);
         assertEquals(281, map.getTerritory("Western Dothraki Sea").getTroopNumUnits("Basic"));
         assertEquals(119, map.getTerritory("Braavosian Coastlands").getTroopNumUnits("Basic"));
 
         HashMap<String, Integer> unitNum2 = new HashMap<>();
-        unitNum2.put("level0", 19);
+        unitNum2.put("Basic", 19);
         ActionInfo info2 =
-                new ActionInfo(
-                        "Green player",
-                        "move",
-                        "Braavosian Coastlands",
-                        "Western Dothraki Sea",
-                        unitNum2);
+                af.createMoveActionInfo(
+                        "Green player", "Braavosian Coastlands", "Western Dothraki Sea", unitNum2);
         executer.executeMove(map, info2);
         assertEquals(300, map.getTerritory("Western Dothraki Sea").getTroopNumUnits("Basic"));
         assertEquals(100, map.getTerritory("Braavosian Coastlands").getTroopNumUnits("Basic"));
@@ -73,6 +63,7 @@ public class ActionExecuterTest {
 
     @Test
     public void test_execute_attack() {
+        ActionInfoFactory af = new ActionInfoFactory();
         // create map
         WorldMapFactory mf = new V1MapFactory();
         WorldMap map = mf.makeWorldMap(3);
@@ -85,13 +76,13 @@ public class ActionExecuterTest {
         map.getTerritory("Western Dothraki Sea").trySetTroopUnits("Basic", 300);
         map.getTerritory("Myr").trySetTroopUnits("Basic", 100);
         HashMap<String, Integer> unitNum1 = new HashMap<>();
-        unitNum1.put("level0", 300);
+        unitNum1.put("Basic", 300);
         ActionInfo info1 =
-                new ActionInfo("Green player", "attack", "Western Dothraki Sea", "Myr", unitNum1);
+                af.createAttackActionInfo("Green player", "Western Dothraki Sea", "Myr", unitNum1);
         HashMap<String, Integer> unitNum2 = new HashMap<>();
-        unitNum2.put("level0", 100);
+        unitNum2.put("Basic", 100);
         ActionInfo info2 =
-                new ActionInfo("Blue player", "attack", "Myr", "Western Dothraki Sea", unitNum2);
+                af.createAttackActionInfo("Blue player", "Myr", "Western Dothraki Sea", unitNum2);
         executer.sendTroops(map, info1);
         assertEquals(0, map.getTerritory("Western Dothraki Sea").getTroopNumUnits("Basic"));
         assertEquals("Green player", map.getTerritory("Western Dothraki Sea").getOwnerName());
@@ -109,12 +100,8 @@ public class ActionExecuterTest {
         map.getTerritory("Lower Rnoyne").trySetTroopUnits("Basic", 3);
 
         ActionInfo info3 =
-                new ActionInfo(
-                        "Green player",
-                        "attack",
-                        "Braavosian Coastlands",
-                        "Lower Rnoyne",
-                        unitNum1);
+                af.createAttackActionInfo(
+                        "Green player", "Braavosian Coastlands", "Lower Rnoyne", unitNum1);
         assertEquals(300, map.getTerritory("Braavosian Coastlands").getTroopNumUnits("Basic"));
         assertEquals(3, map.getTerritory("Lower Rnoyne").getTroopNumUnits("Basic"));
         assertEquals("Blue player", map.getTerritory("Lower Rnoyne").getOwnerName());
@@ -130,9 +117,9 @@ public class ActionExecuterTest {
         map.getTerritory("Lhaxar").trySetTroopUnits("Basic", 500);
 
         HashMap<String, Integer> unitNum3 = new HashMap<>();
-        unitNum3.put("level0", 3);
+        unitNum3.put("Basic", 3);
         ActionInfo info4 =
-                new ActionInfo("Green player", "attack", "Forest of Qohor", "Lhaxar", unitNum3);
+                af.createAttackActionInfo("Green player", "Forest of Qohor", "Lhaxar", unitNum3);
         executer0.sendTroops(map, info4);
         executer0.executeAttack(map, info4);
         assertEquals("Blue player", map.getTerritory("Lhaxar").getOwnerName());
