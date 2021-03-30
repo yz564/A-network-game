@@ -57,10 +57,10 @@ public class ServerOrderHelper {
      * Default constructor of the ServerOrderHelper.
      */
     public ServerOrderHelper() {
-        this.moveChecker = new TerritoryExistenceRuleChecker(
-                new SrcValidityRuleChecker(new DesReachableRuleChecker(null)));
-        this.attackChecker = new TerritoryExistenceRuleChecker(
-                new SrcValidityRuleChecker(new DesOwnershipRuleChecker(new DesAdjacencyRuleChecker(null))));
+    this.moveChecker = new TerritoryExistenceRuleChecker(
+        new OwnershipRuleChecker(new EnoughUnitsRuleChecker(new DesReachableRuleChecker(null))));
+    this.attackChecker = new TerritoryExistenceRuleChecker(
+        new OwnershipRuleChecker(new EnoughUnitsRuleChecker(new DesAdjacencyRuleChecker(null))));
         this.attackOrders = new ArrayList<ActionInfo>();
         this.moveOrders = new ArrayList<ActionInfo>();
         this.executer = new ActionExecuter(); // default seed
@@ -73,10 +73,10 @@ public class ServerOrderHelper {
      * @param seed the random seed for executing attack action.
      */
     public ServerOrderHelper(long seed) {
-        this.moveChecker = new TerritoryExistenceRuleChecker(
-                new SrcValidityRuleChecker(new DesReachableRuleChecker(null)));
-        this.attackChecker = new TerritoryExistenceRuleChecker(
-                new SrcValidityRuleChecker(new DesOwnershipRuleChecker(new DesAdjacencyRuleChecker(null))));
+    this.moveChecker = new TerritoryExistenceRuleChecker(
+        new OwnershipRuleChecker(new EnoughUnitsRuleChecker(new DesReachableRuleChecker(null))));
+    this.attackChecker = new TerritoryExistenceRuleChecker(
+        new OwnershipRuleChecker(new EnoughUnitsRuleChecker(new DesAdjacencyRuleChecker(null))));
         this.attackOrders = new ArrayList<ActionInfo>();
         this.moveOrders = new ArrayList<ActionInfo>();
         this.executer = new ActionExecuter(seed);
