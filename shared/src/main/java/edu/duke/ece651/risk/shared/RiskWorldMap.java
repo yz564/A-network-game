@@ -13,10 +13,12 @@ public abstract class RiskWorldMap implements WorldMap {
   private static final long serialVersionUID = -8601217585700186444L;
   protected HashMap<String, Territory> myTerritories;
   protected HashMap<Integer, ArrayList<String>> initGroups;
+  protected HashMap<String, PlayerInfo> playersInfo;
 
   public RiskWorldMap() {
     this.myTerritories = new HashMap<String, Territory>();
     this.initGroups = new HashMap<Integer, ArrayList<String>>();
+    this.playersInfo = new HashMap<String, PlayerInfo>();
   }
 
   /**
@@ -110,4 +112,21 @@ public abstract class RiskWorldMap implements WorldMap {
       return true;
     }
   }
+
+  @Override
+  public boolean tryAddPlayerInfo(PlayerInfo newPlayer) {
+    if (playersInfo.keySet().contains(newPlayer.getPlayerName())) {
+      return false;
+    } else {
+      playersInfo.put(newPlayer.getPlayerName(), newPlayer);
+      return true;
+    }
+  }
+
+  @Override
+  public PlayerInfo getPlayerInfo(String playerName) {
+    return playersInfo.get(playerName);
+  }
 }
+
+

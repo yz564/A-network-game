@@ -67,4 +67,19 @@ public class V2RiskWorldMapTest {
     assertFalse(worldmap.tryChangeOwner("Hogwarts", "Player 2"));
     assertEquals(expected, worldmap.getPlayerTerritories("Player 1"));
   }
+
+  @Test
+  public void test_playerinfo() {
+    WorldMap worldmap = new V2RiskWorldMap();
+    PlayerInfo p1 = new PlayerInfo("Player 1", 30, 30);
+    PlayerInfo p2 = new PlayerInfo("Player 2", 30, 30);
+    PlayerInfo p3 = new PlayerInfo("Player 3", 30, 30);
+    assertTrue(worldmap.tryAddPlayerInfo(p1));
+    assertTrue(worldmap.tryAddPlayerInfo(p2));
+    assertTrue(worldmap.tryAddPlayerInfo(p3));
+    assertFalse(worldmap.tryAddPlayerInfo(p1));
+    assertEquals(p1.getPlayerName(), worldmap.getPlayerInfo("Player 1").getPlayerName());
+    assertEquals(p2.getPlayerName(), worldmap.getPlayerInfo("Player 2").getPlayerName());
+    assertEquals(p3.getPlayerName(), worldmap.getPlayerInfo("Player 3").getPlayerName());
+  }
 }
