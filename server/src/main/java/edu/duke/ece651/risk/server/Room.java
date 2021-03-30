@@ -43,7 +43,7 @@ public class Room implements Runnable {
     while (true) {
       while (playerList.size() == numPlayer) {
         try {
-          System.out.println("room "+id+ " begins a game");
+          System.out.println("room "+(id+1)+ " begins a game");
           game = new Game(numPlayer, playerList);
           game.doInitialization();
           game.doPlacement();
