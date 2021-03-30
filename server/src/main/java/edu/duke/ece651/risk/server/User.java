@@ -112,7 +112,7 @@ public class User implements Runnable{
             }
           }
           else {
-            System.out.println(inputName + " failed on joining room " + (currentRoomId+1));
+            System.out.println(inputName + " failed on joining the room");
             myWrite(new ObjectIO("failed on joining the room, retry",-1));
           }
       }
