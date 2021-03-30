@@ -38,13 +38,11 @@ public class ActionInfoFactory {
      * Creates an adapted ActionInfo for upgrade tech action.
      *
      * @param srcOwnerName is the owner's name of this action.
-     * @param oldTechLevel is an Integer represents the old tech level for upgrade tech level field.
      * @param newTechLevel is an Integer represents the new tech level for upgrade tech level field.
      * @return an adapted ActionInfo for upgrade tech action.
      */
-    public ActionInfo createUpgradeTechActionInfo(
-            String srcOwnerName, Integer oldTechLevel, Integer newTechLevel) {
-        UpgradeTechActionInfo info = new UpgradeTechActionInfo(oldTechLevel, newTechLevel);
+    public ActionInfo createUpgradeTechActionInfo(String srcOwnerName, Integer newTechLevel) {
+        UpgradeTechActionInfo info = new UpgradeTechActionInfo(newTechLevel);
         return new ActionInfo(srcOwnerName, "upgrade tech", info);
     }
 

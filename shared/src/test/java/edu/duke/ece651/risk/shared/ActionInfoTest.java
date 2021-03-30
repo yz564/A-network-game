@@ -36,7 +36,7 @@ public class ActionInfoTest {
 
     @Test
     public void test_upgrade_tech_action_constructor() {
-        UpgradeTechActionInfo infoDetail = new UpgradeTechActionInfo(1, 3);
+        UpgradeTechActionInfo infoDetail = new UpgradeTechActionInfo(3);
         ActionInfo info = new ActionInfo("Player 1", "upgrade tech", infoDetail);
         assertEquals(3, info.getUpgradeTechActionInfo().getNewTechLevel());
     }

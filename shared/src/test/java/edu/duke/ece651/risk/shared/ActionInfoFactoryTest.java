@@ -33,8 +33,7 @@ class ActionInfoFactoryTest {
     @Test
     public void test_create_upgrade_tech() {
         ActionInfoFactory af = new ActionInfoFactory();
-        ActionInfo info1 = af.createUpgradeTechActionInfo("Player 1", 1, 5);
-        assertEquals(1, info1.getUpgradeTechActionInfo().getOldTechLevel());
+        ActionInfo info1 = af.createUpgradeTechActionInfo("Player 1", 5);
         assertEquals(5, info1.getUpgradeTechActionInfo().getNewTechLevel());
         assertEquals("Player 1", info1.getSrcOwnerName());
         assertEquals("upgrade tech", info1.getActionType());
