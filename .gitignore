@@ -3,6 +3,7 @@
 **/.project
 .classpath
 **/.settings/
+**/bin/
 
 # Ignore all .class files
 *.class
