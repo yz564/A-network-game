@@ -19,5 +19,5 @@ javafx {
 
 application {
     // Define the main class for the application.
-    mainClassName = 'edu.duke.ece651.risk.server.App'
+    mainClassName = 'edu.duke.ece651.risk.server.Server'
 }
