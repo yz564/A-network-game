@@ -13,15 +13,15 @@ public class ActionRuleCheckerTest {
         new OwnershipRuleChecker(new EnoughUnitsRuleChecker(new DesReachableRuleChecker(null))));
     ActionRuleChecker rc2 = new TerritoryExistenceRuleChecker(
         new OwnershipRuleChecker(new EnoughUnitsRuleChecker(new DesAdjacencyRuleChecker(null))));
-    WorldMapFactory factory = new V1MapFactory();
+    WorldMapFactory factory = new V2MapFactory();
     WorldMap worldmap = factory.makeTestWorldMap();
     worldmap.tryAssignInitOwner(1, "Player 1");
     worldmap.tryAssignInitOwner(2, "Player 2");
     worldmap.tryAssignInitOwner(3, "Player 3");
     Territory t1 = worldmap.getTerritory("Narnia");
-    t1.tryAddTroopUnits("Basic", 5);
+    t1.tryAddTroopUnits("level0", 5);
     HashMap<String, Integer> unitNum1 = new HashMap<>();
-    unitNum1.put("Basic", 3);
+    unitNum1.put("level0", 3);
     ActionInfoFactory af = new ActionInfoFactory();
     ActionInfo a1 = af.createMoveActionInfo("Player 1", "Narnia", "Oz", unitNum1);
     ActionInfo a2 = af.createAttackActionInfo("Player 1", "Narnia", "Elantris", unitNum1);
