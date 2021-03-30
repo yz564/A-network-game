@@ -72,4 +72,20 @@ public interface WorldMap extends java.io.Serializable {
    * @return true if add is successful, false if not.
    */
   public boolean tryAddTerritory(Territory toAdd);
+
+  /**
+   * Adds info of a new player on the world map.
+   * 
+   * @param newPlayer is the PlayerInfo to add
+   * 
+   * @return true if add is successful, false if not.
+   */
+  public boolean tryAddPlayerInfo(PlayerInfo newPlayer);
+
+  /**
+   * Return the PlayerInfo on map with the given player name
+   * 
+   * @param playerName is the player name of the PlayerInfo to retrieve
+   */
+  public PlayerInfo getPlayerInfo(String playerName);
 }

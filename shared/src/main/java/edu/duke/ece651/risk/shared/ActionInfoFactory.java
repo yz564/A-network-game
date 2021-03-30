@@ -51,8 +51,8 @@ public class ActionInfoFactory {
      *
      * @param srcOwnerName is the owner's name of this action.
      * @param srcName is the source Territory name of the action.
-     * @param oldUnitLevel is an int represents the old unit level for the upgrade unit action.
-     * @param newUnitLevel is an int represents the new unit level to the upgrade unit action.
+     * @param oldUnitLevel is a String represents the old unit level for the upgrade unit action.
+     * @param newUnitLevel is a String represents the new unit level to the upgrade unit action.
      * @param numToUpgrade is an int represents the number of units to upgrade from the old level to
      *     the new level.
      * @return an adapted ActionInfo for upgrade unit action.
@@ -60,11 +60,22 @@ public class ActionInfoFactory {
     public ActionInfo createUpgradeUnitActionInfo(
             String srcOwnerName,
             String srcName,
-            Integer oldUnitLevel,
-            Integer newUnitLevel,
+            String oldUnitLevel,
+            String newUnitLevel,
             Integer numToUpgrade) {
         UpgradeUnitActionInfo info =
                 new UpgradeUnitActionInfo(srcName, oldUnitLevel, newUnitLevel, numToUpgrade);
         return new ActionInfo(srcOwnerName, "upgrade unit", info);
     }
 }
+
+
+
+
+
+
+
+
+
+
+

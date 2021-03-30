@@ -5,10 +5,10 @@ public class UpgradeUnitActionInfo implements java.io.Serializable {
     private String srcName;
 
     /** The old unit level for the upgrade unit action. */
-    private Integer oldUnitLevel;
+    private String oldUnitLevel;
 
     /** The new unit level to the upgrade unit action. */
-    private Integer newUnitLevel;
+    private String newUnitLevel;
 
     /** The number of units to upgrade from the old level to the new level. */
     private Integer numToUpgrade;
@@ -25,13 +25,13 @@ public class UpgradeUnitActionInfo implements java.io.Serializable {
      * Constructs a UpgradeUnitActionInfo.
      *
      * @param srcName is a String that represents the source territory where the units to upgrade.
-     * @param oldUnitLevel is an int represents the old unit level for the upgrade unit action.
-     * @param newUnitLevel is an int represents the new unit level to the upgrade unit action.
-     * @param numToUpgrade is an int represents the number of units to upgrade from the old level to
+     * @param oldUnitLevel is a String represents the old unit level for the upgrade unit action.
+     * @param newUnitLevel is a String represents the new unit level to the upgrade unit action.
+     * @param numToUpgrade is a String represents the number of units to upgrade from the old level to
      *     the new level.
      */
     public UpgradeUnitActionInfo(
-            String srcName, Integer oldUnitLevel, Integer newUnitLevel, Integer numToUpgrade) {
+            String srcName, String oldUnitLevel, String newUnitLevel, Integer numToUpgrade) {
         this.srcName = srcName;
         this.oldUnitLevel = oldUnitLevel;
         this.newUnitLevel = newUnitLevel;
@@ -59,36 +59,36 @@ public class UpgradeUnitActionInfo implements java.io.Serializable {
     /**
      * Getter of the oldUnitLevel filed.
      *
-     * @return an int represents the old unit level for the upgrade unit action.
+     * @return a String represents the old unit level for the upgrade unit action.
      */
-    public Integer getOldUnitLevel() {
+    public String getOldUnitLevel() {
         return oldUnitLevel;
     }
 
     /**
      * Setter of the oldUnitLevel field.
      *
-     * @param oldUnitLevel an int represents the old unit level for the upgrade unit action.
+     * @param oldUnitLevel a String represents the old unit level for the upgrade unit action.
      */
-    public void setOldUnitLevel(Integer oldUnitLevel) {
+    public void setOldUnitLevel(String oldUnitLevel) {
         this.oldUnitLevel = oldUnitLevel;
     }
 
     /**
      * Getter of the newUnitLevel field.
      *
-     * @return an int represents the new unit level to the upgrade unit action.
+     * @return a String represents the new unit level to the upgrade unit action.
      */
-    public Integer getNewUnitLevel() {
+    public String getNewUnitLevel() {
         return newUnitLevel;
     }
 
     /**
      * Setter of the newUnitLevel field.
      *
-     * @param newUnitLevel an int represents the new unit level to the upgrade unit action.
+     * @param newUnitLevel a String represents the new unit level to the upgrade unit action.
      */
-    public void setNewUnitLevel(Integer newUnitLevel) {
+    public void setNewUnitLevel(String newUnitLevel) {
         this.newUnitLevel = newUnitLevel;
     }
 
