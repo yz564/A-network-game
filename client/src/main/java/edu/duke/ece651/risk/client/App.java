@@ -34,7 +34,42 @@ public class App {
     this.tmp = tmp;
     this.stdIn = new BufferedReader(new InputStreamReader(System.in));
   }
-  
+
+
+  public Boolean tryLogin() throws Exception {
+    String tmpS;
+    for (int i = 0; i < 2; i++) {
+      if ((tmp = (ObjectIO) in.readObject()) != null) {
+      }
+      System.out.println(tmp.message);
+      if ((tmpS = stdIn.readLine()) != null) {
+      }
+      out.writeObject(new ObjectIO(tmpS));
+      out.flush();
+      out.reset();
+    }
+     if ((tmp = (ObjectIO) in.readObject()) != null) {
+      }
+      System.out.println(tmp.message);
+      return tmp.id==0;
+  }
+    public Boolean tryJoinRoom() throws Exception {
+      while (!tryLogin()) {
+      }
+    String tmpS;
+    if ((tmp = (ObjectIO) in.readObject()) != null) {
+    }
+    System.out.println(tmp.message);
+    if ((tmpS = stdIn.readLine()) != null) {
+    }
+    out.writeObject(new ObjectIO(tmpS,Integer.parseInt(tmpS)));
+    out.flush();
+    out.reset();
+    if ((tmp = (ObjectIO) in.readObject()) != null) {
+    }
+    System.out.println(tmp.message);
+    return tmp.id == 0;
+  }
   /**
    *first wait to read the ObjectIO sent by the server.
    *then let the user to select the available group
@@ -143,19 +178,15 @@ public void doPlacement() throws Exception {
     if (ServerAddress.equals("")) {
       ServerAddress = "localhost";
     }
-    System.out.println("Please enter server port number: (default is 3333 by hitting Enter)");
-    String tmpS = stdIn.readLine();
-    int portNumber = 0;
-    if (tmpS.equals("")) {
-      portNumber = 3333;
-    } else {
-      portNumber = Integer.parseInt(tmpS);
-    }
+    int portNumber = 3333;
     try (var server = new Socket(ServerAddress, portNumber)) {
       ObjectOutputStream out = new ObjectOutputStream(server.getOutputStream());
       ObjectInputStream in = new ObjectInputStream(server.getInputStream());
       ObjectIO tmp = null;
       App client = new App(in, out, tmp);
+      //while (!client.tryLogin()) {}
+      while (!client.tryJoinRoom()) {
+      }
       System.out.println("wait other players...");
       client.doInitialization();
       client.doPlacement();

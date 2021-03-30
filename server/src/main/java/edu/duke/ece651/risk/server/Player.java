@@ -25,7 +25,7 @@ public class Player implements Runnable {
   public volatile Boolean ready; // volatile: always updates this variable before being accessed by other threads
   public volatile int availableUnitNum;
   public Boolean watch;
-  public ObjectIO tmp;
+  public volatile ObjectIO tmp;
 
   /**
    * A simple constructor
@@ -38,13 +38,38 @@ public class Player implements Runnable {
     this.availableUnitNum = 30;
   }
 
+  public Player(String name) {
+    this.client = null;
+    this.name = name;
+    this.isEnd = false;
+    this.ready = false;
+    this.availableUnitNum = 30;
+  }
+
+  public Player(String name, ObjectInputStream in, ObjectOutputStream out,ObjectIO tmp) {
+    this.client = null;
+    this.name = name;
+    this.isEnd = false;
+    this.in=in;
+    this.out=out;
+    this.tmp=tmp;
+    this.ready = false;
+    this.availableUnitNum = 30;
+  }
+
+public void updateInput(ObjectIO obj){
+  tmp = obj;
+  ready=true;
+}
+
   public String getName() {
     return name;
   }
 
   public Boolean isReady() {
     return ready;
-  }
+    }  
+    
 
   public void setNotReady() {
     this.ready = false;
@@ -55,11 +80,14 @@ public class Player implements Runnable {
    */
   @Override
   public void run() {
+    while(!isEnd){}
+    while(watch){}
+    /*
     try {
       this.in = new ObjectInputStream(client.getInputStream());
       this.out = new ObjectOutputStream(client.getOutputStream());
-    } catch (IOException e) {
     }
+    
     while (!isEnd) {
       try {
         // System.out.println("-----waitClientInput------");
@@ -74,5 +102,18 @@ public class Player implements Runnable {
 
     while (watch) {
     }
+    */
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
