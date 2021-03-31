@@ -63,6 +63,7 @@ public class ActionInfoTest {
     assertEquals(unitNum, info.getNumUnits());
     UpgradeUnitActionInfo infoDetail2 = new UpgradeUnitActionInfo("Oz", "level0", "level5", 3);
     ActionInfo info2 = new ActionInfo("Player 1", "upgrade unit", infoDetail2);
+    unitNum.put("level5", 0);
     assertEquals(unitNum, info2.getNumUnits());
     UpgradeTechActionInfo infoDetail3 = new UpgradeTechActionInfo(3);
     ActionInfo info3 = new ActionInfo("Player 1", "upgrade tech", infoDetail3);

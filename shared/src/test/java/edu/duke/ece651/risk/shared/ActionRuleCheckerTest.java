@@ -9,10 +9,10 @@ import org.junit.jupiter.api.Test;
 public class ActionRuleCheckerTest {
   @Test
   public void test_checkaction() {
-    ActionRuleChecker rc1 = new TerritoryExistenceRuleChecker(
-        new OwnershipRuleChecker(new EnoughUnitsRuleChecker(new DesReachableRuleChecker(null))));
-    ActionRuleChecker rc2 = new TerritoryExistenceRuleChecker(
-        new OwnershipRuleChecker(new EnoughUnitsRuleChecker(new DesAdjacencyRuleChecker(null))));
+    ActionRuleChecker rc1 = new TerritoryExistenceRuleChecker(new SrcOwnershipRuleChecker(
+        new TroopExistenceRuleChecker(new EnoughUnitsRuleChecker(new DesReachableRuleChecker(null)))));
+    ActionRuleChecker rc2 = new TerritoryExistenceRuleChecker(new SrcOwnershipRuleChecker(new TroopExistenceRuleChecker(
+        new EnoughUnitsRuleChecker(new DesOwnershipRuleChecker(new DesAdjacencyRuleChecker(null))))));
     WorldMapFactory factory = new V2MapFactory();
     WorldMap worldmap = factory.makeTestWorldMap();
     worldmap.tryAssignInitOwner(1, "Player 1");
@@ -28,7 +28,7 @@ public class ActionRuleCheckerTest {
     ActionInfo a3 = af.createMoveActionInfo("Player 1", "Narnia", "Hogwarts", unitNum1);
     assertNull(rc1.checkAction(a1, worldmap));
     assertNull(rc2.checkAction(a2, worldmap));
-    assertEquals("That action in invalid: destination Territory belong to a different player",
+    assertEquals("That action is invalid: destination Territory is not reachable from source Territory",
         rc1.checkAction(a3, worldmap));
   }
 }

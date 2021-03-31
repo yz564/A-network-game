@@ -173,6 +173,7 @@ public class ActionInfo implements java.io.Serializable {
     if (upgradeUnitActionInfo != null) {
       HashMap<String, Integer> numUnits = new HashMap<String, Integer>();
       numUnits.put(upgradeUnitActionInfo.getOldUnitLevel(), upgradeUnitActionInfo.getNumToUpgrade());
+      numUnits.put(upgradeUnitActionInfo.getNewUnitLevel(), 0);
       return numUnits;
     }
     return null;

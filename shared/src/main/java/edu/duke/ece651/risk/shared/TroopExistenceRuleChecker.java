@@ -3,25 +3,24 @@ package edu.duke.ece651.risk.shared;
 import java.util.HashMap;
 
 /**
- * Subclass to check if source territory contains enough units of specified
- * troop name to perform the action.
+ * Subclass to check if the troop names provided are valid troops in source
+ * territory.
  */
-public class EnoughUnitsRuleChecker extends ActionRuleChecker {
+public class TroopExistenceRuleChecker extends ActionRuleChecker {
 
   /**
-   * Constructs a EnoughUnitsRuleChecker
+   * Constructs a TroopExistenceRuleChecker
    *
    * @param next is the ActionRuleChecker to be passed to the super class's
    *             constructor
    */
-  public EnoughUnitsRuleChecker(ActionRuleChecker next) {
+  public TroopExistenceRuleChecker(ActionRuleChecker next) {
     super(next);
   }
 
   /**
-   * Checks if the source territory contains enough units of specified troop name
-   * in the source territory to perform the action. Violates rule if any of the
-   * specified troop names does not contain enough units.
+   * Checks if the troop names provided are valid troops in source territory.
+   * Violates rule if any of the specified troop names does not exist.
    *
    * @param action   is the ActionInfo for an action
    * @param worldmap is the worldmap to perform the action on
@@ -34,11 +33,12 @@ public class EnoughUnitsRuleChecker extends ActionRuleChecker {
       Territory src = worldmap.getTerritory(action.getSrcName());
       HashMap<String, Integer> numUnits = action.getNumUnits();
       for (String troopName : numUnits.keySet()) {
-        if (src.getTroopNumUnits(troopName) < numUnits.get(troopName)) {
-          return "That action is invalid: source Territory does not contain enough " + troopName + " units";
+        if (!src.isExistTroop(troopName)) {
+          return "That action is invalid: " + troopName + " is not a valid troop in source Territory";
         }
       }
     }
     return null;
   }
+
 }
