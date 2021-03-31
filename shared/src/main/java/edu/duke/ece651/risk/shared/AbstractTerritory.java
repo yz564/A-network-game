@@ -70,7 +70,25 @@ public abstract class AbstractTerritory implements Territory {
   }
 
   @Override
-  public boolean isReachableTo(Territory toReach) {
+  public HashMap<String, Territory> getReachableNeighbors() {
+    HashMap<String, Territory> neighbors = new HashMap<String, Territory>();
+    for (String neighborName : this.myNeighbors.keySet()) {
+      if (myNeighbors.get(neighborName).isBelongTo(this.ownerName)) {
+        neighbors.put(neighborName, myNeighbors.get(neighborName));
+      }
+    }
+    return neighbors;
+  }
+
+  /**
+   * Find all the reachable territories from the current territory, where
+   * reachable is defined as connected by adjacent territories belonging to the
+   * same owner as the current territory.
+   *
+   * @return a HashMap where key is String representing the territory name and
+   *         value is the Territory object
+   */
+  protected HashMap<String, Territory> findReachableTerritories() {
     HashMap<String, Territory> reachable = new HashMap<>();
     int size = reachable.size();
     reachable.put(this.territoryName, this);
@@ -78,15 +96,16 @@ public abstract class AbstractTerritory implements Territory {
       size = reachable.size();
       HashSet<String> names = new HashSet<>(reachable.keySet());
       for (String name : names) {
-        HashMap<String, Territory> neighbors = reachable.get(name).getMyNeighbors();
-        for (String neighborName : neighbors.keySet()) {
-          if (neighbors.get(neighborName).isBelongTo(this.ownerName)) {
-            reachable.put(neighborName, neighbors.get(neighborName));
-          }
-        }
+        HashMap<String, Territory> neighbors = reachable.get(name).getReachableNeighbors();
+        reachable.putAll(neighbors);
       }
     }
-    if (reachable.containsValue(toReach)) {
+    return reachable;
+  }
+
+  @Override
+  public boolean isReachableTo(Territory toReach) {
+    if (findReachableTerritories().containsValue(toReach)) {
       return true;
     } else {
       return false;

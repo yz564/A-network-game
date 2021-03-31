@@ -1,5 +1,6 @@
 package edu.duke.ece651.risk.shared;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -147,6 +148,7 @@ public class BasicTerritoryTest {
     t2.tryAddNeighbor(t3);
     t3.tryAddNeighbor(t2);
     t1.tryAddNeighbor(t4);
+    t4.tryAddNeighbor(t1);
     assertTrue(t1.isReachableTo(t2));
     assertTrue(t1.isReachableTo(t3));
     assertFalse(t1.isReachableTo(t4));
@@ -181,5 +183,12 @@ public class BasicTerritoryTest {
     Territory t1 = new BasicTerritory("Narnia", 10);
     assertEquals(0, t1.getSize());
     assertNull(t1.getResProduction());
+  }
+
+  @Test
+  public void test_getmovecost() {
+    Territory t1 = new BasicTerritory("Narnia", 10);
+    assertEquals(0, t1.getMoveCost(t1));
+    assertEquals(0, t1.findMinMoveCost(t1));
   }
 }

@@ -158,4 +158,30 @@ public interface Territory extends java.io.Serializable {
    *         production rate.
    */
   public HashMap<String, Integer> getResProduction();
+
+  /**
+   * Gets the neighbors of the Territory that belong to current owner.
+   *
+   * @return a HashMap of Territory, which are reachable neighbors of this
+   *         Territory mapped to their names.
+   */
+  public HashMap<String, Territory> getReachableNeighbors();
+
+  /**
+   * Gets the moving cost to a neighbouring territory, which is the sum of size of
+   * current territory and the neighboring territory.
+   *
+   * @parm neighbor is the Territory object of the neighboring territory.
+   * @return an int of moving cost.
+   */
+  public int getMoveCost(Territory neighbor);
+
+  /**
+   * Find the minimum moving cost from the current territory to the destination
+   * territory
+   *
+   * @param toReach is the Territory object representing the destination territory
+   * @return an int of the minimum moving cost.
+   */
+  public int findMinMoveCost(Territory toReach);
 }

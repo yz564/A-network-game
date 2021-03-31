@@ -1,6 +1,7 @@
 package edu.duke.ece651.risk.shared;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class V2Territory extends AbstractTerritory {
   private static final long serialVersionUID = -8815409601117401416L;
@@ -81,5 +82,78 @@ public class V2Territory extends AbstractTerritory {
   @Override
   public HashMap<String, Integer> getResProduction() {
     return this.resProduction;
+  }
+
+  @Override
+  public int getMoveCost(Territory neighbor) {
+    return size + neighbor.getSize();
+  }
+
+  /**
+   * Helper function for findAllMinMoveCost() Find the territory with the minimum
+   * cost that has not been visited yet
+   *
+   * @param visited  is the HashSet of territory names that have already been
+   *                 visited
+   * @param moveCost is the HashMap of moving cost from current territory mapped
+   *                 to destination territory names
+   * @return String of the territory name with minimum moving cost
+   */
+  private String findMinCostTerritory(HashSet<String> visited, HashMap<String, Integer> moveCost) {
+    String minCostTerritory = null;
+    int minCost = Integer.MAX_VALUE;
+    for (String name : moveCost.keySet()) {
+      int currCost = moveCost.get(name);
+      if (!visited.contains(name) && currCost < minCost) {
+        minCost = currCost;
+        minCostTerritory = name;
+      }
+    }
+    return minCostTerritory;
+  }
+
+  /**
+   * Find all the minimum moving cost from the current territory to each of the
+   * reachable territories, where reachable is defined as connected by adjacent
+   * territories belonging to the same owner as the current territory.
+   *
+   * @return a HashMap where key is String representing the territory name and
+   *         value is int representing the minimum moving cost
+   */
+  private HashMap<String, Integer> findAllMinMoveCost() {
+    HashMap<String, Territory> reachable = findReachableTerritories();
+    HashMap<String, Integer> moveCost = new HashMap<String, Integer>();
+    HashSet<String> visited = new HashSet<String>();
+    // HashMap<String, Boolean> visited = new HashMap<String, Boolean>();
+    // Initialize moveCost to inf, visited to false
+    for (String reachableName : reachable.keySet()) {
+      moveCost.put(reachableName, Integer.MAX_VALUE);
+      // visited.put(reachableName, false);
+    }
+    // Start with this Territory
+    moveCost.put(this.territoryName, 0);
+    // visited.add(this.territoryName);
+    // int numVisited = visited.size();
+    while (visited.size() < reachable.keySet().size()) {
+      String currName = findMinCostTerritory(visited, moveCost);
+      // visited.put(currName, true);
+      visited.add(currName);
+      Territory curr = reachable.get(currName);
+      HashMap<String, Territory> neighbors = curr.getReachableNeighbors();
+      for (String neighborName : neighbors.keySet()) {
+        if (!visited.contains(neighborName)) {
+          int newCost = moveCost.get(currName) + curr.getMoveCost(neighbors.get(neighborName));
+          if (newCost < moveCost.get(neighborName)) {
+            moveCost.put(neighborName, newCost);
+          }
+        }
+      }
+    }
+    return moveCost;
+  }
+
+  @Override
+  public int findMinMoveCost(Territory toReach) {
+    return findAllMinMoveCost().get(toReach.getName());
   }
 }
