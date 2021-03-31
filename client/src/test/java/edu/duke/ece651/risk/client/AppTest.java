@@ -29,22 +29,6 @@ class AppTest {
         PrintStream output = new PrintStream(bytes, true);
         client.stdIn = input;
         try{
-        client.doInitialization();
-        }
-        catch(Exception e){}
-        try{
-        client.doPlacement();
-        }
-        catch(Exception e){}
-        try{
-        client.doAction();
-        }
-        catch(Exception e){}
-        try{
-        client.doWatch();
-        }
-        catch(Exception e){}
-        try{
           String[] args={};
           App.main(args);
         }

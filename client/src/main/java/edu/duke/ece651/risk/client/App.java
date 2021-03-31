@@ -7,11 +7,16 @@
 package edu.duke.ece651.risk.client;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 
 import edu.duke.ece651.risk.shared.ObjectIO;
@@ -25,6 +30,9 @@ public class App {
   ObjectOutputStream out;
   ObjectIO tmp;
   BufferedReader stdIn;
+  volatile ArrayList<Player> players;
+  volatile int currentRoomId;
+  volatile HashSet<Integer> joinedRoomId;
   /**
    * A simple constructor
    */
@@ -33,8 +41,39 @@ public class App {
     this.out = out;
     this.tmp = tmp;
     this.stdIn = new BufferedReader(new InputStreamReader(System.in));
+    this.players = new ArrayList<Player>();
+    for (int i = 0; i < 4; i++) {
+      players.add(new Player(i,in, out,stdIn));
+    }
+    this.joinedRoomId = new HashSet<Integer>();
   }
 
+
+  public void runOnePlayer() throws Exception{
+    String tmpS;
+    if (!joinedRoomId.contains(currentRoomId)){
+      Player p = players.get(currentRoomId);
+    Thread t = new Thread(p);
+    t.start();
+    players.set(currentRoomId, p);
+    joinedRoomId.add(currentRoomId);
+     }
+     players.get(currentRoomId).setWait(true);
+    while (true) {
+      if (players.get(currentRoomId).isWait()) {
+        players.get(currentRoomId).ready=true;
+        if((tmpS = stdIn.readLine()) != null){
+        if (tmpS.equals("/leave")) {
+          out.writeObject(new ObjectIO(tmpS));
+          out.flush();
+          out.reset();
+          break;
+        }
+        players.get(currentRoomId).updateInput(tmpS);
+      }
+        }
+    }
+  }
 
   public Boolean tryLogin() throws Exception {
     String tmpS;
@@ -63,6 +102,7 @@ public class App {
     if ((tmpS = stdIn.readLine()) != null) {
     }
     out.writeObject(new ObjectIO(tmpS,Integer.parseInt(tmpS)));
+    currentRoomId = Integer.parseInt(tmpS)-1;
     out.flush();
     out.reset();
     if ((tmp = (ObjectIO) in.readObject()) != null) {
@@ -70,102 +110,7 @@ public class App {
     System.out.println(tmp.message);
     return tmp.id == 0;
   }
-  /**
-   *first wait to read the ObjectIO sent by the server.
-   *then let the user to select the available group
-   *finnaly send the ObjectIO with the selection to the server.  
-   */
-  public void doInitialization() throws Exception {
-    String tmpS;
-    if ((tmp = (ObjectIO) in.readObject()) != null) {
-    }
-    while (true) {
-      System.out.println(tmp.message);
-      System.out.println("Your available choices are: ");
-      Iterator<Integer> itr = (tmp.groups).iterator();
-      while (itr.hasNext()) {
-        Integer g = (Integer) itr.next();
-        System.out.println(Integer.toString(g) + " : " + tmp.map.getInitGroup(g));
-      }
-
-      if ((tmpS = stdIn.readLine()) != null) {
-      }
-      try{if (tmp.groups.contains(Integer.parseInt(tmpS))) {
-        break;
-        }}catch(NumberFormatException e){
-        System.out.println("Input should be a number, please retry");
-      }
-      System.out.println("Your input is not valid, please retry");
-    }
-    out.writeObject(new ObjectIO(tmpS));
-    out.flush();
-    out.reset();
-  }
-  /**
-   *first wait the ObjectIO from server, then call the placeOrder method in the helper class, finally send ObjectIO to server.
-   */
-public void doPlacement() throws Exception {
-  System.out.println("-----waitServerInput-----");
-      if ((tmp = (ObjectIO) in.readObject()) != null) {
-        String playerName = tmp.message;
-        ClientOrderHelper coh = new ClientOrderHelper(playerName, stdIn, new PrintStream(System.out));
-        out.writeObject(coh.issuePlaceOrders(tmp.id, tmp.playerNames)); //here tmp.playerNames is territory names...
-      }
-    
-  }
-  
-  /**
-   *first wait the ObjectIO from server, then call the placeOrder method in the helper class, finally send ObjectIO to server
-   *need to check the status of the player: win or lose
-   */
-  public void doAction() throws Exception {
-    while (true) {
-      System.out.println("-----waitServerInput-----");
-      if ((tmp = (ObjectIO) in.readObject()) != null) {
-        if (tmp.id < 0) {
-          break;
-        }
-        MapTextView mapview = new MapTextView(tmp.playerNames);
-        System.out.println(mapview.displayMap(tmp.map));
-        System.out.println(tmp.message);
-        String playerName = tmp.message;
-        ClientOrderHelper coh = new ClientOrderHelper(playerName, stdIn, new PrintStream(System.out));
-        out.writeObject(coh.issueActionOrders(tmp.map, tmp.playerNames));
-
-      }
-    }
-    if (tmp.id == -1) {
-      System.out.println("Your lost all territories...");
-    }
-    if (tmp.id == -2) {
-      System.out.println(tmp.message);
-    }
-    if (tmp.id == -3) {
-      System.out.println("You win!");
-    }
-  }
-  
-  /**
-   *each turn ask the user watch or not, enter something start with /q will quit, no longer print the game
-   *enter others will update the game's map  
-   */
-  public void doWatch() throws Exception {
-    while (true) {
-      if ((tmp = (ObjectIO) in.readObject()) != null) {
-        MapTextView mapview = new MapTextView(tmp.playerNames);
-        System.out.println(mapview.displayMap(tmp.map));
-        System.out.println(tmp.message);
-      }
-      String tmpstr;
-      System.out.println("Do you want watch? you can quit by /q");
-      if ((tmpstr = stdIn.readLine()) != null) {
-        if (tmpstr.toLowerCase().startsWith("/q")) {
-          System.out.println("quited");
-          break;
-        }
-      }
-    }
-  }
+ 
 
 /**
  *the enter point of the client.
@@ -185,16 +130,10 @@ public void doPlacement() throws Exception {
       ObjectIO tmp = null;
       App client = new App(in, out, tmp);
       //while (!client.tryLogin()) {}
+      while(true){
       while (!client.tryJoinRoom()) {
       }
-      System.out.println("wait other players...");
-      client.doInitialization();
-      client.doPlacement();
-      System.out.println("Initialization is done");
-      client.doAction();
-      client.doWatch();
-      //System.exit(0);
-      while (true) {
+      client.runOnePlayer();
       }
     }catch(Exception e){}
   }

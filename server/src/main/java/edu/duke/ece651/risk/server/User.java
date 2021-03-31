@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import edu.duke.ece651.risk.shared.ObjectIO;
 
@@ -21,6 +22,7 @@ public class User implements Runnable{
   private Boolean leave;
   private volatile int currentRoomId;
   private volatile ArrayList<Player> players;
+  private volatile HashSet<Integer> joinedRoomId;
  
   public User (Socket client, HashMap<String,String> accounts, ArrayList<Room> rooms){
     this.clientSocket=client;
@@ -30,6 +32,7 @@ public class User implements Runnable{
     this.roomList=rooms;
     this.leave=false;
     this.players = new ArrayList<Player>();
+    this.joinedRoomId = new HashSet<Integer>();
     for(int i=0; i<rooms.size();i++){
       players.add(new Player("default"));
     }
@@ -78,6 +81,11 @@ public class User implements Runnable{
      if ((tempObj = (ObjectIO) in.readObject()) != null) {
        id=tempObj.id - 1;
      }
+     if (joinedRoomId.contains(id)) {
+       currentRoomId = id;
+       System.out.println(inputName + " try to rejoin the room " + (currentRoomId+1));
+       return true;
+     }
     if (id < roomList.size()) {
       
       Room theRoom = roomList.get(id);
@@ -104,9 +112,14 @@ public class User implements Runnable{
       while (true) {
           if (tryJoinRoom()){
             System.out.println(inputName + " joined the room " + (currentRoomId+1));
+            joinedRoomId.add(currentRoomId);
             myWrite(new ObjectIO("successful join the room",0));
             while (!leave){
               if((tempObj=(ObjectIO)in.readObject())!=null){
+                if (tempObj.message.equals("/leave")) {
+                  System.out.println(inputName + " leaved the room " + (currentRoomId+1));
+                  break;
+                }
                 players.get(currentRoomId).updateInput(tempObj);
               }
             }
