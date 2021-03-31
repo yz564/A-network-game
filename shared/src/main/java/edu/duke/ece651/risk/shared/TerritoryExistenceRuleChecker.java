@@ -18,7 +18,7 @@ public class TerritoryExistenceRuleChecker extends ActionRuleChecker {
 
   /**
    * Checks if both the source and destination territories exist on the given
-   * worldmap
+   * worldmap, conditioned on if these fields are present in the action info.
    *
    * @param action   is the ActionInfo for an action
    * @param worldmap is the worldmap to perform the action on
@@ -26,17 +26,20 @@ public class TerritoryExistenceRuleChecker extends ActionRuleChecker {
    */
   @Override
   protected String checkMyRule(ActionInfo action, WorldMap worldmap) {
-    Territory src = worldmap.getTerritory(action.getSrcName());
-    Territory des = worldmap.getTerritory(action.getDesName());
-    if (src == null) {
-      return "That action is invalid: source Territory does not exist";
+    // If srcName is present in the action
+    if (action.getSrcName() != null) {
+      Territory src = worldmap.getTerritory(action.getSrcName());
+      if (src == null) {
+        return "That action is invalid: source Territory does not exist";
+      }
     }
-    if (des == null) {
-      return "That action is invalid: destination Territory does not exist";
+    // If desName is present in the action
+    if (action.getDesName() != null) {
+      Territory des = worldmap.getTerritory(action.getDesName());
+      if (des == null) {
+        return "That action is invalid: destination Territory does not exist";
+      }
     }
     return null;
   }
 }
-
-
-

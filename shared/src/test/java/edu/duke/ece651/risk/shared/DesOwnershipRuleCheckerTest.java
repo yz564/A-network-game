@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 
-public class OwnershipRuleCheckerTest {
+public class DesOwnershipRuleCheckerTest {
   @Test
   public void test_ownership() {
-    OwnershipRuleChecker rc = new OwnershipRuleChecker(null);
+    DesOwnershipRuleChecker rc = new DesOwnershipRuleChecker(null);
     WorldMapFactory factory = new V2MapFactory();
     WorldMap worldmap = factory.makeTestWorldMap();
     worldmap.tryAssignInitOwner(1, "Player 1");
@@ -20,14 +20,10 @@ public class OwnershipRuleCheckerTest {
     ActionInfoFactory af = new ActionInfoFactory();
     ActionInfo a1 = af.createAttackActionInfo("Player 1", "Narnia", "Elantris", unitNum1);
     ActionInfo a2 = af.createAttackActionInfo("Player 1", "Narnia", "Midkemia", unitNum1);
-    ActionInfo a3 = af.createMoveActionInfo("Player 1", "Narnia", "Midkemia", unitNum1);
-    ActionInfo a4 = af.createMoveActionInfo("Player 1", "Elantris", "Narnia", unitNum1);
-    ActionInfo a5 = af.createUpgradeUnitActionInfo("Player 1", "Narnia", "level0", "level2", 1);
+    ActionInfo a3 = af.createUpgradeUnitActionInfo("Player 1", "Narnia", "level0", "level1", 2);
     assertNull(rc.checkMyRule(a1, worldmap));
-    assertEquals("That action in invalid: destination Territory does not belong to a different player",
+    assertEquals("That action is invalid: destination Territory does not belong to a different player",
         rc.checkMyRule(a2, worldmap));
     assertNull(rc.checkMyRule(a3, worldmap));
-    assertEquals("That action is invalid: source Territory belong to a different player", rc.checkMyRule(a4, worldmap));
-    assertNull(rc.checkMyRule(a5, worldmap));
   }
 }

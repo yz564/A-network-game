@@ -82,6 +82,28 @@ public class PlayerInfo implements java.io.Serializable {
   }
 
   /**
+   * Checks if a given tech level is valid for upgrade: 1) between 1 and 6
+   * inclusive 2) more than current tech level.
+   * 
+   * @param toCheck is an int representing a technology level to check
+   * @return true if tech level is valid, return false if not
+   */
+  public boolean isValidTechLevel(int toUpgrade) {
+    return (toUpgrade >= 1 && toUpgrade <= 6 && toUpgrade > techLevel);
+  }
+
+  /**
+   * Checks if a given unit level is valid for upgrade: 1) between 1 and 6
+   * inclusive 2) less than or equals current tech level.
+   * 
+   * @param toUpgrade is an int representing the level to upgrade units to
+   * @return true if tech level is valid, return false if not
+   */
+  public boolean isValidUnitLevel(int toUpgrade){
+    return (toUpgrade >= 1 && toUpgrade <= techLevel); 
+  }
+
+  /**
    * Sets the player's current maximum technology level to a given value.
    * 
    * @param newTechLevel is an int representing the player's new maximum

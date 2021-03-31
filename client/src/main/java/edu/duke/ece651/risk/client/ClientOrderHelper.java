@@ -43,10 +43,10 @@ public class ClientOrderHelper {
   public ClientOrderHelper(String playerName, BufferedReader inputReader, PrintStream out) {
     this.playerName = playerName;
     this.stdIO = new ClientTextIO(inputReader, out);
-    this.moveChecker = new TerritoryExistenceRuleChecker(
-        new OwnershipRuleChecker(new EnoughUnitsRuleChecker(new DesReachableRuleChecker(null))));
-    this.attackChecker = new TerritoryExistenceRuleChecker(
-        new OwnershipRuleChecker(new EnoughUnitsRuleChecker(new DesAdjacencyRuleChecker(null))));
+    this.moveChecker = new TerritoryExistenceRuleChecker(new SrcOwnershipRuleChecker(
+        new TroopExistenceRuleChecker(new EnoughUnitsRuleChecker(new DesReachableRuleChecker(null)))));
+    this.attackChecker = new TerritoryExistenceRuleChecker(new SrcOwnershipRuleChecker(new TroopExistenceRuleChecker(
+        new EnoughUnitsRuleChecker(new DesOwnershipRuleChecker(new DesAdjacencyRuleChecker(null))))));
     this.executer = new ActionExecuter(); // default seed
     this.out = out;
   }
@@ -65,11 +65,10 @@ public class ClientOrderHelper {
   public ClientOrderHelper(String playerName, BufferedReader inputReader, PrintStream out, long seed) {
     this.playerName = playerName;
     this.stdIO = new ClientTextIO(inputReader, out);
-    this.moveChecker = new TerritoryExistenceRuleChecker(
-        new OwnershipRuleChecker(new EnoughUnitsRuleChecker(new DesReachableRuleChecker(null))));
-    this.attackChecker = new TerritoryExistenceRuleChecker(
-        new OwnershipRuleChecker(new EnoughUnitsRuleChecker(new DesAdjacencyRuleChecker(null))));
-    this.out = out;
+    this.moveChecker = new TerritoryExistenceRuleChecker(new SrcOwnershipRuleChecker(
+        new TroopExistenceRuleChecker(new EnoughUnitsRuleChecker(new DesReachableRuleChecker(null)))));
+    this.attackChecker = new TerritoryExistenceRuleChecker(new SrcOwnershipRuleChecker(new TroopExistenceRuleChecker(
+        new EnoughUnitsRuleChecker(new DesOwnershipRuleChecker(new DesAdjacencyRuleChecker(null))))));this.out = out;
     this.executer = new ActionExecuter(seed);
   }
 

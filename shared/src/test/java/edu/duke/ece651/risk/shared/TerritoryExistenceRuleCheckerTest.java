@@ -18,8 +18,10 @@ public class TerritoryExistenceRuleCheckerTest {
     ActionInfo a1 = af.createMoveActionInfo("Player 1", "Narnia", "Midkemia", unitNum1);
     ActionInfo a2 = af.createMoveActionInfo("Player 1", "Test", "Midkemia", unitNum1);
     ActionInfo a3 = af.createMoveActionInfo("Player 1", "Narnia", "Test", unitNum1);
+    ActionInfo a4 = af.createUpgradeTechActionInfo("Player 1", 2);
     assertNull(rc.checkMyRule(a1, worldmap));
     assertEquals("That action is invalid: source Territory does not exist", rc.checkMyRule(a2, worldmap));
     assertEquals("That action is invalid: destination Territory does not exist", rc.checkMyRule(a3, worldmap));
+    assertNull(rc.checkMyRule(a4, worldmap));
   }
 }
