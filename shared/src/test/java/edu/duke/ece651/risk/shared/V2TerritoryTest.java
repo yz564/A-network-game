@@ -2,9 +2,11 @@ package edu.duke.ece651.risk.shared;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashMap;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class V2TerritoryTest {
@@ -89,5 +91,71 @@ public class V2TerritoryTest {
     V2Territory t1 = new V2Territory("ABC", 1, 2, 0);
     assertEquals(1, t1.getResProduction().get("food"));
     assertEquals(2, t1.getResProduction().get("tech"));
+  }
+
+  @Test
+  public void test_reachableneighbors() {
+    WorldMapFactory factory = new V2MapFactory();
+    WorldMap map = factory.makeTestWorldMap();
+    map.tryAssignInitOwner(1, "Player 1");
+    map.tryAssignInitOwner(2, "Player 2");
+    map.tryAssignInitOwner(3, "Player 3");
+    Territory t1 = map.getTerritory("Narnia");
+    Territory t2 = map.getTerritory("Midkemia");
+    HashMap<String, Territory> neighbors = t1.getReachableNeighbors();
+    HashMap<String, Territory> expected = new HashMap<String, Territory>();
+    expected.put(t2.getName(), t2);
+    assertEquals(neighbors, expected);
+  }
+
+  @Test
+  public void test_isreachable() {
+    WorldMapFactory factory = new V2MapFactory();
+    WorldMap map = factory.makeTestWorldMap();
+    map.tryAssignInitOwner(1, "Player 1");
+    map.tryAssignInitOwner(2, "Player 2");
+    map.tryAssignInitOwner(3, "Player 3");
+    Territory t1 = map.getTerritory("Narnia");
+    Territory t2 = map.getTerritory("Oz");
+    assertTrue(t1.isReachableTo(t2));
+  }
+
+  @Test
+  public void test_getmovecost() {
+    WorldMapFactory factory = new V2MapFactory();
+    WorldMap map = factory.makeTestWorldMap();
+    map.tryAssignInitOwner(1, "Player 1");
+    map.tryAssignInitOwner(2, "Player 2");
+    map.tryAssignInitOwner(3, "Player 3");
+    Territory t1 = map.getTerritory("Narnia");
+    Territory t2 = map.getTerritory("Midkemia");
+    assertEquals(4, t1.getMoveCost(t2));
+  }
+
+  @Test
+  public void test_findmincost() {
+    WorldMapFactory factory = new V2MapFactory();
+    WorldMap map = factory.makeTestWorldMap();
+    map.tryAssignInitOwner(1, "Player 1");
+    map.tryAssignInitOwner(2, "Player 2");
+    map.tryAssignInitOwner(3, "Player 3");
+    Territory t1 = map.getTerritory("Narnia");
+    Territory t2 = map.getTerritory("Oz");
+    assertEquals(9, t1.findMinMoveCost(t2));
+  }
+
+  @Test
+  public void test_findmincost2() {
+    WorldMapFactory factory = new V2MapFactory();
+    WorldMap map = factory.makeWorldMap(3);
+    map.tryAssignInitOwner(1, "Player 1");
+    map.tryAssignInitOwner(2, "Player 2");
+    map.tryAssignInitOwner(3, "Player 3");
+    Territory t1 = map.getTerritory("LSRC");
+    Territory t2 = map.getTerritory("Duke Clinics");
+    assertEquals(5, t1.findMinMoveCost(t2));
+    Territory t3 = map.getTerritory("Cameron Stadium");
+    Territory t4 = map.getTerritory("Wilson Gym");
+    assertEquals(4, t3.findMinMoveCost(t4));
   }
 }

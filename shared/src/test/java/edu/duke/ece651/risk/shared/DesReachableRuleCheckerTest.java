@@ -22,8 +22,11 @@ public class DesReachableRuleCheckerTest {
     HashMap<String, Integer> unitNum2 = new HashMap<>();
     unitNum2.put("level0", 3);
     ActionInfo a2 = af.createMoveActionInfo("Player 1", "Narnia", "Hogwarts", unitNum2);
+    ActionInfo a3 = af.createUpgradeTechActionInfo("Player 1", 2);
     assertNull(rc.checkMyRule(a1, worldmap));
     assertEquals("That action is invalid: destination Territory is not reachable from source Territory",
         rc.checkMyRule(a2, worldmap));
+
+    assertNull(rc.checkMyRule(a3, worldmap));
   }
 }

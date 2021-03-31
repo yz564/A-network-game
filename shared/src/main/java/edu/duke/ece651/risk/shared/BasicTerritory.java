@@ -80,4 +80,25 @@ public class BasicTerritory extends AbstractTerritory {
   public HashMap<String, Integer> getResProduction() {
     return null;
   }
+
+  @Override
+  public int getMoveCost(Territory neighbor) {
+    return 0;
+  }
+
+  @Override
+  public int findMinMoveCost(Territory toReach) {
+    return 0;
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
