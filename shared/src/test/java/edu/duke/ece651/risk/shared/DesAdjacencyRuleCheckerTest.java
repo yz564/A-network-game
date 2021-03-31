@@ -17,8 +17,10 @@ public class DesAdjacencyRuleCheckerTest {
     ActionInfoFactory af = new ActionInfoFactory();
     ActionInfo a1 = af.createAttackActionInfo("Player 1", "Narnia", "Elantris", unitNum1);
     ActionInfo a2 = af.createAttackActionInfo("Player 1", "Narnia", "Oz", unitNum1);
+    ActionInfo a3 = af.createUpgradeTechActionInfo("Player 1", 2);
     assertNull(rc.checkMyRule(a1, worldmap));
     assertEquals("That action is invalid: destination Territory is not adjacent to source Territory",
         rc.checkMyRule(a2, worldmap));
+    assertNull(rc.checkMyRule(a3, worldmap));
   }
 }

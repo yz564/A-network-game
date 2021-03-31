@@ -217,4 +217,21 @@ public class ActionInfo implements java.io.Serializable {
     }
     return 0;
   }
+
+  public int getTotalNumUnits() {
+    int total = 0;
+    if (territoryActionInfo != null || upgradeUnitActionInfo != null) {
+      for (int numUnit : getNumUnits().values()) {
+        total += numUnit;
+      }
+    }
+    return total;
+  }
 }
+
+
+
+
+
+
+

@@ -81,4 +81,15 @@ public class ActionInfoTest {
     assertEquals(0, info.getNewTechLevel());
   }
 
+  @Test
+  public void test_gettotalunits() {
+    HashMap<String, Integer> unitNum = new HashMap<String, Integer>();
+    unitNum.put("level0", 3);
+    TerritoryActionInfo infoDetail = new TerritoryActionInfo("Narnia", "Elantris", unitNum);
+    ActionInfo info = new ActionInfo("Player 1", "attack", infoDetail);
+    UpgradeTechActionInfo infoDetail2 = new UpgradeTechActionInfo(3);
+    ActionInfo info2 = new ActionInfo("Player 1", "upgrade unit", infoDetail2);
+    assertEquals(3, info.getTotalNumUnits());
+    assertEquals(0, info2.getTotalNumUnits());
+  }
 }

@@ -18,11 +18,11 @@ public class V2Territory extends AbstractTerritory {
     HashMap<String, Troop> myTroops = new HashMap<>();
     myTroops.put("level0", new LevelTroop("level0", 0, 0, 0, 0));
     myTroops.put("level1", new LevelTroop("level1", 0, 1, 1, 3));
-    myTroops.put("level2", new LevelTroop("level2", 0, 3, 2, 8));
-    myTroops.put("level3", new LevelTroop("level3", 0, 5, 3, 19));
-    myTroops.put("level4", new LevelTroop("level4", 0, 8, 4, 25));
-    myTroops.put("level5", new LevelTroop("level5", 0, 11, 5, 35));
-    myTroops.put("level6", new LevelTroop("level6", 0, 15, 6, 50));
+    myTroops.put("level2", new LevelTroop("level2", 0, 3, 2, 11));
+    myTroops.put("level3", new LevelTroop("level3", 0, 5, 3, 30));
+    myTroops.put("level4", new LevelTroop("level4", 0, 8, 4, 55));
+    myTroops.put("level5", new LevelTroop("level5", 0, 11, 5, 90));
+    myTroops.put("level6", new LevelTroop("level6", 0, 15, 6, 140));
     return myTroops;
   }
 
