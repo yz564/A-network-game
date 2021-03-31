@@ -23,7 +23,7 @@ public class Room implements Runnable {
   }
 
   public Player acceptPlayer(User user) throws Exception{
-    Player p = new Player(user.getName(),user.getIn(),user.getOut(),user.getObj());
+    Player p = new Player(user.getName(),user.getIn(),user.getOut());
      playerList.add(p);
      Thread t = new Thread(p);
      t.start();

@@ -46,13 +46,13 @@ public class Player implements Runnable {
     this.availableUnitNum = 30;
   }
 
-  public Player(String name, ObjectInputStream in, ObjectOutputStream out,ObjectIO tmp) {
+  public Player(String name, ObjectInputStream in, ObjectOutputStream out) {
     this.client = null;
     this.name = name;
     this.isEnd = false;
     this.in=in;
     this.out=out;
-    this.tmp=tmp;
+    //this.tmp=tmp;
     this.ready = false;
     this.availableUnitNum = 30;
   }
