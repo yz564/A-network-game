@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ActionExecuterTest {
     @Test
-    public void test_send_troops() {
+    public void test_v1_send_troops() {
         ActionInfoFactory af = new ActionInfoFactory();
         // create map
         WorldMapFactory mf = new V1MapFactory();
@@ -30,7 +30,7 @@ public class ActionExecuterTest {
     }
 
     @Test
-    public void test_execute_move() {
+    public void test_v1_execute_move() {
         ActionInfoFactory af = new ActionInfoFactory();
         // create map
         WorldMapFactory mf = new V1MapFactory();
@@ -62,7 +62,7 @@ public class ActionExecuterTest {
     }
 
     @Test
-    public void test_execute_attack() {
+    public void test_v1_execute_attack() {
         ActionInfoFactory af = new ActionInfoFactory();
         // create map
         WorldMapFactory mf = new V1MapFactory();

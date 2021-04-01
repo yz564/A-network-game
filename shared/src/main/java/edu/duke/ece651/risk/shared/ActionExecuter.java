@@ -6,6 +6,9 @@ public class ActionExecuter {
     /** The random generator for rolling dice in a fight. */
     private final Random rng;
 
+    /** The ActionCostCalculator that calculates resource costs for each kind of action. */
+    private ActionCostCalculator costCal = new ActionCostCalculator();
+
     /** Constructs a ActionExecuter helper class with a given random seed. */
     public ActionExecuter(long seed) {
         this.rng = new Random(seed);
@@ -17,7 +20,7 @@ public class ActionExecuter {
     }
 
     /**
-     * Sends troops only from the src Territory, troops don't arrive dis Territory.
+     * Sends troops only from the src Territory, and Troops don't arrive dis Territory.
      *
      * <p>Info of src, dis, and troop to send is in ActionInfo info argument.
      *
@@ -32,6 +35,16 @@ public class ActionExecuter {
         int sendNum = info.getTerritoryActionInfo().getUnitNum().get("Basic");
         src.tryRemoveTroopUnits("Basic", sendNum);
     }
+
+    /**
+     * Do this before doing executeAttack for executing all attack orders in the end together. Sends
+     * troops only from the src Territory, and deducts food cost from the player who issued the
+     * corresponding attack order.
+     *
+     * @param map a WorldMap object where the action is implemented.
+     * @param info a ActionInfo object that contains the information of src, dis, and troop to send.
+     */
+    public void executePreAttack(WorldMap map, ActionInfo info) {}
 
     /**
      * Moves troops from the src Territory to dis Territory.
