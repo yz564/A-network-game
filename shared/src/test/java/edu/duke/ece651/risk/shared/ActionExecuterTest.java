@@ -60,7 +60,7 @@ public class ActionExecuterTest {
         toAttack.put("level6", 19);
         toAttack.put("level5", 9);
         ActionInfoFactory af = new ActionInfoFactory();
-        ActionInfo info = af.createAttackActionInfo("Green player", "Gross Hall", "LSRC", toAttack);
+        ActionInfo info = af.createAttackActionInfo("Blue player", "Gross Hall", "LSRC", toAttack);
         executer.sendTroops(map, info);
         assertEquals(281, map.getTerritory("Gross Hall").getTroopNumUnits("level6"));
         assertEquals(291, map.getTerritory("Gross Hall").getTroopNumUnits("level5"));
@@ -85,45 +85,11 @@ public class ActionExecuterTest {
         toAttack.put("level6", 19);
         toAttack.put("level5", 9);
         ActionInfoFactory af = new ActionInfoFactory();
-        ActionInfo info = af.createAttackActionInfo("Green player", "Gross Hall", "LSRC", toAttack);
+        ActionInfo info = af.createAttackActionInfo("Blue player", "Gross Hall", "LSRC", toAttack);
         executer.executePreAttack(map, info);
-        assertEquals(100 - 28, map.getPlayerInfo("Green player").getResTotals().get("food"));
+        assertEquals(100 - 28, map.getPlayerInfo("Blue player").getResTotals().get("food"));
     }
 
-    @Disabled
-    @Test
-    public void test_v1_execute_move() {
-        ActionInfoFactory af = new ActionInfoFactory();
-        // create map
-        WorldMapFactory mf = new V1MapFactory();
-        WorldMap map = mf.makeWorldMap(3);
-        map.tryAssignInitOwner(1, "Green player");
-        map.tryAssignInitOwner(2, "Blue player");
-        map.tryAssignInitOwner(3, "Red player");
-        map.getTerritory("Western Dothraki Sea").trySetTroopUnits("Basic", 300);
-        map.getTerritory("Braavosian Coastlands").trySetTroopUnits("Basic", 100);
-
-        ActionExecuter executer = new ActionExecuter();
-        HashMap<String, Integer> unitNum1 = new HashMap<>();
-        unitNum1.put("Basic", 19);
-        ActionInfo info1 =
-                af.createMoveActionInfo(
-                        "Green player", "Western Dothraki Sea", "Braavosian Coastlands", unitNum1);
-        executer.executeMove(map, info1);
-        assertEquals(281, map.getTerritory("Western Dothraki Sea").getTroopNumUnits("Basic"));
-        assertEquals(119, map.getTerritory("Braavosian Coastlands").getTroopNumUnits("Basic"));
-
-        HashMap<String, Integer> unitNum2 = new HashMap<>();
-        unitNum2.put("Basic", 19);
-        ActionInfo info2 =
-                af.createMoveActionInfo(
-                        "Green player", "Braavosian Coastlands", "Western Dothraki Sea", unitNum2);
-        executer.executeMove(map, info2);
-        assertEquals(300, map.getTerritory("Western Dothraki Sea").getTroopNumUnits("Basic"));
-        assertEquals(100, map.getTerritory("Braavosian Coastlands").getTroopNumUnits("Basic"));
-    }
-
-    @Disabled
     @Test
     public void test_v2_execute_move() {
         WorldMap map = setupV2Map();
@@ -141,79 +107,130 @@ public class ActionExecuterTest {
         toMove.put("level6", 19);
         toMove.put("level5", 9);
         ActionInfoFactory af = new ActionInfoFactory();
-        ActionInfo info = af.createAttackActionInfo("Green player", "Gross Hall", "LSRC", toMove);
+        ActionInfo info = af.createAttackActionInfo("Blue player", "Gross Hall", "LSRC", toMove);
         executer.executeMove(map, info);
         assertEquals(281, map.getTerritory("Gross Hall").getTroopNumUnits("level6"));
         assertEquals(291, map.getTerritory("Gross Hall").getTroopNumUnits("level5"));
         assertEquals(19, map.getTerritory("LSRC").getTroopNumUnits("level6"));
         assertEquals(109, map.getTerritory("LSRC").getTroopNumUnits("level5"));
-        assertEquals(100 - 28 * 6, map.getPlayerInfo("Green player").getResTotals().get("food"));
-        assertEquals(100, map.getPlayerInfo("Green player").getResTotals().get("tech"));
+        assertEquals(-40, map.getPlayerInfo("Blue player").getResTotals().get("food"));
+        assertEquals(100, map.getPlayerInfo("Blue player").getResTotals().get("tech"));
     }
 
-    @Disabled
     @Test
-    public void test_v1_execute_attack() {
+    public void test_find_highest_level_troop() {
+        ActionExecuter executer = new ActionExecuter(10);
+        HashMap<String, Integer> defenderUnits = new HashMap<>();
+        defenderUnits.put("level6", 0);
+        defenderUnits.put("level3", 3);
+        defenderUnits.put("level0", 5);
+        assertEquals("level3", executer.findHighestLevelTroop(defenderUnits));
+    }
+
+    @Test
+    public void test_find_lowest_level_troop() {
+        ActionExecuter executer = new ActionExecuter(10);
+        HashMap<String, Integer> attackerUnits = new HashMap<>();
+        attackerUnits.put("level6", 5);
+        attackerUnits.put("level3", 3);
+        attackerUnits.put("level0", 0);
+        assertEquals("level3", executer.findLowestLevelTroop(attackerUnits));
+    }
+
+    @Test
+    public void test_v2_execute_attack1() {
+        WorldMap map = setupV2Map();
+        // put units on map
+        HashMap<String, Integer> numUnits1 = new HashMap<String, Integer>();
+        numUnits1.put("level6", 30);
+        numUnits1.put("level5", 20);
+        map.getTerritory("Gross Hall").trySetNumUnits(numUnits1);
+        HashMap<String, Integer> numUnits2 = new HashMap<String, Integer>();
+        numUnits2.put("level3", 10);
+        map.getTerritory("Fuqua").trySetNumUnits(numUnits2);
+
+        // create order
+        assertEquals("Blue player", map.getTerritory("Gross Hall").getOwnerName());
+        assertEquals("Green player", map.getTerritory("Fuqua").getOwnerName());
         ActionInfoFactory af = new ActionInfoFactory();
-        // create map
-        WorldMapFactory mf = new V1MapFactory();
-        WorldMap map = mf.makeWorldMap(3);
-        map.tryAssignInitOwner(1, "Green player");
-        map.tryAssignInitOwner(2, "Blue player");
-        map.tryAssignInitOwner(3, "Red player");
-        ActionExecuter executer0 = new ActionExecuter(10);
-        ActionExecuter executer = new ActionExecuter();
-
-        map.getTerritory("Western Dothraki Sea").trySetTroopUnits("Basic", 300);
-        map.getTerritory("Myr").trySetTroopUnits("Basic", 100);
-        HashMap<String, Integer> unitNum1 = new HashMap<>();
-        unitNum1.put("Basic", 300);
         ActionInfo info1 =
-                af.createAttackActionInfo("Green player", "Western Dothraki Sea", "Myr", unitNum1);
-        HashMap<String, Integer> unitNum2 = new HashMap<>();
-        unitNum2.put("Basic", 100);
+                af.createAttackActionInfo("Blue player", "Gross Hall", "Fuqua", numUnits1);
         ActionInfo info2 =
-                af.createAttackActionInfo("Blue player", "Myr", "Western Dothraki Sea", unitNum2);
-        executer.sendTroops(map, info1);
-        assertEquals(0, map.getTerritory("Western Dothraki Sea").getTroopNumUnits("Basic"));
-        assertEquals("Green player", map.getTerritory("Western Dothraki Sea").getOwnerName());
-        executer.sendTroops(map, info2);
-        assertEquals(0, map.getTerritory("Myr").getTroopNumUnits("Basic"));
-        assertEquals("Blue player", map.getTerritory("Myr").getOwnerName());
+                af.createAttackActionInfo("Green player", "Fuqua", "Gross Hall", numUnits2);
+
+        // execute and check
+        ActionExecuter executer = new ActionExecuter();
+        executer.executePreAttack(map, info1);
+        executer.executePreAttack(map, info2);
+        assertEquals("Blue player", map.getTerritory("Gross Hall").getOwnerName());
+        assertEquals(0, map.getTerritory("Gross Hall").getTroopNumUnits("level6"));
+        assertEquals(0, map.getTerritory("Gross Hall").getTroopNumUnits("level5"));
+        assertEquals("Green player", map.getTerritory("Fuqua").getOwnerName());
+        assertEquals(0, map.getTerritory("Fuqua").getTroopNumUnits("level3"));
         executer.executeAttack(map, info1);
-        assertEquals(300, map.getTerritory("Myr").getTroopNumUnits("Basic"));
-        assertEquals("Green player", map.getTerritory("Myr").getOwnerName());
         executer.executeAttack(map, info2);
-        assertEquals(100, map.getTerritory("Western Dothraki Sea").getTroopNumUnits("Basic"));
-        assertEquals("Blue player", map.getTerritory("Western Dothraki Sea").getOwnerName());
+        assertEquals("Blue player", map.getTerritory("Fuqua").getOwnerName());
+        assertEquals(30, map.getTerritory("Fuqua").getTroopNumUnits("level6"));
+        assertEquals(20, map.getTerritory("Fuqua").getTroopNumUnits("level5"));
+        assertEquals("Green player", map.getTerritory("Gross Hall").getOwnerName());
+        assertEquals(10, map.getTerritory("Gross Hall").getTroopNumUnits("level3"));
+    }
 
-        map.getTerritory("Braavosian Coastlands").trySetTroopUnits("Basic", 300);
-        map.getTerritory("Lower Rnoyne").trySetTroopUnits("Basic", 3);
+    @Test
+    public void test_v2_execute_attack2() {
+        // Attacker wins
+        WorldMap map = setupV2Map();
 
-        ActionInfo info3 =
-                af.createAttackActionInfo(
-                        "Green player", "Braavosian Coastlands", "Lower Rnoyne", unitNum1);
-        assertEquals(300, map.getTerritory("Braavosian Coastlands").getTroopNumUnits("Basic"));
-        assertEquals(3, map.getTerritory("Lower Rnoyne").getTroopNumUnits("Basic"));
-        assertEquals("Blue player", map.getTerritory("Lower Rnoyne").getOwnerName());
-        executer.sendTroops(map, info3);
-        executer.executeAttack(map, info3);
-        assertEquals("Green player", map.getTerritory("Braavosian Coastlands").getOwnerName());
-        assertEquals(0, map.getTerritory("Braavosian Coastlands").getTroopNumUnits("Basic"));
-        assertEquals("Green player", map.getTerritory("Lower Rnoyne").getOwnerName());
-        assertEquals(298, map.getTerritory("Lower Rnoyne").getTroopNumUnits("Basic"));
+        // put units on map
+        HashMap<String, Integer> numUnits1 = new HashMap<String, Integer>();
+        numUnits1.put("level6", 30);
+        numUnits1.put("level5", 20);
+        map.getTerritory("Gross Hall").trySetNumUnits(numUnits1);
+        HashMap<String, Integer> numUnits2 = new HashMap<String, Integer>();
+        numUnits2.put("level3", 10);
+        map.getTerritory("Fuqua").trySetNumUnits(numUnits2);
+        assertEquals("Blue player", map.getTerritory("Gross Hall").getOwnerName());
+        assertEquals("Green player", map.getTerritory("Fuqua").getOwnerName());
 
-        // defender wins
-        map.getTerritory("Forest of Qohor").trySetTroopUnits("Basic", 5);
-        map.getTerritory("Lhaxar").trySetTroopUnits("Basic", 500);
+        // create order
+        ActionInfoFactory af = new ActionInfoFactory();
+        ActionInfo info1 =
+                af.createAttackActionInfo("Blue player", "Gross Hall", "Fuqua", numUnits1);
 
-        HashMap<String, Integer> unitNum3 = new HashMap<>();
-        unitNum3.put("Basic", 3);
-        ActionInfo info4 =
-                af.createAttackActionInfo("Green player", "Forest of Qohor", "Lhaxar", unitNum3);
-        executer0.sendTroops(map, info4);
-        executer0.executeAttack(map, info4);
-        assertEquals("Blue player", map.getTerritory("Lhaxar").getOwnerName());
-        assertEquals(497, map.getTerritory("Lhaxar").getTroopNumUnits("Basic"));
+        // execute and check
+        ActionExecuter executer = new ActionExecuter();
+        executer.executePreAttack(map, info1);
+        executer.executeAttack(map, info1);
+        assertEquals("Blue player", map.getTerritory("Fuqua").getOwnerName());
+        assertEquals(30, map.getTerritory("Fuqua").getTroopNumUnits("level6"));
+        assertEquals(17, map.getTerritory("Fuqua").getTroopNumUnits("level5"));
+    }
+
+    @Test
+    public void test_v2_execute_attack3() {
+        // Defender wins
+        WorldMap map = setupV2Map();
+
+        // put units on map
+        HashMap<String, Integer> numUnits1 = new HashMap<String, Integer>();
+        numUnits1.put("level6", 30);
+        numUnits1.put("level5", 20);
+        map.getTerritory("Gross Hall").trySetNumUnits(numUnits1);
+        HashMap<String, Integer> numUnits2 = new HashMap<String, Integer>();
+        numUnits2.put("level3", 10);
+        map.getTerritory("Fuqua").trySetNumUnits(numUnits2);
+        assertEquals("Blue player", map.getTerritory("Gross Hall").getOwnerName());
+        assertEquals("Green player", map.getTerritory("Fuqua").getOwnerName());
+
+        // create order
+        ActionInfoFactory af = new ActionInfoFactory();
+        ActionInfo info2 =
+                af.createAttackActionInfo("Green player", "Fuqua", "Gross Hall", numUnits2);
+        ActionExecuter executer = new ActionExecuter();
+        executer.executePreAttack(map, info2);
+        executer.executeAttack(map, info2);
+        assertEquals("Blue player", map.getTerritory("Gross Hall").getOwnerName());
+        assertEquals(29, map.getTerritory("Gross Hall").getTroopNumUnits("level6"));
+        assertEquals(20, map.getTerritory("Gross Hall").getTroopNumUnits("level5"));
     }
 }
