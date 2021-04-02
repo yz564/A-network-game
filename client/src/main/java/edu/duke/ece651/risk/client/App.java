@@ -25,19 +25,25 @@ import edu.duke.ece651.risk.shared.ObjectIO;
  * in and out are objectIOStream tmp stores the most recent ObjectIO read by the
  * client (sent from the server)
  */
-public class App {
-  Socket server;
-  ObjectInputStream in;
-  ObjectOutputStream out;
-  ObjectIO tmp;
-  BufferedReader stdIn;
-  volatile ArrayList<Player> players;
-  volatile int currentRoomId;
-  volatile HashSet<Integer> joinedRoomId;
+public class App implements Runnable{
+  private Socket server;
+  private ObjectInputStream in;
+  private ObjectOutputStream out;
+  private ObjectIO tmp;
+  private BufferedReader stdIn;
+  private ArrayList<Player> players;
+  private int currentRoomId;
+  private HashSet<Integer> joinedRoomId;
+
+  private String serverAdd;
 
   /**
    * A simple constructor
    */
+  public App(String serverAdd) {
+    this.serverAdd = serverAdd;
+  }
+  
   public App(Socket server, ObjectInputStream in, ObjectOutputStream out, ObjectIO tmp) {
     this.server = server;
     this.in = in;
@@ -104,6 +110,17 @@ public class App {
     return tmp.id == 0;
   }
 
+  @Override
+  public void run() {
+    try (var socket = new Socket(serverAdd, 3333)){
+            this.server = socket;
+            this.out = new ObjectOutputStream(socket.getOutputStream());
+            this.in = new ObjectInputStream(socket.getInputStream());
+          } catch (Exception e) {
+    }
+    while (true) {
+    }
+  }
   /**
    * the enter point of the client. after connecting with the server, new App, and
    * call its method to communicate with the server(game).

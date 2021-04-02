@@ -21,21 +21,34 @@ public class ServerConnector {
         this.client = null;
     }
 
-    public String tryConnect(String serverAdd) {
+  public String tryConnect(String serverAdd) {
+      App client=new App(serverAdd);
+      Thread t=new Thread(client);
+      t.start();
+      /*
+      client.start();
         try (var socket = new Socket(serverAdd, 3333)){
             this.socket = socket;
             this.out = new ObjectOutputStream(socket.getOutputStream());
             this.in = new ObjectInputStream(socket.getInputStream());
             this.comPackage = null;
             this.client = new App(socket, in, out, comPackage);
+            client.start();
         }
         catch (Exception e){
             return "Server address does not exist!";
         }
+      */
         return null;
+
     }
 
 }
+
+
+
+
+
 
 
 
