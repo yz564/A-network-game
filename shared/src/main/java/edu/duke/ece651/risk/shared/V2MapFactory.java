@@ -19,10 +19,10 @@ public class V2MapFactory implements WorldMapFactory {
         { 4, 6, 7, 10, 12 }, { 4, 10, 11, 13, 14 }, { 12, 14, 15 }, { 0, 1, 4, 12, 13, 15 }, { 14, 15 } };
     int[] sizes = { 1, 2, 3, 1, 3, 2, 3, 2, 1, 1, 2, 3, 2, 2, 3, 1};
     if (numPlayers == 4) {
-      int[] groups = { 1, 1, 2, 1, 1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4 };
+      int[] groups = { 1, 3, 1, 1, 1, 4, 4, 4, 4, 2, 2, 2, 2, 3, 3, 3 };
       return new V2RiskWorldMap(names, adjacency, groups, sizes);
     } else {
-      int[] groups = { 1, 2, 1, 2, 2, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1 };
+      int[] groups = { 1, 2, 1, 1, 2, 2, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1 };
       return new V2RiskWorldMap(names, adjacency, groups, sizes);
     }
   }
@@ -44,10 +44,10 @@ public class V2MapFactory implements WorldMapFactory {
         { 4, 6, 7, 10, 12 }, { 4, 10, 11, 13, 14 }, { 12, 14 }, { 0, 1, 4, 12, 13 } };
     int[] sizes = { 1, 2, 3, 1, 3, 2, 3, 2, 1, 1, 2, 3, 2, 1, 3 };
     if (numPlayers == 5) {
-      int[] groups = { 1, 1, 1, 2, 2, 3, 3, 3, 4, 4, 4, 2, 5, 5, 5 };
+      int[] groups = { 1, 1, 2, 4, 1, 2, 4, 4, 2, 5, 5, 5, 3, 3, 3 };
       return new V2RiskWorldMap(names, adjacency, groups, sizes);
     } else {
-      int[] groups = { 1, 1, 1, 2, 1, 2, 1, 3, 2, 2, 2, 3, 3, 3, 3 };
+      int[] groups = { 1, 1, 2, 1, 1, 2, 2, 3, 2, 2, 3, 1, 3, 3, 3 };
       return new V2RiskWorldMap(names, adjacency, groups, sizes);
     }
   }
