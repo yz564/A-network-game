@@ -1,5 +1,6 @@
 package edu.duke.ece651.risk.shared;
 
+import java.util.HashMap;
 import java.util.Random;
 
 public class ActionExecuter {
@@ -31,23 +32,36 @@ public class ActionExecuter {
      * @param info a ActionInfo object that contains the information of src, dis, and troop to send.
      */
     public void sendTroops(WorldMap map, ActionInfo info) {
-        Territory src = map.getTerritory(info.getTerritoryActionInfo().getSrcName());
-        int sendNum = info.getTerritoryActionInfo().getUnitNum().get("Basic");
-        src.tryRemoveTroopUnits("Basic", sendNum);
+        String srcName = info.getSrcName();
+        Territory src = map.getTerritory(srcName);
+        HashMap<String, Integer> sendNumUnit = info.getNumUnits();
+        for (String troopName : sendNumUnit.keySet()) {
+            src.tryRemoveTroopUnits(troopName, sendNumUnit.get(troopName));
+        }
     }
 
     /**
      * Do this before doing executeAttack for executing all attack orders in the end together. Sends
-     * troops only from the src Territory, and deducts food cost from the player who issued the
-     * corresponding attack order.
+     * troops from the src Territory, and deducts costs from the player who issued the corresponding
+     * attack order.
      *
      * @param map a WorldMap object where the action is implemented.
      * @param info a ActionInfo object that contains the information of src, dis, and troop to send.
      */
-    public void executePreAttack(WorldMap map, ActionInfo info) {}
+    public void executePreAttack(WorldMap map, ActionInfo info) {
+        // deducts costs
+        PlayerInfo srcOwnerInfo = map.getPlayerInfo(info.getSrcOwnerName());
+        HashMap<String, Integer> resCosts = costCal.calculateAttackCost(info, map);
+        for (String resType : resCosts.keySet()) {
+            int updateAmt = (-1) * resCosts.get(resType);
+            srcOwnerInfo.updateOneResTotal(resType, updateAmt);
+        }
+        // sends troops
+        sendTroops(map, info);
+    }
 
     /**
-     * Moves troops from the src Territory to dis Territory.
+     * Moves troops from the src Territory to dis Territory, and deducts the cost of moving troop.
      *
      * <p>Info of src, dis, and troop to send is in ActionInfo info argument.
      *
@@ -58,9 +72,10 @@ public class ActionExecuter {
      * @param info a ActionInfo object that contains the information of src, dis, and troop to send.
      */
     public void executeMove(WorldMap map, ActionInfo info) {
-        Territory src = map.getTerritory(info.getTerritoryActionInfo().getSrcName());
-        Territory des = map.getTerritory(info.getTerritoryActionInfo().getDesName());
-        int sendNum = info.getTerritoryActionInfo().getUnitNum().get("Basic");
+        Territory src = map.getTerritory(info.getSrcName());
+        Territory des = map.getTerritory(info.getDesName());
+        HashMap<String, Integer> moveNumUnit = info.getTerritoryActionInfo().getUnitNum();
+
         src.tryRemoveTroopUnits("Basic", sendNum);
         des.tryAddTroopUnits("Basic", sendNum);
     }
