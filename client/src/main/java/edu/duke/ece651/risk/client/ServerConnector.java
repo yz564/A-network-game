@@ -27,7 +27,7 @@ public class ServerConnector {
             this.out = new ObjectOutputStream(socket.getOutputStream());
             this.in = new ObjectInputStream(socket.getInputStream());
             this.comPackage = null;
-            this.client = new App(in, out, comPackage);
+            this.client = new App(socket, in, out, comPackage);
         }
         catch (Exception e){
             return "Server address does not exist!";
@@ -36,3 +36,9 @@ public class ServerConnector {
     }
 
 }
+
+
+
+
+
+
