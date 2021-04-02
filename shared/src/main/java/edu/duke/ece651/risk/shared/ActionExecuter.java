@@ -8,7 +8,7 @@ public class ActionExecuter {
     private final Random rng;
 
     /** The ActionCostCalculator that calculates resource costs for each kind of action. */
-    private ActionCostCalculator costCal = new ActionCostCalculator();
+    private final ActionCostCalculator costCal = new ActionCostCalculator();
 
     /** Constructs a ActionExecuter helper class with a given random seed. */
     public ActionExecuter(long seed) {
@@ -50,14 +50,24 @@ public class ActionExecuter {
      */
     public void executePreAttack(WorldMap map, ActionInfo info) {
         // deducts costs
-        PlayerInfo srcOwnerInfo = map.getPlayerInfo(info.getSrcOwnerName());
-        HashMap<String, Integer> resCosts = costCal.calculateAttackCost(info, map);
-        for (String resType : resCosts.keySet()) {
-            int updateAmt = (-1) * resCosts.get(resType);
-            srcOwnerInfo.updateOneResTotal(resType, updateAmt);
-        }
+        HashMap<String, Integer> resCost = costCal.calculateAttackCost(info, map);
+        deductCost(map, info, resCost);
         // sends troops
         sendTroops(map, info);
+    }
+
+    /**
+     * Deducts resources cost for an action.
+     *
+     * @param map the WorldMap to deduct the cost from.
+     * @param info the action info that contains the source owner name from whom to deduct the cost.
+     * @param resCost the resource cost to deduct.
+     */
+    private void deductCost(WorldMap map, ActionInfo info, HashMap<String, Integer> resCost) {
+        PlayerInfo srcOwnerInfo = map.getPlayerInfo(info.getSrcOwnerName());
+        for (String resType : resCost.keySet()) {
+            srcOwnerInfo.updateOneResTotal(resType, (-1) * resCost.get(resType));
+        }
     }
 
     /**
@@ -81,11 +91,46 @@ public class ActionExecuter {
             des.tryAddTroopUnits(troopName, moveNumUnit.get(troopName));
         }
         // deducts costs
-        PlayerInfo srcOwnerInfo = map.getPlayerInfo(info.getSrcOwnerName());
         HashMap<String, Integer> resCost = costCal.calculateMoveCost(info, map);
-        for (String resType : resCost.keySet()) {
-            srcOwnerInfo.updateOneResTotal(resType, (-1) * resCost.get(resType));
-        }
+        deductCost(map, info, resCost);
+    }
+
+    /**
+     * Upgrades the tech level for the source owner player, and deducts the resources from the
+     * player.
+     *
+     * @param map a WorldMap object where the action is implemented.
+     * @param info a ActionInfo object that contains source owner name and the new tech level to
+     *     upgrade to.
+     */
+    public void executeUpgradeTech(WorldMap map, ActionInfo info) {
+        // do the upgrade
+        String srcOwnerName = info.getSrcOwnerName();
+        map.getPlayerInfo(srcOwnerName).setTechLevel(info.getNewTechLevel());
+        // deducts costs
+        HashMap<String, Integer> resCost = costCal.calculateUpgradeTechCost(info, map);
+        deductCost(map, info, resCost);
+    }
+
+    /**
+     * Upgrades the units required by the source owner player, and deducts the resources form the
+     * player.
+     *
+     * @param map a WorldMap object where the action is implemented.
+     * @param info a ActionInfo object that contains source owner name and the info of the upgrade
+     *     units order.
+     */
+    public void executeUpgradeUnit(WorldMap map, ActionInfo info) {
+        // do the upgrade
+        String srcName = info.getSrcName();
+        String oldUnitLevel = info.getOldUnitLevel();
+        String newUnitLevel = info.getNewUnitLevel();
+        int numToUpgrade = info.getUpgradeUnitActionInfo().getNumToUpgrade();
+        map.getTerritory(srcName).tryAddTroopUnits(newUnitLevel, numToUpgrade);
+        map.getTerritory(srcName).tryRemoveTroopUnits(oldUnitLevel, numToUpgrade);
+        // deducts costs
+        HashMap<String, Integer> resCost = costCal.calculateUpgradeUnitCost(info, map);
+        deductCost(map, info, resCost);
     }
 
     /**
@@ -121,14 +166,15 @@ public class ActionExecuter {
             // des Territory loses units to defenderUnitNum
             des.trySetNumUnits(defenderUnits);
         }
-        // deducts costs
-        PlayerInfo srcOwnerInfo = map.getPlayerInfo(info.getSrcOwnerName());
-        HashMap<String, Integer> resCost = costCal.calculateAttackCost(info, map);
-        for (String resType : resCost.keySet()) {
-            srcOwnerInfo.updateOneResTotal(resType, (-1) * resCost.get(resType));
-        }
     }
 
+    /**
+     * Finds the highest level troop name tht has unit in a given HashMap that is troop name to
+     * number of units in the troop.
+     *
+     * @param defenderUnits a HashMap that is troop name to the number of units in the troop.
+     * @return a String that represents the highest level troop.
+     */
     public String findHighestLevelTroop(HashMap<String, Integer> defenderUnits) {
         Integer highestLevel = -1;
         String highestTroopName = null;
@@ -143,6 +189,13 @@ public class ActionExecuter {
         return highestTroopName;
     }
 
+    /**
+     * Finds the lowest level troop name tht has unit in a given HashMap that is troop name to
+     * number of units in the troop.
+     *
+     * @param attackerUnits a HashMap that is troop name to the number of units in the troop.
+     * @return a String that represents the highest level troop.
+     */
     public String findLowestLevelTroop(HashMap<String, Integer> attackerUnits) {
         Integer lowestLevel = 7;
         String lowestTroopName = null;
@@ -157,6 +210,13 @@ public class ActionExecuter {
         return lowestTroopName;
     }
 
+    /**
+     * Gets the totally number of units in a HashMap that is troop name mapped to number of unit in
+     * the troop.
+     *
+     * @param troops a HashMap that is troop name to the number of units in the troop.
+     * @return an int that represents the total number of units.
+     */
     public int getTotalUnitNum(HashMap<String, Integer> troops) {
         int totalUnitNum = 0;
         for (int num : troops.values()) {

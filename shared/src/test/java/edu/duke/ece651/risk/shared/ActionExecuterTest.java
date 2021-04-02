@@ -232,5 +232,6 @@ public class ActionExecuterTest {
         assertEquals("Blue player", map.getTerritory("Gross Hall").getOwnerName());
         assertEquals(29, map.getTerritory("Gross Hall").getTroopNumUnits("level6"));
         assertEquals(20, map.getTerritory("Gross Hall").getTroopNumUnits("level5"));
+        assertEquals(100 - 10, map.getPlayerInfo("Green player").getResTotals().get("food"));
     }
 }
