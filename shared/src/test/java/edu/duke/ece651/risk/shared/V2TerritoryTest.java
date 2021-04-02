@@ -158,4 +158,16 @@ public class V2TerritoryTest {
     Territory t4 = map.getTerritory("Wilson Gym");
     assertEquals(4, t3.findMinMoveCost(t4));
   }
+
+  @Test
+  public void test_findmincost3() {
+    WorldMapFactory factory = new V2MapFactory();
+    WorldMap map = factory.makeWorldMap(3); 
+    map.tryAssignInitOwner(1, "Player 1");
+    map.tryAssignInitOwner(2, "Player 2");
+    map.tryAssignInitOwner(3, "Player 3");
+    Territory t1 = map.getTerritory("Gross Hall");
+    Territory t2 = map.getTerritory("LSRC");
+    assertEquals(5, t1.findMinMoveCost(t2)); 
+  }
 }
