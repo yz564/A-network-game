@@ -72,12 +72,20 @@ public class ActionExecuter {
      * @param info a ActionInfo object that contains the information of src, dis, and troop to send.
      */
     public void executeMove(WorldMap map, ActionInfo info) {
+        // move units
         Territory src = map.getTerritory(info.getSrcName());
         Territory des = map.getTerritory(info.getDesName());
         HashMap<String, Integer> moveNumUnit = info.getTerritoryActionInfo().getUnitNum();
-
-        src.tryRemoveTroopUnits("Basic", sendNum);
-        des.tryAddTroopUnits("Basic", sendNum);
+        for (String troopName : moveNumUnit.keySet()) {
+            src.tryRemoveTroopUnits(troopName, moveNumUnit.get(troopName));
+            des.tryAddTroopUnits(troopName, moveNumUnit.get(troopName));
+        }
+        // deducts costs
+        PlayerInfo srcOwnerInfo = map.getPlayerInfo(info.getSrcOwnerName());
+        HashMap<String, Integer> resCost = costCal.calculateMoveCost(info, map);
+        for (String resType : resCost.keySet()) {
+            srcOwnerInfo.updateOneResTotal(resType, (-1) * resCost.get(resType));
+        }
     }
 
     /**

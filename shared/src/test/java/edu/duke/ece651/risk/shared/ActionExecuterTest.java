@@ -1,5 +1,6 @@
 package edu.duke.ece651.risk.shared;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -119,6 +120,34 @@ public class ActionExecuterTest {
         executer.executeMove(map, info2);
         assertEquals(300, map.getTerritory("Western Dothraki Sea").getTroopNumUnits("Basic"));
         assertEquals(100, map.getTerritory("Braavosian Coastlands").getTroopNumUnits("Basic"));
+    }
+
+    @Disabled
+    @Test
+    public void test_v2_execute_move() {
+        WorldMap map = setupV2Map();
+        // put units on map
+        HashMap<String, Integer> numUnits1 = new HashMap<String, Integer>();
+        numUnits1.put("level6", 300);
+        numUnits1.put("level5", 300);
+        map.getTerritory("Gross Hall").trySetNumUnits(numUnits1);
+        HashMap<String, Integer> numUnits2 = new HashMap<String, Integer>();
+        numUnits2.put("level5", 100);
+        map.getTerritory("LSRC").trySetNumUnits(numUnits2);
+        // execution
+        ActionExecuter executer = new ActionExecuter();
+        HashMap<String, Integer> toMove = new HashMap<>();
+        toMove.put("level6", 19);
+        toMove.put("level5", 9);
+        ActionInfoFactory af = new ActionInfoFactory();
+        ActionInfo info = af.createAttackActionInfo("Green player", "Gross Hall", "LSRC", toMove);
+        executer.executeMove(map, info);
+        assertEquals(281, map.getTerritory("Gross Hall").getTroopNumUnits("level6"));
+        assertEquals(291, map.getTerritory("Gross Hall").getTroopNumUnits("level5"));
+        assertEquals(19, map.getTerritory("LSRC").getTroopNumUnits("level6"));
+        assertEquals(109, map.getTerritory("LSRC").getTroopNumUnits("level5"));
+        assertEquals(100 - 28 * 6, map.getPlayerInfo("Green player").getResTotals().get("food"));
+        assertEquals(100, map.getPlayerInfo("Green player").getResTotals().get("tech"));
     }
 
     @Test
