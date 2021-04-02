@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField layoutX="104.0" layoutY="55.0" />
+      <TextField layoutX="104.0" layoutY="100.0" />
+      <Label layoutX="30.0" layoutY="24.0" text="Enter username and password to login." textAlignment="CENTER" />
+      <Label layoutX="32.0" layoutY="60.0" text="Username:" />
+      <Label layoutX="32.0" layoutY="105.0" text="Password:" />
+      <Button fx:id="serverConnect" layoutX="103.0" layoutY="139.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="94.0" text="Log In" />
+      <Label fx:id="serverConnectErrorMessage" layoutX="31.0" layoutY="183.0" prefHeight="17.0" prefWidth="238.0" text="" textAlignment="CENTER" textFill="#fa0707" />
+   </children>
+</Pane>

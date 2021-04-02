@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.risk.client.controller.ServerConnectController">
+   <children>
+      <Button fx:id="serverConnect" layoutX="127.0" layoutY="118.0" mnemonicParsing="false" onAction="#onConnectButton" prefHeight="34.0" prefWidth="94.0" text="Connect" />
+      <TextField fx:id="serverConnectAddressField" layoutX="138.0" layoutY="80.0" />
+      <Label fx:id="serverConnectAddressLabel" layoutX="28.0" layoutY="84.0" text="Server Address:" />
+      <Label fx:id="serverConnectWelcomeMessage" layoutX="47.0" layoutY="29.0" text="Welcome to Duke Risk Game!&#10;Enter server address to connect to game." textAlignment="CENTER" />
+      <Label fx:id="serverConnectErrorMessage" layoutX="56.0" layoutY="163.0" prefHeight="17.0" prefWidth="238.0" text="" textAlignment="CENTER" textFill="#fa0707" />
+   </children>
+</Pane>
