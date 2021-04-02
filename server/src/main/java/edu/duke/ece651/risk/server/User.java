@@ -69,14 +69,18 @@ public class User implements Runnable{
     return inputPassword.equals(accounts.get(inputName));
   }
 
-  public Boolean tryJoinRoom() throws Exception{
+  public void  tryLogin() throws Exception {
     logIn();
     while(!checkAccount()){
       myWrite(new ObjectIO("username/password is wrong,try again",-1));
       logIn();
     }
+    System.out.println(inputName + " logged in ");
     myWrite(new ObjectIO("Logged in",0));
-     myWrite(new ObjectIO("join a room (number):"));
+  }
+  
+  public Boolean tryJoinRoom() throws Exception{
+    myWrite(new ObjectIO("join a room:",-1));
      int id=-1;
      if ((tempObj = (ObjectIO) in.readObject()) != null) {
        id=tempObj.id - 1;
@@ -86,7 +90,7 @@ public class User implements Runnable{
        System.out.println(inputName + " try to rejoin the room " + (currentRoomId+1));
        return true;
      }
-    if (id < roomList.size()) {
+    if (id < roomList.size() && id>=0) {
       
       Room theRoom = roomList.get(id);
       if (theRoom.getCurrentNum() < theRoom.getNum()) {
@@ -109,6 +113,7 @@ public class User implements Runnable{
     try{
       this.in = new ObjectInputStream(clientSocket.getInputStream());
       this.out= new ObjectOutputStream(clientSocket.getOutputStream());
+      tryLogin();
       while (true) {
           if (tryJoinRoom()){
             System.out.println(inputName + " joined the room " + (currentRoomId+1));

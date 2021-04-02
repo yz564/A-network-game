@@ -17,6 +17,7 @@ import java.io.PrintStream;
 import java.io.StringReader;
 
 class AppTest {
+  /*
     @Test
     void test_constructor() {
         ObjectInputStream mockedObjIn = mock(ObjectInputStream.class);
@@ -34,7 +35,9 @@ class AppTest {
         }
         catch(Exception e){}
     }
+  */
 }
+
 
 
 

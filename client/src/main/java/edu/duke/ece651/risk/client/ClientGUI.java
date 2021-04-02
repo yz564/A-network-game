@@ -24,13 +24,13 @@ public class ClientGUI extends Application {
     public void start(Stage stage) throws Exception {
         window = stage;
         model = new App();
-        Thread t = new Thread(model);
-        t.start();
 
-        URL xmlResource = getClass().getResource("/ui/views/user-login.fxml");
+        URL xmlResource = getClass().getResource("/ui/views/server-connect.fxml");
+        /*Pane p = FXMLLoader.load(xmlResource);*/
+
         FXMLLoader loader = new FXMLLoader(xmlResource);
         loader.setControllerFactory(c -> {
-            return new UserLoginController(model);
+            return new ServerConnectController(model);
         });
         Pane p = loader.load();
         scene = new Scene(p);

@@ -23,8 +23,8 @@ import java.util.Iterator;
 import edu.duke.ece651.risk.shared.ObjectIO;
 
 /**
- *in and out are objectIOStream
- *tmp stores the most recent ObjectIO read by the client (sent from the server)
+ * in and out are objectIOStream tmp stores the most recent ObjectIO read by the
+ * client (sent from the server)
  */
 public class App implements Runnable{
   Socket server;
@@ -38,10 +38,6 @@ public class App implements Runnable{
 
   private String serverAdd;
 
-  public App(String serverAdd) {
-    this.serverAdd = serverAdd;
-  }
-
   public App() {
     this.server = null;
     this.in = null;
@@ -52,13 +48,13 @@ public class App implements Runnable{
     this.joinedRoomId = null;
   }
 
-  public String tryConnect() {
-    try (var socket = new Socket("localhost", 3333)){
+  public String tryConnect(String serverAdd) {
+    try (var socket = new Socket(serverAdd, 3333)){
       this.server = socket;
       this.out = new ObjectOutputStream(socket.getOutputStream());
       this.in = new ObjectInputStream(socket.getInputStream());
       this.tmp = null;
-      this.initializeApp(in, out, tmp);
+      this.initializeApp(server, in, out, tmp);
     }
     catch (Exception e){
       return "Server address does not exist!";
@@ -66,7 +62,8 @@ public class App implements Runnable{
     return null;
   }
 
-  public void initializeApp(ObjectInputStream in, ObjectOutputStream out, ObjectIO tmp) {
+  public void initializeApp(Socket server, ObjectInputStream in, ObjectOutputStream out, ObjectIO tmp) {
+    this.server = server;
     this.in = in;
     this.out = out;
     this.tmp = tmp;
@@ -81,42 +78,47 @@ public class App implements Runnable{
   /**
    * A simple constructor
    */
-  public App(ObjectInputStream in, ObjectOutputStream out, ObjectIO tmp) {
+  /*
+  public App(String serverAdd) {
+    this.serverAdd = serverAdd;
+  }*/
+
+  public App(Socket server, ObjectInputStream in, ObjectOutputStream out, ObjectIO tmp) {
+    this.server = server;
     this.in = in;
     this.out = out;
     this.tmp = tmp;
     this.stdIn = new BufferedReader(new InputStreamReader(System.in));
     this.players = new ArrayList<Player>();
     for (int i = 0; i < 4; i++) {
-      players.add(new Player(i,in, out,stdIn));
+      players.add(new Player(i, in, out, stdIn));
     }
     this.joinedRoomId = new HashSet<Integer>();
   }
 
-
-  public void runOnePlayer() throws Exception{
+  public void runOnePlayer() throws Exception {
     String tmpS;
-    if (!joinedRoomId.contains(currentRoomId)){
+    if (!joinedRoomId.contains(currentRoomId)) {
       Player p = players.get(currentRoomId);
-    Thread t = new Thread(p);
-    t.start();
-    players.set(currentRoomId, p);
-    joinedRoomId.add(currentRoomId);
-     }
-     players.get(currentRoomId).setWait(true);
+      Thread t = new Thread(p);
+      t.start();
+      players.set(currentRoomId, p);
+      joinedRoomId.add(currentRoomId);
+    }
+    players.get(currentRoomId).setWait(true);
     while (true) {
       if (players.get(currentRoomId).isWait()) {
-        players.get(currentRoomId).ready=true;
-        if((tmpS = stdIn.readLine()) != null){
-        if (tmpS.equals("/leave")) {
-          out.writeObject(new ObjectIO(tmpS));
-          out.flush();
-          out.reset();
-          break;
+        players.get(currentRoomId).ready = true;
+        if ((tmpS = stdIn.readLine()) != null) {
+          if (tmpS.equals("/leave")) {
+            out.writeObject(new ObjectIO(tmpS));
+            out.flush();
+            out.reset();
+            break;
+          }
+          players.get(currentRoomId).updateInput(tmpS);
         }
-        players.get(currentRoomId).updateInput(tmpS);
       }
-        }
     }
   }
 
@@ -130,6 +132,7 @@ public class App implements Runnable{
     out.reset();
   }
 
+/*
   public String tryLogin(String userName, String password) throws Exception {
     HashMap<String, String> loginInfo = new HashMap<>();
     loginInfo.put("username", userName);
@@ -140,9 +143,9 @@ public class App implements Runnable{
       return serverResponse.message;
     }
     return null;
-  }
+  }*/
 
-
+/*
   public Boolean tryLogin() throws Exception {
     String tmpS;
     for (int i = 0; i < 2; i++) {
@@ -159,41 +162,41 @@ public class App implements Runnable{
       }
       System.out.println(tmp.message);
       return tmp.id==0;
-  }
-    public Boolean tryJoinRoom() throws Exception {
-      while (!tryLogin()) {
-      }
-    String tmpS;
-    if ((tmp = (ObjectIO) in.readObject()) != null) {
-    }
-    System.out.println(tmp.message);
-    if ((tmpS = stdIn.readLine()) != null) {
-    }
-    out.writeObject(new ObjectIO(tmpS,Integer.parseInt(tmpS)));
-    currentRoomId = Integer.parseInt(tmpS)-1;
-    out.flush();
-    out.reset();
-    if ((tmp = (ObjectIO) in.readObject()) != null) {
-    }
-    System.out.println(tmp.message);
+  }*/
+
+
+  public Boolean tryLogin(String userName, String password) throws Exception {
+    receiveMessage();
+    sendMessage(new ObjectIO(userName));
+    receiveMessage();
+    sendMessage(new ObjectIO(password));
+    tmp = receiveMessage();
     return tmp.id == 0;
   }
 
-  public void run(){
-    try (var socket = new Socket("localhost", 3333)) {
-      this.server = socket;
-      this.out = new ObjectOutputStream(socket.getOutputStream());
-      this.in = new ObjectInputStream(socket.getInputStream());
-      //ObjectIO tmp = null;
-      //App client = new App(in, out, tmp);
-    }catch(Exception e){}
-    while (true){}
+  public Boolean tryJoinRoom(int roomId) throws Exception {
+    receiveMessage();
+    sendMessage(new ObjectIO("", roomId));
+    currentRoomId = roomId - 1;
+    tmp = receiveMessage();
+    return tmp.id == 0;
   }
 
-/**
- *the enter point of the client.
- *after connecting with the server, new App, and call its method to communicate with the server(game).
- */
+  @Override
+  public void run() {
+    try (var socket = new Socket(serverAdd, 3333)){
+            this.server = socket;
+            this.out = new ObjectOutputStream(socket.getOutputStream());
+            this.in = new ObjectInputStream(socket.getInputStream());
+          } catch (Exception e) {
+    }
+    while (true) {
+    }
+  }
+  /**
+   * the enter point of the client. after connecting with the server, new App, and
+   * call its method to communicate with the server(game).
+   */
   public static void main(String[] args) throws Exception {
     System.out.println("Please enter server address: (default is localhost by hitting Enter)");
     BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
@@ -206,25 +209,26 @@ public class App implements Runnable{
       ObjectOutputStream out = new ObjectOutputStream(server.getOutputStream());
       ObjectInputStream in = new ObjectInputStream(server.getInputStream());
       ObjectIO tmp = null;
-      App client = new App(in, out, tmp);
-      //while (!client.tryLogin()) {}
-      while(true){
-      while (!client.tryJoinRoom()) {
+      App client = new App(server, in, out, tmp);
+      String userName = "";
+      String password = "";
+        while (!client.tryLogin(userName, password)) {
+          System.out.println("userName:");
+          userName = stdIn.readLine();
+          System.out.println("password:");
+          password = stdIn.readLine();
+        }
+        while (true) {
+        int roomId = 0;
+        while (!client.tryJoinRoom(roomId)) {
+          System.out.println("join a room:");
+          roomId = Integer.parseInt(stdIn.readLine());
+        }
+        client.runOnePlayer();
       }
-      client.runOnePlayer();
-      }
-    }catch(Exception e){}
+    } //catch (Exception e) {
+    //}
   }
 }
-
-
-
-
-
-
-
-
-
-
 
 

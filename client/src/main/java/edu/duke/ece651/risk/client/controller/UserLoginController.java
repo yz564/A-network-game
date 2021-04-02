@@ -35,9 +35,10 @@ public class UserLoginController {
             //Button btn = (Button) source;
             String username = userLoginUsernameField.getText();
             String password = userLoginPasswordField.getText();
-            String serverMsg = model.tryLogin(username, password);
-            if (serverMsg != null){
-                userLoginErrorMessage.setText(serverMsg);
+            //String serverMsg = model.tryLogin(username, password);
+            boolean success = model.tryLogin(username, password);
+            if (!success){
+                userLoginErrorMessage.setText("Log in failed! Try Again.");
             }
             else{
                 URL xmlResource = getClass().getResource("/ui/views/test.fxml");

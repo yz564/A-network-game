@@ -35,7 +35,8 @@ public class JoinRoomController {
             //Button btn = (Button) source;
             String username = userLoginUsernameField.getText();
             String password = userLoginPasswordField.getText();
-            String serverMsg = model.tryLogin(username, password);
+            //String serverMsg = model.tryLogin(username, password);
+            String serverMsg = "hello";
             if (serverMsg != null) {
                 userLoginErrorMessage.setText(serverMsg);
             } else {
