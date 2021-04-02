@@ -90,6 +90,7 @@ public class ActionExecuterTest {
         assertEquals(100 - 28, map.getPlayerInfo("Green player").getResTotals().get("food"));
     }
 
+    @Disabled
     @Test
     public void test_v1_execute_move() {
         ActionInfoFactory af = new ActionInfoFactory();
@@ -150,6 +151,7 @@ public class ActionExecuterTest {
         assertEquals(100, map.getPlayerInfo("Green player").getResTotals().get("tech"));
     }
 
+    @Disabled
     @Test
     public void test_v1_execute_attack() {
         ActionInfoFactory af = new ActionInfoFactory();

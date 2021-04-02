@@ -89,7 +89,8 @@ public class ActionExecuter {
     }
 
     /**
-     * Executes the attack order with given action info for attack.
+     * Executes the attack order with given action info for attack. Before calling this function,
+     * troops are removed from src territory and costs are deducted in executePreAttack() already.
      *
      * <p>Info of src, dis, and troop to send is in ActionInfo info argument.
      *
@@ -100,24 +101,68 @@ public class ActionExecuter {
      * @param info a ActionInfo object that contains the information of src, dis, and troop to send.
      */
     public void executeAttack(WorldMap map, ActionInfo info) {
-        Territory des = map.getTerritory(info.getTerritoryActionInfo().getDesName());
-        int attackerUnitNum = info.getTerritoryActionInfo().getUnitNum().get("Basic");
-        int defenderUnitNum = des.getTroopNumUnits("Basic");
-        while (attackerUnitNum > 0 && defenderUnitNum > 0) {
-            if (isAttackerWinFight()) {
-                defenderUnitNum--;
+        Territory des = map.getTerritory(info.getDesName());
+        HashMap<String, Integer> attackerUnits = info.getNumUnits();
+        HashMap<String, Integer> defenderUnits = des.getAllNumUnits();
+        while (getTotalUnitNum(attackerUnits) > 0 && getTotalUnitNum(defenderUnits) > 0) {
+            String attacker = findLowestLevelTroop(attackerUnits);
+            String defender = findHighestLevelTroop(defenderUnits);
+            if (isAttackerWinFight(attacker, defender)) {
+                defenderUnits.put(defender, defenderUnits.get(defender) - 1);
             } else {
-                attackerUnitNum--;
+                attackerUnits.put(attacker, attackerUnits.get(attacker) - 1);
             }
         }
-        if (attackerUnitNum > 0) { // attacker wins the combat in attack
+        if (getTotalUnitNum(attackerUnits) > 0) { // attacker wins the combat in attack
             // des Territory changes owner and updates unit to attackerUnitNum
-            des.trySetTroopUnits("Basic", attackerUnitNum);
+            des.trySetNumUnits(attackerUnits);
             des.setOwnerName(info.getSrcOwnerName());
         } else { // defender wins the combat in attack
             // des Territory loses units to defenderUnitNum
-            des.trySetTroopUnits("Basic", defenderUnitNum);
+            des.trySetNumUnits(defenderUnits);
         }
+        // deducts costs
+        PlayerInfo srcOwnerInfo = map.getPlayerInfo(info.getSrcOwnerName());
+        HashMap<String, Integer> resCost = costCal.calculateAttackCost(info, map);
+        for (String resType : resCost.keySet()) {
+            srcOwnerInfo.updateOneResTotal(resType, (-1) * resCost.get(resType));
+        }
+    }
+
+    public String findHighestLevelTroop(HashMap<String, Integer> defenderUnits) {
+        Integer highestLevel = -1;
+        String highestTroopName = null;
+        HashMap<String, Troop> troopInfo = (new V2Territory("", 0, 0, 0)).getMyTroops();
+        for (String troopName : defenderUnits.keySet()) {
+            if (defenderUnits.get(troopName) > 0
+                    && troopInfo.get(troopName).getTechLevelReq() > highestLevel) {
+                highestLevel = troopInfo.get(troopName).getTechLevelReq();
+                highestTroopName = troopName;
+            }
+        }
+        return highestTroopName;
+    }
+
+    public String findLowestLevelTroop(HashMap<String, Integer> attackerUnits) {
+        Integer lowestLevel = 7;
+        String lowestTroopName = null;
+        HashMap<String, Troop> troopInfo = (new V2Territory("", 0, 0, 0)).getMyTroops();
+        for (String troopName : attackerUnits.keySet()) {
+            if (attackerUnits.get(troopName) > 0
+                    && troopInfo.get(troopName).getTechLevelReq() < lowestLevel) {
+                lowestLevel = troopInfo.get(troopName).getTechLevelReq();
+                lowestTroopName = troopName;
+            }
+        }
+        return lowestTroopName;
+    }
+
+    public int getTotalUnitNum(HashMap<String, Integer> troops) {
+        int totalUnitNum = 0;
+        for (int num : troops.values()) {
+            totalUnitNum = totalUnitNum + num;
+        }
+        return totalUnitNum;
     }
 
     /***
@@ -135,7 +180,10 @@ public class ActionExecuter {
      *
      * @return true if the attacker wins the fight, false otherwise.
      */
-    private boolean isAttackerWinFight() {
-        return rollOneDice() > rollOneDice();
+    private boolean isAttackerWinFight(String attacker, String defender) {
+        HashMap<String, Troop> troopInfo = (new V2Territory("", 0, 0, 0)).getMyTroops();
+        int attackerBonus = troopInfo.get(attacker).getBonus();
+        int defenderBonus = troopInfo.get(defender).getBonus();
+        return rollOneDice() + attackerBonus > rollOneDice() + defenderBonus;
     }
 }
