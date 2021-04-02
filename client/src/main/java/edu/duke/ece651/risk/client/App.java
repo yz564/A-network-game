@@ -16,6 +16,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -25,7 +26,8 @@ import edu.duke.ece651.risk.shared.ObjectIO;
  *in and out are objectIOStream
  *tmp stores the most recent ObjectIO read by the client (sent from the server)
  */
-public class App {
+public class App implements Runnable{
+  Socket server;
   ObjectInputStream in;
   ObjectOutputStream out;
   ObjectIO tmp;
@@ -33,6 +35,49 @@ public class App {
   volatile ArrayList<Player> players;
   volatile int currentRoomId;
   volatile HashSet<Integer> joinedRoomId;
+
+  private String serverAdd;
+
+  public App(String serverAdd) {
+    this.serverAdd = serverAdd;
+  }
+
+  public App() {
+    this.server = null;
+    this.in = null;
+    this.out = null;
+    this.tmp = null;
+    this.stdIn = null;
+    this.players = null;
+    this.joinedRoomId = null;
+  }
+
+  public String tryConnect() {
+    try (var socket = new Socket("localhost", 3333)){
+      this.server = socket;
+      this.out = new ObjectOutputStream(socket.getOutputStream());
+      this.in = new ObjectInputStream(socket.getInputStream());
+      this.tmp = null;
+      this.initializeApp(in, out, tmp);
+    }
+    catch (Exception e){
+      return "Server address does not exist!";
+    }
+    return null;
+  }
+
+  public void initializeApp(ObjectInputStream in, ObjectOutputStream out, ObjectIO tmp) {
+    this.in = in;
+    this.out = out;
+    this.tmp = tmp;
+    this.stdIn = new BufferedReader(new InputStreamReader(System.in));
+    this.players = new ArrayList<Player>();
+    for (int i = 0; i < 4; i++) {
+      players.add(new Player(i,in, out,stdIn));
+    }
+    this.joinedRoomId = new HashSet<Integer>();
+  }
+
   /**
    * A simple constructor
    */
@@ -75,6 +120,29 @@ public class App {
     }
   }
 
+  public ObjectIO receiveMessage() throws Exception {
+    return (ObjectIO) in.readObject();
+  }
+
+  public void sendMessage(ObjectIO info) throws Exception{
+    out.writeObject(info);
+    out.flush();
+    out.reset();
+  }
+
+  public String tryLogin(String userName, String password) throws Exception {
+    HashMap<String, String> loginInfo = new HashMap<>();
+    loginInfo.put("username", userName);
+    loginInfo.put("password", password);
+    sendMessage(new ObjectIO(loginInfo));
+    ObjectIO serverResponse = receiveMessage();
+    if (serverResponse.id == -1) {
+      return serverResponse.message;
+    }
+    return null;
+  }
+
+
   public Boolean tryLogin() throws Exception {
     String tmpS;
     for (int i = 0; i < 2; i++) {
@@ -110,7 +178,17 @@ public class App {
     System.out.println(tmp.message);
     return tmp.id == 0;
   }
- 
+
+  public void run(){
+    try (var socket = new Socket("localhost", 3333)) {
+      this.server = socket;
+      this.out = new ObjectOutputStream(socket.getOutputStream());
+      this.in = new ObjectInputStream(socket.getInputStream());
+      //ObjectIO tmp = null;
+      //App client = new App(in, out, tmp);
+    }catch(Exception e){}
+    while (true){}
+  }
 
 /**
  *the enter point of the client.

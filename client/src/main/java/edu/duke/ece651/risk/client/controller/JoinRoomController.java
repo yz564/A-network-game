@@ -12,33 +12,34 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.net.Socket;
 import java.net.URL;
 
-public class ServerConnectController {
+public class JoinRoomController {
     App model;
 
-    public ServerConnectController(App model){
+    public JoinRoomController(App model) {
         this.model = model;
     }
-    @FXML
-    TextField serverConnectAddressField;
-    @FXML
-    Label serverConnectErrorMessage;
 
     @FXML
-    public void onConnectButton(ActionEvent ae) throws Exception {
+    TextField userLoginUsernameField;
+    @FXML
+    TextField userLoginPasswordField;
+    @FXML
+    Label userLoginErrorMessage;
 
+    @FXML
+    public void joinRoomButton(ActionEvent ae) throws Exception {
         Object source = ae.getSource();
         if (source instanceof Button) {
             //Button btn = (Button) source;
-            String serverAdd = serverConnectAddressField.getText();
-            String serverMsg = model.tryConnect();
-            if (serverMsg != null){
-                serverConnectErrorMessage.setText(serverMsg);
-            }
-            else{
-                URL xmlResource = getClass().getResource("/ui/views/user-login.fxml");
+            String username = userLoginUsernameField.getText();
+            String password = userLoginPasswordField.getText();
+            String serverMsg = model.tryLogin(username, password);
+            if (serverMsg != null) {
+                userLoginErrorMessage.setText(serverMsg);
+            } else {
+                URL xmlResource = getClass().getResource("/ui/views/test.fxml");
                 FXMLLoader loader = new FXMLLoader(xmlResource);
                 loader.setControllerFactory(c -> {
                     return new UserLoginController(model);
@@ -46,9 +47,9 @@ public class ServerConnectController {
                 Pane p = loader.load();
                 Scene nextScene = new Scene(p);
 
-                Stage window = (Stage)  (((Node)ae.getSource()).getScene().getWindow());
+                Stage window = (Stage) (((Node) ae.getSource()).getScene().getWindow());
                 window.setScene(nextScene);
-                window.setTitle("Duke Risk Game! - Log In");
+                window.setTitle("Duke Risk Game! - Select Room");
                 window.show();
             }
         } else {
