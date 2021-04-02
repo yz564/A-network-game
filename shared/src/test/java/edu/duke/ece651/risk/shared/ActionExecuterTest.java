@@ -107,7 +107,7 @@ public class ActionExecuterTest {
         toMove.put("level6", 19);
         toMove.put("level5", 9);
         ActionInfoFactory af = new ActionInfoFactory();
-        ActionInfo info = af.createAttackActionInfo("Blue player", "Gross Hall", "LSRC", toMove);
+        ActionInfo info = af.createMoveActionInfo("Blue player", "Gross Hall", "LSRC", toMove);
         executer.executeMove(map, info);
         assertEquals(281, map.getTerritory("Gross Hall").getTroopNumUnits("level6"));
         assertEquals(291, map.getTerritory("Gross Hall").getTroopNumUnits("level5"));
@@ -233,5 +233,56 @@ public class ActionExecuterTest {
         assertEquals(29, map.getTerritory("Gross Hall").getTroopNumUnits("level6"));
         assertEquals(20, map.getTerritory("Gross Hall").getTroopNumUnits("level5"));
         assertEquals(100 - 10, map.getPlayerInfo("Green player").getResTotals().get("food"));
+    }
+
+    @Test
+    public void test_upgrade_tech() { // Defender wins
+        WorldMap map = setupV2Map();
+        // put units on map
+        HashMap<String, Integer> numUnits1 = new HashMap<String, Integer>();
+        numUnits1.put("level6", 30);
+        numUnits1.put("level5", 20);
+        map.getTerritory("Gross Hall").trySetNumUnits(numUnits1);
+        HashMap<String, Integer> numUnits2 = new HashMap<String, Integer>();
+        numUnits2.put("level3", 10);
+        map.getTerritory("Fuqua").trySetNumUnits(numUnits2);
+        assertEquals("Blue player", map.getTerritory("Gross Hall").getOwnerName());
+        assertEquals("Green player", map.getTerritory("Fuqua").getOwnerName());
+        // create action order
+        assertEquals(1, map.getPlayerInfo("Green player").getTechLevel());
+        ActionInfoFactory af = new ActionInfoFactory();
+        ActionInfo info1 = af.createUpgradeTechActionInfo("Green player", 2);
+        // execute
+        ActionExecuter executer = new ActionExecuter();
+        executer.executeUpgradeTech(map, info1);
+        assertEquals(2, map.getPlayerInfo("Green player").getTechLevel());
+        assertEquals(100, map.getPlayerInfo("Green player").getResTotals().get("food"));
+        assertEquals(100 - 50, map.getPlayerInfo("Green player").getResTotals().get("tech"));
+    }
+
+    @Test
+    public void test_upgrade_unit() {
+        WorldMap map = setupV2Map();
+        // put units on map
+        HashMap<String, Integer> numUnits1 = new HashMap<String, Integer>();
+        numUnits1.put("level6", 30);
+        numUnits1.put("level5", 20);
+        map.getTerritory("Gross Hall").trySetNumUnits(numUnits1);
+        HashMap<String, Integer> numUnits2 = new HashMap<String, Integer>();
+        numUnits2.put("level3", 10);
+        map.getTerritory("Fuqua").trySetNumUnits(numUnits2);
+        assertEquals("Blue player", map.getTerritory("Gross Hall").getOwnerName());
+        assertEquals("Green player", map.getTerritory("Fuqua").getOwnerName());
+        // create action order
+        ActionInfoFactory af = new ActionInfoFactory();
+        ActionInfo info1 =
+                af.createUpgradeUnitActionInfo("Green player", "Fuqua", "level3", "level4", 3);
+        // execute
+        ActionExecuter executer = new ActionExecuter();
+        executer.executeUpgradeUnit(map, info1);
+        assertEquals(3, map.getTerritory("Fuqua").getTroopNumUnits("level4"));
+        assertEquals(7, map.getTerritory("Fuqua").getTroopNumUnits("level3"));
+        assertEquals(100 - 25 * 3, map.getPlayerInfo("Green player").getResTotals().get("tech"));
+        assertEquals(100, map.getPlayerInfo("Green player").getResTotals().get("food"));
     }
 }

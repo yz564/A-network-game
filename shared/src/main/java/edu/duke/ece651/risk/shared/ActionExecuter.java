@@ -104,12 +104,12 @@ public class ActionExecuter {
      *     upgrade to.
      */
     public void executeUpgradeTech(WorldMap map, ActionInfo info) {
-        // do the upgrade
-        String srcOwnerName = info.getSrcOwnerName();
-        map.getPlayerInfo(srcOwnerName).setTechLevel(info.getNewTechLevel());
         // deducts costs
         HashMap<String, Integer> resCost = costCal.calculateUpgradeTechCost(info, map);
         deductCost(map, info, resCost);
+        // do the upgrade
+        String srcOwnerName = info.getSrcOwnerName();
+        map.getPlayerInfo(srcOwnerName).setTechLevel(info.getNewTechLevel());
     }
 
     /**
