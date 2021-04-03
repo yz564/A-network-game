@@ -1,4 +1,4 @@
-package edu.duke.ece651.risk.client.view;
+package edu.duke.ece651.risk.client;
 
 import java.io.BufferedReader;
 import java.io.ObjectInputStream;
