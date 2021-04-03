@@ -23,7 +23,7 @@ public class UserLoginController {
     @FXML
     TextField userLoginPasswordField;
     @FXML
-    Label userLoginErrorMessage;
+    Label userLoginErrorLabel;
 
     @FXML
     public void logInButton(ActionEvent ae) throws Exception {
@@ -34,7 +34,7 @@ public class UserLoginController {
             String password = userLoginPasswordField.getText();
             boolean success = model.tryLogin(username, password);
             if (!success){
-                userLoginErrorMessage.setText("Log in failed! Try Again.");
+                userLoginErrorLabel.setText("Log in failed! Try Again.");
             }
             else{
                 Stage window = (Stage) (((Node) ae.getSource()).getScene().getWindow());
