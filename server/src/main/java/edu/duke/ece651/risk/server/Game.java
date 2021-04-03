@@ -49,9 +49,8 @@ public class Game {
                             availableGroups);
             p.out.writeObject(m);
             p.out.flush();
-            p.out
-                    .reset(); // very important to make theMap next time written in ObjectIO is
-                              // updated...
+            p.out.reset(); // very important to make theMap next time written in ObjectIO is
+            // updated...
             while (!p.isReady()) {}
             if (theMap.tryAssignInitOwner(Integer.parseInt(p.tmp.message), p.getName())) {
                 System.out.println(p.getName() + " selected group " + p.tmp.message);
@@ -125,9 +124,8 @@ public class Game {
                 p.out.writeObject(new ObjectIO(p.getName(), i, theMap, playerNames));
                 p.out.flush();
                 p.out.reset();
-                p
-                        .setNotReady(); // set notready after writeObject,  and let the players
-                                        // thread readObject then set ready agian
+                p.setNotReady(); // set notready after writeObject,  and let the players
+                // thread readObject then set ready agian
             } else {
                 p.out.writeObject(
                         new ObjectIO(
@@ -153,8 +151,8 @@ public class Game {
         for (int i = 0; i < numPlayers; i++) {
             soh.collectOrders(playerList.get(i).tmp);
         }
-        System.out.println("Move Error: " + soh.tryResolveMoveOrders(theMap));
-        System.out.println("Attack Error: " + soh.tryResolveAttackOrders(theMap));
+        // System.out.println("Move Error: " + soh.tryResolveMoveOrders(theMap));
+        // System.out.println("Attack Error: " + soh.tryResolveAttackOrders(theMap));
         soh.clearAllOrders();
     }
     /** add 1 unit to each territory after one turn, also check the player isEnd */
@@ -215,7 +213,7 @@ public class Game {
                                     -2,
                                     theMap,
                                     playerNames)); // tmp.id=-2 indicates the client received thay
-                                                   // need to print whe winner name.
+                    // need to print whe winner name.
                 }
                 p.out.flush();
                 p.out.reset();

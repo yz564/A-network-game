@@ -84,7 +84,7 @@ public class ServerOrderHelper {
         attackOrders.addAll(orders.attackOrders);
     }
 
-    private String rehearseGroup1Orders(WorldMap tempMap) {
+    public String rehearseGroup1Orders(WorldMap tempMap) {
         for (ActionInfo order : group1Orders) {
             if (order.getActionType().equals("move")) {
                 String problem = ruleChecker.checkRuleForMove(order, tempMap); // Do a check
@@ -112,7 +112,7 @@ public class ServerOrderHelper {
         return null;
     }
 
-    private void resolveGroup1Orders(WorldMap map) {
+    public void resolveGroup1Orders(WorldMap map) {
         for (ActionInfo order : group1Orders) {
             if (order.getActionType().equals("move")) {
                 executer.executeMove(map, order); // execute a move on temp map
@@ -124,13 +124,13 @@ public class ServerOrderHelper {
         }
     }
 
-    private String rehearseAttackOrders(WorldMap tempMap) {
+    public String rehearseAttackOrders(WorldMap tempMap) {
         for (ActionInfo order : attackOrders) {
             String problem = ruleChecker.checkRuleForAttack(order, tempMap);
             if (problem != null) {
                 return problem;
             } else {
-                executer.sendTroops(tempMap, order);
+                executer.executePreAttack(tempMap, order);
                 // just send troops for checking, because attacker units cannot take part in
                 // defending territory.
             }
@@ -140,7 +140,7 @@ public class ServerOrderHelper {
 
     private void resolveAttackOrders(WorldMap map) {
         for (ActionInfo order : attackOrders) {
-            executer.sendTroops(map, order);
+            executer.executePreAttack(map, order);
         }
         HashMap<String, ActionInfo> mergedAttackOrders = mergeAttackOrders(attackOrders);
         for (ActionInfo order : mergedAttackOrders.values()) {
@@ -148,6 +148,13 @@ public class ServerOrderHelper {
         }
     }
 
+    /**
+     * Merges attack orders, so that the attack action infos with the same srcOwnerName and desName
+     * can be merged into one. This is to achieve merge troop feature.
+     *
+     * @param attackOrders an ArrayList of ActionInfo for attack actions.
+     * @return A HashMap with values are the merged attack action orders.
+     */
     public HashMap<String, ActionInfo> mergeAttackOrders(ArrayList<ActionInfo> attackOrders) {
         ActionInfoFactory af = new ActionInfoFactory();
         HashMap<String, ActionInfo> mergedAttackOrders = new HashMap<String, ActionInfo>();
@@ -170,62 +177,5 @@ public class ServerOrderHelper {
             }
         }
         return mergedAttackOrders;
-    }
-
-    /**
-     * Try to resolve all group1 orders in this helper. Orders will all be resolved if there is no
-     * problem in the orders. If there is problem in at least one of the orders, no order will be
-     * resolved.
-     *
-     * @param map the WorldMap on which server executes the actions.
-     * @return a String describing the problem in the orders. If there is no problem, returns null.
-     */
-    public String tryResolveMoveOrders(WorldMap map) {
-        WorldMap temp =
-                (WorldMap) SerializationUtils.clone(map); // temp map for checking move action
-        String problem = null;
-        for (ActionInfo order : group1Orders) {
-            problem = ruleChecker.checkRuleForMove(order, temp); // Do a check
-            if (problem != null) {
-                return problem;
-            } else {
-                executer.executeMove(temp, order); // execute a move on temp map
-            }
-        }
-        // real executions
-        for (ActionInfo order : group1Orders) {
-            executer.executeMove(map, order);
-        }
-        return problem;
-    }
-
-    /**
-     * Try to resolve all attack orders in this helper method. Orders will all be resolved if there
-     * is no problem in the orders. If there is problem in at least one of the orders, no order will
-     * be resolved.
-     *
-     * @param map the WorldMap on which server executes the actions.
-     * @return a String describing the problem in the orders. If there is no problem, returns null.
-     */
-    public String tryResolveAttackOrders(WorldMap map) {
-        WorldMap temp = (WorldMap) SerializationUtils.clone(map);
-        String problem = null;
-        for (ActionInfo order : attackOrders) {
-            problem = ruleChecker.checkRuleForAttack(order, temp);
-            if (problem != null) {
-                return problem;
-            } else {
-                executer.sendTroops(temp, order);
-                executer.executeAttack(temp, order);
-            }
-        }
-        // real executions
-        for (ActionInfo order : attackOrders) {
-            executer.sendTroops(map, order);
-        }
-        for (ActionInfo order : attackOrders) {
-            executer.executeAttack(map, order);
-        }
-        return problem;
     }
 }
