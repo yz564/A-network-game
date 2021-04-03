@@ -31,7 +31,6 @@ public class ServerConnectController {
 
         Object source = ae.getSource();
         if (source instanceof Button) {
-            //Button btn = (Button) source;
             String serverAdd = serverConnectAddressField.getText();
             String serverMsg = model.tryConnect(serverAdd);
             if (serverMsg != null){

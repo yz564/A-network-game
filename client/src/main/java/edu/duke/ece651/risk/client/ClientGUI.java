@@ -9,11 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
 import java.net.URL;
-import java.util.HashMap;
 
 public class ClientGUI extends Application {
     Stage window;
@@ -26,8 +22,6 @@ public class ClientGUI extends Application {
         model = new App();
 
         URL xmlResource = getClass().getResource("/ui/views/server-connect.fxml");
-        /*Pane p = FXMLLoader.load(xmlResource);*/
-
         FXMLLoader loader = new FXMLLoader(xmlResource);
         loader.setControllerFactory(c -> {
             return new ServerConnectController(model);

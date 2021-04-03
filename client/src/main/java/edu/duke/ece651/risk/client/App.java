@@ -26,7 +26,7 @@ import edu.duke.ece651.risk.shared.ObjectIO;
  * in and out are objectIOStream tmp stores the most recent ObjectIO read by the
  * client (sent from the server)
  */
-public class App implements Runnable{
+public class App{
   Socket server;
   ObjectInputStream in;
   ObjectOutputStream out;
@@ -36,7 +36,7 @@ public class App implements Runnable{
   volatile int currentRoomId;
   volatile HashSet<Integer> joinedRoomId;
 
-  private String serverAdd;
+  //private String serverAdd;
 
   public App() {
     this.server = null;
@@ -49,10 +49,10 @@ public class App implements Runnable{
   }
 
   public String tryConnect(String serverAdd) {
-    try (var socket = new Socket(serverAdd, 3333)){
-      this.server = socket;
-      this.out = new ObjectOutputStream(socket.getOutputStream());
-      this.in = new ObjectInputStream(socket.getInputStream());
+    try {
+      this.server = new Socket(serverAdd, 3333);
+      this.out = new ObjectOutputStream(server.getOutputStream());
+      this.in = new ObjectInputStream(server.getInputStream());
       this.tmp = null;
       this.initializeApp(server, in, out, tmp);
     }
@@ -74,14 +74,6 @@ public class App implements Runnable{
     }
     this.joinedRoomId = new HashSet<Integer>();
   }
-
-  /**
-   * A simple constructor
-   */
-  /*
-  public App(String serverAdd) {
-    this.serverAdd = serverAdd;
-  }*/
 
   public App(Socket server, ObjectInputStream in, ObjectOutputStream out, ObjectIO tmp) {
     this.server = server;
@@ -132,39 +124,6 @@ public class App implements Runnable{
     out.reset();
   }
 
-/*
-  public String tryLogin(String userName, String password) throws Exception {
-    HashMap<String, String> loginInfo = new HashMap<>();
-    loginInfo.put("username", userName);
-    loginInfo.put("password", password);
-    sendMessage(new ObjectIO(loginInfo));
-    ObjectIO serverResponse = receiveMessage();
-    if (serverResponse.id == -1) {
-      return serverResponse.message;
-    }
-    return null;
-  }*/
-
-/*
-  public Boolean tryLogin() throws Exception {
-    String tmpS;
-    for (int i = 0; i < 2; i++) {
-      if ((tmp = (ObjectIO) in.readObject()) != null) {
-      }
-      System.out.println(tmp.message);
-      if ((tmpS = stdIn.readLine()) != null) {
-      }
-      out.writeObject(new ObjectIO(tmpS));
-      out.flush();
-      out.reset();
-    }
-     if ((tmp = (ObjectIO) in.readObject()) != null) {
-      }
-      System.out.println(tmp.message);
-      return tmp.id==0;
-  }*/
-
-
   public Boolean tryLogin(String userName, String password) throws Exception {
     receiveMessage();
     sendMessage(new ObjectIO(userName));
@@ -181,7 +140,7 @@ public class App implements Runnable{
     tmp = receiveMessage();
     return tmp.id == 0;
   }
-
+  /*
   @Override
   public void run() {
     try (var socket = new Socket(serverAdd, 3333)){
@@ -192,7 +151,8 @@ public class App implements Runnable{
     }
     while (true) {
     }
-  }
+  }*/
+
   /**
    * the enter point of the client. after connecting with the server, new App, and
    * call its method to communicate with the server(game).
