@@ -1,4 +1,4 @@
-package edu.duke.ece651.risk.client;
+package edu.duke.ece651.risk.client.view;
 
 import edu.duke.ece651.risk.client.controller.ServerConnectController;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +7,7 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 
 public class View {
     private final String name;
@@ -43,12 +44,10 @@ public class View {
         return toString().hashCode();
     }
 
-    public Scene makeScene(Object model) throws IOException {
+    public Scene makeScene(Object controller) throws IOException {
         URL xmlResource = getClass().getResource(this.xmlPath);
         FXMLLoader loader = new FXMLLoader(xmlResource);
-        loader.setControllerFactory(c -> {
-            return new ServerConnectController(model);
-        });
+        loader.setController(controller);
         Pane p = loader.load();
         return new Scene(p);
     }
