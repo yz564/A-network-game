@@ -49,7 +49,7 @@ public class Player implements Runnable {
         if ((tmp = (ObjectIO) in.readObject()) != null) {}
         mark:
         while (true) {
-            wait = true;
+          wait = true;//let the main thread to listen input just once
             while (!ready) {}
             wait = false;
             ready = false;

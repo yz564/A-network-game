@@ -21,14 +21,14 @@ import edu.duke.ece651.risk.shared.ObjectIO;
  * client (sent from the server)
  */
 public class App{
-  Socket server;
-  ObjectInputStream in;
-  ObjectOutputStream out;
-  ObjectIO tmp;
-  BufferedReader stdIn;
-  volatile ArrayList<Player> players;
-  volatile int currentRoomId;
-  volatile HashSet<Integer> joinedRoomId;
+  private Socket server;
+  private ObjectInputStream in;
+  private ObjectOutputStream out;
+  private ObjectIO tmp;
+  private BufferedReader stdIn;
+  private ArrayList<Player> players;
+  private int currentRoomId;
+  private HashSet<Integer> joinedRoomId;
 
   //private String serverAdd;
 
@@ -82,42 +82,46 @@ public class App{
     this.joinedRoomId = new HashSet<Integer>();
   }
 
+  /**
+   *every time after join a room, call this method
+   */  
   public void runOnePlayer() throws Exception {
     String tmpS;
-    if (!joinedRoomId.contains(currentRoomId)) {
+    if (!joinedRoomId.contains(currentRoomId)) {//if not joined before, new a player and thread
       Player p = players.get(currentRoomId);
       Thread t = new Thread(p);
       t.start();
       players.set(currentRoomId, p);
       joinedRoomId.add(currentRoomId);
     }
+    //if Player.wait is true, the System.in read at here. Otherwise, the System.in read in player thread
     players.get(currentRoomId).setWait(true);
     while (true) {
       if (players.get(currentRoomId).isWait()) {
-        players.get(currentRoomId).ready = true;
-        if ((tmpS = stdIn.readLine()) != null) {
-          if (tmpS.equals("/leave")) {
+        players.get(currentRoomId).ready = true;//once arrive here (let the main thread listen instead of let the player thread listen), set player.ready = true, tell the player to set player.wait=false.
+        if ((tmpS = stdIn.readLine()) != null) {//arrive here only when player.wait is true
+          if (tmpS.equals("/leave")) { //if request leave, tell the server and go back join room page
             out.writeObject(new ObjectIO(tmpS));
             out.flush();
             out.reset();
             break;
           }
-          players.get(currentRoomId).updateInput(tmpS);
+          players.get(currentRoomId).updateInput(tmpS); //if not request leave, pass what the client get from system.in to the player.tmpS
         }
       }
     }
   }
-
+  
   public ObjectIO receiveMessage() throws Exception {
     return (ObjectIO) in.readObject();
   }
-
+  
   public void sendMessage(ObjectIO info) throws Exception{
     out.writeObject(info);
     out.flush();
     out.reset();
   }
-
+  
   public Boolean tryLogin(String userName, String password) throws Exception {
     receiveMessage();
     sendMessage(new ObjectIO(userName));
@@ -126,7 +130,7 @@ public class App{
     tmp = receiveMessage();
     return tmp.id == 0;
   }
-
+  
   public Boolean tryJoinRoom(int roomId) throws Exception {
     receiveMessage();
     sendMessage(new ObjectIO("", roomId));
