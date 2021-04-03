@@ -8,14 +8,12 @@ import edu.duke.ece651.risk.shared.WorldMap;
 
 public class MapTextView {
 
-    /**
-     * The list of all players' names.
-     */
+    /** The list of all players' names. */
     private ArrayList<String> playerNames;
 
     /**
      * Constructs a MapTextView object with a given list of all players' name.
-     * 
+     *
      * @param playerNames is the list of all players' names
      */
     public MapTextView(ArrayList<String> playerNames) {
@@ -24,7 +22,7 @@ public class MapTextView {
 
     /**
      * Display the game's world map with text with a given WorldMap object.
-     * 
+     *
      * @param toDisplay a WorldMap represents the game world map to display.
      * @return a String that can be printed to display the world map.
      */
@@ -37,16 +35,26 @@ public class MapTextView {
     }
 
     /**
-     * Display the game's world map with text for one player's section with a given
-     * name and WorldMap object.
-     * 
-     * @param playerName Stirng the player's name. The player's section on the map
-     *                   will be displayed.
-     * @param toDisplay  a WorldMap represents the game world map to display.
+     * Display the game's world map with text for one player's section with a given name and
+     * WorldMap object.
+     *
+     * @param playerName Stirng the player's name. The player's section on the map will be
+     *     displayed.
+     * @param toDisplay a WorldMap represents the game world map to display.
      * @return a String that can be printed to display the world map section.
      */
     private String onePlayerSection(String playerName, WorldMap toDisplay) {
         String ans = playerName + ":\n-------------\n";
+        ans =
+                ans
+                        + "Your resources: food - "
+                        + toDisplay.getPlayerInfo(playerName).getResTotals().get("food")
+                        + " ";
+        ans =
+                ans
+                        + "tech - "
+                        + toDisplay.getPlayerInfo(playerName).getResTotals().get("tech")
+                        + "\n";
         HashMap<String, Territory> myTerritories = toDisplay.getPlayerTerritories(playerName);
         for (String name : myTerritories.keySet()) {
             ans = ans + oneTerritoryLine(myTerritories.get(name));
@@ -56,7 +64,7 @@ public class MapTextView {
 
     /**
      * Display one Territpry of the game's world map with text.
-     * 
+     *
      * @param territory is a Territory object represents the territory to display.
      * @return a String that can be printed to display the world map territory.
      */
@@ -88,5 +96,4 @@ public class MapTextView {
 
         return ans;
     }
-
 }

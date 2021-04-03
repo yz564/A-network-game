@@ -5,11 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import edu.duke.ece651.risk.shared.ObjectIO;
-import edu.duke.ece651.risk.shared.Territory;
-import edu.duke.ece651.risk.shared.V1MapFactory;
-import edu.duke.ece651.risk.shared.WorldMap;
-import edu.duke.ece651.risk.shared.WorldMapFactory;
+import edu.duke.ece651.risk.shared.*;
 
 public class Game {
     private int numPlayers;
@@ -29,7 +25,7 @@ public class Game {
             playerNames.add(playerList.get(i).getName());
             availableGroups.add(i + 1);
         }
-        this.factory = new V1MapFactory();
+        this.factory = new V2MapFactory();
         this.theMap = factory.makeWorldMap(numPlayers);
         this.soh = new ServerOrderHelper();
     }
@@ -53,6 +49,8 @@ public class Game {
             // updated...
             while (!p.isReady()) {}
             if (theMap.tryAssignInitOwner(Integer.parseInt(p.tmp.message), p.getName())) {
+                // TODO: how many resources to assign???
+                theMap.tryAddPlayerInfo(new PlayerInfo(p.getName(), 10000, 10000));
                 System.out.println(p.getName() + " selected group " + p.tmp.message);
             }
             availableGroups.remove(Integer.parseInt(p.tmp.message));
