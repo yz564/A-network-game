@@ -24,7 +24,7 @@ public class ActionRuleCheckerHelperTest {
     ActionInfo a1 = af.createMoveActionInfo("Player 1", "Narnia", "Midkemia", unitNum1);
     ActionInfo a2 = af.createAttackActionInfo("Player 1", "Narnia", "Elantris", unitNum1);
     ActionInfo a3 = af.createUpgradeUnitActionInfo("Player 1", "Narnia", "level0", "level1", 2);
-    ActionInfo a4 = af.createUpgradeTechActionInfo("Player 1", 9);
+    ActionInfo a4 = af.createUpgradeTechActionInfo("Player 1", 2);
     ActionRuleCheckerHelper rc = new ActionRuleCheckerHelper();
     assertNull(rc.checkRuleForMove(a1, worldmap));
     assertNull(rc.checkRuleForAttack(a2, worldmap));
