@@ -138,7 +138,7 @@ public class ServerOrderHelper {
         return null;
     }
 
-    private void resolveAttackOrders(WorldMap map) {
+    public void resolveAttackOrders(WorldMap map) {
         for (ActionInfo order : attackOrders) {
             executer.executePreAttack(map, order);
         }
