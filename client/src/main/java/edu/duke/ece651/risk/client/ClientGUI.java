@@ -14,7 +14,7 @@ import java.net.URL;
 public class ClientGUI extends Application {
     Stage window;
     Scene scene;
-    App model;
+    Object model;
 
     @Override
     public void start(Stage stage) throws Exception {

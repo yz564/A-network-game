@@ -17,8 +17,8 @@ import java.net.URL;
 public class ServerConnectController {
     App model;
 
-    public ServerConnectController(App model) {
-        this.model = model;
+    public ServerConnectController(Object model) {
+        this.model = (App) model;
     }
 
     @FXML
