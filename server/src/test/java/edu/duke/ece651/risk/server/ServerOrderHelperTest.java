@@ -220,9 +220,10 @@ public class ServerOrderHelperTest {
         ServerOrderHelper oh = new ServerOrderHelper();
         oh.collectOrders(obj1);
         WorldMap temp = (WorldMap) SerializationUtils.clone(map);
-        // TODO bug in map?
-        // assertEquals("", oh.rehearseAttackOrders(temp));
-        // oh.resolveAttackOrders(map);
+        assertEquals(
+                "That action is invalid: destination Territory is not adjacent to source Territory",
+                oh.rehearseAttackOrders(temp));
+        oh.resolveAttackOrders(map);
         assertEquals("Green player", map.getTerritory("Fuqua").getOwnerName());
         assertEquals(10, map.getTerritory("Fuqua").getTroopNumUnits("level3"));
     }
