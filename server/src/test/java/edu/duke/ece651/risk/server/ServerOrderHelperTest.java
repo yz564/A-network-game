@@ -222,9 +222,78 @@ public class ServerOrderHelperTest {
         WorldMap temp = (WorldMap) SerializationUtils.clone(map);
         assertEquals(
                 "That action is invalid: destination Territory is not adjacent to source Territory",
-                oh.rehearseAttackOrders(temp));
-        oh.resolveAttackOrders(map);
+                oh.tryResolveAllOrders(temp));
+    }
+
+    @Test
+    public void test_try_resolve_all_orders1() {
+        WorldMap map = setupV2Map();
+        HashMap<String, Integer> numUnits1 = new HashMap<String, Integer>();
+        numUnits1.put("level6", 30);
+        numUnits1.put("level5", 20);
+        map.getTerritory("Gross Hall").trySetNumUnits(numUnits1);
+        HashMap<String, Integer> numUnits2 = new HashMap<String, Integer>();
+        numUnits2.put("level3", 10);
+        map.getTerritory("Fuqua").trySetNumUnits(numUnits2);
+        assertEquals("Blue player", map.getTerritory("Gross Hall").getOwnerName());
         assertEquals("Green player", map.getTerritory("Fuqua").getOwnerName());
-        assertEquals(10, map.getTerritory("Fuqua").getTroopNumUnits("level3"));
+        assertEquals(1, map.getPlayerInfo("Green player").getTechLevel());
+        // create action order
+        ActionInfoFactory af = new ActionInfoFactory();
+        ActionInfo info1 = af.createUpgradeTechActionInfo("Green player", 2);
+        ObjectIO obj1 = new ObjectIO();
+        obj1.moveOrders.add(info1);
+        ServerOrderHelper oh = new ServerOrderHelper();
+        oh.collectOrders(obj1);
+        // execute
+        assertNull(oh.tryResolveAllOrders(map));
+        assertEquals(2, map.getPlayerInfo("Green player").getTechLevel());
+        assertEquals(10000, map.getPlayerInfo("Green player").getResTotals().get("food"));
+        assertEquals(10000 - 50, map.getPlayerInfo("Green player").getResTotals().get("tech"));
+
+        // test upgrade tech fail
+        oh.clearAllOrders();
+        ActionInfo info2 = af.createUpgradeTechActionInfo("Green player", 9);
+        obj1.moveOrders.add(info2);
+        oh.collectOrders(obj1);
+        assertEquals(
+                "That action is invalid: new tech level is invalid", oh.tryResolveAllOrders(map));
+        assertEquals(2, map.getPlayerInfo("Green player").getTechLevel());
+        assertEquals(10000, map.getPlayerInfo("Green player").getResTotals().get("food"));
+        assertEquals(10000 - 50, map.getPlayerInfo("Green player").getResTotals().get("tech"));
+    }
+
+    @Test
+    public void test_try_resolve_all_orders2() {
+        WorldMap map = setupV2Map();
+        // put units on map
+        HashMap<String, Integer> numUnits1 = new HashMap<String, Integer>();
+        numUnits1.put("level6", 30);
+        numUnits1.put("level5", 20);
+        map.getTerritory("Gross Hall").trySetNumUnits(numUnits1);
+        HashMap<String, Integer> numUnits2 = new HashMap<String, Integer>();
+        numUnits2.put("level3", 10);
+        map.getTerritory("Fuqua").trySetNumUnits(numUnits2);
+        assertEquals("Blue player", map.getTerritory("Gross Hall").getOwnerName());
+        assertEquals("Green player", map.getTerritory("Fuqua").getOwnerName());
+        // create action order
+        ActionInfoFactory af = new ActionInfoFactory();
+        ActionInfo info1 =
+                af.createUpgradeUnitActionInfo("Green player", "Fuqua", "level3", "level4", 3);
+        ObjectIO obj1 = new ObjectIO();
+        obj1.moveOrders.add(info1);
+        ServerOrderHelper oh = new ServerOrderHelper();
+        oh.collectOrders(obj1);
+        // execute fail
+        assertEquals(
+                "That action is invalid: new troop level is invalid", oh.tryResolveAllOrders(map));
+        // success
+        map.getPlayerInfo("Blue player").setTechLevel(6);
+        map.getPlayerInfo("Green player").setTechLevel(6);
+        assertNull(oh.tryResolveAllOrders(map));
+        assertEquals(3, map.getTerritory("Fuqua").getTroopNumUnits("level4"));
+        assertEquals(7, map.getTerritory("Fuqua").getTroopNumUnits("level3"));
+        assertEquals(10000 - 25 * 3, map.getPlayerInfo("Green player").getResTotals().get("tech"));
+        assertEquals(10000, map.getPlayerInfo("Green player").getResTotals().get("food"));
     }
 }
