@@ -47,7 +47,7 @@ public class View {
     public Scene makeScene(Object controller) throws IOException {
         URL xmlResource = getClass().getResource(this.xmlPath);
         FXMLLoader loader = new FXMLLoader(xmlResource);
-        loader.setController(controller);
+        loader.setControllerFactory((c) ->{return controller;});
         Pane p = loader.load();
         return new Scene(p);
     }

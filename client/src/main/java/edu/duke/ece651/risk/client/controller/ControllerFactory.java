@@ -17,6 +17,8 @@ public class ControllerFactory {
         HashMap<String, Object> controllers = new HashMap<>();
         controllers.put("serverConnect", new ServerConnectController(model));
         controllers.put("userLogin", new UserLoginController((App) model));
+        //Add new controllers here
+        controllers.put("test", new ServerConnectController(model));
         return controllers;
     }
 }

@@ -1,7 +1,7 @@
 package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
-import edu.duke.ece651.risk.client.view.WindowChanger;
+import edu.duke.ece651.risk.client.view.PhaseChanger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -12,9 +12,11 @@ import javafx.stage.Stage;
 
 public class UserLoginController {
     App model;
+    String next;
 
     public UserLoginController(App model){
         this.model = model;
+        this.next = "test";
     }
     @FXML
     TextField userLoginUsernameField;
@@ -36,8 +38,9 @@ public class UserLoginController {
             }
             else{
                 Stage window = (Stage) (((Node) ae.getSource()).getScene().getWindow());
-                window = WindowChanger.switchTo(window, model, "userLogin");
-                window.show();
+                Object controller = new ControllerFactory().getController(next, model);
+                Stage newWindow = PhaseChanger.switchTo(window, controller, next);
+                newWindow.show();
             }
         } else {
             throw new IllegalArgumentException("Invalid source " + source + " for ActionEvent");

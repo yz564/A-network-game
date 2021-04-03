@@ -16,9 +16,11 @@ import java.net.URL;
 
 public class JoinRoomController {
     App model;
+    String next;
 
     public JoinRoomController(Object model) {
         this.model = (App) model;
+        this.next = "text";
     }
 
     @FXML

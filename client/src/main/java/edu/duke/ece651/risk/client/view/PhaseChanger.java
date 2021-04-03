@@ -4,7 +4,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class WindowChanger {
+public class PhaseChanger {
 
     public static Stage switchTo(Stage window, Object controller, String phaseName) throws IOException {
         //Stage window = (Stage) (((Node) source).getScene().getWindow());
