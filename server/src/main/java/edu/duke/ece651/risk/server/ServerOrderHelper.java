@@ -84,6 +84,14 @@ public class ServerOrderHelper {
         attackOrders.addAll(orders.attackOrders);
     }
 
+    /**
+     * Checks the validity of orders in group1Order ArrayList on a given map (should be a temporary
+     * cloned map of the original map), and returns the problem of the orders as a String.
+     *
+     * @param tempMap a given WorldMap map (should be a temporary cloned * map of the original map).
+     * @return a String that describing the problem of the orders in group1 ArrayList. Or null if
+     *     there is not any problem in the orders.
+     */
     public String rehearseGroup1Orders(WorldMap tempMap) {
         for (ActionInfo order : group1Orders) {
             if (order.getActionType().equals("move")) {
@@ -124,6 +132,14 @@ public class ServerOrderHelper {
         }
     }
 
+    /**
+     * Checks the validity of orders in attackOrder ArrayList on a given map (should be a temporary
+     * cloned map of the original map), and returns the problem of the orders as a String.
+     *
+     * @param tempMap a given WorldMap map (should be a temporary cloned * map of the original map).
+     * @return a String that describing the problem of the orders in attackOrder ArrayList. Or null
+     *     if there is not any problem in the orders.
+     */
     public String rehearseAttackOrders(WorldMap tempMap) {
         for (ActionInfo order : attackOrders) {
             String problem = ruleChecker.checkRuleForAttack(order, tempMap);

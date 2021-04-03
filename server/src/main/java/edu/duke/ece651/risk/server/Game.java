@@ -147,12 +147,10 @@ public class Game {
             }
         }
         // check and execute
-        // TODO: update here
         for (int i = 0; i < numPlayers; i++) {
             soh.collectOrders(playerList.get(i).tmp);
         }
-        // System.out.println("Move Error: " + soh.tryResolveMoveOrders(theMap));
-        // System.out.println("Attack Error: " + soh.tryResolveAttackOrders(theMap));
+        System.out.println("Action Error: " + soh.tryResolveAllOrders(theMap));
         soh.clearAllOrders();
     }
     /** add 1 unit to each territory after one turn, also check the player isEnd */
