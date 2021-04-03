@@ -16,7 +16,7 @@ public class UserLoginController {
 
     public UserLoginController(App model){
         this.model = model;
-        this.next = "test";
+        this.next = "joinRoom";
     }
     @FXML
     TextField userLoginUsernameField;
