@@ -178,4 +178,20 @@ public class ServerOrderHelper {
         }
         return mergedAttackOrders;
     }
+
+    public String tryResolveAllOrders(WorldMap map) {
+        WorldMap tempMap = (WorldMap) SerializationUtils.clone(map);
+        String problem = null;
+        problem = rehearseGroup1Orders(tempMap);
+        if (problem != null) {
+            return problem;
+        }
+        problem = rehearseAttackOrders(tempMap);
+        if (problem != null) {
+            return problem;
+        }
+        resolveGroup1Orders(map);
+        resolveAttackOrders(map);
+        return problem;
+    }
 }
