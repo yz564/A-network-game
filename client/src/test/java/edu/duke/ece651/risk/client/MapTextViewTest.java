@@ -12,7 +12,6 @@ import edu.duke.ece651.risk.shared.WorldMap;
 import edu.duke.ece651.risk.shared.WorldMapFactory;
 
 public class MapTextViewTest {
-    @Disabled
     @Test
     public void test_display_testmap() {
         ArrayList<String> playerNames = new ArrayList<String>();
@@ -54,7 +53,6 @@ public class MapTextViewTest {
         assertEquals(expected, actual);
     }
 
-    @Disabled
     @Test
     public void test_display_map1() {
         ArrayList<String> playerNames = new ArrayList<String>();

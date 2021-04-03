@@ -45,6 +45,7 @@ public class MapTextView {
      */
     private String onePlayerSection(String playerName, WorldMap toDisplay) {
         String ans = playerName + ":\n-------------\n";
+        /*
         ans =
                 ans
                         + "Your resources: food - "
@@ -55,6 +56,7 @@ public class MapTextView {
                         + "tech - "
                         + toDisplay.getPlayerInfo(playerName).getResTotals().get("tech")
                         + "\n";
+         */
         HashMap<String, Territory> myTerritories = toDisplay.getPlayerTerritories(playerName);
         for (String name : myTerritories.keySet()) {
             ans = ans + oneTerritoryLine(myTerritories.get(name));

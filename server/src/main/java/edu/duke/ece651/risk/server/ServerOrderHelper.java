@@ -120,6 +120,12 @@ public class ServerOrderHelper {
         return null;
     }
 
+    /**
+     * Resolves the orders in group1Order ArrayList on a given map. Orders should be all valid and
+     * checked by rehearseGroup1Orders().
+     *
+     * @param map a given WorldMap map to resolve the orders on.
+     */
     public void resolveGroup1Orders(WorldMap map) {
         for (ActionInfo order : group1Orders) {
             if (order.getActionType().equals("move")) {
@@ -154,6 +160,12 @@ public class ServerOrderHelper {
         return null;
     }
 
+    /**
+     * Resolves the orders in attackOrders ArrayList on a given map. Orders should be all valid and
+     * checked by rehearseAttackOrders().
+     *
+     * @param map a given WorldMap map to resolve the orders on.
+     */
     public void resolveAttackOrders(WorldMap map) {
         for (ActionInfo order : attackOrders) {
             executer.executePreAttack(map, order);
@@ -195,6 +207,14 @@ public class ServerOrderHelper {
         return mergedAttackOrders;
     }
 
+    /**
+     * Checks and resolves all orders collected in group1Orders and attackOrders. The orders will be
+     * resolved on map only if all orders are valid.
+     *
+     * @param map a given WorldMap map to resolve the orders on.
+     * @return a String describing one of the problem in orders if there are any problems. Or null
+     *     if all orders are valid.
+     */
     public String tryResolveAllOrders(WorldMap map) {
         WorldMap tempMap = (WorldMap) SerializationUtils.clone(map);
         String problem = null;

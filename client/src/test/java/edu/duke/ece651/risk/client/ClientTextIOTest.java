@@ -105,7 +105,6 @@ public class ClientTextIOTest {
         assertEquals(204, ctio.readNumUnits("Enter number of units:\n"));
     }
 
-    @Disabled
     @Test
     public void test_print_map() {
         BufferedReader inputReader = new BufferedReader(new StringReader("Random input"));
