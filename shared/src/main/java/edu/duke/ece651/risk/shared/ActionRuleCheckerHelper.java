@@ -29,7 +29,7 @@ public class ActionRuleCheckerHelper {
    * @return error message if violates action rules, else null
    */
   public String checkRuleForMove(ActionInfo action, WorldMap worldmap) {
-    return this.moveChecker.checkMyRule(action, worldmap);
+    return this.moveChecker.checkAction(action, worldmap);
   }
 
   /**
@@ -41,7 +41,7 @@ public class ActionRuleCheckerHelper {
    * @return error message if violates action rules, else null
    */
   public String checkRuleForAttack(ActionInfo action, WorldMap worldmap) {
-    return this.attackChecker.checkMyRule(action, worldmap);
+    return this.attackChecker.checkAction(action, worldmap);
   }
 
   /**
@@ -53,7 +53,7 @@ public class ActionRuleCheckerHelper {
    * @return error message if violates action rules, else null
    */
   public String checkRuleForUpgradeUnit(ActionInfo action, WorldMap worldmap) {
-    return this.upgradeUnitChecker.checkMyRule(action, worldmap);
+    return this.upgradeUnitChecker.checkAction(action, worldmap);
   }
 
   /**
@@ -65,6 +65,6 @@ public class ActionRuleCheckerHelper {
    * @return error message if violates action rules, else null
    */
   public String checkRuleForUpgradeTech(ActionInfo action, WorldMap worldmap) {
-    return this.upgradeTechChecker.checkMyRule(action, worldmap);
+    return this.upgradeTechChecker.checkAction(action, worldmap);
   }
 }

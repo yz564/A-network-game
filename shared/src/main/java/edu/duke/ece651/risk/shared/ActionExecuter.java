@@ -1,10 +1,14 @@
 package edu.duke.ece651.risk.shared;
 
+import java.util.HashMap;
 import java.util.Random;
 
 public class ActionExecuter {
     /** The random generator for rolling dice in a fight. */
     private final Random rng;
+
+    /** The ActionCostCalculator that calculates resource costs for each kind of action. */
+    private final ActionCostCalculator costCal = new ActionCostCalculator();
 
     /** Constructs a ActionExecuter helper class with a given random seed. */
     public ActionExecuter(long seed) {
@@ -17,7 +21,7 @@ public class ActionExecuter {
     }
 
     /**
-     * Sends troops only from the src Territory, troops don't arrive dis Territory.
+     * Sends troops only from the src Territory, and Troops don't arrive dis Territory.
      *
      * <p>Info of src, dis, and troop to send is in ActionInfo info argument.
      *
@@ -28,13 +32,46 @@ public class ActionExecuter {
      * @param info a ActionInfo object that contains the information of src, dis, and troop to send.
      */
     public void sendTroops(WorldMap map, ActionInfo info) {
-        Territory src = map.getTerritory(info.getTerritoryActionInfo().getSrcName());
-        int sendNum = info.getTerritoryActionInfo().getUnitNum().get("Basic");
-        src.tryRemoveTroopUnits("Basic", sendNum);
+        String srcName = info.getSrcName();
+        Territory src = map.getTerritory(srcName);
+        HashMap<String, Integer> sendNumUnit = info.getNumUnits();
+        for (String troopName : sendNumUnit.keySet()) {
+            src.tryRemoveTroopUnits(troopName, sendNumUnit.get(troopName));
+        }
     }
 
     /**
-     * Moves troops from the src Territory to dis Territory.
+     * Do this before doing executeAttack for executing all attack orders in the end together. Sends
+     * troops from the src Territory, and deducts costs from the player who issued the corresponding
+     * attack order.
+     *
+     * @param map a WorldMap object where the action is implemented.
+     * @param info a ActionInfo object that contains the information of src, dis, and troop to send.
+     */
+    public void executePreAttack(WorldMap map, ActionInfo info) {
+        // deducts costs
+        HashMap<String, Integer> resCost = costCal.calculateAttackCost(info, map);
+        deductCost(map, info, resCost);
+        // sends troops
+        sendTroops(map, info);
+    }
+
+    /**
+     * Deducts resources cost for an action.
+     *
+     * @param map the WorldMap to deduct the cost from.
+     * @param info the action info that contains the source owner name from whom to deduct the cost.
+     * @param resCost the resource cost to deduct.
+     */
+    private void deductCost(WorldMap map, ActionInfo info, HashMap<String, Integer> resCost) {
+        PlayerInfo srcOwnerInfo = map.getPlayerInfo(info.getSrcOwnerName());
+        for (String resType : resCost.keySet()) {
+            srcOwnerInfo.updateOneResTotal(resType, (-1) * resCost.get(resType));
+        }
+    }
+
+    /**
+     * Moves troops from the src Territory to dis Territory, and deducts the cost of moving troop.
      *
      * <p>Info of src, dis, and troop to send is in ActionInfo info argument.
      *
@@ -45,15 +82,60 @@ public class ActionExecuter {
      * @param info a ActionInfo object that contains the information of src, dis, and troop to send.
      */
     public void executeMove(WorldMap map, ActionInfo info) {
-        Territory src = map.getTerritory(info.getTerritoryActionInfo().getSrcName());
-        Territory des = map.getTerritory(info.getTerritoryActionInfo().getDesName());
-        int sendNum = info.getTerritoryActionInfo().getUnitNum().get("Basic");
-        src.tryRemoveTroopUnits("Basic", sendNum);
-        des.tryAddTroopUnits("Basic", sendNum);
+        // move units
+        Territory src = map.getTerritory(info.getSrcName());
+        Territory des = map.getTerritory(info.getDesName());
+        HashMap<String, Integer> moveNumUnit = info.getTerritoryActionInfo().getUnitNum();
+        for (String troopName : moveNumUnit.keySet()) {
+            src.tryRemoveTroopUnits(troopName, moveNumUnit.get(troopName));
+            des.tryAddTroopUnits(troopName, moveNumUnit.get(troopName));
+        }
+        // deducts costs
+        HashMap<String, Integer> resCost = costCal.calculateMoveCost(info, map);
+        deductCost(map, info, resCost);
     }
 
     /**
-     * Executes the attack order with given action info for attack.
+     * Upgrades the tech level for the source owner player, and deducts the resources from the
+     * player.
+     *
+     * @param map a WorldMap object where the action is implemented.
+     * @param info a ActionInfo object that contains source owner name and the new tech level to
+     *     upgrade to.
+     */
+    public void executeUpgradeTech(WorldMap map, ActionInfo info) {
+        // deducts costs
+        HashMap<String, Integer> resCost = costCal.calculateUpgradeTechCost(info, map);
+        deductCost(map, info, resCost);
+        // do the upgrade
+        String srcOwnerName = info.getSrcOwnerName();
+        map.getPlayerInfo(srcOwnerName).setTechLevel(info.getNewTechLevel());
+    }
+
+    /**
+     * Upgrades the units required by the source owner player, and deducts the resources form the
+     * player.
+     *
+     * @param map a WorldMap object where the action is implemented.
+     * @param info a ActionInfo object that contains source owner name and the info of the upgrade
+     *     units order.
+     */
+    public void executeUpgradeUnit(WorldMap map, ActionInfo info) {
+        // do the upgrade
+        String srcName = info.getSrcName();
+        String oldUnitLevel = info.getOldUnitLevel();
+        String newUnitLevel = info.getNewUnitLevel();
+        int numToUpgrade = info.getUpgradeUnitActionInfo().getNumToUpgrade();
+        map.getTerritory(srcName).tryAddTroopUnits(newUnitLevel, numToUpgrade);
+        map.getTerritory(srcName).tryRemoveTroopUnits(oldUnitLevel, numToUpgrade);
+        // deducts costs
+        HashMap<String, Integer> resCost = costCal.calculateUpgradeUnitCost(info, map);
+        deductCost(map, info, resCost);
+    }
+
+    /**
+     * Executes the attack order with given action info for attack. Before calling this function,
+     * troops are removed from src territory and costs are deducted in executePreAttack() already.
      *
      * <p>Info of src, dis, and troop to send is in ActionInfo info argument.
      *
@@ -64,24 +146,83 @@ public class ActionExecuter {
      * @param info a ActionInfo object that contains the information of src, dis, and troop to send.
      */
     public void executeAttack(WorldMap map, ActionInfo info) {
-        Territory des = map.getTerritory(info.getTerritoryActionInfo().getDesName());
-        int attackerUnitNum = info.getTerritoryActionInfo().getUnitNum().get("Basic");
-        int defenderUnitNum = des.getTroopNumUnits("Basic");
-        while (attackerUnitNum > 0 && defenderUnitNum > 0) {
-            if (isAttackerWinFight()) {
-                defenderUnitNum--;
+        Territory des = map.getTerritory(info.getDesName());
+        HashMap<String, Integer> attackerUnits = info.getNumUnits();
+        HashMap<String, Integer> defenderUnits = des.getAllNumUnits();
+        while (getTotalUnitNum(attackerUnits) > 0 && getTotalUnitNum(defenderUnits) > 0) {
+            String attacker = findLowestLevelTroop(attackerUnits);
+            String defender = findHighestLevelTroop(defenderUnits);
+            if (isAttackerWinFight(attacker, defender)) {
+                defenderUnits.put(defender, defenderUnits.get(defender) - 1);
             } else {
-                attackerUnitNum--;
+                attackerUnits.put(attacker, attackerUnits.get(attacker) - 1);
             }
         }
-        if (attackerUnitNum > 0) { // attacker wins the combat in attack
+        if (getTotalUnitNum(attackerUnits) > 0) { // attacker wins the combat in attack
             // des Territory changes owner and updates unit to attackerUnitNum
-            des.trySetTroopUnits("Basic", attackerUnitNum);
+            des.trySetNumUnits(attackerUnits);
             des.setOwnerName(info.getSrcOwnerName());
         } else { // defender wins the combat in attack
             // des Territory loses units to defenderUnitNum
-            des.trySetTroopUnits("Basic", defenderUnitNum);
+            des.trySetNumUnits(defenderUnits);
         }
+    }
+
+    /**
+     * Finds the highest level troop name tht has unit in a given HashMap that is troop name to
+     * number of units in the troop.
+     *
+     * @param defenderUnits a HashMap that is troop name to the number of units in the troop.
+     * @return a String that represents the highest level troop.
+     */
+    public String findHighestLevelTroop(HashMap<String, Integer> defenderUnits) {
+        Integer highestLevel = -1;
+        String highestTroopName = null;
+        HashMap<String, Troop> troopInfo = (new V2Territory("", 0, 0, 0)).getMyTroops();
+        for (String troopName : defenderUnits.keySet()) {
+            if (defenderUnits.get(troopName) > 0
+                    && troopInfo.get(troopName).getTechLevelReq() > highestLevel) {
+                highestLevel = troopInfo.get(troopName).getTechLevelReq();
+                highestTroopName = troopName;
+            }
+        }
+        return highestTroopName;
+    }
+
+    /**
+     * Finds the lowest level troop name tht has unit in a given HashMap that is troop name to
+     * number of units in the troop.
+     *
+     * @param attackerUnits a HashMap that is troop name to the number of units in the troop.
+     * @return a String that represents the highest level troop.
+     */
+    public String findLowestLevelTroop(HashMap<String, Integer> attackerUnits) {
+        Integer lowestLevel = 7;
+        String lowestTroopName = null;
+        HashMap<String, Troop> troopInfo = (new V2Territory("", 0, 0, 0)).getMyTroops();
+        for (String troopName : attackerUnits.keySet()) {
+            if (attackerUnits.get(troopName) > 0
+                    && troopInfo.get(troopName).getTechLevelReq() < lowestLevel) {
+                lowestLevel = troopInfo.get(troopName).getTechLevelReq();
+                lowestTroopName = troopName;
+            }
+        }
+        return lowestTroopName;
+    }
+
+    /**
+     * Gets the totally number of units in a HashMap that is troop name mapped to number of unit in
+     * the troop.
+     *
+     * @param troops a HashMap that is troop name to the number of units in the troop.
+     * @return an int that represents the total number of units.
+     */
+    public int getTotalUnitNum(HashMap<String, Integer> troops) {
+        int totalUnitNum = 0;
+        for (int num : troops.values()) {
+            totalUnitNum = totalUnitNum + num;
+        }
+        return totalUnitNum;
     }
 
     /***
@@ -99,7 +240,10 @@ public class ActionExecuter {
      *
      * @return true if the attacker wins the fight, false otherwise.
      */
-    private boolean isAttackerWinFight() {
-        return rollOneDice() > rollOneDice();
+    private boolean isAttackerWinFight(String attacker, String defender) {
+        HashMap<String, Troop> troopInfo = (new V2Territory("", 0, 0, 0)).getMyTroops();
+        int attackerBonus = troopInfo.get(attacker).getBonus();
+        int defenderBonus = troopInfo.get(defender).getBonus();
+        return rollOneDice() + attackerBonus > rollOneDice() + defenderBonus;
     }
 }
