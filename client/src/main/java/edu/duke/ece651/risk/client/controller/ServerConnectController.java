@@ -22,7 +22,7 @@ public class ServerConnectController {
     @FXML
     TextField serverConnectAddressField;
     @FXML
-    Label serverConnectErrorMessage;
+    Label serverConnectErrorLabel;
 
     @FXML
     public void onConnectButton(ActionEvent ae) throws Exception {
@@ -32,7 +32,7 @@ public class ServerConnectController {
             String serverAdd = serverConnectAddressField.getText();
             String serverMsg = model.tryConnect(serverAdd);
             if (serverMsg != null){
-                serverConnectErrorMessage.setText(serverMsg);
+                serverConnectErrorLabel.setText(serverMsg);
             }
             else{
             Stage window = (Stage) (((Node) ae.getSource()).getScene().getWindow());
