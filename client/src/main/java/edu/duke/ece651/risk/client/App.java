@@ -16,6 +16,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -25,25 +26,55 @@ import edu.duke.ece651.risk.shared.ObjectIO;
  * in and out are objectIOStream tmp stores the most recent ObjectIO read by the
  * client (sent from the server)
  */
-public class App implements Runnable{
-  private Socket server;
-  private ObjectInputStream in;
-  private ObjectOutputStream out;
-  private ObjectIO tmp;
-  private BufferedReader stdIn;
-  private ArrayList<Player> players;
-  private int currentRoomId;
-  private HashSet<Integer> joinedRoomId;
+public class App{
+  Socket server;
+  ObjectInputStream in;
+  ObjectOutputStream out;
+  ObjectIO tmp;
+  BufferedReader stdIn;
+  volatile ArrayList<Player> players;
+  volatile int currentRoomId;
+  volatile HashSet<Integer> joinedRoomId;
 
-  private String serverAdd;
+  //private String serverAdd;
 
-  /**
-   * A simple constructor
-   */
-  public App(String serverAdd) {
-    this.serverAdd = serverAdd;
+  public App() {
+    this.server = null;
+    this.in = null;
+    this.out = null;
+    this.tmp = null;
+    this.stdIn = null;
+    this.players = null;
+    this.joinedRoomId = null;
   }
-  
+
+  public String tryConnect(String serverAdd) {
+    try {
+      this.server = new Socket(serverAdd, 3333);
+      this.out = new ObjectOutputStream(server.getOutputStream());
+      this.in = new ObjectInputStream(server.getInputStream());
+      this.tmp = null;
+      this.initializeApp(server, in, out, tmp);
+    }
+    catch (Exception e){
+      return "Server address does not exist!";
+    }
+    return null;
+  }
+
+  public void initializeApp(Socket server, ObjectInputStream in, ObjectOutputStream out, ObjectIO tmp) {
+    this.server = server;
+    this.in = in;
+    this.out = out;
+    this.tmp = tmp;
+    this.stdIn = new BufferedReader(new InputStreamReader(System.in));
+    this.players = new ArrayList<Player>();
+    for (int i = 0; i < 4; i++) {
+      players.add(new Player(i,in, out,stdIn));
+    }
+    this.joinedRoomId = new HashSet<Integer>();
+  }
+
   public App(Socket server, ObjectInputStream in, ObjectOutputStream out, ObjectIO tmp) {
     this.server = server;
     this.in = in;
@@ -87,7 +118,7 @@ public class App implements Runnable{
     return (ObjectIO) in.readObject();
   }
 
-  public void sendMessage(ObjectIO info) throws Exception {
+  public void sendMessage(ObjectIO info) throws Exception{
     out.writeObject(info);
     out.flush();
     out.reset();
@@ -109,7 +140,7 @@ public class App implements Runnable{
     tmp = receiveMessage();
     return tmp.id == 0;
   }
-
+  /*
   @Override
   public void run() {
     try (var socket = new Socket(serverAdd, 3333)){
@@ -120,7 +151,8 @@ public class App implements Runnable{
     }
     while (true) {
     }
-  }
+  }*/
+
   /**
    * the enter point of the client. after connecting with the server, new App, and
    * call its method to communicate with the server(game).
