@@ -7,19 +7,14 @@
 package edu.duke.ece651.risk.client;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintStream;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 
+import edu.duke.ece651.risk.client.view.Player;
 import edu.duke.ece651.risk.shared.ObjectIO;
 
 /**

@@ -1,4 +1,4 @@
-package edu.duke.ece651.risk.client;
+package edu.duke.ece651.risk.client.view;
 
 import java.io.BufferedReader;
 import java.io.ObjectInputStream;
@@ -6,6 +6,8 @@ import java.io.ObjectOutputStream;
 import java.io.PrintStream;
 import java.util.Iterator;
 
+import edu.duke.ece651.risk.client.ClientOrderHelper;
+import edu.duke.ece651.risk.client.MapTextView;
 import edu.duke.ece651.risk.shared.ObjectIO;
 
 public class Player implements Runnable {

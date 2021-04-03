@@ -1,24 +1,22 @@
 package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
+import edu.duke.ece651.risk.client.view.PhaseChanger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-import java.net.URL;
 
 public class UserLoginController {
     App model;
+    String next;
 
     public UserLoginController(App model){
         this.model = model;
+        this.next = "test";
     }
     @FXML
     TextField userLoginUsernameField;
@@ -39,18 +37,10 @@ public class UserLoginController {
                 userLoginErrorMessage.setText("Log in failed! Try Again.");
             }
             else{
-                URL xmlResource = getClass().getResource("/ui/views/test.fxml");
-                FXMLLoader loader = new FXMLLoader(xmlResource);
-                loader.setControllerFactory(c -> {
-                    return new JoinRoomController(model);
-                });
-                Pane p = loader.load();
-                Scene nextScene = new Scene(p);
-
-                Stage window = (Stage)  (((Node)ae.getSource()).getScene().getWindow());
-                window.setScene(nextScene);
-                window.setTitle("Duke Risk Game! - Select Room");
-                window.show();
+                Stage window = (Stage) (((Node) ae.getSource()).getScene().getWindow());
+                Object controller = new ControllerFactory().getController(next, model);
+                Stage newWindow = PhaseChanger.switchTo(window, controller, next);
+                newWindow.show();
             }
         } else {
             throw new IllegalArgumentException("Invalid source " + source + " for ActionEvent");
