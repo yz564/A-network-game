@@ -9,6 +9,7 @@ import edu.duke.ece651.risk.shared.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ServerOrderHelperTest {
@@ -27,7 +28,7 @@ public class ServerOrderHelperTest {
         oh.collectOrders(obj3);
 
         assert (info1 == oh.getAttackOrders().get(0));
-        assert (info2 == oh.getMoveOrders().get(0));
+        assert (info2 == oh.getGroup1Orders().get(0));
     }
 
     @Test
@@ -47,7 +48,39 @@ public class ServerOrderHelperTest {
         oh.clearAllOrders();
 
         assert (0 == oh.getAttackOrders().size());
-        assert (0 == oh.getMoveOrders().size());
+        assert (0 == oh.getGroup1Orders().size());
+    }
+
+    @Test
+    public void test_merge_attack_orders() {
+        ActionInfoFactory af = new ActionInfoFactory();
+        HashMap<String, Integer> numUnits1 = new HashMap<String, Integer>();
+        numUnits1.put("level6", 300);
+        numUnits1.put("level5", 300);
+        ActionInfo info1 = af.createAttackActionInfo("A", "Fuqua", "Law", numUnits1);
+        HashMap<String, Integer> numUnits2 = new HashMap<String, Integer>();
+        numUnits2.put("level6", 100);
+        numUnits2.put("level3", 50);
+        ActionInfo info2 = af.createAttackActionInfo("A", "Gross Hall", "Law", numUnits2);
+        HashMap<String, Integer> numUnits3 = new HashMap<String, Integer>();
+        numUnits3.put("level6", 200);
+        numUnits3.put("level3", 150);
+        ActionInfo info3 = af.createAttackActionInfo("A", "Fuqua", "Gross Hall", numUnits3);
+
+        ArrayList<ActionInfo> actionOrders = new ArrayList<>();
+        actionOrders.add(info1);
+        actionOrders.add(info2);
+        actionOrders.add(info3);
+
+        ServerOrderHelper oh = new ServerOrderHelper();
+        HashMap<String, ActionInfo> mergedOrders = oh.mergeAttackOrders(actionOrders);
+        assertEquals(2, mergedOrders.size());
+        assertEquals(3, mergedOrders.get("A" + "Law").getNumUnits().size());
+        assertEquals(300 + 100, mergedOrders.get("A" + "Law").getNumUnits().get("level6"));
+        assertEquals(300, mergedOrders.get("A" + "Law").getNumUnits().get("level5"));
+        assertEquals(50, mergedOrders.get("A" + "Law").getNumUnits().get("level3"));
+        assertEquals(200, mergedOrders.get("A" + "Gross Hall").getNumUnits().get("level6"));
+        assertEquals(150, mergedOrders.get("A" + "Gross Hall").getNumUnits().get("level3"));
     }
 
     @Test

@@ -1,9 +1,12 @@
 package edu.duke.ece651.risk.server;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 
 import org.apache.commons.lang3.SerializationUtils;
 import edu.duke.ece651.risk.shared.*;
+import org.checkerframework.checker.units.qual.A;
 
 public class ServerOrderHelper {
     /** The rule checker helper for actions. */
@@ -40,7 +43,7 @@ public class ServerOrderHelper {
      * <p>An ArrayList of ActionInfo that represents all information needed to execute the move
      * action, upgrade tech action, or upgrade unit action.
      */
-    public ArrayList<ActionInfo> group1Orders() {
+    public ArrayList<ActionInfo> getGroup1Orders() {
         return this.group1Orders;
     }
 
@@ -119,6 +122,54 @@ public class ServerOrderHelper {
                 executer.executeUpgradeUnit(map, order);
             }
         }
+    }
+
+    private String rehearseAttackOrders(WorldMap tempMap) {
+        for (ActionInfo order : attackOrders) {
+            String problem = ruleChecker.checkRuleForAttack(order, tempMap);
+            if (problem != null) {
+                return problem;
+            } else {
+                executer.sendTroops(tempMap, order);
+                // just send troops for checking, because attacker units cannot take part in
+                // defending territory.
+            }
+        }
+        return null;
+    }
+
+    private void resolveAttackOrders(WorldMap map) {
+        for (ActionInfo order : attackOrders) {
+            executer.sendTroops(map, order);
+        }
+        HashMap<String, ActionInfo> mergedAttackOrders = mergeAttackOrders(attackOrders);
+        for (ActionInfo order : mergedAttackOrders.values()) {
+            executer.executeAttack(map, order);
+        }
+    }
+
+    public HashMap<String, ActionInfo> mergeAttackOrders(ArrayList<ActionInfo> attackOrders) {
+        ActionInfoFactory af = new ActionInfoFactory();
+        HashMap<String, ActionInfo> mergedAttackOrders = new HashMap<String, ActionInfo>();
+        for (ActionInfo order : attackOrders) {
+            String ownerAndDes = order.getSrcOwnerName() + order.getDesName();
+            if (mergedAttackOrders.containsKey(ownerAndDes)) {
+                HashMap<String, Integer> mergedTroop =
+                        mergedAttackOrders.get(ownerAndDes).getNumUnits();
+                order.getNumUnits()
+                        .forEach((key, value) -> mergedTroop.merge(key, value, Integer::sum));
+                ActionInfo mergedOrder =
+                        af.createAttackActionInfo(
+                                order.getSrcOwnerName(),
+                                order.getSrcName(),
+                                order.getDesName(),
+                                mergedTroop);
+                mergedAttackOrders.put(ownerAndDes, mergedOrder);
+            } else {
+                mergedAttackOrders.put(ownerAndDes, order);
+            }
+        }
+        return mergedAttackOrders;
     }
 
     /**
