@@ -4,6 +4,7 @@ import edu.duke.ece651.risk.client.App;
 import edu.duke.ece651.risk.client.view.PhaseChanger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,13 +12,14 @@ import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class SelectTerritoryGroup3PController {
+public class SelectTerritoryGroup3PController implements Initializable {
     App model;
     String next;
 
-    @FXML
-    Label selectTerritory3pErrorLabel;
+    @FXML Label selectTerritory3pErrorLabel;
 
     /* Simple constructor that initializes the model for the controller.
      */
@@ -56,12 +58,12 @@ public class SelectTerritoryGroup3PController {
         if (source instanceof Button) {
             Boolean success = model.getPlayer().tryInitialization(String.valueOf(territoryGroup));
             if (!success) {
-                selectTerritory3pErrorLabel.setText("Territory group is already taken by another player.\nTry choosing a different group.");
+                selectTerritory3pErrorLabel.setText(
+                        "Territory group is already taken by another player.\nTry choosing a different group.");
             } else {
                 loadNextPhase(ae);
             }
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Invalid source " + source + " for ActionEvent");
         }
     }
@@ -76,4 +78,14 @@ public class SelectTerritoryGroup3PController {
         Stage newWindow = PhaseChanger.switchTo(window, controller, next);
         newWindow.show();
     }
+
+    /**
+     * Called to initialize a controller after its root element has been completely processed.
+     *
+     * @param location The location used to resolve relative paths for the root object, or {@code
+     *     null} if the location is not known.
+     * @param resources The resources used to localize the root object, or {@code null} if
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {}
 }
