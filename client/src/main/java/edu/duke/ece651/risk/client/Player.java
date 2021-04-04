@@ -57,16 +57,14 @@ public class Player implements Runnable {
         out.reset();
     }
 
+    public void startInitialization() throws Exception {
+        tmp = receiveMessage();
+    }
+
     public boolean tryInitialization(String info) throws Exception {
-        if (!reselect) {
-            this.tmp = receiveMessage();
-        }
         if (tmp.groups.contains(Integer.parseInt(info))){
             sendMessage(new ObjectIO(info, Integer.parseInt(info)));
             tmp = receiveMessage();
-            if (tmp.id == -1) {
-                reselect = true;
-            }
             return tmp.id == 0;
         }
         return false;

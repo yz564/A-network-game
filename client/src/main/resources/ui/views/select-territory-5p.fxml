@@ -56,13 +56,13 @@
       </Label>
       <ButtonBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="69.0" prefWidth="471.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
         <buttons>
-          <Button mnemonicParsing="false" text="Pink" onAction="#onSelectingGroupOne"/>
-            <Button mnemonicParsing="false" text="Blue" onAction="#onSelectingGroupTwo"/>
-            <Button mnemonicParsing="false" text="Orange" onAction="#onSelectingGroupThree" />
-            <Button mnemonicParsing="false" text="Green" onAction="#onSelectingGroupFour"/>
-            <Button mnemonicParsing="false" text="Purple" onAction="#onSelectingGroupFive"/>
+          <Button mnemonicParsing="false" onAction="#onSelectingGroupOne" text="Pink" />
+            <Button mnemonicParsing="false" onAction="#onSelectingGroupTwo" text="Blue" />
+            <Button mnemonicParsing="false" onAction="#onSelectingGroupThree" text="Orange" />
+            <Button mnemonicParsing="false" onAction="#onSelectingGroupFour" text="Green" />
+            <Button mnemonicParsing="false" onAction="#onSelectingGroupFive" text="Purple" />
         </buttons>
       </ButtonBar>
-      <Label alignment="CENTER" prefHeight="25.0" prefWidth="868.0" text="Once you have selected the territory group. Please wait for the other players before game will continue." GridPane.columnSpan="3" GridPane.rowIndex="1" />
+      <Label alignment="CENTER" prefHeight="25.0" prefWidth="868.0" text="Please select the initial group of territories to begin your game." GridPane.columnSpan="3" GridPane.rowIndex="1" />
    </children>
 </GridPane>
