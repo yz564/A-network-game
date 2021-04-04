@@ -1,52 +1,52 @@
-.territory-group-one {
+.territory-group-1 {
     -fx-background-color: HOTPINK;
 }
-.territory-group-one:hover {
+.territory-group-1:hover {
     -fx-background-color: PINK;
 }
-.territory-group-one:pressed {
+.territory-group-1:pressed {
     -fx-background-color: DEEPPINK;
 }
 
-.territory-group-two {
+.territory-group-2 {
     -fx-background-color: CORNFLOWERBLUE;
 }
-.territory-group-two:hover {
+.territory-group-2:hover {
     -fx-background-color: LIGHTBLUE;
 }
-.territory-group-two:pressed {
+.territory-group-2:pressed {
     -fx-background-color: DODGERBLUE;
 }
 
-.territory-group-three {
+.territory-group-3 {
     -fx-background-color: ORANGE;
 }
-.territory-group-three:hover{
+.territory-group-3:hover{
     -fx-background-color: GOLD;
 }
-.territory-group-three:pressed {
+.territory-group-3:pressed {
     -fx-background-color: TOMATO;
 }
 
-.territory-group-four {
+.territory-group-4 {
     -fx-background-color: LIGHTSEAGREEN;
 }
 
-.territory-group-four:hover {
+.territory-group-4:hover {
     -fx-background-color: LIGHTGREEN;
 }
-.territory-group-four:pressed {
+.territory-group-4:pressed {
     -fx-background-color: FORESTGREEN;
 }
 
-.territory-group-five {
+.territory-group-5 {
     -fx-background-color: MEDIUMPURPLE;
 }
 
-territory-group-five:hover {
+territory-group-5:hover {
     -fx-background-color: PLUM;
 }
 
-territory-group-five:pressed {
+territory-group-5:pressed {
     -fx-background-color: SLATEBLUE;
 }

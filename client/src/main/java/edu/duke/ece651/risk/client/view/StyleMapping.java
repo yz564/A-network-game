@@ -7,23 +7,26 @@ public class StyleMapping {
 
     private static HashMap<String, String> makeLabels() {
         HashMap<String, String> labels = new HashMap<>();
-        labels.put("Fuqua", "#label0");
-        labels.put("Law", "#label1");
-        labels.put("Gross Hall", "#label2");
-        labels.put("FFRC", "#label3");
-        labels.put("Bryan Center", "#label4");
-        labels.put("LSRC", "#label5");
-        labels.put("Pratt", "#label6");
-        labels.put("Perkins Library", "#label7");
-        labels.put("Duke Hospital", "#label8");
-        labels.put("Duke Clinics", "#label9");
-        labels.put("Duke Garden", "#label10");
-        labels.put("Duke Chapel", "#label11");
-        labels.put("Student Housing", "#label12");
-        labels.put("Wilson Gym", "#label13");
-        labels.put("Cameron Stadium", "#label14");
-        labels.put("Wallace Stadium", "#label15");
+        labels.put("label0", "Fuqua");
+        labels.put("label1", "Law");
+        labels.put("label2", "Gross Hall");
+        labels.put("label3", "FFRC");
+        labels.put("label4", "Bryan Center");
+        labels.put("label5", "LSRC");
+        labels.put("label6", "Pratt");
+        labels.put("label7", "Perkins Library");
+        labels.put("label8", "Duke Hospital");
+        labels.put("label9", "Duke Clinics");
+        labels.put("label10", "Duke Garden");
+        labels.put("label11", "Duke Chapel");
+        labels.put("label12", "Student Housing");
+        labels.put("label13", "Wilson Gym");
+        labels.put("label14", "Cameron Stadium");
+        labels.put("label15", "Wallace Stadium");
         return labels;
     }
 
+    public String getTerritoryLabelId(String territoryName){
+        return territoryLabels.get(territoryName);
+    }
 }
