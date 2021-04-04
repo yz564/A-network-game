@@ -24,7 +24,6 @@ import java.util.ArrayList;
 public class JoinRoomController {
     App model;
     String next;
-    WorldMap map;
 
     @FXML
     Label joinRoomErrorLabel;

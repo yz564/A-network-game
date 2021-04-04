@@ -32,7 +32,7 @@
                   <Image url="@../static-images/world-maps/V2MapDesignEven.jpg" />
                </image>
             </ImageView>
-                <Label fx:id="label0" id="label0" alignment="CENTER" layoutX="158.0" layoutY="105.0" prefHeight="25.0" prefWidth="53.0" text="Fuqua" textAlignment="CENTER" />
+                <Label fx:id="label0" alignment="CENTER" layoutX="158.0" layoutY="105.0" prefHeight="25.0" prefWidth="53.0" text="Fuqua" textAlignment="CENTER" />
                  <Label fx:id="label1" alignment="CENTER" layoutX="247.0" layoutY="210.0" text="Law" textAlignment="CENTER" />
                  <Label fx:id="label2" alignment="CENTER" layoutX="318.0" layoutY="130.0" text="Gross&#10;Hall" textAlignment="CENTER" />
                  <Label fx:id="label3" alignment="CENTER" layoutX="412.0" layoutY="175.0" text="FFRC" textAlignment="CENTER" />
