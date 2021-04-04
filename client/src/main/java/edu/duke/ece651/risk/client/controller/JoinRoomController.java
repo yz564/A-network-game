@@ -2,6 +2,8 @@ package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
 import edu.duke.ece651.risk.client.view.PhaseChanger;
+import edu.duke.ece651.risk.client.view.StyleMapping;
+import edu.duke.ece651.risk.shared.WorldMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,12 +17,14 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 /* Controller for the screen that asks user to join a room.
  */
 public class JoinRoomController {
     App model;
     String next;
+    WorldMap map;
 
     @FXML
     Label joinRoomErrorLabel;
@@ -42,6 +46,7 @@ public class JoinRoomController {
         Stage newWindow = PhaseChanger.switchTo(window, controller, next);
         newWindow.show();
     }
+
 
     /* Lets user join a given room.
      * @param ae is used to determine if button for joining this room was clicked on.
