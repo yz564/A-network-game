@@ -2,6 +2,7 @@ package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
 import edu.duke.ece651.risk.client.view.PhaseChanger;
+import edu.duke.ece651.risk.shared.WorldMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -16,6 +17,7 @@ import java.io.IOException;
 public class SelectTerritoryGroup2PController {
     App model;
     String next;
+    WorldMap map;
 
     @FXML
     Label selectTerritory2pErrorLabel;
@@ -58,6 +60,11 @@ public class SelectTerritoryGroup2PController {
         else {
             throw new IllegalArgumentException("Invalid source " + source + " for ActionEvent");
         }
+    }
+
+    private void setTerritoryColors(Object source){
+        map = model.getPlayer().getMap();
+
     }
 
     /* Loads the next Phase.
