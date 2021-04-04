@@ -46,7 +46,7 @@ public class App{
     return players.get(currentRoomId);
   }
 
-  public String trySelectTerritory(String info) throws Exception{
+  public Boolean trySelectTerritory(String info) throws Exception{
     return players.get(currentRoomId).tryInitialization(info);
   }
 

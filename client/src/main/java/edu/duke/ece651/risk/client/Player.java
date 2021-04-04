@@ -21,6 +21,7 @@ public class Player implements Runnable {
     public volatile Boolean wait;
     public volatile Boolean ready;
     private int maxUnitsToPlace;
+    Boolean reselect;
 
     public Player(int id, ObjectInputStream in, ObjectOutputStream out, BufferedReader stdIn) {
         this.id = id;
@@ -31,6 +32,7 @@ public class Player implements Runnable {
         this.wait = false;
         this.ready = false;
         this.maxUnitsToPlace = 30;
+        this.reselect = false;
     }
 
     public void setWait(Boolean b) {
@@ -45,20 +47,28 @@ public class Player implements Runnable {
         tmpS = s;
     }
 
-    public String tryInitialization(String info) throws Exception {
-        tmp = (ObjectIO) in.readObject();
-        if (tmp.groups.contains(Integer.parseInt(info)) && Integer.parseInt(info) < id + 3 && Integer.parseInt(info) > 0) {
-            out.writeObject(new ObjectIO(info, Integer.parseInt(info)));
-            out.flush();
-            out.reset();
-        } else {
-            return "Input is invalid, please retry";
+    public ObjectIO receiveMessage() throws Exception {
+        return (ObjectIO) in.readObject();
+    }
+
+    public void sendMessage(ObjectIO info) throws Exception{
+        out.writeObject(info);
+        out.flush();
+        out.reset();
+    }
+
+    public boolean tryInitialization(String info) throws Exception {
+        if (!reselect) {
+            this.tmp = receiveMessage();
         }
-        tmp = (ObjectIO) in.readObject();
-        if (tmp.id == -1) {
-            return "This territory group has been selected by other player(s), please retry.";
+        if (this.tmp.groups.contains(Integer.parseInt(info))){
+            sendMessage(new ObjectIO(info, Integer.parseInt(info)));
         }
-        return null;
+        this.tmp = receiveMessage();
+        if (this.tmp.id == -1) {
+            this.reselect = true;
+        }
+        return this.tmp.id == 0;
     }
 
     /**

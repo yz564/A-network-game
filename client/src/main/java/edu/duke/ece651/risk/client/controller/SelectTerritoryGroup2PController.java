@@ -5,8 +5,8 @@ import edu.duke.ece651.risk.client.view.PhaseChanger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,7 +18,7 @@ public class SelectTerritoryGroup2PController {
     String next;
 
     @FXML
-    Label selectTerritory2pErrorMessage;
+    Label selectTerritory2pErrorLabel;
 
     /* Simple constructor that initializes the model for the controller.
      */
@@ -47,10 +47,10 @@ public class SelectTerritoryGroup2PController {
      */
     private void assignTerritoryToPlayer(ActionEvent ae, int territoryGroup) throws Exception {
         Object source = ae.getSource();
-        if (source instanceof MenuItem) {
-            String assignGroup = model.getPlayer().tryInitialization(String.valueOf(territoryGroup));
-            if (assignGroup != null) {
-                selectTerritory2pErrorMessage.setText("Territory group already taken by another player. Try choosing a different group.");
+        if (source instanceof Button) {
+            Boolean success = model.getPlayer().tryInitialization(String.valueOf(territoryGroup));
+            if (!success) {
+                selectTerritory2pErrorLabel.setText("Territory group is already taken by another player.\nTry choosing a different group.");
             } else {
                 loadNextPhase(ae);
             }

@@ -86,7 +86,7 @@ public class JoinRoomController {
      */
     @FXML
     public void onJoinRoomThree(ActionEvent ae) throws Exception {
-        this.next = "selectTerritoryGroup3P";
+        this.next = "selectTerritoryGroup4P";
         joinRoom(ae, 3);
     }
 
@@ -95,7 +95,7 @@ public class JoinRoomController {
      */
     @FXML
     public void onJoinRoomFour(ActionEvent ae) throws Exception {
-        this.next = "selectTerritoryGroup4P";
+        this.next = "selectTerritoryGroup5P";
         joinRoom(ae, 4);
     }
 }
