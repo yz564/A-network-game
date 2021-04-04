@@ -42,24 +42,22 @@ public class Player implements Runnable {
         tmpS = s;
     }
 
-    public String tryInitialization(String info) throws Exception{
-      try {
+    public String tryInitialization(String info) throws Exception {
         tmp = (ObjectIO) in.readObject();
-        
-        if (tmp.groups.contains(Integer.parseInt(info)) && Integer.parseInt(info)<id+3 &&  Integer.parseInt(info)>0) {
-          out.writeObject(new ObjectIO(info,Integer.parseInt(info)));
-          out.flush();
-          out.reset();
+
+        if (tmp.groups.contains(Integer.parseInt(info)) && Integer.parseInt(info) < id + 3 && Integer.parseInt(info) > 0) {
+            out.writeObject(new ObjectIO(info, Integer.parseInt(info)));
+            out.flush();
+            out.reset();
+        } else {
+            return "Input is invalid, please retry";
         }
-            } catch (NumberFormatException e) {
-        return "Input is invalid, please retry";
-            }
-      tmp = (ObjectIO) in.readObject();
-      if (tmp.id == -1) {
-        return "Your input is not valid, please retry";
-      }
-      return null;
+        tmp = (ObjectIO) in.readObject();
+        if (tmp.id == -1) {
+            return "This territory group has been selected by other player(s), please retry.";
         }
+        return null;
+    }
   
     /**
      * first wait to read the ObjectIO sent by the server. then let the user to select the available
