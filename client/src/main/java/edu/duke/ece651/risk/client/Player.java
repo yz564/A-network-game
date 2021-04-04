@@ -85,7 +85,11 @@ public class Player implements Runnable {
         if (tmp.groups.contains(Integer.parseInt(info))) {
             sendMessage(new ObjectIO(info, Integer.parseInt(info)));
             receiveMessage();
-            return tmp.id == 0;
+            if (tmp.id == 0) {
+              receiveMessage();
+              //System.out.println(theMap.getPlayerTerritories(name));
+              return true;
+            }
         }
         return false;
     }
