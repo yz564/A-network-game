@@ -10,10 +10,10 @@ public class PhaseStorage {
         Phase phase1 = makePhase("serverConnect", "/ui/views/server-connect.fxml", null, "Duke Risk Game! - Server Connect");
         Phase phase2 = makePhase("userLogin", "/ui/views/user-login.fxml", null, "Duke Risk Game! - Log In");
         Phase phase3 = makePhase("joinRoom", "/ui/views/join-room.fxml", null, "Duke Risk Game! - Join Room");
-        Phase phase4_1 = makePhase("selectTerritoryGroup2P", "/ui/views/select-territory-2p.fxml", "/ui/styling/select-territory-group-2p.css", "Duke Risk Game! - Choose Your Territory Group");
-        Phase phase4_2 = makePhase("selectTerritoryGroup3P", "/ui/views/select-territory-3p.fxml", "/ui/styling/select-territory-group-3p.css", "Duke Risk Game! - Choose Your Territory Group");
-        Phase phase4_3 = makePhase("selectTerritoryGroup4P", "/ui/views/select-territory-4p.fxml", "/ui/styling/select-territory-group-4p.css", "Duke Risk Game! - Choose Your Territory Group");
-        Phase phase4_4 = makePhase("selectTerritoryGroup5P", "/ui/views/select-territory-5p.fxml", "/ui/styling/select-territory-group-5p.css", "Duke Risk Game! - Choose Your Territory Group");
+        Phase phase4_1 = makePhase("selectTerritoryGroup2P", "/ui/views/select-territory-2p.fxml", "/ui/styling/territory-group.css", "Duke Risk Game! - Choose Your Territory Group");
+        Phase phase4_2 = makePhase("selectTerritoryGroup3P", "/ui/views/select-territory-3p.fxml", "/ui/styling/territory-group.css", "Duke Risk Game! - Choose Your Territory Group");
+        Phase phase4_3 = makePhase("selectTerritoryGroup4P", "/ui/views/select-territory-4p.fxml", "/ui/styling/territory-group.css", "Duke Risk Game! - Choose Your Territory Group");
+        Phase phase4_4 = makePhase("selectTerritoryGroup5P", "/ui/views/select-territory-5p.fxml", "/ui/styling/territory-group.css", "Duke Risk Game! - Choose Your Territory Group");
         Phase phaseTest = makePhase("test", "/ui/views/test.fxml", null, "Duke Risk Game! - Test");
         // Add new Phases here
         phases.put(phase1.getName(), phase1);

@@ -58,8 +58,8 @@
       </Label>
       <ButtonBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="69.0" prefWidth="195.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
         <buttons>
-          <Button mnemonicParsing="false" onAction="#onSelectingGroupOne" text="Pink" />
-            <Button mnemonicParsing="false" onAction="#onSelectingGroupTwo" text="Blue" />
+          <Button mnemonicParsing="false" onAction="#onSelectingGroupOne" text="Pink" styleClass="territory-group-one"/>
+            <Button mnemonicParsing="false" onAction="#onSelectingGroupTwo" text="Blue" styleClass="territory-group-two"/>
         </buttons>
       </ButtonBar>
       <Label alignment="CENTER" prefHeight="25.0" prefWidth="868.0" text="Please select the initial group of territories to begin your game." GridPane.columnSpan="3" GridPane.rowIndex="1" />

@@ -5,6 +5,7 @@ import java.util.HashMap;
 public class PlayerInfo implements java.io.Serializable {
 
   private final String playerName;
+  private String color;
   private int techLevel;
   private HashMap<String, Integer> resTotals;
 
@@ -85,7 +86,7 @@ public class PlayerInfo implements java.io.Serializable {
    * Checks if a given tech level is valid for upgrade: 1) between 1 and 6
    * inclusive 2) more than current tech level.
    * 
-   * @param toCheck is an int representing a technology level to check
+   * @param toUpgrade is an int representing a technology level to check
    * @return true if tech level is valid, return false if not
    */
   public boolean isValidTechLevel(int toUpgrade) {
@@ -137,5 +138,13 @@ public class PlayerInfo implements java.io.Serializable {
     for (String resName : toUpdate.keySet()) {
       updateOneResTotal(resName, toUpdate.get(resName));
     }
+  }
+
+  public void setColor(String color){
+    this.color = color;
+  }
+
+  public String getColor(){
+    return this.color;
   }
 }
