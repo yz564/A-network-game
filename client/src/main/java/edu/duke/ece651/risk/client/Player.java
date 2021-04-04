@@ -41,12 +41,45 @@ public class Player implements Runnable {
     public void updateInput(String s) {
         tmpS = s;
     }
+
+    public String tryInitialization(String info) throws Exception {
+        tmp = (ObjectIO) in.readObject();
+
+        if (tmp.groups.contains(Integer.parseInt(info)) && Integer.parseInt(info) < id + 3 && Integer.parseInt(info) > 0) {
+            out.writeObject(new ObjectIO(info, Integer.parseInt(info)));
+            out.flush();
+            out.reset();
+        } else {
+            return "Input is invalid, please retry";
+        }
+        tmp = (ObjectIO) in.readObject();
+        if (tmp.id == -1) {
+            return "This territory group has been selected by other player(s), please retry.";
+        }
+        return null;
+    }
+  
     /**
      * first wait to read the ObjectIO sent by the server. then let the user to select the available
      * group finnaly send the ObjectIO with the selection to the server.
      */
-    public void doInitialization() throws Exception {
+  /*
+  public void doInitialization() throws Exception {
+    while (true) {
+      tmpS = stdIn.readLine();
+      String str = tryInitialization(tmpS);
+      System.out.println(str);
+      if (str == null) {
+        break;
+      }
+      
+    }
+  }*/
+  
+    public void doInitialization(Boolean b) throws Exception {
+      if(b){
         if ((tmp = (ObjectIO) in.readObject()) != null) {}
+      }
         mark:
         while (true) {
           wait = true;//let the main thread to listen input just once
@@ -79,11 +112,17 @@ public class Player implements Runnable {
             }
             System.out.println("Your input is not valid, please retry");
         }
-        out.writeObject(new ObjectIO(tmpS));
+        out.writeObject(new ObjectIO(tmpS,Integer.parseInt(tmpS)));
         out.flush();
         out.reset();
         tmpS = null;
+        if ((tmp = (ObjectIO) in.readObject()) != null) {}
+        if(tmp.id == -1) {
+          doInitialization(false);
+        }
+        
     }
+
     /**
      * first wait the ObjectIO from server, then call the placeOrder method in the helper class,
      * finally send ObjectIO to server.
@@ -195,7 +234,7 @@ public class Player implements Runnable {
     public void run() {
         try {
             System.out.println("wait other players...");
-            doInitialization();
+            doInitialization(true);
             doPlacement();
             System.out.println("Initialization is done");
             doAction();
