@@ -113,7 +113,7 @@ public class SelectTerritoryGroup2PController implements Initializable {
         if (ownerName == null) {
             ownerName = "No Owner Yet";
         }
-        ans = ans + "- Owner Name: " + territory.getOwnerName() + "\n";
+        ans = ans + "- Owner Name: " + ownerName + "\n";
         ans = ans + "- Size: " + territory.getSize() + "\n";
         ans = ans + "- Food Production Rate: " + territory.getResProduction().get("food") + "\n";
         ans = ans + "- Tech Production Rate: " + territory.getResProduction().get("tech") + "\n";
