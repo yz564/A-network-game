@@ -14,11 +14,15 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 
-public class InitializeTerritoryController {
+public class SelectTerritoryGroupController {
     App model;
+    String next;
 
-    public InitializeTerritoryController(App model) {
+    public SelectTerritoryGroupController(App model) {
         this.model = model;
+        this.next = "test";
     }
+
+    public void onSelectingGroupOne()
 
 }
