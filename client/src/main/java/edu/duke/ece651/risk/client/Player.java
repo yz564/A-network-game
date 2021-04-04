@@ -10,6 +10,7 @@ import org.apache.commons.lang3.SerializationUtils;
 
 public class Player implements Runnable {
     private int id;
+    private String name;
     private ObjectInputStream in;
     private ObjectOutputStream out;
     private ObjectIO tmp;
@@ -33,6 +34,14 @@ public class Player implements Runnable {
         this.ready = false;
         this.maxUnitsToPlace = 30;
         this.tmpOrders = new ArrayList<ActionInfo>();
+    }
+
+    public void setName(String n) {
+      this.name=n;
+    }
+
+    public String getName() {
+      return name;
     }
 
     public WorldMap getMap() {
