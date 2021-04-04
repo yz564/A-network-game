@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintStream;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import edu.duke.ece651.risk.client.ClientOrderHelper;
@@ -19,6 +20,7 @@ public class Player implements Runnable {
     BufferedReader stdIn;
     public volatile Boolean wait;
     public volatile Boolean ready;
+    private int maxUnitsToPlace;
 
     public Player(int id, ObjectInputStream in, ObjectOutputStream out, BufferedReader stdIn) {
         this.id = id;
@@ -28,6 +30,7 @@ public class Player implements Runnable {
         this.tmpS = null;
         this.wait = false;
         this.ready = false;
+        this.maxUnitsToPlace = 30;
     }
 
     public void setWait(Boolean b) {
@@ -45,7 +48,9 @@ public class Player implements Runnable {
     public String tryInitialization(String info) throws Exception {
         tmp = (ObjectIO) in.readObject();
 
-        if (tmp.groups.contains(Integer.parseInt(info)) && Integer.parseInt(info) < id + 3 && Integer.parseInt(info) > 0) {
+        if (tmp.groups.contains(Integer.parseInt(info))
+                && Integer.parseInt(info) < id + 3
+                && Integer.parseInt(info) > 0) {
             out.writeObject(new ObjectIO(info, Integer.parseInt(info)));
             out.flush();
             out.reset();
@@ -58,31 +63,31 @@ public class Player implements Runnable {
         }
         return null;
     }
-  
+
     /**
      * first wait to read the ObjectIO sent by the server. then let the user to select the available
      * group finnaly send the ObjectIO with the selection to the server.
      */
-  /*
-  public void doInitialization() throws Exception {
-    while (true) {
-      tmpS = stdIn.readLine();
-      String str = tryInitialization(tmpS);
-      System.out.println(str);
-      if (str == null) {
-        break;
+    /*
+    public void doInitialization() throws Exception {
+      while (true) {
+        tmpS = stdIn.readLine();
+        String str = tryInitialization(tmpS);
+        System.out.println(str);
+        if (str == null) {
+          break;
+        }
+
       }
-      
-    }
-  }*/
-  
+    }*/
+
     public void doInitialization(Boolean b) throws Exception {
-      if(b){
-        if ((tmp = (ObjectIO) in.readObject()) != null) {}
-      }
+        if (b) {
+            if ((tmp = (ObjectIO) in.readObject()) != null) {}
+        }
         mark:
         while (true) {
-          wait = true;//let the main thread to listen input just once
+            wait = true; // let the main thread to listen input just once
             while (!ready) {}
             wait = false;
             ready = false;
@@ -112,21 +117,50 @@ public class Player implements Runnable {
             }
             System.out.println("Your input is not valid, please retry");
         }
-        out.writeObject(new ObjectIO(tmpS,Integer.parseInt(tmpS)));
+        out.writeObject(new ObjectIO(tmpS, Integer.parseInt(tmpS)));
         out.flush();
         out.reset();
         tmpS = null;
         if ((tmp = (ObjectIO) in.readObject()) != null) {}
-        if(tmp.id == -1) {
-          doInitialization(false);
+        if (tmp.id == -1) {
+            doInitialization(false);
         }
-        
     }
 
     /**
-     * first wait the ObjectIO from server, then call the placeOrder method in the helper class,
-     * finally send ObjectIO to server.
+     * Checks if the HashMap<String, Integer> from GUI is valid, and finally send ObjectIO with the
+     * HashMap to server if it is valid.
+     *
+     * @param placeOrders HashMap<String, Integer> that maps the territory name to number of units
+     *     to place in the territory.
+     * @return a String that describing the problem of the allocation order. Or returns null if
+     *     there is no problem.
      */
+    public String tryAllocation(HashMap<String, Integer> placeOrders) throws Exception {
+        this.maxUnitsToPlace = ((ObjectIO) in.readObject()).id;
+        int totalUnits = 0;
+        for (int unitNum : placeOrders.values()) {
+            totalUnits = totalUnits + unitNum;
+        }
+        if (totalUnits > maxUnitsToPlace) {
+            ObjectIO orders = new ObjectIO();
+            orders.placeOrders = placeOrders;
+            out.writeObject(orders); // here tmp.playerNames is territory names...
+            return null;
+        } else {
+            return "Invalid placement: Total number of units exceeds maximum.";
+        }
+    }
+
+    /**
+     * Returns the maximum number of unit to place for tryAllocate() unit.
+     *
+     * @return an int that represents maximum number of unit to place for tryAllocate() unit.
+     */
+    public int getMaxUnitsToPlace() {
+        return maxUnitsToPlace;
+    }
+
     public void doPlacement() throws Exception {
         System.out.println("-----waitServerInput-----");
         if ((tmp = (ObjectIO) in.readObject()) != null) {
