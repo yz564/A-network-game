@@ -49,6 +49,11 @@ public class View {
         FXMLLoader loader = new FXMLLoader(xmlResource);
         loader.setControllerFactory((c) ->{return controller;});
         Pane p = loader.load();
-        return new Scene(p);
+        Scene scene = new Scene(p);
+        if (cssPath != null) {
+            URL cssResource = getClass().getResource(cssPath);
+            scene.getStylesheets().add(cssResource.toString());
+        }
+        return scene;
     }
 }
