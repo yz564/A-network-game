@@ -150,8 +150,7 @@ public class Player implements Runnable {
      *     there is no problem.
      */
     public String tryAllocation(HashMap<String, Integer> placeOrders) throws Exception {
-        // this.maxUnitsToPlace = ((ObjectIO) in.readObject()).id;
-        // TODO receive here?
+        receiveMessage();
         this.maxUnitsToPlace = tmp.id;
         int totalUnits = 0;
         for (int unitNum : placeOrders.values()) {
@@ -162,6 +161,7 @@ public class Player implements Runnable {
             orders.placeOrders = placeOrders;
             sendMessage(orders);
             // read in a map for action phase.
+            // TODO: abstract this out with askLeave()?
             receiveMessage();
             return null;
         } else {
@@ -222,7 +222,7 @@ public class Player implements Runnable {
         }
     }
 
-    public void doneIssueOrders() throws Exception {
+    public String doneIssueOrders() throws Exception {
         ArrayList<ActionInfo> group1Orders = new ArrayList<>();
         ArrayList<ActionInfo> attackOrders = new ArrayList<>();
         ObjectIO toSend = new ObjectIO();
@@ -239,6 +239,15 @@ public class Player implements Runnable {
         sendMessage(toSend);
         // read in the new map for next action phase.
         receiveMessage();
+        if (tmp.id == -1) {
+            return "Your lost all territories...";
+        }
+        if (tmp.id == -2) {
+            return tmp.message; // other player wins
+        }
+        if (tmp.id == -3) {
+            return "You win!";
+        }
     }
 
     public void doPlacement() throws Exception {
