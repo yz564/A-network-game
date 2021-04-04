@@ -7,21 +7,22 @@ import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import edu.duke.ece651.risk.client.ClientOrderHelper;
-import edu.duke.ece651.risk.client.MapTextView;
+import org.apache.commons.lang3.SerializationUtils;
+
 import edu.duke.ece651.risk.shared.ObjectIO;
+import edu.duke.ece651.risk.shared.WorldMap;
 
 public class Player implements Runnable {
-    int id;
-    ObjectInputStream in;
-    ObjectOutputStream out;
-    ObjectIO tmp;
-    volatile String tmpS;
-    BufferedReader stdIn;
+    private int id;
+    private ObjectInputStream in;
+    private ObjectOutputStream out;
+    private ObjectIO tmp;
+    private String tmpS;
+    private BufferedReader stdIn;
     public volatile Boolean wait;
     public volatile Boolean ready;
     private int maxUnitsToPlace;
-    Boolean reselect;
+  private WorldMap theMap;
 
     public Player(int id, ObjectInputStream in, ObjectOutputStream out, BufferedReader stdIn) {
         this.id = id;
@@ -32,9 +33,14 @@ public class Player implements Runnable {
         this.wait = false;
         this.ready = false;
         this.maxUnitsToPlace = 30;
-        this.reselect = false;
     }
 
+  public WorldMap getMap(){
+    return theMap;
+  }
+  private void updateMap(){
+    theMap=(WorldMap)SerializationUtils.clone(tmp.map);
+  }
     public void setWait(Boolean b) {
         wait = b;
     }
@@ -47,8 +53,10 @@ public class Player implements Runnable {
         tmpS = s;
     }
 
-    public ObjectIO receiveMessage() throws Exception {
-        return (ObjectIO) in.readObject();
+    public void receiveMessage() throws Exception {
+       tmp=(ObjectIO) in.readObject();
+       updateMap();
+       //return (ObjectIO) in.readObject();
     }
 
     public void sendMessage(ObjectIO info) throws Exception{
@@ -58,13 +66,13 @@ public class Player implements Runnable {
     }
 
     public void startInitialization() throws Exception {
-        tmp = receiveMessage();
+        receiveMessage();
     }
 
     public boolean tryInitialization(String info) throws Exception {
         if (tmp.groups.contains(Integer.parseInt(info))){
             sendMessage(new ObjectIO(info, Integer.parseInt(info)));
-            tmp = receiveMessage();
+            receiveMessage();
             return tmp.id == 0;
         }
         return false;
