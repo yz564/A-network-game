@@ -5,8 +5,6 @@ import edu.duke.ece651.risk.client.view.PhaseChanger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
@@ -33,21 +31,21 @@ public class SelectTerritoryGroup2PController {
      */
     @FXML
     public void onSelectingGroupOne(ActionEvent ae) throws Exception {
-        assignTerritoryToUser(ae, 1);
+        assignTerritoryToPlayer(ae, 1);
     }
 
     /* Registers group two with the player.
      */
     @FXML
     public void onSelectingGroupTwo(ActionEvent ae) throws Exception {
-        assignTerritoryToUser(ae, 2);
+        assignTerritoryToPlayer(ae, 2);
     }
 
     /* Assigns a territory to a player. Or shows an error message on the
      * screen if the group is already assigned to a different player.
      * @param ae is the action event that triggers this function.
      */
-    private void assignTerritoryToUser(ActionEvent ae, int territoryGroup) throws Exception {
+    private void assignTerritoryToPlayer(ActionEvent ae, int territoryGroup) throws Exception {
         Object source = ae.getSource();
         if (source instanceof MenuItem) {
             String assignGroup = model.getPlayer().tryInitialization(String.valueOf(territoryGroup));

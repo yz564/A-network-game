@@ -1,0 +1,20 @@
+.territory-player-one {
+-fx-text-fill: #FF1493;
+}
+
+.territory-player-two {
+-fx-text-fill: #0000FF;
+}
+
+.territory-player-three {
+-fx-text-fill: #827364;
+}
+
+.territory-player-four {
+-fx-text-fill: #389387;
+}
+
+.territory-player-five {
+-fx-text-fill: #DA70D6;
+}
+
