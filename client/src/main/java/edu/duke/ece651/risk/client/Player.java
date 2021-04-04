@@ -248,6 +248,7 @@ public class Player implements Runnable {
         if (tmp.id == -3) {
             return "You win!";
         }
+        return null;
     }
 
     public void doPlacement() throws Exception {
