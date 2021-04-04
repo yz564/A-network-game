@@ -2,31 +2,52 @@ package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
 import edu.duke.ece651.risk.client.view.PhaseChanger;
+import edu.duke.ece651.risk.client.view.StyleMapping;
+import edu.duke.ece651.risk.shared.Territory;
 import edu.duke.ece651.risk.shared.WorldMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.ResourceBundle;
 
 /* Class responsible for registering territory group for a player.
  */
-public class SelectTerritoryGroup2PController {
+public class SelectTerritoryGroup2PController implements Initializable {
     App model;
     String next;
     WorldMap map;
 
     @FXML
     Label selectTerritory2pErrorLabel;
+    @FXML
+    ArrayList<Label> labelList;
 
     /* Simple constructor that initializes the model for the controller.
      */
     public SelectTerritoryGroup2PController(App model) {
         this.model = model;
         this.next = "test";
+    }
+
+    @FXML
+    public void initialize(URL location, ResourceBundle resources) {
+        for (Label territoryLabel: labelList) {
+            StyleMapping mapping = new StyleMapping();
+            String territoryName = mapping.getTerritoryLabelId(territoryLabel.getId());
+            map = model.getPlayer().getMap();
+            int initGroup = map.inWhichInitGroup(territoryName);
+            territoryLabel.getStyleClass().add("territory-group-" + String.valueOf(initGroup));
+        }
     }
 
     /* Registers group one with the player.
@@ -62,10 +83,6 @@ public class SelectTerritoryGroup2PController {
         }
     }
 
-    private void setTerritoryColors(Object source){
-        map = model.getPlayer().getMap();
-
-    }
 
     /* Loads the next Phase.
      * @param ae is used to compute the parent of the item that interacted

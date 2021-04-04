@@ -2,6 +2,7 @@ package edu.duke.ece651.risk.shared;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * RiskWorldMap implements the WorldMap interface that contains the contains the
@@ -136,6 +137,15 @@ public abstract class RiskWorldMap implements WorldMap {
       }
     }
     return 0;
+  }
+
+  @Override
+  public ArrayList<String> getMyTerritories() {
+    ArrayList<String> territoryList = new ArrayList<>();
+    for (String name: territoryList){
+      territoryList.add(name);
+    }
+    return territoryList;
   }
 }
 
