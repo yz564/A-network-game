@@ -1,0 +1,52 @@
+.territory-group-one {
+    -fx-background-color: HOTPINK;
+}
+.territory-group-one:hover {
+    -fx-background-color: PINK;
+}
+.territory-group-one:pressed {
+    -fx-background-color: DEEPPINK;
+}
+
+.territory-group-two {
+    -fx-background-color: CORNFLOWERBLUE;
+}
+.territory-group-two:hover {
+    -fx-background-color: LIGHTBLUE;
+}
+.territory-group-two:pressed {
+    -fx-background-color: DODGERBLUE;
+}
+
+.territory-group-three {
+    -fx-background-color: ORANGE;
+}
+.territory-group-three:hover{
+    -fx-background-color: GOLD;
+}
+.territory-group-three:pressed {
+    -fx-background-color: TOMATO;
+}
+
+.territory-group-four {
+    -fx-background-color: LIGHTSEAGREEN;
+}
+
+.territory-group-four:hover {
+    -fx-background-color: LIGHTGREEN;
+}
+.territory-group-four:pressed {
+    -fx-background-color: FORESTGREEN;
+}
+
+.territory-group-five {
+    -fx-background-color: MEDIUMPURPLE;
+}
+
+territory-group-five:hover {
+    -fx-background-color: PLUM;
+}
+
+territory-group-five:pressed {
+    -fx-background-color: SLATEBLUE;
+}

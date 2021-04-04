@@ -43,7 +43,7 @@ public class Server {
     User user=new User(client,accounts,roomList);
     Thread t= new Thread(user);
     t.start();
-    System.out.println("a new user connected");
+    System.out.println("a client connected");
   }
   public static void main(String[] args) throws IOException {
     //BufferedReader input = new BufferedReader(new InputStreamReader(System.in));

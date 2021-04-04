@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+  <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="887.0" minWidth="10.0" prefWidth="871.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="424.0" minWidth="0.0" prefWidth="123.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="436.0" minWidth="10.0" prefWidth="95.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="264.0" minWidth="0.0" prefWidth="13.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="228.0" minWidth="10.0" prefWidth="72.0" />
+  </columnConstraints>
+  <rowConstraints>
+      <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <TextField prefHeight="26.0" prefWidth="242.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Cameron Stadium" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+      <Label prefHeight="17.0" prefWidth="41.0" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="8" />
+      <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="95.0" text="Confirm" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
+      <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Fuqua" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+      <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Law" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
+      <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Gross Hall" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
+      <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Perkins Library" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
+      <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Total Units: " GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
+      <Label text="Label" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+      <TextField prefHeight="26.0" prefWidth="242.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+      <TextField prefHeight="26.0" prefWidth="242.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+      <TextField prefHeight="26.0" prefWidth="242.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+      <TextField prefHeight="26.0" prefWidth="242.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+      <Label alignment="BOTTOM_CENTER" prefHeight="36.0" prefWidth="350.0" text="Allocate Talents" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Label text="/" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+      <Label alignment="CENTER" prefHeight="39.0" prefWidth="350.0" text="Place available talent units to your territories. &#10;You start with only undergrads." textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="2">
+         <font>
+            <Font name="System Italic" size="13.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" prefHeight="17.0" prefWidth="365.0" text="Label" textFill="#fa0707" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="10" />
+      <Label text="Undergrads" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+      <Label text="Undergrads" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+      <Label text="Undergrads" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+      <Label text="Undergrads" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+      <Label text="Undergrads" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+      <ImageView fitHeight="662.0" fitWidth="868.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" GridPane.rowSpan="10">
+         <image>
+            <Image url="@../static-images/world-maps/V2MapDesignEven.jpg" />
+         </image>
+      </ImageView>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" GridPane.rowSpan="10" />
+   </children>
+</GridPane>
