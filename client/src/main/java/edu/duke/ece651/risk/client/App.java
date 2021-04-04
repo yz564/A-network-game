@@ -81,15 +81,16 @@ public class App{
     initializeApp(server, in, out, tmp);
   }
 
-
-  public void checkIn() {
+  public boolean checkIn() {
     if (!joinedRoomId.contains(currentRoomId)) {//if not joined before, new a player and thread
       Player p = players.get(currentRoomId);
       Thread t = new Thread(p);
       t.start();
       players.set(currentRoomId, p);
       joinedRoomId.add(currentRoomId);
+      return true;
     }
+    return false;
   }
 
   public void requestLeave() throws Exception{

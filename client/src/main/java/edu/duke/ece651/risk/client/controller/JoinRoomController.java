@@ -50,12 +50,19 @@ public class JoinRoomController {
     private void joinRoom(ActionEvent ae, int roomId) throws Exception {
         Object source = ae.getSource();
         if (source instanceof Button) {
-            Boolean success = model.tryJoinRoom(roomId);
-            if (!success){
+            Boolean joinRoomSuccess = model.tryJoinRoom(roomId);
+            if (!joinRoomSuccess){
                 joinRoomErrorLabel.setText("The room is full! Try another room.");
             }
             else {
-                loadNextPhase(ae);
+                Boolean checkInSuccess = model.checkIn();
+                if (checkInSuccess) {
+                    model.getPlayer().startInitialization();
+                    loadNextPhase(ae);
+                }
+                else {
+                    //load action selection phase when ready
+                }
             }
         } else {
             throw new IllegalArgumentException("Invalid source " + source + " for ActionEvent");
