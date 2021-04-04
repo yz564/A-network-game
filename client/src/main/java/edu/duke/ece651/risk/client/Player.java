@@ -44,7 +44,6 @@ public class Player implements Runnable {
 
     public String tryInitialization(String info) throws Exception {
         tmp = (ObjectIO) in.readObject();
-
         if (tmp.groups.contains(Integer.parseInt(info)) && Integer.parseInt(info) < id + 3 && Integer.parseInt(info) > 0) {
             out.writeObject(new ObjectIO(info, Integer.parseInt(info)));
             out.flush();
@@ -61,7 +60,7 @@ public class Player implements Runnable {
   
     /**
      * first wait to read the ObjectIO sent by the server. then let the user to select the available
-     * group finnaly send the ObjectIO with the selection to the server.
+     * group finally send the ObjectIO with the selection to the server.
      */
   /*
   public void doInitialization() throws Exception {

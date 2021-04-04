@@ -25,16 +25,16 @@ public class JoinRoomController {
     @FXML
     Label joinRoomErrorLabel;
 
-    /* Simple constructor which sets the model and the next screen.
+    /* Simple constructor which sets the model.
      * @param model is the model for the RISK game.
      */
     public JoinRoomController(App model) {
         this.model = model;
-        this.next = "test";
     }
 
     /* Loads the next Phase.
-     * @param ae is used to compute the parent of the item that was interacted with in a view.
+     * @param ae is used to compute the parent of the item that interacted
+     * with the view that this controller is attached to.
      */
     private void loadNextPhase(ActionEvent ae) throws IOException {
         Stage window = (Stage) (((Node) ae.getSource()).getScene().getWindow());
@@ -67,6 +67,7 @@ public class JoinRoomController {
      */
     @FXML
     public void onJoinRoomOne(ActionEvent ae) throws Exception {
+        this.next = "selectTerritoryGroup2P";
         joinRoom(ae, 1);
     }
 
@@ -75,7 +76,9 @@ public class JoinRoomController {
      */
     @FXML
     public void onJoinRoomTwo(ActionEvent ae) throws Exception {
+        this.next = "test";
         joinRoom(ae, 2);
+
     }
 
     /* Lets user join room three.
@@ -83,6 +86,7 @@ public class JoinRoomController {
      */
     @FXML
     public void onJoinRoomThree(ActionEvent ae) throws Exception {
+        this.next = "test";
         joinRoom(ae, 3);
     }
 
@@ -91,6 +95,7 @@ public class JoinRoomController {
      */
     @FXML
     public void onJoinRoomFour(ActionEvent ae) throws Exception {
+        this.next = "test";
         joinRoom(ae, 4);
     }
 }

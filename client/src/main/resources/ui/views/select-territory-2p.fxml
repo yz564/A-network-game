@@ -11,15 +11,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="656.0" prefWidth="868.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="656.0"
+      prefWidth="868.0"
+      xmlns="http://javafx.com/javafx/16"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="edu.duke.ece651.risk.client.controller.SelectTerritoryGroup2PController"
+>
    <children>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
          <items>
             <Label prefHeight="17.0" prefWidth="320.0" />
             <MenuButton id="selectGroupMenuButton" mnemonicParsing="false" text="Select Territory Group">
                <items>
-                  <MenuItem id="gourp1MenuItem" mnemonicParsing="false" text="Pink" />
-                  <MenuItem id="group2MenuItem" mnemonicParsing="false" text="Blue" />
+                  <MenuItem id="group1MenuItem" mnemonicParsing="false" text="Pink" onAction="#onSelectingGroupOne"/>
+                  <MenuItem id="group2MenuItem" mnemonicParsing="false" text="Blue" onAction="#onSelectingGroupTwo"/>
                </items>
             </MenuButton>
             <Label prefHeight="17.0" prefWidth="301.0" />
@@ -38,7 +43,7 @@
             </ImageView>
             <Label alignment="CENTER" layoutX="158.0" layoutY="105.0" prefHeight="25.0" prefWidth="53.0" text="Fuqua" textAlignment="CENTER" />
             <Label alignment="CENTER" layoutX="318.0" layoutY="130.0" text="Gross&#10;Hall" textAlignment="CENTER" />
-            <Label id="selectTerritory3pErrorMessage" alignment="CENTER" layoutX="203.0" layoutY="21.0" prefHeight="17.0" prefWidth="449.0" text="Label" textFill="#fa0707" />
+            <Label fx:id="selectTerritory2pErrorMessage" alignment="CENTER" layoutX="203.0" layoutY="21.0" prefHeight="17.0" prefWidth="449.0" text="" textFill="#fa0707" />
             <Label alignment="CENTER" layoutX="412.0" layoutY="175.0" text="FFRC" textAlignment="CENTER" />
             <Label alignment="CENTER" layoutX="519.0" layoutY="175.0" text="LSRC" textAlignment="CENTER" />
             <Label alignment="CENTER" layoutX="660.0" layoutY="247.0" text="Duke&#10;Hospital" textAlignment="CENTER" />

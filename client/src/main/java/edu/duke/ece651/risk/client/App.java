@@ -42,6 +42,14 @@ public class App{
     this.joinedRoomId = null;
   }
 
+  public Player getPlayer() {
+    return players.get(currentRoomId);
+  }
+
+  public String trySelectTerritory(String info) throws Exception{
+    return players.get(currentRoomId).tryInitialization(info);
+  }
+
   public String tryConnect(String serverAdd) {
     try {
       this.server = new Socket(serverAdd, 3333);
@@ -70,16 +78,7 @@ public class App{
   }
 
   public App(Socket server, ObjectInputStream in, ObjectOutputStream out, ObjectIO tmp) {
-    this.server = server;
-    this.in = in;
-    this.out = out;
-    this.tmp = tmp;
-    this.stdIn = new BufferedReader(new InputStreamReader(System.in));
-    this.players = new ArrayList<Player>();
-    for (int i = 0; i < 4; i++) {
-      players.add(new Player(i, in, out, stdIn));
-    }
-    this.joinedRoomId = new HashSet<Integer>();
+    initializeApp(server, in, out, tmp);
   }
 
 
@@ -99,9 +98,6 @@ public class App{
     out.reset();
   }
 
-  public String trySelectTerritory(String info) throws Exception{
-    return players.get(currentRoomId).tryInitialization(info);
-  }
   /**
    *every time after join a room, call this method
    */  

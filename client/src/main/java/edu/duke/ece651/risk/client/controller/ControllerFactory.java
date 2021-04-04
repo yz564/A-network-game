@@ -1,7 +1,6 @@
 package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
-import edu.duke.ece651.risk.client.view.Phase;
 
 import java.util.HashMap;
 
@@ -18,6 +17,10 @@ public class ControllerFactory {
         controllers.put("serverConnect", new ServerConnectController(model));
         controllers.put("userLogin", new UserLoginController((App) model));
         controllers.put("joinRoom", new JoinRoomController((App) model));
+        controllers.put("selectTerritoryGroup2P", new SelectTerritoryGroup2PController((App) model));
+        controllers.put("selectTerritoryGroup3P", new SelectTerritoryGroup3PController((App) model));
+        controllers.put("selectTerritoryGroup4P", new SelectTerritoryGroup4PController((App) model));
+        controllers.put("selectTerritoryGroup5P", new SelectTerritoryGroup5PController((App) model));
         //Add new controllers here
         controllers.put("test", new ServerConnectController(model));
         return controllers;
