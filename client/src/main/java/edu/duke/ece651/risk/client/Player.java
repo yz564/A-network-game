@@ -1,16 +1,12 @@
 package edu.duke.ece651.risk.client;
 
-import java.io.BufferedReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.PrintStream;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import edu.duke.ece651.risk.shared.*;
 import org.apache.commons.lang3.SerializationUtils;
-
-import edu.duke.ece651.risk.shared.ObjectIO;
-import edu.duke.ece651.risk.shared.WorldMap;
 
 public class Player implements Runnable {
     private int id;
@@ -22,7 +18,10 @@ public class Player implements Runnable {
     public volatile Boolean wait;
     public volatile Boolean ready;
     private int maxUnitsToPlace;
-  private WorldMap theMap;
+    private WorldMap theMap;
+    private final ActionRuleCheckerHelper ruleChecker = new ActionRuleCheckerHelper();
+    private final ActionExecuter executer = new ActionExecuter();
+    private ArrayList<ActionInfo> tmpOrders;
 
     public Player(int id, ObjectInputStream in, ObjectOutputStream out, BufferedReader stdIn) {
         this.id = id;
@@ -33,14 +32,17 @@ public class Player implements Runnable {
         this.wait = false;
         this.ready = false;
         this.maxUnitsToPlace = 30;
+        this.tmpOrders = new ArrayList<ActionInfo>();
     }
 
-  public WorldMap getMap(){
-    return theMap;
-  }
-  private void updateMap(){
-    theMap=(WorldMap)SerializationUtils.clone(tmp.map);
-  }
+    public WorldMap getMap() {
+        return theMap;
+    }
+
+    private void updateMap() {
+        theMap = (WorldMap) SerializationUtils.clone(tmp.map);
+    }
+
     public void setWait(Boolean b) {
         wait = b;
     }
@@ -54,12 +56,12 @@ public class Player implements Runnable {
     }
 
     public void receiveMessage() throws Exception {
-       tmp=(ObjectIO) in.readObject();
-       updateMap();
-       //return (ObjectIO) in.readObject();
+        tmp = (ObjectIO) in.readObject();
+        updateMap();
+        // return (ObjectIO) in.readObject();
     }
 
-    public void sendMessage(ObjectIO info) throws Exception{
+    public void sendMessage(ObjectIO info) throws Exception {
         out.writeObject(info);
         out.flush();
         out.reset();
@@ -70,7 +72,7 @@ public class Player implements Runnable {
     }
 
     public boolean tryInitialization(String info) throws Exception {
-        if (tmp.groups.contains(Integer.parseInt(info))){
+        if (tmp.groups.contains(Integer.parseInt(info))) {
             sendMessage(new ObjectIO(info, Integer.parseInt(info)));
             receiveMessage();
             return tmp.id == 0;
@@ -113,15 +115,12 @@ public class Player implements Runnable {
                 Integer g = (Integer) itr.next();
                 System.out.println(Integer.toString(g) + " : " + tmp.map.getInitGroup(g));
             }
-
-            // if ((tmpS = stdIn.readLine()) != null) {
-            // }
+            // if ((tmpS = stdIn.readLine()) != null) {}
             while (tmpS == null) {
                 if (wait) {
                     continue mark;
                 }
             }
-
             try {
                 if (tmp.groups.contains(Integer.parseInt(tmpS))) {
                     break;
@@ -151,7 +150,8 @@ public class Player implements Runnable {
      *     there is no problem.
      */
     public String tryAllocation(HashMap<String, Integer> placeOrders) throws Exception {
-        this.maxUnitsToPlace = ((ObjectIO) in.readObject()).id;
+        receiveMessage();
+        this.maxUnitsToPlace = tmp.id;
         int totalUnits = 0;
         for (int unitNum : placeOrders.values()) {
             totalUnits = totalUnits + unitNum;
@@ -159,7 +159,10 @@ public class Player implements Runnable {
         if (totalUnits > maxUnitsToPlace) {
             ObjectIO orders = new ObjectIO();
             orders.placeOrders = placeOrders;
-            out.writeObject(orders); // here tmp.playerNames is territory names...
+            sendMessage(orders);
+            // read in a map for action phase.
+            // TODO: abstract this out with askLeave()?
+            receiveMessage();
             return null;
         } else {
             return "Invalid placement: Total number of units exceeds maximum.";
@@ -173,6 +176,79 @@ public class Player implements Runnable {
      */
     public int getMaxUnitsToPlace() {
         return maxUnitsToPlace;
+    }
+
+    public String tryIssueAttackOrder(ActionInfo order) {
+        String problem = ruleChecker.checkRuleForAttack(order, this.theMap);
+        if (problem == null) {
+            this.tmpOrders.add(order);
+            executer.executePreAttack(this.theMap, order);
+            return null;
+        } else {
+            return problem;
+        }
+    }
+
+    public String tryIssueMoveOrder(ActionInfo order) {
+        String problem = ruleChecker.checkRuleForMove(order, this.theMap);
+        if (problem == null) {
+            this.tmpOrders.add(order);
+            executer.executeMove(this.theMap, order);
+            return null;
+        } else {
+            return problem;
+        }
+    }
+
+    public String tryIssueUpgradeUnitOrder(ActionInfo order) {
+        String problem = ruleChecker.checkRuleForUpgradeUnit(order, this.theMap);
+        if (problem == null) {
+            this.tmpOrders.add(order);
+            executer.executeUpgradeUnit(this.theMap, order);
+            return null;
+        } else {
+            return problem;
+        }
+    }
+
+    public String tryIssueUpgradeTechOrder(ActionInfo order) {
+        String problem = ruleChecker.checkRuleForUpgradeTech(order, this.theMap);
+        if (problem == null) {
+            this.tmpOrders.add(order);
+            executer.executeUpgradeTech(this.theMap, order);
+            return null;
+        } else {
+            return problem;
+        }
+    }
+
+    public String doneIssueOrders() throws Exception {
+        ArrayList<ActionInfo> group1Orders = new ArrayList<>();
+        ArrayList<ActionInfo> attackOrders = new ArrayList<>();
+        ObjectIO toSend = new ObjectIO();
+        for (ActionInfo order : this.tmpOrders) {
+            if (order.getActionType().equals("attack")) {
+                attackOrders.add(order);
+            } else {
+                group1Orders.add(order);
+            }
+        }
+        this.tmpOrders = new ArrayList<>(); // refresh the local order ArrayList<ActionInfo>
+        toSend.moveOrders = group1Orders;
+        toSend.attackOrders = attackOrders;
+        sendMessage(toSend);
+        // read in the new map for next action phase.
+        receiveMessage();
+        if (tmp.id == -1) {
+            return "Your lost all territories...";
+        }
+        if (tmp.id == -2) {
+            return tmp.message; // other player wins
+        }
+        if (tmp.id == -3) {
+            return "You win!";
+        }
+        return null;
     }
 
     public void doPlacement() throws Exception {
@@ -203,6 +279,7 @@ public class Player implements Runnable {
             }
         }
     }
+
     /**
      * first wait the ObjectIO from server, then call the placeOrder method in the helper class,
      * finally send ObjectIO to server need to check the status of the player: win or lose
@@ -217,9 +294,7 @@ public class Player implements Runnable {
                 if (tmp.id < 0) {
                     break;
                 }
-
                 doAskLeave();
-
                 // MapTextView mapview = new MapTextView(tmp.playerNames);
                 // System.out.println(mapview.displayMap(tmp.map));
                 // System.out.println(tmp.message);
