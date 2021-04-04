@@ -15,6 +15,7 @@ public class Game {
     private volatile ArrayList<String> playerNames;
     private volatile HashSet<Integer> availableGroups;
     private ServerOrderHelper soh;
+    private HashSet<Integer> readyPlayer;
     /** a simple constructor */
     public Game(int num, ArrayList<Player> playerList) {
         this.numPlayers = num;
@@ -28,6 +29,7 @@ public class Game {
         this.factory = new V2MapFactory();
         this.theMap = factory.makeWorldMap(numPlayers);
         this.soh = new ServerOrderHelper();
+        this.readyPlayer = new HashSet<Integer>();
     }
 
     /**
@@ -35,34 +37,66 @@ public class Game {
      * initialOwners in theMap
      */
     public void doInitialization() throws Exception {
+      for (int i = 0; i < numPlayers; i++) {
+        Player p = playerList.get(i);
+        ObjectIO m = new ObjectIO(p.getName() + " ,please select your territory groups: ", i, theMap, availableGroups);
+        p.out.writeObject(m);
+        p.out.flush();
+        p.out.reset(); // very important to make theMap next time written in ObjectIO is
+        // updated...
+      }
+      int readyNum = 0;
+      while (readyNum < numPlayers) {
         for (int i = 0; i < numPlayers; i++) {
+          if (!readyPlayer.contains(i)) {
             Player p = playerList.get(i);
-            ObjectIO m =
-                    new ObjectIO(
-                            p.getName() + " ,please select your territory groups: ",
-                            i,
-                            theMap,
-                            availableGroups);
-            p.out.writeObject(m);
-            p.out.flush();
-            p.out.reset(); // very important to make theMap next time written in ObjectIO is
-            // updated...
-            while (!p.isReady()) {}
-            if (theMap.tryAssignInitOwner(Integer.parseInt(p.tmp.message), p.getName())) {
-                // TODO: how many resources to assign???
-                theMap.tryAddPlayerInfo(new PlayerInfo(p.getName(), 10000, 10000));
-                System.out.println(p.getName() + " selected group " + p.tmp.message);
+            if (playerList.get(i).isReady()) {
+              if (availableGroups.contains(p.tmp.id)) {
+                availableGroups.remove(p.tmp.id);
+                readyPlayer.add(i);
+                readyNum++;
+                if (theMap.tryAssignInitOwner(p.tmp.id, p.getName())) {
+                  // TODO: how many resources to assign???
+                  theMap.tryAddPlayerInfo(new PlayerInfo(p.getName(), 10000, 10000));
+                  System.out.println(p.getName() + " selected group " + p.tmp.message);
+                }
+                ObjectIO m = new ObjectIO(p.getName() + "group selected", 0, theMap, availableGroups);
+        p.out.writeObject(m);
+        p.out.flush();
+        p.out.reset();
+              }
+              else {
+                ObjectIO m = new ObjectIO(p.getName() + " ,please reselect your territory groups: ", -1, theMap, availableGroups);
+        p.out.writeObject(m);
+        p.out.flush();
+        p.out.reset();
+              }
+              
+              p.setNotReady();
+              
             }
-            availableGroups.remove(Integer.parseInt(p.tmp.message));
-            p.setNotReady();
-        }
-        /* try to make the last player auto choice but has a IO porblem...
-        Player p = playerList.get(numPlayers-1);
-        if (theMap.tryAssignInitOwner(availableGroups.iterator().next(), p.getName())) {
-            System.out.println(p.getName() + " auto selected ");
           }
-        */
+        }
+      }
     }
+      /*
+      while (readyNum<numPlayer){
+          while (!p.isReady()) {}
+          if (theMap.tryAssignInitOwner(Integer.parseInt(p.tmp.message), p.getName())) {
+              // TODO: how many resources to assign???
+              theMap.tryAddPlayerInfo(new PlayerInfo(p.getName(), 10000, 10000));
+              System.out.println(p.getName() + " selected group " + p.tmp.message);
+          }
+          availableGroups.remove(Integer.parseInt(p.tmp.message));
+          p.setNotReady();
+      }
+      */      
+      /* try to make the last player auto choice but has a IO porblem...
+      Player p = playerList.get(numPlayers-1);
+      if (theMap.tryAssignInitOwner(availableGroups.iterator().next(), p.getName())) {
+          System.out.println(p.getName() + " auto selected ");
+        }
+      */
 
     /**
      * the first for loop: Server send message to all clients let they do placement,clients can do
