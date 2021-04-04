@@ -61,14 +61,15 @@ public class Player implements Runnable {
         if (!reselect) {
             this.tmp = receiveMessage();
         }
-        if (this.tmp.groups.contains(Integer.parseInt(info))){
+        if (tmp.groups.contains(Integer.parseInt(info))){
             sendMessage(new ObjectIO(info, Integer.parseInt(info)));
+            tmp = receiveMessage();
+            if (tmp.id == -1) {
+                reselect = true;
+            }
+            return tmp.id == 0;
         }
-        this.tmp = receiveMessage();
-        if (this.tmp.id == -1) {
-            this.reselect = true;
-        }
-        return this.tmp.id == 0;
+        return false;
     }
 
     /**
@@ -274,12 +275,12 @@ public class Player implements Runnable {
     @Override
     public void run() {
         try {
-            System.out.println("wait other players...");
+            /*System.out.println("wait other players...");
             doInitialization(true);
             doPlacement();
             System.out.println("Initialization is done");
             doAction();
-            doWatch();
+            doWatch();*/
             // System.exit(0);
             while (true) {}
         } catch (Exception e) {

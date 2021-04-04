@@ -55,6 +55,7 @@ public class JoinRoomController {
                 joinRoomErrorLabel.setText("The room is full! Try another room.");
             }
             else {
+                model.checkIn();
                 loadNextPhase(ae);
             }
         } else {
