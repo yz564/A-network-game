@@ -40,6 +40,10 @@ public class Player implements Runnable {
       this.name=n;
     }
 
+    public String getName() {
+      return name;
+    }
+
     public WorldMap getMap() {
         return theMap;
     }
