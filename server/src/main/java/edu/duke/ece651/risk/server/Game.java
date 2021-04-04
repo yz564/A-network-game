@@ -11,7 +11,7 @@ public class Game {
     private int numPlayers;
     private volatile ArrayList<Player> playerList;
     private WorldMapFactory factory;
-    private volatile WorldMap theMap;
+    private WorldMap theMap;
     private volatile ArrayList<String> playerNames;
     private volatile HashSet<Integer> availableGroups;
     private ServerOrderHelper soh;
@@ -50,16 +50,20 @@ public class Game {
         for (int i = 0; i < numPlayers; i++) {
           if (!readyPlayer.contains(i)) {
             Player p = playerList.get(i);
-            if (playerList.get(i).isReady()) {
+            if (p.isReady()) {
               if (availableGroups.contains(p.tmp.id)) {
                 availableGroups.remove(p.tmp.id);
                 readyPlayer.add(i);
                 readyNum++;
+                System.out.println(p.getName());
                 if (theMap.tryAssignInitOwner(p.tmp.id, p.getName())) {
                   // TODO: how many resources to assign???
-                  theMap.tryAddPlayerInfo(new PlayerInfo(p.getName(), 10000, 10000));
+                  if (theMap.tryAddPlayerInfo(new PlayerInfo(p.getName(), 10000, 10000))) {
+                    System.out.println("update player info");
+                  }
                   System.out.println(p.getName() + " selected group " + p.tmp.message);
                 }
+                
                 ObjectIO m = new ObjectIO(p.getName() + "group selected", 0, theMap, availableGroups);
         p.out.writeObject(m);
         p.out.flush();
@@ -78,6 +82,17 @@ public class Game {
           }
         }
       }
+       for (int i = 0; i < numPlayers; i++) {
+            Player p = playerList.get(i);
+             try {
+               //System.out.println(theMap.getPlayerTerritories(p.getName()));
+                  p.out.writeObject(new ObjectIO(p.getName(), 0, theMap));
+                  p.out.flush();
+                  p.out.reset();
+                } catch (Exception e) {
+                  System.out.println("theMap is not updated");
+                }
+       }
     }
       /*
       while (readyNum<numPlayer){

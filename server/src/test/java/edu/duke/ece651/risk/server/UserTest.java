@@ -4,12 +4,17 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import org.junit.jupiter.api.Test;
-/*
+
 public class UserTest {
   @Test
   public void test_User() {
+    try{
+      ClientHelper ch = new ClientHelper();
+    Thread t = new Thread(ch);
+    t.start();
     ServerSocket ss=new ServerSocket(3333);
     ss.accept();
+    }catch(Exception e){}
     
   }
 
@@ -29,7 +34,7 @@ public class UserTest {
 }
 }
 
-*/
+
 
 
 
