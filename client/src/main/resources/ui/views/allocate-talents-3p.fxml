@@ -37,13 +37,13 @@
   </rowConstraints>
    <children>
       <TextField prefHeight="26.0" prefWidth="242.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Cameron Stadium" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+      <Label fx:id="territory1Label" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Cameron Stadium" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
       <Label prefHeight="17.0" prefWidth="41.0" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="8" />
       <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="95.0" text="Confirm" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
-      <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Fuqua" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
-      <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Law" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
-      <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Gross Hall" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
-      <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Perkins Library" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
+      <Label fx:id="territory2Label" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Fuqua" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+      <Label fx:id="territory3Label" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Law" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
+      <Label fx:id="territory4Label" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Gross Hall" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
+      <Label fx:id="territory5Label" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Perkins Library" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
       <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Total Units: " GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
       <Label text="Label" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
       <TextField prefHeight="26.0" prefWidth="242.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
@@ -70,7 +70,7 @@
       <Label text="Undergrads" GridPane.columnIndex="4" GridPane.rowIndex="7" />
       <ImageView fitHeight="662.0" fitWidth="868.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" GridPane.rowSpan="10">
          <image>
-            <Image url="@../static-images/world-maps/V2MapDesignEven.jpg" />
+            <Image url="@../static-images/world-maps/V2MapDesignOdd.jpg" />
          </image>
       </ImageView>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" GridPane.rowSpan="10" />
