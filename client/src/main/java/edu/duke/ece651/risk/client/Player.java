@@ -49,7 +49,8 @@ public class Player implements Runnable {
     }
 
     private void updateMap() {
-        theMap = (WorldMap) SerializationUtils.clone(tmp.map);
+        //theMap = (WorldMap) SerializationUtils.clone(tmp.map);
+        theMap = tmp.map;
     }
 
     public void setWait(Boolean b) {

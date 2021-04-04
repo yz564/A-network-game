@@ -23,7 +23,7 @@ public class SelectTerritoryGroup3PController {
      */
     public SelectTerritoryGroup3PController(App model) {
         this.model = model;
-        this.next = "test";
+        this.next = "allocateTalents3p";
     }
 
     /* Registers group one with the player.
