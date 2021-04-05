@@ -41,21 +41,11 @@ public class SelectTerritoryGroup2PController implements Initializable {
 
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
-        StyleMapping mapping = new StyleMapping();
+        InitializeControllerHelper helper = new InitializeControllerHelper();
         // set coloring for each territory label
-        for (Label territoryLabel : labelList) {
-            String territoryName = mapping.getTerritoryLabelId(territoryLabel.getId());
-            map = model.getPlayer().getMap();
-            int initGroup = map.inWhichInitGroup(territoryName);
-            territoryLabel.getStyleClass().add("territory-group-" + String.valueOf(initGroup));
-        }
+        helper.initializeTerritoryLabelByGroup(model.getPlayer().getMap(), labelList);
         // set tooltip for each territory label
-        for (Label territoryLabel : labelList) {
-            String territoryName = mapping.getTerritoryLabelId(territoryLabel.getId());
-            Tooltip tt = new Tooltip();
-            tt.setText(getTerritoryTextInfo(territoryName));
-            territoryLabel.setTooltip(tt);
-        }
+        helper.initializeTerritoryTooltips(model.getPlayer().getMap(), labelList);
     }
 
     /* Registers group one with the player.
