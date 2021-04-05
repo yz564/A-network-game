@@ -32,7 +32,7 @@ public class SelectTerritoryGroup3PController implements Initializable {
      */
     public SelectTerritoryGroup3PController(App model) {
         this.model = model;
-        this.next = "test";
+        this.next = "allocateTalents3p";
     }
 
     @FXML

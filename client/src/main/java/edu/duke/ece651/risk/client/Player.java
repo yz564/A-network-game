@@ -18,6 +18,7 @@ public class Player implements Runnable {
     private BufferedReader stdIn;
     public volatile Boolean wait;
     public volatile Boolean ready;
+    private String territorySelected;
     private int maxUnitsToPlace;
     private WorldMap theMap;
     private final ActionRuleCheckerHelper ruleChecker = new ActionRuleCheckerHelper();
@@ -44,12 +45,15 @@ public class Player implements Runnable {
       return name;
     }
 
+    public String getTerritorySelected() { return territorySelected; }
+
     public WorldMap getMap() {
         return theMap;
     }
 
     private void updateMap() {
-        theMap = (WorldMap) SerializationUtils.clone(tmp.map);
+        //theMap = (WorldMap) SerializationUtils.clone(tmp.map);
+        theMap = tmp.map;
     }
 
     public void setWait(Boolean b) {
@@ -84,7 +88,12 @@ public class Player implements Runnable {
         if (tmp.groups.contains(Integer.parseInt(info))) {
             sendMessage(new ObjectIO(info, Integer.parseInt(info)));
             receiveMessage();
-            return tmp.id == 0;
+            if (tmp.id == 0) {
+              receiveMessage();
+                this.territorySelected = info;
+              //System.out.println(theMap.getPlayerTerritories(name));
+              return true;
+            }
         }
         return false;
     }
@@ -165,7 +174,7 @@ public class Player implements Runnable {
         for (int unitNum : placeOrders.values()) {
             totalUnits = totalUnits + unitNum;
         }
-        if (totalUnits > maxUnitsToPlace) {
+        if (totalUnits <= maxUnitsToPlace) {
             ObjectIO orders = new ObjectIO();
             orders.placeOrders = placeOrders;
             sendMessage(orders);
