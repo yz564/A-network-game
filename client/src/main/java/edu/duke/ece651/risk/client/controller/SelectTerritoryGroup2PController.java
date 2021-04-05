@@ -102,6 +102,8 @@ public class SelectTerritoryGroup2PController implements Initializable {
         newWindow.show();
     }
 
+    /* Returns the string that is displayed when hovering over a territory label in the view.
+     */
     private String getTerritoryTextInfo(String territoryName) {
         Territory territory = model.getPlayer().getMap().getTerritory(territoryName);
         String ans =

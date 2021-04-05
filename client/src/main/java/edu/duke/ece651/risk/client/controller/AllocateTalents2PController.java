@@ -101,6 +101,7 @@ public class AllocateTalents2PController implements Initializable {
         this.next = "test";
     }
 
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         setTerritoryNameLabels();
         territoryGroupName.setText(model.getPlayer().getTerritorySelected());
