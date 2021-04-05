@@ -23,7 +23,7 @@ public class ServerTest {
     @Override
     public void run(){
       try{
-      Thread.sleep(100);
+      Thread.sleep(10);
       while (true) {
         Socket server = new Socket("localhost", 3333);
         break;
