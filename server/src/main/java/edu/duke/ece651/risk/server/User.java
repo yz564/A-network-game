@@ -56,13 +56,11 @@ public class User implements Runnable{
   
   public void logIn() throws Exception{
      myWrite(new ObjectIO("user name:"));
-      if ((tempObj = (ObjectIO) in.readObject()) != null) {
+     tempObj = (ObjectIO) in.readObject(); 
         this.inputName = tempObj.message;
-      }
       myWrite(new ObjectIO("password:"));
-      if ((tempObj = (ObjectIO) in.readObject()) != null) {
+  tempObj = (ObjectIO) in.readObject();
         this.inputPassword = tempObj.message;
-      }
   }
   
   public Boolean checkAccount() {
@@ -82,9 +80,8 @@ public class User implements Runnable{
   public Boolean tryJoinRoom() throws Exception{
     myWrite(new ObjectIO("join a room:",-1));
      int id=-1;
-     if ((tempObj = (ObjectIO) in.readObject()) != null) {
+     tempObj = (ObjectIO) in.readObject();
        id=tempObj.id - 1;
-     }
      if (joinedRoomId.contains(id)) {
        currentRoomId = id;
        System.out.println(inputName + " try to rejoin the room " + (currentRoomId+1));
@@ -119,14 +116,13 @@ public class User implements Runnable{
             System.out.println(inputName + " joined the room " + (currentRoomId+1));
             joinedRoomId.add(currentRoomId);
             myWrite(new ObjectIO("successful join the room",0));
-            while (!leave){
-              if((tempObj=(ObjectIO)in.readObject())!=null){
+            while (true){
+              tempObj = (ObjectIO) in.readObject();
                 if (tempObj.message.equals("/leave")) {
                   System.out.println(inputName + " leaved the room " + (currentRoomId+1));
                   break;
                 }
                 players.get(currentRoomId).updateInput(tempObj);
-              }
             }
           }
           else {

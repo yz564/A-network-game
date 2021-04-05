@@ -29,6 +29,7 @@ public class App{
   private ArrayList<Player> players;
   private int currentRoomId;
   private HashSet<Integer> joinedRoomId;
+  private String name;
 
   //private String serverAdd;
 
@@ -84,6 +85,7 @@ public class App{
   public boolean checkIn() {
     if (!joinedRoomId.contains(currentRoomId)) {//if not joined before, new a player and thread
       Player p = players.get(currentRoomId);
+      p.setName(name);
       Thread t = new Thread(p);
       t.start();
       players.set(currentRoomId, p);
@@ -133,6 +135,7 @@ public class App{
   }
   
   public Boolean tryLogin(String userName, String password) throws Exception {
+    this.name = userName;
     receiveMessage();
     sendMessage(new ObjectIO(userName));
     receiveMessage();

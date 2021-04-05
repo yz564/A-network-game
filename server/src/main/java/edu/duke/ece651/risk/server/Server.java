@@ -22,7 +22,7 @@ public class Server {
 
   public void createRooms()throws IOException{
     for(int i=0; i<4; i++){
-      Room room = new Room(new ServerSocket(portNumber+i+1), i, i + 2);
+      Room room = new Room( i, i + 2);
       roomList.add(room);
       Thread t=new Thread(room);
       t.start();
@@ -55,10 +55,20 @@ public class Server {
       server.createRooms();
       while(true){
         server.acceptConnection();
+        if (args.length>0 && args[0].equals("test")){
+          break;
+          }
       }
     }catch(Exception e){}
     
   }
   
 }
+
+
+
+
+
+
+
 

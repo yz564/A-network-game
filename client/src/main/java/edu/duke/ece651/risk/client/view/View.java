@@ -48,12 +48,13 @@ public class View {
         URL xmlResource = getClass().getResource(this.xmlPath);
         FXMLLoader loader = new FXMLLoader(xmlResource);
         loader.setControllerFactory((c) ->{return controller;});
-        Pane p = loader.load();
-        Scene scene = new Scene(p);
+        //Pane p = loader.load();
+        Scene scene = new Scene(loader.load());
         if (cssPath != null) {
             URL cssResource = getClass().getResource(cssPath);
             scene.getStylesheets().add(cssResource.toString());
         }
         return scene;
     }
+
 }
