@@ -158,6 +158,10 @@ public class Player implements Runnable {
         }
     }
 
+  public void startAllocation() throws Exception {
+        receiveMessage();
+        this.maxUnitsToPlace = tmp.id;
+    }
     /**
      * Checks if the HashMap<String, Integer> from GUI is valid, and finally send ObjectIO with the
      * HashMap to server if it is valid.
@@ -168,8 +172,6 @@ public class Player implements Runnable {
      *     there is no problem.
      */
     public String tryAllocation(HashMap<String, Integer> placeOrders) throws Exception {
-        receiveMessage();
-        this.maxUnitsToPlace = tmp.id;
         int totalUnits = 0;
         for (int unitNum : placeOrders.values()) {
             totalUnits = totalUnits + unitNum;
