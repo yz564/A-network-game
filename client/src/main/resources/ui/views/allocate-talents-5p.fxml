@@ -93,24 +93,18 @@
             <TextField prefWidth="57.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Cameron Stadium" GridPane.rowIndex="5" />
             <Label text="Undergrads" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <Label text="/" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-            <Label prefHeight="17.0" prefWidth="41.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="8" />
-            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Total Units: " GridPane.rowIndex="8" />
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Perkins Library" GridPane.rowIndex="7" />
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Gross Hall" GridPane.rowIndex="6" />
+            <Label text="/" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <Label prefHeight="17.0" prefWidth="41.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Total Units: " GridPane.rowIndex="6" />
             <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Fuqua" GridPane.rowIndex="3" />
             <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Law" GridPane.rowIndex="4" />
             <Label text="Undergrads" GridPane.columnIndex="3" GridPane.rowIndex="4" />
             <Label text="Undergrads" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-            <Label text="Undergrads" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-            <Label text="Undergrads" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="95.0" text="Confirm" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="9" />
-            <Label alignment="CENTER" prefHeight="58.0" prefWidth="323.0" text="Label" textFill="#fa0707" GridPane.columnSpan="4" GridPane.rowIndex="10" />
+            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="95.0" text="Confirm" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="7" />
+            <Label alignment="CENTER" prefHeight="58.0" prefWidth="323.0" text="Label" textFill="#fa0707" GridPane.columnSpan="4" GridPane.rowIndex="8" />
             <Label alignment="CENTER" prefHeight="43.0" prefWidth="327.0" text="Assign available talent units to your territories. &#10;You start with only undergrads." textAlignment="CENTER" GridPane.columnSpan="4" GridPane.rowIndex="2">
                <font>
                   <Font name="System Italic" size="13.0" />
