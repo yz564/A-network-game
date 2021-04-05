@@ -56,13 +56,11 @@ public class Game {
                 readyPlayer.add(i);
                 readyNum++;
                 System.out.println(p.getName());
-                if (theMap.tryAssignInitOwner(p.tmp.id, p.getName())) {
+                theMap.tryAssignInitOwner(p.tmp.id, p.getName());
                   // TODO: how many resources to assign???
-                  if (theMap.tryAddPlayerInfo(new PlayerInfo(p.getName(), 10000, 10000))) {
-                    System.out.println("update player info");
-                  }
-                  System.out.println(p.getName() + " selected group " + p.tmp.message);
-                }
+                theMap.tryAddPlayerInfo(new PlayerInfo(p.getName(),p.tmp.id, 10000, 10000));
+                System.out.println(p.getName() + " selected group " + p.tmp.message);
+                
                 
                 ObjectIO m = new ObjectIO(p.getName() + "group selected", 0, theMap, availableGroups);
         p.out.writeObject(m);
@@ -90,22 +88,11 @@ public class Game {
                   p.out.flush();
                   p.out.reset();
                 } catch (Exception e) {
-                  System.out.println("theMap is not updated");
+               //System.out.println("theMap is not updated");
                 }
        }
     }
-      /*
-      while (readyNum<numPlayer){
-          while (!p.isReady()) {}
-          if (theMap.tryAssignInitOwner(Integer.parseInt(p.tmp.message), p.getName())) {
-              // TODO: how many resources to assign???
-              theMap.tryAddPlayerInfo(new PlayerInfo(p.getName(), 10000, 10000));
-              System.out.println(p.getName() + " selected group " + p.tmp.message);
-          }
-          availableGroups.remove(Integer.parseInt(p.tmp.message));
-          p.setNotReady();
-      }
-      */      
+    
       /* try to make the last player auto choice but has a IO porblem...
       Player p = playerList.get(numPlayers-1);
       if (theMap.tryAssignInitOwner(availableGroups.iterator().next(), p.getName())) {
@@ -202,6 +189,7 @@ public class Game {
     }
     /** add 1 unit to each territory after one turn, also check the player isEnd */
     public void doRefresh() {
+      //soh.sendCreditToPlayers(theMap, playerNames);
         for (int i = 0; i < numPlayers; i++) {
             Player p = playerList.get(i);
             if (!p.isEnd) {
@@ -210,13 +198,14 @@ public class Game {
                     p.isEnd = true;
                     p.ready = true;
                 } else {
-                    for (String tname : tlist.keySet()) {
+                  /* for (String tname : tlist.keySet()) {
                         Territory t = tlist.get(tname);
                         t.tryAddTroopUnits("Basic", 1);
-                    }
+                        }*/
                 }
             }
         }
+        soh.sendCreditToPlayers(theMap, playerNames);
     }
     /**
      * return true if there is only one player has territories also send the winner message to each
