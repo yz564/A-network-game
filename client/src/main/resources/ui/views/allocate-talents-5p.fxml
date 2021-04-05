@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane dividerPositions="0.6047094188376754" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.risk.client.controller.AllocateTalents3PController">
+<SplitPane dividerPositions="0.6047094188376754" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
   <items>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
@@ -26,7 +26,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Label fx:id="territoryGroupName" alignment="CENTER" layoutX="533.0" layoutY="19.0" prefHeight="34.0" prefWidth="89.0" text="Purple" textAlignment="CENTER">
+                  <Label alignment="CENTER" layoutX="533.0" layoutY="19.0" prefHeight="34.0" prefWidth="89.0" text="Purple" textAlignment="CENTER">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -90,38 +90,31 @@
             <RowConstraints maxHeight="214.0" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField fx:id="numTalent1" onKeyReleased="#onTypingNumUnits" prefWidth="57.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="numTalent2" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="numTalent3" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField fx:id="numTalent4" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField fx:id="numTalent5" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <Label fx:id="talentLabel1" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Cameron Stadium" GridPane.rowIndex="5" />
+            <TextField prefWidth="57.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Cameron Stadium" GridPane.rowIndex="5" />
             <Label text="Undergrads" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <Label text="/" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-            <Label fx:id="numUnitsAllowed" prefHeight="17.0" prefWidth="41.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="8" />
-            <Label fx:id="numUnitsAllocated" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Total Units: " GridPane.rowIndex="8" />
-            <Label fx:id="talentLabel2" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Perkins Library" GridPane.rowIndex="7" />
-            <Label fx:id="talentLabel3" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Gross Hall" GridPane.rowIndex="6" />
-            <Label fx:id="talentLabel4" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Fuqua" GridPane.rowIndex="3" />
-            <Label fx:id="talentLabel5" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Law" GridPane.rowIndex="4" />
+            <Label text="/" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <Label prefHeight="17.0" prefWidth="41.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Total Units: " GridPane.rowIndex="6" />
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Fuqua" GridPane.rowIndex="3" />
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Law" GridPane.rowIndex="4" />
             <Label text="Undergrads" GridPane.columnIndex="3" GridPane.rowIndex="4" />
             <Label text="Undergrads" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-            <Label text="Undergrads" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-            <Label text="Undergrads" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-            <Button mnemonicParsing="false" onAction="#onAllocate" prefHeight="26.0" prefWidth="95.0" text="Confirm" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="9" />
-            <Label fx:id="errorMessage" alignment="CENTER" prefHeight="58.0" prefWidth="323.0" textFill="#fa0707" wrapText="true" GridPane.columnSpan="4" GridPane.rowIndex="11" />
-            <Label fx:id="allocatePrompt" alignment="CENTER" prefHeight="100.0" prefWidth="327.0" text="Assign available talent units to your territories.&#10;You start with only undergrads." textAlignment="CENTER" GridPane.columnSpan="4" GridPane.rowIndex="2">
+            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="95.0" text="Confirm" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="7" />
+            <Label alignment="CENTER" prefHeight="58.0" prefWidth="323.0" text="Label" textFill="#fa0707" GridPane.columnSpan="4" GridPane.rowIndex="8" />
+            <Label alignment="CENTER" prefHeight="43.0" prefWidth="327.0" text="Assign available talent units to your territories. &#10;You start with only undergrads." textAlignment="CENTER" GridPane.columnSpan="4" GridPane.rowIndex="2">
                <font>
                   <Font name="System Italic" size="13.0" />
                </font>
             </Label>
-            <Label alignment="BOTTOM_CENTER" prefHeight="56.0" prefWidth="326.0" text="Allocate Talents" wrapText="true" GridPane.columnSpan="4" GridPane.rowSpan="2">
+            <Label alignment="BOTTOM_CENTER" prefHeight="56.0" prefWidth="326.0" text="Allocate Talents" GridPane.columnSpan="4" GridPane.rowSpan="2">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" prefHeight="118.0" prefWidth="331.0" text="Please wait for other players to finish allocation &#10;after you hit confirm." textAlignment="CENTER" wrapText="true" GridPane.columnSpan="4" GridPane.rowIndex="10" />
          </children>
       </GridPane>
   </items>
