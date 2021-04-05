@@ -55,10 +55,20 @@ public class Server {
       server.createRooms();
       while(true){
         server.acceptConnection();
+        if (args.length>0 && args[0].equals("test")){
+          break;
+          }
       }
     }catch(Exception e){}
     
   }
   
 }
+
+
+
+
+
+
+
 

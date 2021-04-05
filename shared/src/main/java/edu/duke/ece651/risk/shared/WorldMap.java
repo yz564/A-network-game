@@ -88,4 +88,8 @@ public interface WorldMap extends java.io.Serializable {
    * @param playerName is the player name of the PlayerInfo to retrieve
    */
   public PlayerInfo getPlayerInfo(String playerName);
+
+  public int inWhichInitGroup(String territoryName);
+
+  public ArrayList<String> getMyTerritories();
 }

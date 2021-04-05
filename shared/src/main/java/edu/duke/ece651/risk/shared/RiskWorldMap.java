@@ -2,6 +2,7 @@ package edu.duke.ece651.risk.shared;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * RiskWorldMap implements the WorldMap interface that contains the contains the
@@ -26,7 +27,7 @@ public abstract class RiskWorldMap implements WorldMap {
    * 
    * @param names     is the array of territories names
    * 
-   * @param adjacency is the array of adjacency lists that corresponds to the
+   * @param groups is the array of adjacency lists that corresponds to the
    *                  territory names
    */
   public RiskWorldMap(String[] names, int[] groups) {
@@ -126,6 +127,25 @@ public abstract class RiskWorldMap implements WorldMap {
   @Override
   public PlayerInfo getPlayerInfo(String playerName) {
     return playersInfo.get(playerName);
+  }
+
+  @Override
+  public int inWhichInitGroup(String territoryName){
+    for (int groupId : initGroups.keySet()) {
+      if (initGroups.get(groupId).contains(territoryName)){
+        return groupId;
+      }
+    }
+    return 0;
+  }
+
+  @Override
+  public ArrayList<String> getMyTerritories() {
+    ArrayList<String> territoryList = new ArrayList<>();
+    for (String name: territoryList){
+      territoryList.add(name);
+    }
+    return territoryList;
   }
 }
 
