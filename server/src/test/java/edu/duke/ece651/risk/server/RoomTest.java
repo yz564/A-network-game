@@ -81,9 +81,12 @@ public class RoomTest {
       tempObj = (ObjectIO) in.readObject();
       tempObj = (ObjectIO) in.readObject();
       tempObj = (ObjectIO) in.readObject();
+      /*
       out.writeObject(new ObjectIO("2",2));
       out.flush();
       out.reset();
+      tempObj = (ObjectIO) in.readObject();
+      */
       }catch(Exception e){}
     }
 }
@@ -121,14 +124,20 @@ public class RoomTest {
       tempObj = (ObjectIO) in.readObject();
       tempObj = (ObjectIO) in.readObject();
       tempObj = (ObjectIO) in.readObject();
-      Thread.sleep(100);
+      //Thread.sleep(100);
+      /*
       out.writeObject(new ObjectIO("1",1));
       out.flush();
       out.reset();
+      tempObj = (ObjectIO) in.readObject();
+      */
       }catch(Exception e){}
 }
   }
 }
+
+
+
 
 
 
