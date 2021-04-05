@@ -36,7 +36,7 @@ public class SelectTerritoryGroup2PController implements Initializable {
      */
     public SelectTerritoryGroup2PController(App model) {
         this.model = model;
-        this.next = "test";
+        this.next = "allocateTalents2p";
     }
 
     @FXML

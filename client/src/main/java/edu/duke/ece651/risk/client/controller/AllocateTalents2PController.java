@@ -23,7 +23,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
-public class AllocateTalents3PController implements Initializable {
+public class AllocateTalents2PController implements Initializable {
     App model;
     String next;
     int numUnitsEntered;
@@ -44,6 +44,15 @@ public class AllocateTalents3PController implements Initializable {
     @FXML
     Label talentLabel5;
 
+    @FXML
+    Label talentLabel6;
+
+    @FXML
+    Label talentLabel7;
+
+    @FXML
+    Label talentLabel8;
+
     // number of talents to deploy in each territory
     @FXML
     TextField numTalent1;
@@ -59,6 +68,15 @@ public class AllocateTalents3PController implements Initializable {
 
     @FXML
     TextField numTalent5;
+
+    @FXML
+    TextField numTalent6;
+
+    @FXML
+    TextField numTalent7;
+
+    @FXML
+    TextField numTalent8;
 
     // allocation prompt that asks to enter the number of talents.
     @FXML
@@ -77,7 +95,7 @@ public class AllocateTalents3PController implements Initializable {
     @FXML
     Label errorMessage;
 
-    public AllocateTalents3PController(App model) {
+    public AllocateTalents2PController(App model) {
         this.model = model;
         this.numUnitsEntered = 0;
         this.next = "test";
@@ -91,6 +109,9 @@ public class AllocateTalents3PController implements Initializable {
         numTalent3.setText("0");
         numTalent4.setText("0");
         numTalent5.setText("0");
+        numTalent6.setText("0");
+        numTalent7.setText("0");
+        numTalent8.setText("0");
         numUnitsAllocated.setText(String.valueOf(0));
         numUnitsAllowed.setText(String.valueOf(model.getPlayer().getMaxUnitsToPlace()));
     }
@@ -107,6 +128,9 @@ public class AllocateTalents3PController implements Initializable {
         talentLabel3.setText(itr.next());
         talentLabel4.setText(itr.next());
         talentLabel5.setText(itr.next());
+        talentLabel6.setText(itr.next());
+        talentLabel7.setText(itr.next());
+        talentLabel8.setText(itr.next());
     }
 
     /* Updates the view for total number of units allocated so far while typing.
@@ -176,6 +200,9 @@ public class AllocateTalents3PController implements Initializable {
         territoryUnits.put(talentLabel3.getText(), parseIntFromTextField(numTalent3.getText(), 3));
         territoryUnits.put(talentLabel4.getText(), parseIntFromTextField(numTalent4.getText(), 4));
         territoryUnits.put(talentLabel5.getText(), parseIntFromTextField(numTalent5.getText(), 5));
+        territoryUnits.put(talentLabel6.getText(), parseIntFromTextField(numTalent6.getText(), 6));
+        territoryUnits.put(talentLabel7.getText(), parseIntFromTextField(numTalent7.getText(), 7));
+        territoryUnits.put(talentLabel8.getText(), parseIntFromTextField(numTalent8.getText(), 8));
         return territoryUnits;
     }
 
@@ -186,7 +213,10 @@ public class AllocateTalents3PController implements Initializable {
                 parseIntFromTextField(numTalent2.getText(), 2) +
                 parseIntFromTextField(numTalent3.getText(), 3) +
                 parseIntFromTextField(numTalent4.getText(), 4) +
-                parseIntFromTextField(numTalent5.getText(), 5);
+                parseIntFromTextField(numTalent5.getText(), 5) +
+                parseIntFromTextField(numTalent6.getText(), 6) +
+                parseIntFromTextField(numTalent7.getText(), 7) +
+                parseIntFromTextField(numTalent8.getText(), 8);
     }
 
     /* Loads the next Phase.
