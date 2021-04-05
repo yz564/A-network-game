@@ -1,9 +1,11 @@
 .territory-group-1 {
     -fx-background-color: HOTPINK;
 }
+
 .territory-group-1:hover {
     -fx-background-color: PINK;
 }
+
 .territory-group-1:pressed {
     -fx-background-color: DEEPPINK;
 }
@@ -11,9 +13,11 @@
 .territory-group-2 {
     -fx-background-color: CORNFLOWERBLUE;
 }
+
 .territory-group-2:hover {
     -fx-background-color: LIGHTBLUE;
 }
+
 .territory-group-2:pressed {
     -fx-background-color: DODGERBLUE;
 }
@@ -21,9 +25,11 @@
 .territory-group-3 {
     -fx-background-color: ORANGE;
 }
-.territory-group-3:hover{
+
+.territory-group-3:hover {
     -fx-background-color: GOLD;
 }
+
 .territory-group-3:pressed {
     -fx-background-color: TOMATO;
 }
@@ -35,6 +41,7 @@
 .territory-group-4:hover {
     -fx-background-color: LIGHTGREEN;
 }
+
 .territory-group-4:pressed {
     -fx-background-color: FORESTGREEN;
 }
@@ -49,4 +56,8 @@ territory-group-5:hover {
 
 territory-group-5:pressed {
     -fx-background-color: SLATEBLUE;
+}
+
+.tooltip {
+    white-space: pre-wrap;
 }

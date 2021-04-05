@@ -230,4 +230,30 @@ public class ServerOrderHelper {
         resolveAttackOrders(map);
         return problem;
     }
+
+    /**
+     * Run this after resolved all orders after each turn. Sends both tech and food resources to
+     * each player. And adds one level0 units to each territory on the map.
+     *
+     * @param map the map to send the credits.
+     * @param playerNames the players names who play the game on the map.
+     */
+    public void sendCreditToPlayers(WorldMap map, ArrayList<String> playerNames) {
+        // add resources for each player
+        for (String playerName : playerNames) {
+            int foodBonus = 0;
+            int techBonus = 0;
+            for (Territory territory : map.getPlayerTerritories(playerName).values()) {
+                foodBonus = foodBonus + territory.getResProduction().get("food");
+                techBonus = techBonus + territory.getResProduction().get("tech");
+            }
+            PlayerInfo info = map.getPlayerInfo(playerName);
+            info.updateOneResTotal("food", foodBonus);
+            info.updateOneResTotal("tech", techBonus);
+        }
+        // add level0 unit for each territory
+        for (String territory : map.getMyTerritories()) {
+            map.getTerritory(territory).tryAddTroopUnits("level0", 1);
+        }
+    }
 }
