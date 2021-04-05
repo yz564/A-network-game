@@ -58,6 +58,8 @@ territory-group-5:pressed {
     -fx-background-color: SLATEBLUE;
 }
 
-.tooltip {
+.tooltip-territory {
+    -fx-background-radius: 5 5 5 5;
+    -fx-font-size: 10pt;
     white-space: pre-wrap;
 }

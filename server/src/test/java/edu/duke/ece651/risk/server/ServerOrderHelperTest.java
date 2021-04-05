@@ -296,4 +296,23 @@ public class ServerOrderHelperTest {
         assertEquals(10000 - 25 * 3, map.getPlayerInfo("Green player").getResTotals().get("tech"));
         assertEquals(10000, map.getPlayerInfo("Green player").getResTotals().get("food"));
     }
+
+    @Test
+    public void test_send_credit_to_players() {
+        WorldMap map = setupV2Map();
+        ServerOrderHelper oh = new ServerOrderHelper();
+        ArrayList<String> playerNames = new ArrayList<>();
+        playerNames.add("Green player");
+        playerNames.add("Blue player");
+        playerNames.add("Red player");
+        oh.sendCreditToPlayers(map, playerNames);
+        assertEquals(1, map.getTerritory("Fuqua").getTroopNumUnits("level0"));
+        assertEquals(1, map.getTerritory("Gross Hall").getTroopNumUnits("level0"));
+        assertEquals(10050, map.getPlayerInfo("Green player").getResTotals().get("food"));
+        assertEquals(10020, map.getPlayerInfo("Green player").getResTotals().get("tech"));
+        assertEquals(10050, map.getPlayerInfo("Blue player").getResTotals().get("food"));
+        assertEquals(10020, map.getPlayerInfo("Blue player").getResTotals().get("tech"));
+        assertEquals(10050, map.getPlayerInfo("Red player").getResTotals().get("food"));
+        assertEquals(10020, map.getPlayerInfo("Red player").getResTotals().get("tech"));
+    }
 }

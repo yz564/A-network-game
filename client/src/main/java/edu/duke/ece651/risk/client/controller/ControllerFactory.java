@@ -21,6 +21,10 @@ public class ControllerFactory {
         controllers.put("selectTerritoryGroup3P", new SelectTerritoryGroup3PController((App) model));
         controllers.put("selectTerritoryGroup4P", new SelectTerritoryGroup4PController((App) model));
         controllers.put("selectTerritoryGroup5P", new SelectTerritoryGroup5PController((App) model));
+        controllers.put("allocateTalents2p", new AllocateTalents2PController((App) model));
+        controllers.put("allocateTalents3p", new AllocateTalents3PController((App) model));
+        controllers.put("allocateTalents4p", new AllocateTalents4PController((App) model));
+        controllers.put("allocateTalents5p", new AllocateTalents5PController((App) model));
         //Add new controllers here
         controllers.put("test", new ServerConnectController(model));
         return controllers;

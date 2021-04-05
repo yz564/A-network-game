@@ -36,26 +36,16 @@ public class SelectTerritoryGroup2PController implements Initializable {
      */
     public SelectTerritoryGroup2PController(App model) {
         this.model = model;
-        this.next = "test";
+        this.next = "allocateTalents2p";
     }
 
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
-        StyleMapping mapping = new StyleMapping();
+        InitializeControllerHelper helper = new InitializeControllerHelper();
         // set coloring for each territory label
-        for (Label territoryLabel : labelList) {
-            String territoryName = mapping.getTerritoryLabelId(territoryLabel.getId());
-            map = model.getPlayer().getMap();
-            int initGroup = map.inWhichInitGroup(territoryName);
-            territoryLabel.getStyleClass().add("territory-group-" + String.valueOf(initGroup));
-        }
+        helper.initializeTerritoryLabelByGroup(model.getPlayer().getMap(), labelList);
         // set tooltip for each territory label
-        for (Label territoryLabel : labelList) {
-            String territoryName = mapping.getTerritoryLabelId(territoryLabel.getId());
-            Tooltip tt = new Tooltip();
-            tt.setText(getTerritoryTextInfo(territoryName));
-            territoryLabel.setTooltip(tt);
-        }
+        helper.initializeTerritoryTooltips(model.getPlayer().getMap(), labelList);
     }
 
     /* Registers group one with the player.
@@ -100,36 +90,5 @@ public class SelectTerritoryGroup2PController implements Initializable {
         Object controller = new ControllerFactory().getController(next, model);
         Stage newWindow = PhaseChanger.switchTo(window, controller, next);
         newWindow.show();
-    }
-
-    private String getTerritoryTextInfo(String territoryName) {
-        Territory territory = model.getPlayer().getMap().getTerritory(territoryName);
-        String ans =
-                "--------------------------\n"
-                        + territoryName
-                        + "'s Information:\n"
-                        + "--------------------------\n";
-        String ownerName = territory.getOwnerName();
-        if (ownerName == null) {
-            ownerName = "No Owner Yet";
-        }
-        ans = ans + "- Owner Name: " + ownerName + "\n";
-        ans = ans + "- Size: " + territory.getSize() + "\n";
-        ans = ans + "- Food Production Rate: " + territory.getResProduction().get("food") + "\n";
-        ans = ans + "- Tech Production Rate: " + territory.getResProduction().get("tech") + "\n";
-        ans =
-                ans
-                        + "--------------------------\n"
-                        + territoryName
-                        + "'s Talents:\n"
-                        + "--------------------------\n";
-        ans = ans + "- Undergrads: " + territory.getTroopNumUnits("level0") + "\n";
-        ans = ans + "- Master: " + territory.getTroopNumUnits("level1") + "\n";
-        ans = ans + "- PhD: " + territory.getTroopNumUnits("level2") + "\n";
-        ans = ans + "- Postdoc: " + territory.getTroopNumUnits("level3") + "\n";
-        ans = ans + "- Asst. Prof: " + territory.getTroopNumUnits("level4") + "\n";
-        ans = ans + "- Assc. Prof: " + territory.getTroopNumUnits("level5") + "\n";
-        ans = ans + "- Professor: " + territory.getTroopNumUnits("level6") + "\n";
-        return ans;
     }
 }

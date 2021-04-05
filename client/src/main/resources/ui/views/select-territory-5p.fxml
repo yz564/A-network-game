@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
+<?import java.util.ArrayList?>
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="868.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.risk.client.controller.SelectTerritoryGroup5PController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="417.7982177734375" minWidth="10.0" prefWidth="180.1204376220703" />
@@ -65,4 +66,23 @@
       </ButtonBar>
       <Label alignment="CENTER" prefHeight="25.0" prefWidth="868.0" text="Please select the initial group of territories to begin your game." GridPane.columnSpan="3" GridPane.rowIndex="1" />
    </children>
+    <fx:define>
+        <ArrayList fx:id="labelList">
+            <fx:reference source="label0"/>
+            <fx:reference source="label1"/>
+            <fx:reference source="label2"/>
+            <fx:reference source="label3"/>
+            <fx:reference source="label4"/>
+            <fx:reference source="label5"/>
+            <fx:reference source="label6"/>
+            <fx:reference source="label7"/>
+            <fx:reference source="label8"/>
+            <fx:reference source="label9"/>
+            <fx:reference source="label10"/>
+            <fx:reference source="label11"/>
+            <fx:reference source="label12"/>
+            <fx:reference source="label13"/>
+            <fx:reference source="label14"/>
+        </ArrayList>
+    </fx:define>
 </GridPane>
