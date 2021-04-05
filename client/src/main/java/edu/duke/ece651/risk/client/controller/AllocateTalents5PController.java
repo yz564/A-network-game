@@ -79,6 +79,11 @@ public class AllocateTalents5PController implements Initializable {
         numTalent3.setText("0");
         numUnitsAllocated.setText(String.valueOf(0));
         numUnitsAllowed.setText(String.valueOf(model.getPlayer().getMaxUnitsToPlace()));
+        try {
+            model.getPlayer().startAllocation();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /* Sets the territory names in FXML that a player will see while entering number of talents.
