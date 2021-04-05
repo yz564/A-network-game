@@ -10,16 +10,29 @@ import java.util.ArrayList;
 
 public class InitializeControllerHelper {
 
+    /**
+     * Initializes the Tooltips on each territory label.
+     *
+     * @param map The game's map for gathering information to display.
+     * @param territoryLabelList the territory label ArrayList.
+     */
     public void initializeTerritoryTooltips(WorldMap map, ArrayList<Label> territoryLabelList) {
         StyleMapping mapping = new StyleMapping();
         for (Label territoryLabel : territoryLabelList) {
             String territoryName = mapping.getTerritoryLabelId(territoryLabel.getId());
             Tooltip tt = new Tooltip();
             tt.setText(getTerritoryTextInfo(map, territoryName));
+            tt.getStyleClass().add("tooltip-territory");
             territoryLabel.setTooltip(tt);
         }
     }
 
+    /**
+     * Initializes the color of each territory label for the .
+     *
+     * @param map The game's map for gathering information to display.
+     * @param territoryLabelList the territory label ArrayList.
+     */
     public void initializeTerritoryLabelByGroup(WorldMap map, ArrayList<Label> territoryLabelList) {
         StyleMapping mapping = new StyleMapping();
         // set coloring for each territory label
@@ -34,6 +47,13 @@ public class InitializeControllerHelper {
         // TODO: add this for initialize controllers for action phase.
     }
 
+    /**
+     * Returns a String that has text information of the given territory.
+     *
+     * @param map The game's map for gathering information to display.
+     * @param territoryName The territory's name to get info about.
+     * @return a String that has text information of the given territory.
+     */
     private String getTerritoryTextInfo(WorldMap map, String territoryName) {
         Territory territory = map.getTerritory(territoryName);
         String ans =
