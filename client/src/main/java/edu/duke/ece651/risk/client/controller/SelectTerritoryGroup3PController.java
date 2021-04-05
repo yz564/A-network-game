@@ -2,8 +2,11 @@ package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
 import edu.duke.ece651.risk.client.view.PhaseChanger;
+import edu.duke.ece651.risk.client.view.StyleMapping;
+import edu.duke.ece651.risk.shared.WorldMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,19 +14,36 @@ import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class SelectTerritoryGroup3PController {
+public class SelectTerritoryGroup3PController implements Initializable {
     App model;
     String next;
+    WorldMap map;
 
     @FXML
     Label selectTerritory3pErrorLabel;
+    @FXML
+    ArrayList<Label> labelList;
 
     /* Simple constructor that initializes the model for the controller.
      */
     public SelectTerritoryGroup3PController(App model) {
         this.model = model;
         this.next = "allocateTalents3p";
+    }
+
+    @FXML
+    public void initialize(URL location, ResourceBundle resources) {
+        for (Label territoryLabel: labelList) {
+            StyleMapping mapping = new StyleMapping();
+            String territoryName = mapping.getTerritoryLabelId(territoryLabel.getId());
+            map = model.getPlayer().getMap();
+            int initGroup = map.inWhichInitGroup(territoryName);
+            territoryLabel.getStyleClass().add("territory-group-" + String.valueOf(initGroup));
+        }
     }
 
     /* Registers group one with the player.
