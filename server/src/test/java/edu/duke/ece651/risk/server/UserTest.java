@@ -25,7 +25,7 @@ public class UserTest {
     Thread t3 = new Thread(ch3);
     t3.start();
     System.out.println("New thread created");
-    ServerSocket ss=new ServerSocket(3333);
+    ServerSocket ss=new ServerSocket(7777);
     Socket s=ss.accept();
     Socket s2=ss.accept();
     Socket s3=ss.accept();
@@ -69,7 +69,7 @@ public class UserTest {
       try{
       Thread.sleep(100);
       while (true) {
-        this.socket = new Socket("localhost", 3333);
+        this.socket = new Socket("localhost", 7777);
         this.out= new ObjectOutputStream(socket.getOutputStream());
         this.in = new ObjectInputStream(socket.getInputStream());
         break;
