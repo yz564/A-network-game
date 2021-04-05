@@ -18,6 +18,8 @@ public class PhaseStorage {
         Phase phase5_2 = makePhase("allocateTalents3p", "/ui/views/allocate-talents-3p.fxml", "/ui/styling/territory-group.css", "Duke Risk Game! - Deploy Talents To Your Territories");
         Phase phase5_3 = makePhase("allocateTalents4p", "/ui/views/allocate-talents-4p.fxml", "/ui/styling/territory-group.css", "Duke Risk Game! - Deploy Talents To Your Territories");
         Phase phase5_4 = makePhase("allocateTalents5p", "/ui/views/allocate-talents-5p.fxml", "/ui/styling/territory-group.css", "Duke Risk Game! - Deploy Talents To Your Territories");
+        Phase phase6_1 = makePhase("selectActionEvenPlayers", "/ui/views/select-action-even.fxml", "/ui/styling/territory-group.css", "Duke Risk Game! - Select Actions");
+        Phase phase6_2 = makePhase("selectActionOddPlayers", "/ui/views/select-action-odd.fxml", "/ui/styling/territory-group.css", "Duke Risk Game! - Select Actions");
         Phase phaseTest = makePhase("test", "/ui/views/test.fxml", null, "Duke Risk Game! - Test");
         // Add new Phases here
         phases.put(phase1.getName(), phase1);
@@ -31,6 +33,8 @@ public class PhaseStorage {
         phases.put(phase5_2.getName(), phase5_2);
         phases.put(phase5_3.getName(), phase5_3);
         phases.put(phase5_4.getName(), phase5_4);
+        phases.put(phase6_1.getName(), phase6_1);
+        phases.put(phase6_2.getName(), phase6_2);
         phases.put(phaseTest.getName(), phaseTest);
         //Put new Phases into HashMap here
         return phases;

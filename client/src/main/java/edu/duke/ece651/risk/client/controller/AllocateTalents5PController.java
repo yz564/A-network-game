@@ -68,7 +68,7 @@ public class AllocateTalents5PController implements Initializable {
     public AllocateTalents5PController(App model) {
         this.model = model;
         this.numUnitsEntered = 0;
-        this.next = "test";
+        this.next = "selectActionOddPlayers";
     }
 
     public void initialize(URL location, ResourceBundle resources) {

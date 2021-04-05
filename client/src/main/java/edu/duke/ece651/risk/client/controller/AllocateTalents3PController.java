@@ -80,7 +80,7 @@ public class AllocateTalents3PController implements Initializable {
     public AllocateTalents3PController(App model) {
         this.model = model;
         this.numUnitsEntered = 0;
-        this.next = "test";
+        this.next = "selectActionOddPlayers";
     }
 
     public void initialize(URL location, ResourceBundle resources) {

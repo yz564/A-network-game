@@ -74,7 +74,7 @@ public class AllocateTalents4PController implements Initializable {
     public AllocateTalents4PController(App model) {
         this.model = model;
         this.numUnitsEntered = 0;
-        this.next = "test";
+        this.next = "selectActionEvenPlayers";
     }
 
     public void initialize(URL location, ResourceBundle resources) {

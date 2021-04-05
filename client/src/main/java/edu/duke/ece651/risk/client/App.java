@@ -95,7 +95,7 @@ public class App{
     return false;
   }
 
-  public void requestLeave() throws Exception{
+  public void requestLeave() throws Exception {
     out.writeObject(new ObjectIO("/leave"));
     out.flush();
     out.reset();

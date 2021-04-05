@@ -14,25 +14,16 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class GameplayController implements Initializable {
+public class SelectActionController implements Initializable {
     App model;
     String next;
 
     @FXML
-    Label playerName;
-
-    @FXML
-    Label techLevel;
-
-    @FXML
-    Label food;
-
-    @FXML
-    Label money;
+    Label playerInfo;
 
     /* Constructor that initializes the model and the next view.
      */
-    public void GameplayController(App model) {
+    public SelectActionController(App model) {
         this.model = model;
         this.next = "test";
     }
@@ -48,12 +39,29 @@ public class GameplayController implements Initializable {
         //money.setText(model.getPlayer().getAmountOfMoney());
     }
 
-    /* Switches to a view that asks player to choose an action such as attack another territory.
+    /* Switches to the view that asks player join a  room.
      */
-    public void onAction(ActionEvent ae) throws IllegalArgumentException {
+    @FXML
+    public void onLeavingGame(ActionEvent ae) throws Exception {
+        Object source = ae.getSource();
+        if (source instanceof Button) { // go to join room
+            model.requestLeave();
+            this.next = "joinRoom";
+            loadNextPhase(ae);
+        }
+        else {
+            throw new IllegalArgumentException("Action event " + ae.getSource() + " is invalid for onAction().");
+        }
+    }
+
+    /* Takes the user to a view that asks them to wait for other players to finishe their turn.
+     */
+    @FXML
+    public void onCompletingTurn(ActionEvent ae) throws IOException {
         Object source = ae.getSource();
         if (source instanceof Button) {
-            // loadNextPhase();
+            this.next = "test"; // TODO update to the next scene "waiting for other players to finish their turn view"
+            loadNextPhase(ae);
         }
         else {
             throw new IllegalArgumentException("Action event " + ae.getSource() + " is invalid for onAction().");

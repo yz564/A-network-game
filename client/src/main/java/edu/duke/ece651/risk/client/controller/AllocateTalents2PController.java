@@ -98,7 +98,7 @@ public class AllocateTalents2PController implements Initializable {
     public AllocateTalents2PController(App model) {
         this.model = model;
         this.numUnitsEntered = 0;
-        this.next = "test";
+        this.next = "selectActionEvenPlayers";
     }
 
     @Override

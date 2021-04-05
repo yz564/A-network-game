@@ -25,6 +25,8 @@ public class ControllerFactory {
         controllers.put("allocateTalents3p", new AllocateTalents3PController((App) model));
         controllers.put("allocateTalents4p", new AllocateTalents4PController((App) model));
         controllers.put("allocateTalents5p", new AllocateTalents5PController((App) model));
+        controllers.put("selectActionEvenPlayers", new SelectActionController((App) model));
+        controllers.put("selectActionOddPlayers", new SelectActionController((App) model));
         //Add new controllers here
         controllers.put("test", new ServerConnectController(model));
         return controllers;
