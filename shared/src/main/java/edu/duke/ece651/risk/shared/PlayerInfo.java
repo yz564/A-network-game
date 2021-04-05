@@ -27,6 +27,37 @@ public class PlayerInfo implements java.io.Serializable {
    * Constructs a PlayerInfo object.
    *
    * @param playerName is the name of the player.
+   * @param techLevel  is the maximum technology level for the player.
+   * @param resTotals  is a HashMap that contains the total amounts of different
+   *                   resouces for the player, where the key is the name of the
+   *                   resource, and the value is the player's current amount of
+   *                   the resource.
+   */
+  public PlayerInfo(String playerName, int techLevel, HashMap<String, Integer> resTotals) {
+    this.playerName = playerName;
+    this.playerId = 0;
+    this.techLevel = techLevel;
+    this.resTotals = resTotals;
+  }
+
+  /**
+   * Constructs a PlayerInfo object, using makeResTotals() to set the initial
+   * resources amounts.
+   *
+   * @param playerName  is the name of the player.
+   * @param foodInitAmt is the initial amount of food resources given to the
+   *                    player.
+   * @param techInitAmt is the initial amount of tech resouces given to the
+   *                    player.
+   */
+  public PlayerInfo(String playerName, int foodInitAmt, int techInitAmt) {
+    this(playerName, 1, makeResTotals(foodInitAmt, techInitAmt));
+  }
+
+  /**
+   * Constructs a PlayerInfo object.
+   *
+   * @param playerName is the name of the player.
    * @param playerId    is the ID of the player.
    * @param techLevel  is the maximum technology level for the player.
    * @param resTotals  is a HashMap that contains the total amounts of different
