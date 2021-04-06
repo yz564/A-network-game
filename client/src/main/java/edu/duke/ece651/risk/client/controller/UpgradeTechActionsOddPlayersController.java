@@ -76,6 +76,7 @@ public class UpgradeTechActionsOddPlayersController implements Initializable {
   /* Asks server to upgrade the technology of the current player. If upgrade is successful, view switches to
    * Action Selection window, else an error is displayed describing the problem with the upgrade.
    */
+  @FXML
   public void onUpgradeTech(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
     if (source instanceof Button) {
@@ -102,6 +103,7 @@ public class UpgradeTechActionsOddPlayersController implements Initializable {
   /* Triggered when a player hits the cancel button.
    * Player is taken back to the select action window.
    */
+  @FXML
   public void onCancel(ActionEvent ae) throws IOException {
     Object source = ae.getSource();
     if (source instanceof Button) {
