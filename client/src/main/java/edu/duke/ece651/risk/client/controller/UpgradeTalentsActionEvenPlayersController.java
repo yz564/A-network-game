@@ -41,9 +41,9 @@ public class UpgradeTalentsActionEvenPlayersController implements Initializable 
 
   @FXML TextField numTalents;
 
-  @FXML Label errorMessage;
+  @FXML Label numTalentsAvailable;
 
-  @FXML Label territoryGroupName;
+  @FXML Label errorMessage;
 
   @FXML ArrayList<Label> labelList;
 
@@ -52,6 +52,7 @@ public class UpgradeTalentsActionEvenPlayersController implements Initializable 
   public UpgradeTalentsActionEvenPlayersController(App model) {
     this.model = model;
     this.next = "selectActionEvenPlayers";
+
     territoryNames = FXCollections.observableArrayList();
     talentNames = FXCollections.observableArrayList();
     talents = new HashMap<>();
@@ -77,7 +78,6 @@ public class UpgradeTalentsActionEvenPlayersController implements Initializable 
     // set coloring for player info
     helper.initializeTerritoryPlayerInfoColor(model, playerInfo);
 
-    territoryGroupName.setText("Upgrade Talents");
     setSourceTerritoryNames();
     String playerName = model.getPlayer().getName();
     techLevel.setText(
@@ -109,6 +109,30 @@ public class UpgradeTalentsActionEvenPlayersController implements Initializable 
       talentNames.add(name);
     }
     box.getItems().addAll(talentNames);
+  }
+
+  public void onSelectSource(ActionEvent ae) throws Exception {
+    Object source = ae.getSource();
+    if (source instanceof ChoiceBox) {
+      String srcTerritory = (String) sourceTerritoryName.getValue();
+      HashMap<String, Integer> allNumUnits =
+          model.getPlayer().getMap().getTerritory(srcTerritory).getAllNumUnits();
+      numTalentsAvailable.setText(String.valueOf(allNumUnits.get(numTalentsAvailable.getId())));
+    } else {
+      throw new IllegalArgumentException("Invalid ActionEvent source " + source);
+    }
+  }
+
+  public void onSelectTalent(ActionEvent ae) throws Exception {
+    Object source = ae.getSource();
+    if (source instanceof ChoiceBox) {
+      String srcTerritory = (String) sourceTerritoryName.getValue();
+      HashMap<String, Integer> allNumUnits =
+          model.getPlayer().getMap().getTerritory(srcTerritory).getAllNumUnits();
+      numTalentsAvailable.setText(String.valueOf(allNumUnits.get(numTalentsAvailable.getId())));
+    } else {
+      throw new IllegalArgumentException("Invalid ActionEvent source " + source);
+    }
   }
 
   /* Sends upgrade talent request to the server. Switches the view back to Action Selection view if successful,
@@ -150,9 +174,9 @@ public class UpgradeTalentsActionEvenPlayersController implements Initializable 
     Object source = ae.getSource();
     if (source instanceof Button) {
       loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
-    }
-    else {
-      throw new IllegalArgumentException("Invalid source " + source + " for the cancel upgrade tech level method.");
+    } else {
+      throw new IllegalArgumentException(
+          "Invalid source " + source + " for the cancel upgrade tech level method.");
     }
   }
 
