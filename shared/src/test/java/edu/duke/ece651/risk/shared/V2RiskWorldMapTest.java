@@ -101,5 +101,6 @@ public class V2RiskWorldMapTest {
     WorldMap worldmap = new V2RiskWorldMap();
     worldmap.tryAddInitGroup(1, "Narnia");
     assertEquals(1, worldmap.inWhichInitGroup("Narnia"));
+    assertEquals(0, worldmap.inWhichInitGroup("Elantris"));
   }
 }

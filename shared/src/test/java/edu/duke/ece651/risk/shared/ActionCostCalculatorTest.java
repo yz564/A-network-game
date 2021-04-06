@@ -45,5 +45,8 @@ public class ActionCostCalculatorTest {
     assertNull(cal.calculateAttackCost(a3, worldmap));
     assertNull(cal.calculateUpgradeUnitCost(a1, worldmap));
     assertNull(cal.calculateUpgradeTechCost(a2, worldmap));
+
+    ActionInfo a5 = new ActionInfo("Player 1", "test");
+    assertNull(cal.calculateMoveCost(a5, worldmap));
   }
 }
