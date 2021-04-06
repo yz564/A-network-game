@@ -128,7 +128,7 @@ public class SelectActionController implements Initializable {
     if (source instanceof Button) { // go to join room
       model.requestLeave();
       next = nextOnLeave;
-      loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
+      loadNextPhase((Stage) actionMenu.getScene().getWindow());
     } else {
       throw new IllegalArgumentException(
           "Action event " + ae.getSource() + " is invalid for onAction().");
@@ -147,7 +147,7 @@ public class SelectActionController implements Initializable {
       } else {
         this.next = nextOnCompleteTurn;
       }
-      loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
+      loadNextPhase((Stage) actionMenu.getScene().getWindow());
     } else {
       throw new IllegalArgumentException(
           "Action event " + ae.getSource() + " is invalid for onAction().");

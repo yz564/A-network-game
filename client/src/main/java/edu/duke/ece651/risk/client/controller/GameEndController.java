@@ -4,6 +4,7 @@ import edu.duke.ece651.risk.client.App;
 import edu.duke.ece651.risk.client.view.PhaseChanger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,8 +12,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class GameEndController {
+public class GameEndController implements Initializable {
   App model;
   String next;
 
@@ -23,12 +26,19 @@ public class GameEndController {
 
   @FXML Label gameEndLabel;
 
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+    // gameEndLabel.setText();
+  }
+
   @FXML
   public void onGameEnd(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
     if (source instanceof Button) {
       // add delete room id method
-      loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
+      int roomId = model.getPlayer().getRoomId();
+      model.deleteJoinedRoomId(roomId);
+      loadNextPhase(ae);
     } else {
       throw new IllegalArgumentException("Invalid source " + source + " for ActionEvent");
     }
@@ -37,7 +47,8 @@ public class GameEndController {
   /* Loads next phase after a player clicks on a menu item inside a SplitMenuButton.
    * @param window is the source Stage where the user interacted.
    */
-  private void loadNextPhase(Stage window) throws IOException {
+  private void loadNextPhase(ActionEvent ae) throws IOException {
+    Stage window = (Stage) (((Node) ae.getSource()).getScene().getWindow());
     Object controller = new ControllerFactory().getController(next, model);
     Stage newWindow = PhaseChanger.switchTo(window, controller, next);
     newWindow.show();
