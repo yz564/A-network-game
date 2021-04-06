@@ -73,20 +73,38 @@ public class SelectActionController implements Initializable {
 
     /* Opens a new view that asks user to attack enemy territory.
      */
-    public void onSelectAttack() {
-
+    public void onSelectAttack(ActionEvent ae) throws Exception {
+        Object source = ae.getSource();
+        if (source instanceof MenuItem) {
+            next = nextOnAttackAction;
+            loadNextPhase((Stage) actionMenu.getScene().getWindow());
+        } else {
+            throw new IllegalArgumentException("Action event " + ae.getSource() + " is invalid.");
+        }
     }
 
     /* Opens a new view that asks user to upgrade their talents.
      */
-    public void onSelectUpgradeTalents() {
-
+    public void onSelectUpgradeTalents(ActionEvent ae) throws Exception {
+        Object source = ae.getSource();
+        if (source instanceof MenuItem) {
+            next = nextOnUpgradeTalentsAction;
+            loadNextPhase((Stage) actionMenu.getScene().getWindow());
+        } else {
+            throw new IllegalArgumentException("Action event " + ae.getSource() + " is invalid.");
+        }
     }
 
     /* Opens a new view that asks user to upgrade their technology level.
      */
-    public void onSelectUpgradeTech() {
-
+    public void onSelectUpgradeTech(ActionEvent ae) throws Exception {
+        Object source = ae.getSource();
+        if (source instanceof MenuItem) {
+            next = nextOnUpgradeTechAction;
+            loadNextPhase((Stage) actionMenu.getScene().getWindow());
+        } else {
+            throw new IllegalArgumentException("Action event " + ae.getSource() + " is invalid.");
+        }
     }
 
     /* Switches to the view that asks player join a  room.

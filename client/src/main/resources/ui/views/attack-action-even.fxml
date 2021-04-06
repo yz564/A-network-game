@@ -137,7 +137,6 @@
             <Label text="/" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="10" />
             <Label fx:id="numTalentAvailable4" text="8" GridPane.columnIndex="3" GridPane.rowIndex="9" />
             <Label fx:id="numTalentAvailable5" text="8" GridPane.columnIndex="3" GridPane.rowIndex="10" />
-            <Label fx:id="errorMessage" alignment="CENTER" prefHeight="123.0" prefWidth="323.0" textAlignment="CENTER" textFill="RED" wrapText="true" GridPane.columnSpan="4" GridPane.rowIndex="15" />
          </children>
       </GridPane>
   </items>
