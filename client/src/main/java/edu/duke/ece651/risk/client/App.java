@@ -43,6 +43,10 @@ public class App{
     this.joinedRoomId = null;
   }
 
+  public void deleteJoinedRoomId(int id) {
+    joinedRoomId.remove(id);
+  }
+  
   public Player getPlayer() {
     return players.get(currentRoomId);
   }
