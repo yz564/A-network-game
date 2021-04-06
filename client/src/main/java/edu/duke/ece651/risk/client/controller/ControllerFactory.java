@@ -27,6 +27,15 @@ public class ControllerFactory {
         controllers.put("allocateTalents5p", new AllocateTalents5PController((App) model));
         controllers.put("selectActionEvenPlayers", new SelectActionController((App) model));
         controllers.put("selectActionOddPlayers", new SelectActionController((App) model));
+        controllers.put("moveActionEvenPlayers", new MoveActionEvenPlayersController((App) model));
+        controllers.put("moveActionOddPlayers", new MoveActionOddPlayersController((App) model));
+        controllers.put("attackActionEvenPlayers", new AttackActionEvenPlayersController((App) model));
+        controllers.put("attackActionOddPlayers", new AttackActionOddPlayersController((App) model));
+        controllers.put("upgradeTalentsActionEvenPlayers", new UpgradeTalentsActionEvenPlayersController((App) model));
+        controllers.put("upgradeTalentsActionOddPlayers", new UpgradeTalentsActionOddPlayersController((App) model));
+        controllers.put("upgradeTechActionEvenPlayers", new UpgradeTechActionsEvenPlayersController((App) model));
+        controllers.put("upgradeTechActionOddPlayers", new UpgradeTechActionsOddPlayersController((App) model));
+
         //Add new controllers here
         controllers.put("test", new ServerConnectController(model));
         return controllers;

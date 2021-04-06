@@ -14,7 +14,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<?import java.util.ArrayList?>
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="868.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.risk.client.controller.SelectActionController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="417.7982177734375" minWidth="10.0" prefWidth="180.1204376220703" />
@@ -60,12 +59,12 @@
       </Label>
       <ButtonBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="59.0" prefWidth="281.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
         <buttons>
-            <SplitMenuButton mnemonicParsing="false" prefHeight="30.0" text="Select Action">
+            <SplitMenuButton fx:id="actionMenu" mnemonicParsing="false" onAction="#onSelectingAction" prefHeight="30.0" text="Select Action">
               <items>
-                <MenuItem mnemonicParsing="false" text="Move" />
-                <MenuItem mnemonicParsing="false" text="Attack" />
-                  <MenuItem mnemonicParsing="false" text="Upgrade Talents" />
-                  <MenuItem mnemonicParsing="false" text="Upgrade Tech Level" />
+                <MenuItem mnemonicParsing="false" onAction="#onSelectMove" text="Move" />
+                <MenuItem mnemonicParsing="false" onAction="#onSelectAttack" text="Attack" />
+                  <MenuItem mnemonicParsing="false" onAction="#onSelectUpgradeTalents" text="Upgrade Talents" />
+                  <MenuItem mnemonicParsing="false" onAction="#onSelectUpgradeTech" text="Upgrade Tech Level" />
               </items>
             </SplitMenuButton>
             <Button mnemonicParsing="false" onAction="#onCompletingTurn" prefHeight="30.0" prefWidth="125.0" styleClass="territory-group-2" text="Complete Turn" />

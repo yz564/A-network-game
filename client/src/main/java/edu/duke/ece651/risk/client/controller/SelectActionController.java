@@ -19,6 +19,10 @@ public class SelectActionController implements Initializable {
     String next;
     String nextOnCompleteTurn;
     String nextOnLeave;
+    String nextOnMoveAction;
+    String nextOnAttackAction;
+    String nextOnUpgradeTalentsAction;
+    String nextOnUpgradeTechAction;
 
     @FXML
     Label playerInfo;
@@ -35,16 +39,19 @@ public class SelectActionController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         if (model.getPlayer().getMap().getNumPlayers() % 2 == 0) {
             this.nextOnCompleteTurn = "selectActionEvenPlayers";
+            this.nextOnMoveAction = "moveActionEvenPlayers";
+            this.nextOnAttackAction = "attackActionEvenPlayers";
+            this.nextOnUpgradeTalentsAction = "upgradeTalentsActionEvenPlayers";
+            this.nextOnUpgradeTechAction = "upgradeTechActionEvenPlayers";
         }
         else {
             this.nextOnCompleteTurn = "selectActionOddPlayers";
+            this.nextOnMoveAction = "moveActionOddPlayers";
+            this.nextOnAttackAction = "attackActionOddPlayers";
+            this.nextOnUpgradeTalentsAction = "upgradeTalentsActionOddPlayers";
+            this.nextOnUpgradeTechAction = "upgradeTechActionOddPlayers";
         }
         this.nextOnLeave = "joinRoom";
-        //playerName.setText(model.getPlayer().getName());
-        // set player color
-        //techLevel.setText(model.getPlayer().getTechLevel());
-        //food.setText(model.getPlayer().getAmountOfFood());
-        //money.setText(model.getPlayer().getAmountOfMoney());
     }
 
     /* Switches to the view that asks player join a  room.
