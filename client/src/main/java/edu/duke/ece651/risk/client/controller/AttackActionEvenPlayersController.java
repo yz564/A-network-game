@@ -113,6 +113,9 @@ public class AttackActionEvenPlayersController implements Initializable {
     }
   }
 
+  /* Triggered when player confirms their attack action by clicking on the Confirm button.
+   */
+  @FXML
   public void onAttack(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
     if (source instanceof Button) {
@@ -137,6 +140,20 @@ public class AttackActionEvenPlayersController implements Initializable {
       }
     } else {
       throw new IllegalArgumentException("Invalid ActionEvent source " + source);
+    }
+  }
+
+  /* Triggered when a player hits the cancel button.
+   * Player is taken back to the select action window.
+   */
+  @FXML
+  public void onCancel(ActionEvent ae) throws IOException {
+    Object source = ae.getSource();
+    if (source instanceof Button) {
+      loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
+    }
+    else {
+      throw new IllegalArgumentException("Invalid source " + source + " for the cancel upgrade tech level method.");
     }
   }
 

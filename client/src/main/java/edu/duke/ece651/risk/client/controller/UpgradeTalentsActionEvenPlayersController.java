@@ -142,6 +142,21 @@ public class UpgradeTalentsActionEvenPlayersController implements Initializable 
     }
   }
 
+  /* Triggered when a player hits the cancel button.
+   * Player is taken back to the select action window.
+   */
+  @FXML
+  public void onCancel(ActionEvent ae) throws IOException {
+    Object source = ae.getSource();
+    if (source instanceof Button) {
+      loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
+    }
+    else {
+      throw new IllegalArgumentException("Invalid source " + source + " for the cancel upgrade tech level method.");
+    }
+  }
+
+  @FXML
   public void onTypingNumUnits(KeyEvent ke) throws Exception {}
 
   /* Ensures all the inputs through various buttons, textfields, choice boxes, etc are valid for creating a
