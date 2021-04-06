@@ -54,6 +54,30 @@ public class SelectActionController implements Initializable {
         this.nextOnLeave = "joinRoom";
     }
 
+    /* Opens a new view that asks user to move their talents within their territories.
+     */
+    public void onSelectMove() {
+
+    }
+
+    /* Opens a new view that asks user to attack enemy territory.
+     */
+    public void onSelectAttack() {
+
+    }
+
+    /* Opens a new view that asks user to upgrade their talents.
+     */
+    public void onSelectUpgradeTalents() {
+
+    }
+
+    /* Opens a new view that asks user to upgrade their technology level.
+     */
+    public void onSelectUpgradeTech() {
+
+    }
+
     /* Switches to the view that asks player join a  room.
      */
     @FXML
