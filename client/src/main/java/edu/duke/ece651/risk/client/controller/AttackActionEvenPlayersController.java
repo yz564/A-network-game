@@ -20,9 +20,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class AttackActionEvenPlayersController implements Initializable {
   App model;
@@ -87,9 +85,14 @@ public class AttackActionEvenPlayersController implements Initializable {
   private void setDestinationTerritoryNames() {
     territoryNames.removeAll(territoryNames);
     String playerName = model.getPlayer().getName();
+    HashMap<String, Territory> playerTerritories =
+            model.getPlayer().getMap().getPlayerTerritories(playerName);
     ArrayList<String> allTerritories = model.getPlayer().getMap().getMyTerritories();
     for (String territoryName : allTerritories) {
-      territoryNames.add(territoryName);
+      // only add a territory to destination if it is not a player territory
+      if (!playerTerritories.keySet().contains(territoryName)) {
+        territoryNames.add(territoryName);
+      }
     }
     destTerritoryName.getItems().addAll(territoryNames);
   }
@@ -145,8 +148,8 @@ public class AttackActionEvenPlayersController implements Initializable {
       for (TextField numTalent : numTalentlList) {
         parseIntFromTextField(numTalent.getText(), numTalentlList.indexOf(numTalent));
       }
-      sourceTerritoryName.getValue();
-      destTerritoryName.getValue();
+      String srcName = (String) sourceTerritoryName.getValue();
+      String dstName = (String) destTerritoryName.getValue();
     } catch (IllegalArgumentException iae) {
       return iae.getMessage();
     } catch (NullPointerException npe) {

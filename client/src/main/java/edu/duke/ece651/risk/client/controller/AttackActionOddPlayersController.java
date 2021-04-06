@@ -87,9 +87,14 @@ public class AttackActionOddPlayersController implements Initializable {
   private void setDestinationTerritoryNames() {
     territoryNames.removeAll(territoryNames);
     String playerName = model.getPlayer().getName();
+    HashMap<String, Territory> playerTerritories =
+            model.getPlayer().getMap().getPlayerTerritories(playerName);
     ArrayList<String> allTerritories = model.getPlayer().getMap().getMyTerritories();
     for (String territoryName : allTerritories) {
-      territoryNames.add(territoryName);
+      // only add a territory to destination if it is not a player territory
+      if (!playerTerritories.keySet().contains(territoryName)) {
+        territoryNames.add(territoryName);
+      }
     }
     destTerritoryName.getItems().addAll(territoryNames);
   }
