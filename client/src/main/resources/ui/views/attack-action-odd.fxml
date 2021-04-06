@@ -31,7 +31,7 @@
                                 <Font size="20.0"/>
                             </font>
                         </Label>
-                        <Label fx:id="territoryGroupName" layoutX="484.0" layoutY="13.0" prefHeight="43.0"
+                        <Label layoutX="484.0" layoutY="13.0" prefHeight="43.0"
                                prefWidth="187.0" text="Attack" textAlignment="CENTER">
                             <font>
                                 <Font size="20.0"/>
@@ -155,19 +155,19 @@
                 <Label alignment="CENTER" prefHeight="17.0" prefWidth="325.0"
                        text="Talents to Attack:" GridPane.columnSpan="4" GridPane.rowIndex="5"/>
 
-                <TextField fx:id="numTalent1" text="" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1"
+                <TextField fx:id="numTalent1" text="0" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1"
                            GridPane.rowIndex="6"/>
-                <TextField fx:id="numTalent2" text="" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1"
+                <TextField fx:id="numTalent2" text="0" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1"
                            GridPane.rowIndex="7"/>
-                <TextField fx:id="numTalent3" text="" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1"
+                <TextField fx:id="numTalent3" text="0" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1"
                            GridPane.rowIndex="8"/>
-                <TextField fx:id="numTalent4" text="" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1"
+                <TextField fx:id="numTalent4" text="0" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1"
                            GridPane.rowIndex="9"/>
-                <TextField fx:id="numTalent5" text="" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1"
+                <TextField fx:id="numTalent5" text="0" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1"
                            GridPane.rowIndex="10"/>
-                <TextField fx:id="numTalent6" text="" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1"
+                <TextField fx:id="numTalent6" text="0" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1"
                            GridPane.rowIndex="11"/>
-                <TextField fx:id="numTalent7" text="" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1"
+                <TextField fx:id="numTalent7" text="0" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1"
                            GridPane.rowIndex="12"/>
 
                 <Label text="/" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6"/>

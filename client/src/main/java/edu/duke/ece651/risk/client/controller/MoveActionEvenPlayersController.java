@@ -43,7 +43,7 @@ public class MoveActionEvenPlayersController implements Initializable {
 
   @FXML ArrayList<Label> numTalentAvailList;
 
-  @FXML ArrayList<TextField> numTalentlList;
+  @FXML ArrayList<TextField> numTalentList;
 
   public MoveActionEvenPlayersController(App model) {
     this.model = model;
@@ -130,7 +130,7 @@ public class MoveActionEvenPlayersController implements Initializable {
    */
   String checkInput() {
     try {
-      for (TextField numTalent : numTalentlList) {
+      for (TextField numTalent : numTalentList) {
         parseIntFromTextField(numTalent.getText());
       }
       sourceTerritoryName.getValue();
@@ -147,10 +147,9 @@ public class MoveActionEvenPlayersController implements Initializable {
    */
   HashMap<String, Integer> getNumUnits() throws IllegalArgumentException {
     HashMap<String, Integer> numUnits = new HashMap<>();
-    for (TextField numTalent : numTalentlList) {
-      int itemNum = numTalentlList.indexOf(numTalent);
-      numUnits.put(
-          "level" + String.valueOf(itemNum - 1), parseIntFromTextField(numTalent.getText()));
+    for (TextField numTalent : numTalentList) {
+      int itemNum = numTalentList.indexOf(numTalent);
+      numUnits.put("level" + String.valueOf(itemNum), parseIntFromTextField(numTalent.getText()));
     }
     return numUnits;
   }
