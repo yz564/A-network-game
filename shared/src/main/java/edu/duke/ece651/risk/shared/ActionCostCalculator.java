@@ -106,4 +106,19 @@ public class ActionCostCalculator {
     }
     return null;
   }
+  public HashMap<String, Integer> calculateCost(ActionInfo action, WorldMap worldmap){
+    if (action.getActionType().equals("move")) {
+        return calculateMoveCost(action, worldmap);
+    }
+    if (action.getActionType().equals("attack")) {
+      return calculateAttackCost(action, worldmap);
+    }
+    if (action.getActionType().equals("upgrade unit")) {
+      return calculateUpgradeUnitCost(action, worldmap);
+    }
+    if (action.getActionType().equals("upgrade tech")) {
+      return calculateUpgradeTechCost(action, worldmap);
+    }
+    return null;
+  }
 }
