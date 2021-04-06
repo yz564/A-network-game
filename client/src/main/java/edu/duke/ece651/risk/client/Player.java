@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import edu.duke.ece651.risk.shared.*;
-import org.apache.commons.lang3.SerializationUtils;
 
 public class Player implements Runnable {
     private int id;
@@ -18,7 +17,7 @@ public class Player implements Runnable {
     private BufferedReader stdIn;
     public volatile Boolean wait;
     public volatile Boolean ready;
-    private String territorySelected;
+    private String territoryGroupSelected;
     private int maxUnitsToPlace;
     private WorldMap theMap;
     private final ActionRuleCheckerHelper ruleChecker = new ActionRuleCheckerHelper();
@@ -47,9 +46,7 @@ public class Player implements Runnable {
         return name;
     }
 
-    public String getTerritorySelected() {
-        return territorySelected;
-    }
+    public String getTerritoryGroupSelected() { return territoryGroupSelected; }
 
     public WorldMap getMap() {
         return theMap;
@@ -93,10 +90,10 @@ public class Player implements Runnable {
             sendMessage(new ObjectIO(info, Integer.parseInt(info)));
             receiveMessage();
             if (tmp.id == 0) {
-                receiveMessage();
-                this.territorySelected = info;
-                // System.out.println(theMap.getPlayerTerritories(name));
-                return true;
+              receiveMessage();
+                this.territoryGroupSelected = info;
+              //System.out.println(theMap.getPlayerTerritories(name));
+              return true;
             }
         }
         return false;

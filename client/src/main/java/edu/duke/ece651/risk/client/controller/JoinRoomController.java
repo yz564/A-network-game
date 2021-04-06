@@ -24,6 +24,8 @@ import java.util.ArrayList;
 public class JoinRoomController {
     App model;
     String next;
+    String newPlayerNextView;
+    String existingPlayerNextView;
 
     @FXML
     Label joinRoomErrorLabel;
@@ -51,7 +53,7 @@ public class JoinRoomController {
      * @param ae is used to determine if button for joining this room was clicked on.
      * @param roomId is the room number you want to join. Currently supports joining room 1, 2, 3, and 4.
      */
-    private void joinRoom(ActionEvent ae, int roomId) throws Exception {
+    private void joinRoom(ActionEvent ae, int roomId, String newPlayerNextView, String existingPlayerNextView) throws Exception {
         Object source = ae.getSource();
         if (source instanceof Button) {
             Boolean joinRoomSuccess = model.tryJoinRoom(roomId);
@@ -61,12 +63,13 @@ public class JoinRoomController {
             else {
                 Boolean checkInSuccess = model.checkIn();
                 if (checkInSuccess) {
+                    this.next = newPlayerNextView;
                     model.getPlayer().startInitialization();
-                    loadNextPhase(ae);
                 }
                 else {
-                    //load action selection phase when ready
+                    this.next = existingPlayerNextView;
                 }
+                loadNextPhase(ae);
             }
         } else {
             throw new IllegalArgumentException("Invalid source " + source + " for ActionEvent");
@@ -78,8 +81,9 @@ public class JoinRoomController {
      */
     @FXML
     public void onJoinRoomOne(ActionEvent ae) throws Exception {
-        this.next = "selectTerritoryGroup2P";
-        joinRoom(ae, 1);
+        this.newPlayerNextView = "selectTerritoryGroup2P";
+        this.existingPlayerNextView = "selectActionEvenPlayers";
+        joinRoom(ae, 1, newPlayerNextView, existingPlayerNextView);
     }
 
     /* Lets user join room two.
@@ -87,8 +91,9 @@ public class JoinRoomController {
      */
     @FXML
     public void onJoinRoomTwo(ActionEvent ae) throws Exception {
-        this.next = "selectTerritoryGroup3P";
-        joinRoom(ae, 2);
+        this.newPlayerNextView = "selectTerritoryGroup3P";
+        this.existingPlayerNextView = "selectActionOddPlayers";
+        joinRoom(ae, 2, newPlayerNextView, existingPlayerNextView);
 
     }
 
@@ -97,8 +102,9 @@ public class JoinRoomController {
      */
     @FXML
     public void onJoinRoomThree(ActionEvent ae) throws Exception {
-        this.next = "selectTerritoryGroup4P";
-        joinRoom(ae, 3);
+        this.newPlayerNextView = "selectTerritoryGroup4P";
+        this.existingPlayerNextView = "selectActionEvenPlayers";
+        joinRoom(ae, 3, newPlayerNextView, existingPlayerNextView);
     }
 
     /* Lets user join room four.
@@ -106,7 +112,8 @@ public class JoinRoomController {
      */
     @FXML
     public void onJoinRoomFour(ActionEvent ae) throws Exception {
-        this.next = "selectTerritoryGroup5P";
-        joinRoom(ae, 4);
+        this.newPlayerNextView = "selectTerritoryGroup5P";
+        this.existingPlayerNextView = "selectActionOddPlayers";
+        joinRoom(ae, 4, newPlayerNextView, existingPlayerNextView);
     }
 }

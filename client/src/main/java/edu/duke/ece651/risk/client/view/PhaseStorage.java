@@ -18,8 +18,19 @@ public class PhaseStorage {
         Phase phase5_2 = makePhase("allocateTalents3p", "/ui/views/allocate-talents-3p.fxml", "/ui/styling/territory-group.css", "Duke Risk Game! - Deploy Talents To Your Territories");
         Phase phase5_3 = makePhase("allocateTalents4p", "/ui/views/allocate-talents-4p.fxml", "/ui/styling/territory-group.css", "Duke Risk Game! - Deploy Talents To Your Territories");
         Phase phase5_4 = makePhase("allocateTalents5p", "/ui/views/allocate-talents-5p.fxml", "/ui/styling/territory-group.css", "Duke Risk Game! - Deploy Talents To Your Territories");
+        Phase phase6_1 = makePhase("selectActionEvenPlayers", "/ui/views/select-action-even.fxml", "/ui/styling/territory-group.css", "Duke Risk Game! - Select Actions");
+        Phase phase6_2 = makePhase("selectActionOddPlayers", "/ui/views/select-action-odd.fxml", "/ui/styling/territory-group.css", "Duke Risk Game! - Select Actions");
+        Phase phase7_1 = makePhase("moveActionEvenPlayers", "/ui/views/move-action-even.fxml", "/ui/styling/territory-group.css", "Duke Risk Game! - Move Talents");
+        Phase phase7_2 = makePhase("moveActionOddPlayers", "/ui/views/move-action-odd.fxml", "/ui/styling/territory-group.css", "Duke Risk Game! - Move Talents");
+        Phase phase8_1 = makePhase("attackActionEvenPlayers", "/ui/views/attack-action-even.fxml", "/ui/styling/territory-group.css", "Duke Risk Game! - Attack Enemy Territory");
+        Phase phase8_2 = makePhase("attackActionOddPlayers", "/ui/views/attack-action-odd.fxml", "/ui/styling/territory-group.css", "Duke Risk Game! - Attack Enemy Territory");
+        Phase phase9_1 = makePhase("upgradeTalentsActionEvenPlayers", "/ui/views/upgrade-talents-action-even.fxml", "/ui/styling/territory-group.css", "Duke Risk Game! - Upgrade Your Talents");
+        Phase phase9_2 = makePhase("upgradeTalentsActionOddPlayers", "/ui/views/upgrade-talents-action-odd.fxml", "/ui/styling/territory-group.css", "Duke Risk Game! - Upgrade Your Talents");
+        Phase phase10_1 = makePhase("upgradeTechActionEvenPlayers", "/ui/views/upgrade-tech-action-even.fxml", "/ui/styling/territory-group.css", "Duke Risk Game! - Upgrade Your Tech Level");
+        Phase phase10_2 = makePhase("upgradeTechActionOddPlayers", "/ui/views/upgrade-tech-action-odd.fxml", "/ui/styling/territory-group.css", "Duke Risk Game! - Upgrade Your Tech Level");
         Phase phaseTest = makePhase("test", "/ui/views/test.fxml", null, "Duke Risk Game! - Test");
         // Add new Phases here
+
         phases.put(phase1.getName(), phase1);
         phases.put(phase2.getName(), phase2);
         phases.put(phase3.getName(), phase3);
@@ -31,6 +42,16 @@ public class PhaseStorage {
         phases.put(phase5_2.getName(), phase5_2);
         phases.put(phase5_3.getName(), phase5_3);
         phases.put(phase5_4.getName(), phase5_4);
+        phases.put(phase6_1.getName(), phase6_1);
+        phases.put(phase6_2.getName(), phase6_2);
+        phases.put(phase7_1.getName(), phase7_1);
+        phases.put(phase7_2.getName(), phase7_2);
+        phases.put(phase8_1.getName(), phase8_1);
+        phases.put(phase8_2.getName(), phase8_2);
+        phases.put(phase9_1.getName(), phase9_1);
+        phases.put(phase9_2.getName(), phase9_2);
+        phases.put(phase10_1.getName(), phase10_1);
+        phases.put(phase10_2.getName(), phase10_2);
         phases.put(phaseTest.getName(), phaseTest);
         //Put new Phases into HashMap here
         return phases;

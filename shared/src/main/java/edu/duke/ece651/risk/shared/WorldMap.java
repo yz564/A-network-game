@@ -12,6 +12,10 @@ import java.util.HashMap;
  */
 public interface WorldMap extends java.io.Serializable {
 
+  /* Returns the number of players present in the map.
+   */
+  public int getNumPlayers();
+
   /**
    * Return the territory on map with the given name
    * 
