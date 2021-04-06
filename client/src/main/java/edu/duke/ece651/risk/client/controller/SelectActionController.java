@@ -26,6 +26,7 @@ public class SelectActionController implements Initializable {
   String nextOnAttackAction;
   String nextOnUpgradeTalentsAction;
   String nextOnUpgradeTechAction;
+  String nextOnGameEnd;
 
   @FXML Label playerInfo;
 
@@ -68,6 +69,7 @@ public class SelectActionController implements Initializable {
       this.nextOnUpgradeTechAction = "upgradeTechActionOddPlayers";
     }
     this.nextOnLeave = "joinRoom";
+    this.nextOnGameEnd = "gameEnd";
   }
 
   /* Opens a new view that asks user to move their talents within their territories.
@@ -141,11 +143,11 @@ public class SelectActionController implements Initializable {
     if (source instanceof Button) {
       String status = model.getPlayer().doneIssueOrders();
       if (status != null) {
-        // show message in new screen
+        this.next = nextOnGameEnd;
       } else {
         this.next = nextOnCompleteTurn;
-        loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
       }
+      loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
     } else {
       throw new IllegalArgumentException(
           "Action event " + ae.getSource() + " is invalid for onAction().");
