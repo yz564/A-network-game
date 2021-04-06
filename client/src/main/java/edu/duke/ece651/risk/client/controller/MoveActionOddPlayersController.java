@@ -33,28 +33,15 @@ public class MoveActionOddPlayersController implements Initializable {
 
   @FXML ChoiceBox destTerritoryName;
 
-  @FXML Label territoryGroupName;
-
   @FXML Label errorMessage;
-
-  // number of talents to move by type of talents
-  @FXML TextField numTalent1; // level0
-
-  @FXML TextField numTalent2; // level1
-
-  @FXML TextField numTalent3;
-
-  @FXML TextField numTalent4;
-
-  @FXML TextField numTalent5;
-
-  @FXML TextField numTalent6;
-
-  @FXML TextField numTalent7; // level6
 
   @FXML ArrayList<Label> labelList;
 
   @FXML Label playerInfo;
+
+  @FXML ArrayList<Label> numTalentAvailList;
+
+  @FXML ArrayList<TextField> numTalentlList;
 
   public MoveActionOddPlayersController(App model) {
     this.model = model;
@@ -75,14 +62,6 @@ public class MoveActionOddPlayersController implements Initializable {
     helper.initializeTerritoryPlayerInfoColor(model, playerInfo);
 
     setTerritoryNames();
-    territoryGroupName.setText("Move");
-    numTalent1.setText("0");
-    numTalent2.setText("0");
-    numTalent3.setText("0");
-    numTalent4.setText("0");
-    numTalent5.setText("0");
-    numTalent6.setText("0");
-    numTalent7.setText("0");
   }
 
   /* Fills the choice boxes with a list of territories that a player owns.
@@ -102,6 +81,20 @@ public class MoveActionOddPlayersController implements Initializable {
   }
 
   public void onTypingNumUnits(KeyEvent ke) throws Exception {}
+
+  public void onSelectSource(ActionEvent ae) throws Exception {
+    Object source = ae.getSource();
+    if (source instanceof ChoiceBox) {
+      String srcTerritory = (String) sourceTerritoryName.getValue();
+      HashMap<String, Integer> allNumUnits =
+          model.getPlayer().getMap().getTerritory(srcTerritory).getAllNumUnits();
+      for (Label numUnitLabel : numTalentAvailList) {
+        numUnitLabel.setText(String.valueOf(allNumUnits.get(numUnitLabel.getId())));
+      }
+    } else {
+      throw new IllegalArgumentException("Invalid ActionEvent source " + source);
+    }
+  }
 
   public void onMove(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
@@ -135,13 +128,9 @@ public class MoveActionOddPlayersController implements Initializable {
    */
   String checkInput() {
     try {
-      parseIntFromTextField(numTalent1.getText(), 1);
-      parseIntFromTextField(numTalent2.getText(), 2);
-      parseIntFromTextField(numTalent3.getText(), 3);
-      parseIntFromTextField(numTalent4.getText(), 4);
-      parseIntFromTextField(numTalent5.getText(), 5);
-      parseIntFromTextField(numTalent6.getText(), 6);
-      parseIntFromTextField(numTalent7.getText(), 7);
+      for (TextField numTalent : numTalentlList) {
+        parseIntFromTextField(numTalent.getText(), numTalentlList.indexOf(numTalent));
+      }
       sourceTerritoryName.getValue();
       destTerritoryName.getValue();
     } catch (IllegalArgumentException iae) {
@@ -156,13 +145,12 @@ public class MoveActionOddPlayersController implements Initializable {
    */
   HashMap<String, Integer> getNumUnits() throws IllegalArgumentException {
     HashMap<String, Integer> numUnits = new HashMap<>();
-    numUnits.put("level0", parseIntFromTextField(numTalent1.getText(), 1));
-    numUnits.put("level1", parseIntFromTextField(numTalent2.getText(), 2));
-    numUnits.put("level2", parseIntFromTextField(numTalent3.getText(), 3));
-    numUnits.put("level3", parseIntFromTextField(numTalent4.getText(), 4));
-    numUnits.put("level4", parseIntFromTextField(numTalent5.getText(), 5));
-    numUnits.put("level5", parseIntFromTextField(numTalent6.getText(), 6));
-    numUnits.put("level6", parseIntFromTextField(numTalent6.getText(), 7));
+    for (TextField numTalent : numTalentlList) {
+      int itemNum = numTalentlList.indexOf(numTalent);
+      numUnits.put(
+          "level" + String.valueOf(itemNum - 1),
+          parseIntFromTextField(numTalent.getText(), itemNum));
+    }
     return numUnits;
   }
 
