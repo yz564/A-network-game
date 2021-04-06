@@ -48,6 +48,9 @@ public class UpgradeTalentsActionEvenPlayersController implements Initializable 
     @FXML
     Label errorMessage;
 
+    @FXML
+    Label territoryGroupName;
+
     public UpgradeTalentsActionEvenPlayersController(App model) {
         this.model = model;
         this.next = "selectActionEvenPlayers";
@@ -65,6 +68,7 @@ public class UpgradeTalentsActionEvenPlayersController implements Initializable 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        territoryGroupName.setText("Upgrade Talents");
         setSourceTerritoryNames();
         String playerName = model.getPlayer().getName();
         techLevel.setText(String.valueOf(model.getPlayer().getMap().getPlayerInfo(playerName).getTechLevel()));
