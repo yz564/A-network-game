@@ -24,6 +24,7 @@ public class Player implements Runnable {
     private final ActionRuleCheckerHelper ruleChecker = new ActionRuleCheckerHelper();
     private final ActionExecuter executer = new ActionExecuter();
     private ArrayList<ActionInfo> tmpOrders;
+    private int upgradeTechNum;
 
     public Player(int id, ObjectInputStream in, ObjectOutputStream out, BufferedReader stdIn) {
         this.id = id;
@@ -35,24 +36,27 @@ public class Player implements Runnable {
         this.ready = false;
         this.maxUnitsToPlace = 30;
         this.tmpOrders = new ArrayList<ActionInfo>();
+        this.upgradeTechNum = 0;
     }
 
     public void setName(String n) {
-      this.name=n;
+        this.name = n;
     }
 
     public String getName() {
-      return name;
+        return name;
     }
 
-    public String getTerritorySelected() { return territorySelected; }
+    public String getTerritorySelected() {
+        return territorySelected;
+    }
 
     public WorldMap getMap() {
         return theMap;
     }
 
     private void updateMap() {
-        //theMap = (WorldMap) SerializationUtils.clone(tmp.map);
+        // theMap = (WorldMap) SerializationUtils.clone(tmp.map);
         theMap = tmp.map;
     }
 
@@ -89,10 +93,10 @@ public class Player implements Runnable {
             sendMessage(new ObjectIO(info, Integer.parseInt(info)));
             receiveMessage();
             if (tmp.id == 0) {
-              receiveMessage();
+                receiveMessage();
                 this.territorySelected = info;
-              //System.out.println(theMap.getPlayerTerritories(name));
-              return true;
+                // System.out.println(theMap.getPlayerTerritories(name));
+                return true;
             }
         }
         return false;
@@ -158,7 +162,7 @@ public class Player implements Runnable {
         }
     }
 
-  public void startAllocation() throws Exception {
+    public void startAllocation() throws Exception {
         receiveMessage();
         this.maxUnitsToPlace = tmp.id;
     }
@@ -234,8 +238,12 @@ public class Player implements Runnable {
     public String tryIssueUpgradeTechOrder(ActionInfo order) {
         String problem = ruleChecker.checkRuleForUpgradeTech(order, this.theMap);
         if (problem == null) {
+            if (upgradeTechNum != 0) {
+                return "Invalid action: You can only upgrade tech once in each turn.";
+            }
             this.tmpOrders.add(order);
             executer.executeUpgradeTech(this.theMap, order);
+            upgradeTechNum = 1;
             return null;
         } else {
             return problem;
@@ -256,6 +264,7 @@ public class Player implements Runnable {
         this.tmpOrders = new ArrayList<>(); // refresh the local order ArrayList<ActionInfo>
         toSend.moveOrders = group1Orders;
         toSend.attackOrders = attackOrders;
+        upgradeTechNum = 0;
         sendMessage(toSend);
         // read in the new map for next action phase.
         receiveMessage();
