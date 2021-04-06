@@ -32,6 +32,10 @@ public abstract class RiskWorldMap implements WorldMap {
         makeInitGroups(names, groups);
     }
 
+    /* Returns the number of players on the map.
+     */
+    public int getNumPlayers() { return playersInfo.size(); }
+
     /**
      * Creates the initial grouping of territories on the given world map
      *

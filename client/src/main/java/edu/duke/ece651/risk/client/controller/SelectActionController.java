@@ -17,6 +17,8 @@ import java.util.ResourceBundle;
 public class SelectActionController implements Initializable {
     App model;
     String next;
+    String nextOnCompleteTurn;
+    String nextOnLeave;
 
     @FXML
     Label playerInfo;
@@ -25,13 +27,19 @@ public class SelectActionController implements Initializable {
      */
     public SelectActionController(App model) {
         this.model = model;
-        this.next = "test";
     }
 
     /* Sets various labels in the view to help player understand their status in the game.
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        if (model.getPlayer().getMap().getNumPlayers() % 2 == 0) {
+            this.nextOnCompleteTurn = "selectActionEvenPlayers";
+        }
+        else {
+            this.nextOnCompleteTurn = "selectActionOddPlayers";
+        }
+        this.nextOnLeave = "joinRoom";
         //playerName.setText(model.getPlayer().getName());
         // set player color
         //techLevel.setText(model.getPlayer().getTechLevel());
@@ -46,7 +54,7 @@ public class SelectActionController implements Initializable {
         Object source = ae.getSource();
         if (source instanceof Button) { // go to join room
             model.requestLeave();
-            this.next = "joinRoom";
+            next = nextOnLeave;
             loadNextPhase(ae);
         }
         else {
@@ -54,14 +62,20 @@ public class SelectActionController implements Initializable {
         }
     }
 
-    /* Takes the user to a view that asks them to wait for other players to finishe their turn.
+    /* Takes the user to a view that asks them to wait for other players to finish their turn.
      */
     @FXML
-    public void onCompletingTurn(ActionEvent ae) throws IOException {
+    public void onCompletingTurn(ActionEvent ae) throws Exception {
         Object source = ae.getSource();
         if (source instanceof Button) {
-            this.next = "test"; // TODO update to the next scene "waiting for other players to finish their turn view"
-            loadNextPhase(ae);
+            String status = model.getPlayer().doneIssueOrders();
+            if (status != null) {
+                // show message in new screen
+            }
+            else {
+                this.next = nextOnCompleteTurn;
+                loadNextPhase(ae);
+            }
         }
         else {
             throw new IllegalArgumentException("Action event " + ae.getSource() + " is invalid for onAction().");
