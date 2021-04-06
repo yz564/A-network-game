@@ -1,6 +1,7 @@
 package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.view.StyleMapping;
+import edu.duke.ece651.risk.shared.PlayerInfo;
 import edu.duke.ece651.risk.shared.Territory;
 import edu.duke.ece651.risk.shared.WorldMap;
 import javafx.scene.control.Label;
@@ -28,7 +29,22 @@ public class InitializeControllerHelper {
     }
 
     /**
-     * Initializes the color of each territory label for the .
+     * Initializes the Tooltip on the player info label.
+     *
+     * @param map The game's map for gathering information to display.
+     * @param playerName The player's name to get info about.
+     * @param playerInfoLabel the player info Label to set this tooltip with.
+     */
+    public void initializePlayerInfoTooltip(
+            WorldMap map, String playerName, Label playerInfoLabel) {
+        Tooltip tt = new Tooltip();
+        tt.setText(getTerritoryTextInfo(map, playerName));
+        tt.getStyleClass().add("tooltip-player-info");
+        playerInfoLabel.setTooltip(tt);
+    }
+
+    /**
+     * Initializes the color of each territory label.
      *
      * @param map The game's map for gathering information to display.
      * @param territoryLabelList the territory label ArrayList.
@@ -45,6 +61,27 @@ public class InitializeControllerHelper {
 
     public void initializeTerritoryLabelByOwner() {
         // TODO: add this for initialize controllers for action phase.
+    }
+
+    /**
+     * Returns a String that has text information of the given player.
+     *
+     * @param map The game's map for gathering information to display.
+     * @param playerName The player's name to get info about.
+     * @return a String that has text information of the given player.
+     */
+    private String getPlayerInfo(WorldMap map, String playerName) {
+        PlayerInfo info = map.getPlayerInfo(playerName);
+        String ans =
+                "--------------------------\n"
+                        + playerName
+                        + "'s Player Info:\n"
+                        + "--------------------------\n";
+        ans = ans + "- Tech Level: " + info.getTechLevel() + "\n";
+        ans = ans + "- Food Resource: " + info.getResTotals().get("food") + "\n";
+        ans = ans + "- Tech Resource: " + info.getResTotals().get("tech") + "\n";
+        ans = ans + "- Territory Amount: " + map.getPlayerTerritories(playerName).size() + "\n";
+        return ans;
     }
 
     /**
