@@ -63,3 +63,9 @@ territory-group-5:pressed {
     -fx-font-size: 10pt;
     white-space: pre-wrap;
 }
+
+.tooltip-player-info {
+    -fx-background-radius: 5 5 5 5;
+    -fx-font-size: 10pt;
+    white-space: pre-wrap;
+}

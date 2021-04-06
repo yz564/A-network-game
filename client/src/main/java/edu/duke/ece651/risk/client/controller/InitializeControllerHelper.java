@@ -39,7 +39,7 @@ public class InitializeControllerHelper {
             WorldMap map, String playerName, Label playerInfoLabel) {
         Tooltip tt = new Tooltip();
         tt.setText(getTerritoryTextInfo(map, playerName));
-        tt.getStyleClass().add("tooltip-territory");
+        tt.getStyleClass().add("tooltip-player-info");
         playerInfoLabel.setTooltip(tt);
     }
 
