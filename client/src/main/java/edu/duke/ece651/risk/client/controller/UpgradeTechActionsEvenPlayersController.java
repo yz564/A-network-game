@@ -99,6 +99,19 @@ public class UpgradeTechActionsEvenPlayersController implements Initializable {
     }
   }
 
+  /* Triggered when a player hits the cancel button.
+   * Player is taken back to the select action window.
+   */
+  public void onCancel(ActionEvent ae) throws IOException {
+    Object source = ae.getSource();
+    if (source instanceof Button) {
+      loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
+    }
+    else {
+      throw new IllegalArgumentException("Invalid source " + source + " for the cancel upgrade tech level method.");
+    }
+  }
+
   public void onSelectingTechLevel() throws Exception {}
 
   /* Validates that the on screen options selected by the user are okay enough to create an ActionInfo object that
