@@ -149,9 +149,19 @@ public class ActionExecuter {
         Territory des = map.getTerritory(info.getDesName());
         HashMap<String, Integer> attackerUnits = info.getNumUnits();
         HashMap<String, Integer> defenderUnits = des.getAllNumUnits();
+        boolean attackerHoldsPower = true;
         while (getTotalUnitNum(attackerUnits) > 0 && getTotalUnitNum(defenderUnits) > 0) {
-            String attacker = findLowestLevelTroop(attackerUnits);
-            String defender = findHighestLevelTroop(defenderUnits);
+            String attacker = null;
+            String defender = null;
+            if (attackerHoldsPower) {
+                attacker = findHighestLevelTroop(attackerUnits);
+                defender = findLowestLevelTroop(defenderUnits);
+                attackerHoldsPower = false;
+            } else {
+                attacker = findLowestLevelTroop(attackerUnits);
+                defender = findHighestLevelTroop(defenderUnits);
+                attackerHoldsPower = true;
+            }
             if (isAttackerWinFight(attacker, defender)) {
                 defenderUnits.put(defender, defenderUnits.get(defender) - 1);
             } else {
@@ -172,15 +182,15 @@ public class ActionExecuter {
      * Finds the highest level troop name tht has unit in a given HashMap that is troop name to
      * number of units in the troop.
      *
-     * @param defenderUnits a HashMap that is troop name to the number of units in the troop.
+     * @param units a HashMap that is troop name to the number of units in the troop.
      * @return a String that represents the highest level troop.
      */
-    public String findHighestLevelTroop(HashMap<String, Integer> defenderUnits) {
+    public String findHighestLevelTroop(HashMap<String, Integer> units) {
         Integer highestLevel = -1;
         String highestTroopName = null;
         HashMap<String, Troop> troopInfo = (new V2Territory("", 0, 0, 0)).getMyTroops();
-        for (String troopName : defenderUnits.keySet()) {
-            if (defenderUnits.get(troopName) > 0
+        for (String troopName : units.keySet()) {
+            if (units.get(troopName) > 0
                     && troopInfo.get(troopName).getTechLevelReq() > highestLevel) {
                 highestLevel = troopInfo.get(troopName).getTechLevelReq();
                 highestTroopName = troopName;
@@ -193,15 +203,15 @@ public class ActionExecuter {
      * Finds the lowest level troop name tht has unit in a given HashMap that is troop name to
      * number of units in the troop.
      *
-     * @param attackerUnits a HashMap that is troop name to the number of units in the troop.
+     * @param units a HashMap that is troop name to the number of units in the troop.
      * @return a String that represents the highest level troop.
      */
-    public String findLowestLevelTroop(HashMap<String, Integer> attackerUnits) {
+    public String findLowestLevelTroop(HashMap<String, Integer> units) {
         Integer lowestLevel = 7;
         String lowestTroopName = null;
         HashMap<String, Troop> troopInfo = (new V2Territory("", 0, 0, 0)).getMyTroops();
-        for (String troopName : attackerUnits.keySet()) {
-            if (attackerUnits.get(troopName) > 0
+        for (String troopName : units.keySet()) {
+            if (units.get(troopName) > 0
                     && troopInfo.get(troopName).getTechLevelReq() < lowestLevel) {
                 lowestLevel = troopInfo.get(troopName).getTechLevelReq();
                 lowestTroopName = troopName;
