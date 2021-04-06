@@ -98,7 +98,7 @@
             <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Destination:" GridPane.rowIndex="4" />
             <Label fx:id="numTalentAvailable1" text="8" GridPane.columnIndex="3" GridPane.rowIndex="6" />
             <Button mnemonicParsing="false" onAction="#onMove" prefHeight="26.0" prefWidth="95.0" text="Confirm" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="14" />
-            <Label fx:id="errorMessage" alignment="CENTER" prefHeight="58.0" prefWidth="323.0" textFill="#fa0707" GridPane.columnSpan="4" GridPane.rowIndex="15" />
+            <Label alignment="CENTER" prefHeight="58.0" prefWidth="323.0" textFill="#fa0707" GridPane.columnSpan="4" GridPane.rowIndex="15" />
             <Label fx:id="allocatePrompt" alignment="CENTER" prefHeight="40.0" prefWidth="317.0" text="Move available talent units in your territories to your other connected territories." textAlignment="CENTER" wrapText="true" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <font>
                   <Font name="System Italic" size="13.0" />
@@ -136,6 +136,7 @@
             <Label text="/" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="10" />
             <Label fx:id="numTalentAvailable4" text="8" GridPane.columnIndex="3" GridPane.rowIndex="9" />
             <Label fx:id="numTalentAvailable5" text="8" GridPane.columnIndex="3" GridPane.rowIndex="10" />
+            <Label fx:id="errorMessage" alignment="CENTER" prefHeight="76.0" prefWidth="323.0" textAlignment="CENTER" textFill="RED" GridPane.columnSpan="4" GridPane.rowIndex="15" />
          </children>
       </GridPane>
   </items>

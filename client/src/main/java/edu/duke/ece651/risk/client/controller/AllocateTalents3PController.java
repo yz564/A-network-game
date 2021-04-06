@@ -85,7 +85,7 @@ public class AllocateTalents3PController implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
         setTerritoryNameLabels();
-        territoryGroupName.setText(model.getPlayer().getTerritorySelected());
+        territoryGroupName.setText(model.getPlayer().getTerritoryGroupSelected());
         numTalent1.setText("0");
         numTalent2.setText("0");
         numTalent3.setText("0");
