@@ -15,8 +15,8 @@ public class Player implements Runnable {
     private ObjectIO tmp;
     private String tmpS;
     private BufferedReader stdIn;
-    public volatile Boolean wait;
-    public volatile Boolean ready;
+    public Boolean wait;
+    public Boolean ready;
     private int maxUnitsToPlace;
     private WorldMap theMap;
     private final ActionRuleCheckerHelper ruleChecker = new ActionRuleCheckerHelper();
@@ -35,6 +35,10 @@ public class Player implements Runnable {
         this.maxUnitsToPlace = 30;
         this.tmpOrders = new ArrayList<ActionInfo>();
         this.upgradeTechNum = 0;
+    }
+
+    public int getRoomId() {
+      return id;
     }
 
     public void setName(String n) {
