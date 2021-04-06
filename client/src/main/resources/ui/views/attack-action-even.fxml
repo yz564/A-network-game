@@ -88,7 +88,7 @@
             <RowConstraints maxHeight="214.0" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField fx:id="numTalent4" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="numTalent4" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <Label fx:id="talentLabel3" alignment="CENTER" prefHeight="17.0" prefWidth="325.0" text="Talents to Attack:" GridPane.columnSpan="4" GridPane.rowIndex="5" />
             <Label text="/" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="13" />
             <Label fx:id="numUnitsAllowed" prefHeight="17.0" prefWidth="41.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="13" />
@@ -98,7 +98,7 @@
             <Label fx:id="talentLabel1" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Source:" GridPane.rowIndex="3" />
             <Label fx:id="talentLabel2" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Destination:" GridPane.rowIndex="4" />
             <Label text="8" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-            <Button mnemonicParsing="false" onAction="#onAllocate" prefHeight="26.0" prefWidth="95.0" text="Confirm" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="14" />
+            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="95.0" text="Confirm" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="14" />
             <Label fx:id="errorMessage" alignment="CENTER" prefHeight="58.0" prefWidth="323.0" textFill="#fa0707" GridPane.columnSpan="4" GridPane.rowIndex="15" />
             <Label fx:id="allocatePrompt" alignment="CENTER" prefHeight="40.0" prefWidth="317.0" text="Attack with available talent units in your territories to adjacent enemy territories." textAlignment="CENTER" wrapText="true" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <font>

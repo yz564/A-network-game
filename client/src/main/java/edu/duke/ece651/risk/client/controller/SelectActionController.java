@@ -8,6 +8,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitMenuButton;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,6 +28,9 @@ public class SelectActionController implements Initializable {
 
     @FXML
     Label playerInfo;
+
+    @FXML
+    SplitMenuButton actionMenu;
 
     /* Constructor that initializes the model and the next view.
      */
@@ -56,8 +61,24 @@ public class SelectActionController implements Initializable {
 
     /* Opens a new view that asks user to move their talents within their territories.
      */
-    public void onSelectMove() {
+    public void onSelectMove(ActionEvent ae) throws Exception {
+        Object source = ae.getSource();
+        if (source instanceof MenuItem) {
+            next = nextOnMoveAction;
+            loadNextPhaseFromMenuEvent();
+        }
+        else {
+            throw new IllegalArgumentException("Action event " + ae.getSource() + " is invalid.");
+        }
+    }
 
+    /* Loads next phase after a player clicks on a menu item inside a SplitMenuButton.
+     */
+    private void loadNextPhaseFromMenuEvent() throws IOException {
+        Stage window = (Stage) actionMenu.getScene().getWindow();
+        Object controller = new ControllerFactory().getController(next, model);
+        Stage newWindow = PhaseChanger.switchTo(window, controller, next);
+        newWindow.show();
     }
 
     /* Opens a new view that asks user to attack enemy territory.
