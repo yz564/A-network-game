@@ -54,6 +54,9 @@ public class MoveActionOddPlayersController implements Initializable {
 
     @FXML ArrayList<Label> labelList;
 
+    @FXML
+    Label playerInfo;
+
     public MoveActionOddPlayersController(App model) {
         this.model = model;
         this.next = "selectActionOddPlayers";
@@ -66,6 +69,8 @@ public class MoveActionOddPlayersController implements Initializable {
         helper.initializeTerritoryLabelByOwner(model.getPlayer().getMap(), labelList);
         // set tooltip for each territory label
         helper.initializeTerritoryTooltips(model.getPlayer().getMap(), labelList);
+        // set tooltip for player info
+        helper.initializePlayerInfoTooltip(model.getPlayer().getMap(), model.getPlayer().getName(), playerInfo);
 
         helper.initializeTerritoryGroupLabelColor(model, territoryGroupName);
         setTerritoryNames();

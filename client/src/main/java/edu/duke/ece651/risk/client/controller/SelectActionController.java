@@ -51,6 +51,8 @@ public class SelectActionController implements Initializable {
         helper.initializeTerritoryLabelByOwner(model.getPlayer().getMap(), labelList);
         // set tooltip for each territory label
         helper.initializeTerritoryTooltips(model.getPlayer().getMap(), labelList);
+        // set tooltip for player info
+        helper.initializePlayerInfoTooltip(model.getPlayer().getMap(), model.getPlayer().getName(), playerInfo);
 
         if (model.getPlayer().getMap().getNumPlayers() % 2 == 0) {
             this.nextOnCompleteTurn = "selectActionEvenPlayers";

@@ -54,6 +54,9 @@ public class MoveActionEvenPlayersController implements Initializable {
 
     @FXML ArrayList<Label> labelList;
 
+    @FXML
+    Label playerInfo;
+
     public MoveActionEvenPlayersController(App model) {
         this.model = model;
         this.next = "selectActionEvenPlayers";
@@ -66,8 +69,11 @@ public class MoveActionEvenPlayersController implements Initializable {
         helper.initializeTerritoryLabelByOwner(model.getPlayer().getMap(), labelList);
         // set tooltip for each territory label
         helper.initializeTerritoryTooltips(model.getPlayer().getMap(), labelList);
+        // set tooltip for player info
+        helper.initializePlayerInfoTooltip(model.getPlayer().getMap(), model.getPlayer().getName(), playerInfo);
 
         helper.initializeTerritoryGroupLabelColor(model, territoryGroupName);
+
         setTerritoryNames();
         territoryGroupName.setText("Move");
         // territoryGroupName.setText(model.getPlayer().getTerritoryGroupSelected());
