@@ -81,7 +81,6 @@ public void updateInput(ObjectIO obj){
   @Override
   public void run() {
     while(!isEnd){}
-    while(watch){}
     /*
     try {
       this.in = new ObjectInputStream(client.getInputStream());
