@@ -55,7 +55,6 @@ public class Game {
                 availableGroups.remove(p.tmp.id);
                 readyPlayer.add(i);
                 readyNum++;
-                System.out.println(p.getName());
                 theMap.tryAssignInitOwner(p.tmp.id, p.getName());
                   // TODO: how many resources to assign???
                 theMap.tryAddPlayerInfo(new PlayerInfo(p.getName(),p.tmp.id, 10000, 10000));
@@ -128,13 +127,15 @@ public class Game {
             }
         }
         // update theMap
+        System.out.println("All allocation collected");
         for (int i = 0; i < numPlayers; i++) {
             Player p = playerList.get(i);
             HashMap<String, Integer> po = p.tmp.placeOrders;
+            
             for (String t : po.keySet()) {
-                if (theMap.getTerritory(t).trySetTroopUnits("Basic", po.get(t))) {
+                if (theMap.getTerritory(t).trySetTroopUnits("level0", po.get(t))) {
                     System.out.println(p.getName() + " placed " + po.get(t) + " on territory " + t);
-                }
+                }   
             }
         }
     }
