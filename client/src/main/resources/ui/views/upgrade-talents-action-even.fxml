@@ -88,13 +88,13 @@
          <children>
             <Label fx:id="talentLabel3" alignment="CENTER" prefHeight="17.0" prefWidth="325.0" text="Talents to Upgrade:" GridPane.columnSpan="4" GridPane.rowIndex="5" />
             <Label text="/" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
-            <Label fx:id="numUnitsAllowed" prefHeight="17.0" prefWidth="41.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="9" />
-            <Label fx:id="numUnitsAllocated" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <Label fx:id="foodAvailable" prefHeight="17.0" prefWidth="41.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+            <Label fx:id="foodCost" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="9" />
             <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Total Food Cost: " GridPane.rowIndex="9" />
             <Label fx:id="talentLabel4" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Upgrade From:" GridPane.rowIndex="6" />
             <Label fx:id="talentLabel1" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Territory:" GridPane.rowIndex="3" />
             <Label fx:id="talentLabel2" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Current Tech Level:" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" onAction="#onAllocate" prefHeight="26.0" prefWidth="95.0" text="Confirm" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="10" />
+            <Button mnemonicParsing="false" onAction="#onUpgrade" prefHeight="26.0" prefWidth="95.0" text="Confirm" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="10" />
             <Label fx:id="errorMessage" alignment="CENTER" prefHeight="58.0" prefWidth="323.0" textFill="#fa0707" GridPane.columnSpan="4" GridPane.rowIndex="11" />
             <Label fx:id="allocatePrompt" alignment="CENTER" prefHeight="40.0" prefWidth="317.0" text="Upgrade available talent units in your territories." textAlignment="CENTER" wrapText="true" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <font>
@@ -108,13 +108,14 @@
             </Label>
             <Label fx:id="talentLabel5" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Upgrade To:" GridPane.rowIndex="7" />
             <Label fx:id="talentLabel6" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="  Num of Talents:" GridPane.rowIndex="8" />
-            <TextField fx:id="numTalent6" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3" />
-            <Label alignment="CENTER" text="8" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-            <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="6" />
-            <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="7" />
-            <Label fx:id="numUnitsAllowed1" prefHeight="17.0" prefWidth="41.0" text="8" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+            <TextField fx:id="numTalents" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <ChoiceBox fx:id="sourceTerritoryName" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3" />
+            <Label fx:id="techLevel" alignment="CENTER" text="8" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+            <ChoiceBox fx:id="sourceTalentName" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="6" />
+            <ChoiceBox fx:id="destTalentName" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="7" />
+            <Label fx:id="numTalentsAvailable" prefHeight="17.0" prefWidth="41.0" text="8" GridPane.columnIndex="3" GridPane.rowIndex="8" />
             <Label text="/" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+            <Label fx:id="errorMessage" alignment="CENTER" prefHeight="94.0" prefWidth="323.0" textAlignment="CENTER" textFill="RED" wrapText="true" GridPane.columnSpan="4" GridPane.rowIndex="11" />
          </children>
       </GridPane>
   </items>
