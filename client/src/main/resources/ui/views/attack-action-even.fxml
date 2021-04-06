@@ -88,17 +88,17 @@
             <RowConstraints maxHeight="214.0" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField fx:id="numTalent4" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="numTalent1" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <Label fx:id="talentLabel3" alignment="CENTER" prefHeight="17.0" prefWidth="325.0" text="Talents to Attack:" GridPane.columnSpan="4" GridPane.rowIndex="5" />
             <Label text="/" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="13" />
-            <Label fx:id="numUnitsAllowed" prefHeight="17.0" prefWidth="41.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="13" />
-            <Label fx:id="numUnitsAllocated" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+            <Label fx:id="foodAvailable" prefHeight="17.0" prefWidth="41.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="13" />
+            <Label fx:id="foodCost" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="13" />
             <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Total Food Cost: " GridPane.rowIndex="13" />
             <Label fx:id="talentLabel4" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Undergrad" GridPane.rowIndex="6" />
             <Label fx:id="talentLabel1" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Source:" GridPane.rowIndex="3" />
             <Label fx:id="talentLabel2" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Destination:" GridPane.rowIndex="4" />
-            <Label text="8" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="95.0" text="Confirm" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="14" />
+            <Label fx:id="numTalentAvailable1" text="8" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <Button mnemonicParsing="false" onAction="#onAttack" prefHeight="26.0" prefWidth="95.0" text="Confirm" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="14" />
             <Label fx:id="errorMessage" alignment="CENTER" prefHeight="58.0" prefWidth="323.0" textFill="#fa0707" GridPane.columnSpan="4" GridPane.rowIndex="15" />
             <Label fx:id="allocatePrompt" alignment="CENTER" prefHeight="40.0" prefWidth="317.0" text="Attack with available talent units in your territories to adjacent enemy territories." textAlignment="CENTER" wrapText="true" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <font>
@@ -114,29 +114,29 @@
             <Label fx:id="talentLabel6" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="PHD" GridPane.rowIndex="8" />
             <Label fx:id="talentLabel7" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Assc. Prof" GridPane.rowIndex="11" />
             <Label fx:id="talentLabel8" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Professor" GridPane.rowIndex="12" />
-            <TextField fx:id="numTalent5" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField fx:id="numTalent6" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <TextField fx:id="numTalent7" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-            <TextField fx:id="numTalent8" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-            <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3" />
-            <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="4" />
+            <TextField fx:id="numTalent2" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="numTalent3" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="numTalent6" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+            <TextField fx:id="numTalent7" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+            <ChoiceBox fx:id="sourceTerritoryName" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3" />
+            <ChoiceBox fx:id="destTerritoryName" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="4" />
             <Label text="/" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
             <Label text="/" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
             <Label text="/" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
             <Label text="/" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="11" />
             <Label text="/" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="12" />
-            <Label text="8" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-            <Label text="8" GridPane.columnIndex="3" GridPane.rowIndex="8" />
-            <Label text="8" GridPane.columnIndex="3" GridPane.rowIndex="11" />
-            <Label text="8" GridPane.columnIndex="3" GridPane.rowIndex="12" />
+            <Label fx:id="numTalentAvailable2" text="8" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+            <Label fx:id="numTalentAvailable3" text="8" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+            <Label fx:id="numTalentAvailable6" text="8" GridPane.columnIndex="3" GridPane.rowIndex="11" />
+            <Label fx:id="numTalentAvailable7" text="8" GridPane.columnIndex="3" GridPane.rowIndex="12" />
             <Label fx:id="talentLabel61" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Postdoc" GridPane.rowIndex="9" />
             <Label fx:id="talentLabel611" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Asst. Prof" GridPane.rowIndex="10" />
-            <TextField fx:id="numTalent61" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <TextField fx:id="numTalent611" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <TextField fx:id="numTalent4" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <TextField fx:id="numTalent5" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="10" />
             <Label text="/" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
             <Label text="/" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="10" />
-            <Label text="8" GridPane.columnIndex="3" GridPane.rowIndex="9" />
-            <Label text="8" GridPane.columnIndex="3" GridPane.rowIndex="10" />
+            <Label fx:id="numTalentAvailable4" text="8" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+            <Label fx:id="numTalentAvailable5" text="8" GridPane.columnIndex="3" GridPane.rowIndex="10" />
          </children>
       </GridPane>
   </items>

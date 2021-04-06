@@ -85,12 +85,12 @@
         </rowConstraints>
          <children>
             <Label text="/" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-            <Label fx:id="numUnitsAllowed" prefHeight="17.0" prefWidth="41.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-            <Label fx:id="numUnitsAllocated" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label fx:id="techAvailable" prefHeight="17.0" prefWidth="41.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+            <Label fx:id="techCost" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Total Tech Cost: " GridPane.rowIndex="5" />
             <Label fx:id="talentLabel1" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="New Tech Level:" GridPane.rowIndex="4" />
             <Label fx:id="talentLabel2" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Current Tech Level:" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" onAction="#onAllocate" prefHeight="26.0" prefWidth="95.0" text="Confirm" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6" />
+            <Button mnemonicParsing="false" onAction="#onUpgradeTech" prefHeight="26.0" prefWidth="95.0" text="Confirm" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6" />
             <Label fx:id="errorMessage" alignment="CENTER" prefHeight="58.0" prefWidth="323.0" textFill="#fa0707" GridPane.columnSpan="4" GridPane.rowIndex="7" />
             <Label fx:id="allocatePrompt" alignment="CENTER" prefHeight="40.0" prefWidth="317.0" text="Upgrade your current talent level." textAlignment="CENTER" wrapText="true" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <font>
@@ -102,7 +102,7 @@
                   <Font size="25.0" />
                </font>
             </Label>
-            <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ChoiceBox fx:id="newTechLevel" onMouseReleased="#onSelectingTechLevel" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label fx:id="currTechLevel" alignment="CENTER" text="1" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
          </children>
       </GridPane>
