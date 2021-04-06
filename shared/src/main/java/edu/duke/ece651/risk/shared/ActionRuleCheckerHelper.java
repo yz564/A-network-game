@@ -12,12 +12,15 @@ public class ActionRuleCheckerHelper {
    */
   public ActionRuleCheckerHelper() {
     this.moveChecker = new TerritoryExistenceRuleChecker(new SrcOwnershipRuleChecker(
-        new TroopExistenceRuleChecker(new EnoughUnitsRuleChecker(new DesReachableRuleChecker(null)))));
+        new TroopExistenceRuleChecker(new EnoughUnitsRuleChecker(new DesReachableRuleChecker(
+                new EnoughResourceRuleChecker(null))))));
     this.attackChecker = new TerritoryExistenceRuleChecker(new SrcOwnershipRuleChecker(new TroopExistenceRuleChecker(
-        new EnoughUnitsRuleChecker(new DesOwnershipRuleChecker(new DesAdjacencyRuleChecker(null))))));
+        new EnoughUnitsRuleChecker(new DesOwnershipRuleChecker(new DesAdjacencyRuleChecker(
+                new EnoughResourceRuleChecker(null)))))));
     this.upgradeUnitChecker = new TerritoryExistenceRuleChecker(new SrcOwnershipRuleChecker(
-        new TroopExistenceRuleChecker(new EnoughUnitsRuleChecker(new UpgradeUnitRuleChecker(null)))));
-    this.upgradeTechChecker = new UpgradeTechRuleChecker(null);
+        new TroopExistenceRuleChecker(new EnoughUnitsRuleChecker(
+                new EnoughResourceRuleChecker(null)))));
+    this.upgradeTechChecker = new UpgradeTechRuleChecker(new EnoughResourceRuleChecker(null));
   }
 
   /**

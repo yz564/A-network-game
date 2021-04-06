@@ -30,7 +30,8 @@ public class ActionRuleCheckerHelperTest {
     assertNull(rc.checkRuleForMove(a1, worldmap));
     assertNull(rc.checkRuleForAttack(a2, worldmap));
     assertNull(rc.checkRuleForUpgradeUnit(a3, worldmap));
-    assertNull(rc.checkRuleForUpgradeTech(a4, worldmap)); 
+    assertEquals("That action is invalid: you do not have enough resources to perform the action.",
+            rc.checkRuleForUpgradeTech(a4, worldmap));
   }
   @Test
   public void test_attackchecker() {

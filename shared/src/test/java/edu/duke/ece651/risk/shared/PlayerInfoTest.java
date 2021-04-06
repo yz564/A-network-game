@@ -40,4 +40,10 @@ public class PlayerInfoTest {
     assertEquals(75, p1.getResTotals().get("food"));
     assertEquals(40, p1.getResTotals().get("tech"));
   }
+
+  @Test
+  public void test_getplayerid(){
+    PlayerInfo p1 = new PlayerInfo("Player 1", 1, 50, 30);
+    assertEquals(1, p1.getPlayerId());
+  }
 }
