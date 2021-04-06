@@ -82,4 +82,17 @@ public class V2RiskWorldMapTest {
     assertEquals(p2.getPlayerName(), worldmap.getPlayerInfo("Player 2").getPlayerName());
     assertEquals(p3.getPlayerName(), worldmap.getPlayerInfo("Player 3").getPlayerName());
   }
+
+  @Test
+  public void test_getterritory() {
+    WorldMap worldmap = new V2RiskWorldMap();
+    Territory t1 = new V2Territory("Narnia", 0, 0, 0);
+    Territory t2 = new V2Territory("Elantris", 0, 0, 0);
+    worldmap.tryAddTerritory(t1);
+    worldmap.tryAddTerritory(t2);
+    ArrayList<String> expected = new ArrayList<String>();
+    expected.add(t2.getName());
+    expected.add(t1.getName());
+    assertEquals(expected, worldmap.getMyTerritories());
+  }
 }
