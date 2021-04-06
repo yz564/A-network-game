@@ -7,7 +7,12 @@ import edu.duke.ece651.risk.shared.WorldMap;
 import edu.duke.ece651.risk.shared.WorldMapFactory;
 import javafx.scene.control.Label;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.testfx.framework.junit5.ApplicationExtension;
 
+import static org.mockito.Mockito.mock;
+
+@ExtendWith(ApplicationExtension.class)
 public class InitializeControllerHelperTest {
     private WorldMap setupV2Map() {
         // create map
@@ -26,5 +31,6 @@ public class InitializeControllerHelperTest {
     public void test_getPlayerInfo() {
         WorldMap map = setupV2Map();
         InitializeControllerHelper helper = new InitializeControllerHelper();
+        // helper.initializePlayerInfoTooltip(map, "Green player", mock(Label.class));
     }
 }
