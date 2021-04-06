@@ -2,6 +2,7 @@ package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
 import edu.duke.ece651.risk.client.view.PhaseChanger;
+import edu.duke.ece651.risk.shared.ActionCostCalculator;
 import edu.duke.ece651.risk.shared.ActionInfo;
 import edu.duke.ece651.risk.shared.ActionInfoFactory;
 import edu.duke.ece651.risk.shared.Territory;
@@ -15,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
@@ -22,12 +24,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.ResourceBundle;
 
 public class MoveActionOddPlayersController implements Initializable {
   App model;
   String next;
   ObservableList territoryNames = FXCollections.observableArrayList();
+  HashSet<KeyCode> numKeys;
 
   @FXML ChoiceBox sourceTerritoryName;
 
@@ -43,9 +47,28 @@ public class MoveActionOddPlayersController implements Initializable {
 
   @FXML ArrayList<TextField> numTalentList;
 
+  @FXML Label foodCost;
+
+  @FXML Label foodAvailable;
+
   public MoveActionOddPlayersController(App model) {
     this.model = model;
     this.next = "selectActionOddPlayers";
+
+    // keys that trigger dynamic cost calculation for the move order
+    numKeys = new HashSet<>();
+    numKeys.add(KeyCode.DIGIT0);
+    numKeys.add(KeyCode.DIGIT1);
+    numKeys.add(KeyCode.DIGIT2);
+    numKeys.add(KeyCode.DIGIT3);
+    numKeys.add(KeyCode.DIGIT4);
+    numKeys.add(KeyCode.DIGIT5);
+    numKeys.add(KeyCode.DIGIT6);
+    numKeys.add(KeyCode.DIGIT7);
+    numKeys.add(KeyCode.DIGIT8);
+    numKeys.add(KeyCode.DIGIT9);
+    numKeys.add(KeyCode.BACK_SPACE);
+    numKeys.add(KeyCode.TAB);
   }
 
   @Override
@@ -62,6 +85,10 @@ public class MoveActionOddPlayersController implements Initializable {
     helper.initializeTerritoryPlayerInfoColor(model, playerInfo);
 
     setTerritoryNames();
+
+    // set available food amount
+    String playerName = model.getPlayer().getName();
+    foodAvailable.setText(String.valueOf(model.getPlayer().getMap().getPlayerInfo(playerName).getResTotals().get("food")));
   }
 
   /* Fills the choice boxes with a list of territories that a player owns.
@@ -80,7 +107,18 @@ public class MoveActionOddPlayersController implements Initializable {
     destTerritoryName.getItems().addAll(territoryNames);
   }
 
-  public void onTypingNumUnits(KeyEvent ke) throws Exception {}
+  /* Displays the cost of move action dynamically when user types in the number of units that they wish to move.
+   */
+  @FXML
+  public void onTypingNumUnits(KeyEvent ke) throws Exception {
+    Object source = ke.getCode();
+    if (numKeys.contains(source)) {
+      ActionInfo moveInfo = getMoveActionInfo();
+      ActionCostCalculator calc = new ActionCostCalculator();
+      int cost = calc.calculateCost(moveInfo, model.getPlayer().getMap()).get("food");
+      foodCost.setText(String.valueOf(cost));
+    }
+  }
 
   public void onSelectSource(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
@@ -104,14 +142,7 @@ public class MoveActionOddPlayersController implements Initializable {
     if (source instanceof Button) {
       String isValidInput = checkInput(); // make sure all the inputs are valid for the move order.
       if (isValidInput == null) {
-        ActionInfoFactory af = new ActionInfoFactory();
-        HashMap<String, Integer> numUnits = getNumUnits();
-        ActionInfo info =
-            af.createMoveActionInfo(
-                model.getPlayer().getName(),
-                (String) sourceTerritoryName.getValue(),
-                (String) destTerritoryName.getValue(),
-                numUnits);
+        ActionInfo info = getMoveActionInfo();
         String success = model.getPlayer().tryIssueMoveOrder(info);
         if (success != null) {
           errorMessage.setText(success);
@@ -140,6 +171,19 @@ public class MoveActionOddPlayersController implements Initializable {
     }
   }
 
+  /* Returns a move ActionInfo object based on fields entered by the user in the view.
+   */
+  private ActionInfo getMoveActionInfo() {
+    ActionInfoFactory af = new ActionInfoFactory();
+    HashMap<String, Integer> numUnits = getNumUnits();
+    ActionInfo info =
+            af.createMoveActionInfo(
+                    model.getPlayer().getName(),
+                    (String) sourceTerritoryName.getValue(),
+                    (String) destTerritoryName.getValue(),
+                    numUnits);
+    return info;
+  }
   /* Ensures all the inputs required to make a valid move are valid and returns a null string.
    * Returns a string with a descriptive error if check fails.
    */

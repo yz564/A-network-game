@@ -2,6 +2,7 @@ package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
 import edu.duke.ece651.risk.client.view.PhaseChanger;
+import edu.duke.ece651.risk.shared.ActionCostCalculator;
 import edu.duke.ece651.risk.shared.ActionInfo;
 import edu.duke.ece651.risk.shared.ActionInfoFactory;
 import edu.duke.ece651.risk.shared.Territory;
@@ -30,6 +31,7 @@ public class MoveActionEvenPlayersController implements Initializable {
   App model;
   String next;
   ObservableList territoryNames = FXCollections.observableArrayList();
+  HashSet<KeyCode> numKeys;
 
   @FXML ChoiceBox sourceTerritoryName;
 
@@ -45,9 +47,28 @@ public class MoveActionEvenPlayersController implements Initializable {
 
   @FXML ArrayList<TextField> numTalentList;
 
+  @FXML Label foodCost;
+
+  @FXML Label foodAvailable;
+
   public MoveActionEvenPlayersController(App model) {
     this.model = model;
     this.next = "selectActionEvenPlayers";
+
+    // keys that trigger dynamic cost calculation for the move order
+    this.numKeys = new HashSet<>();
+    this.numKeys.add(KeyCode.DIGIT0);
+    this.numKeys.add(KeyCode.DIGIT1);
+    this.numKeys.add(KeyCode.DIGIT2);
+    this.numKeys.add(KeyCode.DIGIT3);
+    this.numKeys.add(KeyCode.DIGIT4);
+    this.numKeys.add(KeyCode.DIGIT5);
+    this.numKeys.add(KeyCode.DIGIT6);
+    this.numKeys.add(KeyCode.DIGIT7);
+    this.numKeys.add(KeyCode.DIGIT8);
+    this.numKeys.add(KeyCode.DIGIT9);
+    this.numKeys.add(KeyCode.BACK_SPACE);
+    this.numKeys.add(KeyCode.TAB);
   }
 
   @Override
@@ -64,6 +85,10 @@ public class MoveActionEvenPlayersController implements Initializable {
     helper.initializeTerritoryPlayerInfoColor(model, playerInfo);
 
     setTerritoryNames();
+
+    // set available food amount
+    String playerName = model.getPlayer().getName();
+    foodAvailable.setText(String.valueOf(model.getPlayer().getMap().getPlayerInfo(playerName).getResTotals().get("food")));
   }
 
   /* Fills the choice boxes with a list of territories that a player owns.
@@ -82,7 +107,18 @@ public class MoveActionEvenPlayersController implements Initializable {
     destTerritoryName.getItems().addAll(territoryNames);
   }
 
-  public void onTypingNumUnits(KeyEvent ke) throws Exception {}
+  /* Displays the cost of move action dynamically when user types in the number of units that they wish to move.
+   */
+  @FXML
+  public void onTypingNumUnits(KeyEvent ke) throws Exception {
+    Object source = ke.getCode();
+    if (this.numKeys.contains(source)) {
+      ActionInfo moveInfo = getMoveActionInfo();
+      ActionCostCalculator calc = new ActionCostCalculator();
+      int cost = calc.calculateCost(moveInfo, model.getPlayer().getMap()).get("food");
+      foodCost.setText(String.valueOf(cost));
+    }
+  }
 
   public void onSelectSource(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
@@ -106,14 +142,7 @@ public class MoveActionEvenPlayersController implements Initializable {
     if (source instanceof Button) {
       String isValidInput = checkInput(); // make sure all the inputs are valid for the move order.
       if (isValidInput == null) {
-        ActionInfoFactory af = new ActionInfoFactory();
-        HashMap<String, Integer> numUnits = getNumUnits();
-        ActionInfo info =
-            af.createMoveActionInfo(
-                model.getPlayer().getName(),
-                (String) sourceTerritoryName.getValue(),
-                (String) destTerritoryName.getValue(),
-                numUnits);
+        ActionInfo info = getMoveActionInfo();
         String success = model.getPlayer().tryIssueMoveOrder(info);
         if (success != null) {
           errorMessage.setText(success);
@@ -128,6 +157,20 @@ public class MoveActionEvenPlayersController implements Initializable {
     }
   }
 
+  /* Returns a move ActionInfo object based on fields entered by the user in the view.
+   */
+  private ActionInfo getMoveActionInfo() {
+    ActionInfoFactory af = new ActionInfoFactory();
+    HashMap<String, Integer> numUnits = getNumUnits();
+    ActionInfo info =
+        af.createMoveActionInfo(
+            model.getPlayer().getName(),
+            (String) sourceTerritoryName.getValue(),
+            (String) destTerritoryName.getValue(),
+            numUnits);
+    return info;
+  }
+
   /* Triggered when a player hits the cancel button.
    * Player is taken back to the select action window.
    */
@@ -136,8 +179,7 @@ public class MoveActionEvenPlayersController implements Initializable {
     Object source = ae.getSource();
     if (source instanceof Button) {
       loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
-    }
-    else {
+    } else {
       throw new IllegalArgumentException("Invalid source " + source + " for the cancel upgrade tech level method.");
     }
   }

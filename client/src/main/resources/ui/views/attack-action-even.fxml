@@ -138,9 +138,9 @@
                 <Label id="level5" fx:id="numTalentAvailable6" text="" GridPane.columnIndex="3" GridPane.rowIndex="11" />
                 <Label id="level6" fx:id="numTalentAvailable7" text="" GridPane.columnIndex="3" GridPane.rowIndex="12" />
 
-                <Label fx:id="foodCost" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                <Label fx:id="foodCost" text="0" GridPane.columnIndex="1" GridPane.rowIndex="13" />
                 <Label text="/" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="13" />
-                <Label fx:id="foodAvailable" prefHeight="17.0" prefWidth="41.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="13" />
+                <Label fx:id="foodAvailable" prefHeight="17.0" prefWidth="41.0" text="Food Available" GridPane.columnIndex="3" GridPane.rowIndex="13" />
                 <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Total Food Cost: " GridPane.rowIndex="13" />
 
                 <Button mnemonicParsing="false" onAction="#onAttack" prefHeight="26.0" prefWidth="95.0" text="Confirm" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="14" />
