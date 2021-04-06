@@ -35,23 +35,23 @@
                   <Image url="@../static-images/world-maps/V2MapDesignEven.jpg" />
                </image>
             </ImageView>
-                <Label fx:id="label0" alignment="CENTER" layoutX="152.0" layoutY="90.0" prefHeight="40.0" prefWidth="70.0" text="Fuqua" textAlignment="CENTER" wrapText="true" />
-                 <Label fx:id="label1" alignment="CENTER" layoutX="222.0" layoutY="178.0" prefHeight="30.0" prefWidth="50.0" text="Law" textAlignment="CENTER" wrapText="true" />
-                 <Label fx:id="label2" alignment="CENTER" layoutX="295.0" layoutY="115.0" prefHeight="40.0" prefWidth="70.0" text="Gross Hall" textAlignment="CENTER" wrapText="true" />
-                 <Label fx:id="label3" alignment="CENTER" layoutX="398.0" layoutY="171.0" prefHeight="40.0" prefWidth="70.0" text="FFRC" textAlignment="CENTER" wrapText="true" />
-                 <Label fx:id="label4" alignment="CENTER" layoutX="334.0" layoutY="267.0" prefHeight="40.0" prefWidth="70.0" text="Bryan Center" textAlignment="CENTER" wrapText="true" />
-                 <Label fx:id="label5" alignment="CENTER" layoutX="502.0" layoutY="151.0" prefHeight="40.0" prefWidth="70.0" text="LSRC" textAlignment="CENTER" wrapText="true" />
-                 <Label fx:id="label6" alignment="CENTER" layoutX="484.0" layoutY="257.0" prefHeight="40.0" prefWidth="70.0" text="Pratt" textAlignment="CENTER" wrapText="true" />
-                 <Label fx:id="label7" alignment="CENTER" layoutX="478.0" layoutY="380.0" prefHeight="40.0" prefWidth="70.0" text="Perkins Library" textAlignment="CENTER" wrapText="true" />
-                 <Label fx:id="label8" alignment="CENTER" layoutX="650.0" layoutY="243.0" prefHeight="40.0" prefWidth="70.0" text="Duke Hospital" textAlignment="CENTER" wrapText="true" />
-                 <Label fx:id="label9" alignment="CENTER" layoutX="589.0" layoutY="380.0" prefHeight="40.0" prefWidth="70.0" text="Duke Clinics" textAlignment="CENTER" wrapText="true" />
-                 <Label fx:id="label10" alignment="CENTER" layoutX="555.0" layoutY="527.0" prefHeight="40.0" prefWidth="70.0" text="Duke Garden" textAlignment="CENTER" wrapText="true" />
-                 <Label fx:id="label11" alignment="CENTER" layoutX="388.0" layoutY="382.0" prefHeight="20.0" prefWidth="120.0" rotate="90.0" text="Duke Chapel" textAlignment="CENTER" wrapText="true" />
-                 <Label fx:id="label12" alignment="CENTER" layoutX="331.0" layoutY="418.0" prefHeight="40.0" prefWidth="70.0" text="Student&#10;Housing" textAlignment="CENTER" wrapText="true" />
-                 <Label fx:id="label13" alignment="CENTER" layoutX="197.0" layoutY="417.0" prefHeight="40.0" prefWidth="70.0" text="Wilson Gym" textAlignment="CENTER" wrapText="true" />
-                 <Label fx:id="label14" alignment="CENTER" layoutX="156.0" layoutY="276.0" prefHeight="40.0" prefWidth="70.0" text="Cameron&#10;Stadium" textAlignment="CENTER" wrapText="true" />
-                 <Label fx:id="label15" alignment="CENTER" layoutX="87.0" layoutY="399.0" prefHeight="40.0" prefWidth="70.0" text="Wallace Stadium" textAlignment="CENTER" wrapText="true" />
-                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="215.0" layoutY="18.0" prefHeight="39.0" prefWidth="449.0" textAlignment="CENTER" textFill="#fa0707" />
+             <Label fx:id="label0" alignment="CENTER" layoutX="152.0" layoutY="90.0" prefHeight="40.0" prefWidth="70.0" text="Fuqua" textAlignment="CENTER" wrapText="true" />
+             <Label fx:id="label1" alignment="CENTER" layoutX="222.0" layoutY="178.0" prefHeight="30.0" prefWidth="50.0" text="Law" textAlignment="CENTER" wrapText="true" />
+             <Label fx:id="label2" alignment="CENTER" layoutX="295.0" layoutY="115.0" prefHeight="40.0" prefWidth="70.0" text="Gross Hall" textAlignment="CENTER" wrapText="true" />
+             <Label fx:id="label3" alignment="CENTER" layoutX="398.0" layoutY="171.0" prefHeight="40.0" prefWidth="70.0" text="FFRC" textAlignment="CENTER" wrapText="true" />
+             <Label fx:id="label4" alignment="CENTER" layoutX="334.0" layoutY="267.0" prefHeight="40.0" prefWidth="70.0" text="Bryan Center" textAlignment="CENTER" wrapText="true" />
+             <Label fx:id="label5" alignment="CENTER" layoutX="502.0" layoutY="151.0" prefHeight="40.0" prefWidth="70.0" text="LSRC" textAlignment="CENTER" wrapText="true" />
+             <Label fx:id="label6" alignment="CENTER" layoutX="484.0" layoutY="257.0" prefHeight="40.0" prefWidth="70.0" text="Pratt" textAlignment="CENTER" wrapText="true" />
+             <Label fx:id="label7" alignment="CENTER" layoutX="478.0" layoutY="380.0" prefHeight="40.0" prefWidth="70.0" text="Perkins Library" textAlignment="CENTER" wrapText="true" />
+             <Label fx:id="label8" alignment="CENTER" layoutX="650.0" layoutY="243.0" prefHeight="40.0" prefWidth="70.0" text="Duke Hospital" textAlignment="CENTER" wrapText="true" />
+             <Label fx:id="label9" alignment="CENTER" layoutX="589.0" layoutY="380.0" prefHeight="40.0" prefWidth="70.0" text="Duke Clinics" textAlignment="CENTER" wrapText="true" />
+             <Label fx:id="label10" alignment="CENTER" layoutX="555.0" layoutY="527.0" prefHeight="40.0" prefWidth="70.0" text="Duke Garden" textAlignment="CENTER" wrapText="true" />
+             <Label fx:id="label11" alignment="CENTER" layoutX="388.0" layoutY="382.0" prefHeight="20.0" prefWidth="120.0" rotate="90.0" text="Duke Chapel" textAlignment="CENTER" wrapText="true" />
+             <Label fx:id="label12" alignment="CENTER" layoutX="331.0" layoutY="418.0" prefHeight="40.0" prefWidth="70.0" text="Student&#10;Housing" textAlignment="CENTER" wrapText="true" />
+             <Label fx:id="label13" alignment="CENTER" layoutX="197.0" layoutY="417.0" prefHeight="40.0" prefWidth="70.0" text="Wilson Gym" textAlignment="CENTER" wrapText="true" />
+             <Label fx:id="label14" alignment="CENTER" layoutX="156.0" layoutY="276.0" prefHeight="40.0" prefWidth="70.0" text="Cameron&#10;Stadium" textAlignment="CENTER" wrapText="true" />
+             <Label fx:id="label15" alignment="CENTER" layoutX="87.0" layoutY="399.0" prefHeight="40.0" prefWidth="70.0" text="Wallace Stadium" textAlignment="CENTER" wrapText="true" />
+             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="215.0" layoutY="18.0" prefHeight="39.0" prefWidth="449.0" textAlignment="CENTER" textFill="#fa0707" />
          </children>
       </AnchorPane>
       <Label alignment="BOTTOM_CENTER" prefHeight="47.0" prefWidth="881.0" text="New Turn Begins!" textAlignment="CENTER" GridPane.columnSpan="3">
@@ -69,11 +69,11 @@
                   <MenuItem mnemonicParsing="false" onAction="#onSelectUpgradeTech" text="Upgrade Tech Level" />
               </items>
             </SplitMenuButton>
-            <Button mnemonicParsing="false" onAction="#onCompletingTurn" prefHeight="30.0" prefWidth="125.0" styleClass="territory-group-2" text="Complete Turn" />
+            <Button mnemonicParsing="false" onAction="#onCompletingTurn" prefHeight="30.0" prefWidth="125.0" text="Complete Turn" />
         </buttons>
       </ButtonBar>
       <Label alignment="CENTER" prefHeight="20.0" prefWidth="868.0" text="Please select an action to perform or complete the turn. You may perform multiple actions for a turn." GridPane.columnSpan="3" GridPane.rowIndex="1" />
-      <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#onLeavingGame" styleClass="territory-group-2" text="Leave Game" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
+      <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#onLeavingGame" text="Leave Game" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
          <GridPane.margin>
             <Insets right="30.0" />
          </GridPane.margin>

@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -62,6 +63,8 @@ public class MoveActionEvenPlayersController implements Initializable {
     @FXML
     TextField numTalent7; //level6
 
+    @FXML
+    ArrayList<Label> labelList;
 
     public MoveActionEvenPlayersController(App model) {
         this.model = model;
@@ -70,8 +73,15 @@ public class MoveActionEvenPlayersController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        InitializeControllerHelper helper = new InitializeControllerHelper();
+        // set coloring for each territory label
+        helper.initializeTerritoryLabelByOwner(model.getPlayer().getMap(), labelList);
+        // set tooltip for each territory label
+        helper.initializeTerritoryTooltips(model.getPlayer().getMap(), labelList);
+
+        helper.initializeTerritoryGroupLabelColor(model, territoryGroupName);
         setTerritoryNames();
-        territoryGroupName.setText(model.getPlayer().getTerritoryGroupSelected());
+        //territoryGroupName.setText(model.getPlayer().getTerritoryGroupSelected());
         numTalent1.setText("0");
         numTalent2.setText("0");
         numTalent3.setText("0");

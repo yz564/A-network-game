@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import java.util.ArrayList?>
 <SplitPane dividerPositions="0.6047094188376754" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.risk.client.controller.MoveActionOddPlayersController">
   <items>
       <VBox prefHeight="200.0" prefWidth="100.0">
@@ -140,4 +141,23 @@
          </children>
       </GridPane>
   </items>
+    <fx:define>
+        <ArrayList fx:id="labelList">
+            <fx:reference source="label0"/>
+            <fx:reference source="label1"/>
+            <fx:reference source="label2"/>
+            <fx:reference source="label3"/>
+            <fx:reference source="label4"/>
+            <fx:reference source="label5"/>
+            <fx:reference source="label6"/>
+            <fx:reference source="label7"/>
+            <fx:reference source="label8"/>
+            <fx:reference source="label9"/>
+            <fx:reference source="label10"/>
+            <fx:reference source="label11"/>
+            <fx:reference source="label12"/>
+            <fx:reference source="label13"/>
+            <fx:reference source="label14"/>
+        </ArrayList>
+    </fx:define>
 </SplitPane>
