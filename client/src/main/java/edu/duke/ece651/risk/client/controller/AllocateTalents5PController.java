@@ -18,10 +18,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class AllocateTalents5PController implements Initializable {
     App model;
@@ -61,6 +58,9 @@ public class AllocateTalents5PController implements Initializable {
     @FXML
     Label territoryGroupName;
 
+    @FXML
+    ArrayList<Label> labelList;
+
     // label for printing error messages and acknowledgement messages to the player.
     @FXML
     Label errorMessage;
@@ -72,8 +72,15 @@ public class AllocateTalents5PController implements Initializable {
     }
 
     public void initialize(URL location, ResourceBundle resources) {
+        InitializeControllerHelper helper = new InitializeControllerHelper();
+        // set coloring for each territory label
+        helper.initializeTerritoryLabelByGroup(model.getPlayer().getMap(), labelList);
+        // set tooltip for each territory label
+        helper.initializeTerritoryTooltips(model.getPlayer().getMap(), labelList);
+
+        helper.initializeTerritoryGroupLabelColor(model, territoryGroupName);
         setTerritoryNameLabels();
-        territoryGroupName.setText(model.getPlayer().getTerritoryGroupSelected());
+        //territoryGroupName.setText(model.getPlayer().getTerritoryGroupSelected());
         numTalent1.setText("0");
         numTalent2.setText("0");
         numTalent3.setText("0");

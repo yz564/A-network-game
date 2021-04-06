@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class SelectActionController implements Initializable {
@@ -32,6 +33,9 @@ public class SelectActionController implements Initializable {
     @FXML
     SplitMenuButton actionMenu;
 
+    @FXML
+    ArrayList<Label> labelList;
+
     /* Constructor that initializes the model and the next view.
      */
     public SelectActionController(App model) {
@@ -42,6 +46,12 @@ public class SelectActionController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        InitializeControllerHelper helper = new InitializeControllerHelper();
+        // set coloring for each territory label
+        helper.initializeTerritoryLabelByOwner(model.getPlayer().getMap(), labelList);
+        // set tooltip for each territory label
+        helper.initializeTerritoryTooltips(model.getPlayer().getMap(), labelList);
+
         if (model.getPlayer().getMap().getNumPlayers() % 2 == 0) {
             this.nextOnCompleteTurn = "selectActionEvenPlayers";
             this.nextOnMoveAction = "moveActionEvenPlayers";

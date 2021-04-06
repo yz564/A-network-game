@@ -1,5 +1,6 @@
 package edu.duke.ece651.risk.client.controller;
 
+import edu.duke.ece651.risk.client.App;
 import edu.duke.ece651.risk.client.view.StyleMapping;
 import edu.duke.ece651.risk.shared.PlayerInfo;
 import edu.duke.ece651.risk.shared.Territory;
@@ -59,8 +60,22 @@ public class InitializeControllerHelper {
         }
     }
 
-    public void initializeTerritoryLabelByOwner() {
-        // TODO: add this for initialize controllers for action phase.
+    public void initializeTerritoryLabelByOwner(WorldMap map, ArrayList<Label> territoryLabelList) {
+        StyleMapping mapping = new StyleMapping();
+        // set coloring for each territory label
+        for (Label territoryLabel : territoryLabelList) {
+            String territoryName = mapping.getTerritoryLabelId(territoryLabel.getId());
+            int initGroup = map.getPlayerInfo(map.getTerritory(territoryName).getOwnerName()).getPlayerId();
+            territoryLabel.getStyleClass().add("territory-group-" + String.valueOf(initGroup));
+        }
+    }
+
+    public void initializeTerritoryGroupLabelColor(App model, Label territoryGroupName) {
+        StyleMapping mapping = new StyleMapping();
+        int group = model.getPlayer().getMap().getPlayerInfo(model.getPlayer().getName()).getPlayerId();
+        String groupName = mapping.territoryGroupColor(group);
+        territoryGroupName.getStyleClass().add("territory-group-" + String.valueOf(group));
+        territoryGroupName.setText(groupName);
     }
 
     /**
