@@ -161,6 +161,8 @@ public class AllocateTalents2PController implements Initializable {
         numKeys.add(KeyCode.DIGIT7);
         numKeys.add(KeyCode.DIGIT8);
         numKeys.add(KeyCode.DIGIT9);
+        numKeys.add(KeyCode.BACK_SPACE);
+        numKeys.add(KeyCode.TAB);
         if (numKeys.contains(source)) {
             numUnitsAllocated.setText(String.valueOf(getNumUnitsRequested()));
         }

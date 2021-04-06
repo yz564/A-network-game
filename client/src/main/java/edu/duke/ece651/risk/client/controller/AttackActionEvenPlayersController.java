@@ -2,6 +2,7 @@ package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
 import edu.duke.ece651.risk.client.view.PhaseChanger;
+import edu.duke.ece651.risk.shared.ActionCostCalculator;
 import edu.duke.ece651.risk.shared.ActionInfo;
 import edu.duke.ece651.risk.shared.ActionInfoFactory;
 import edu.duke.ece651.risk.shared.Territory;
@@ -15,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
@@ -26,6 +28,7 @@ public class AttackActionEvenPlayersController implements Initializable {
   App model;
   String next;
   ObservableList territoryNames = FXCollections.observableArrayList();
+
 
   @FXML ChoiceBox sourceTerritoryName;
 
@@ -41,9 +44,14 @@ public class AttackActionEvenPlayersController implements Initializable {
 
   @FXML ArrayList<TextField> numTalentList;
 
+  @FXML Label foodCost;
+
+  @FXML Label foodAvailable;
+
   public AttackActionEvenPlayersController(App model) {
     this.model = model;
     this.next = "selectActionEvenPlayers";
+    HashSet<KeyCode> numKeys;
   }
 
   @Override
@@ -61,6 +69,10 @@ public class AttackActionEvenPlayersController implements Initializable {
 
     setSourceTerritoryNames();
     setDestinationTerritoryNames();
+
+    // set available food amount
+    String playerName = model.getPlayer().getName();
+    foodAvailable.setText(String.valueOf(model.getPlayer().getMap().getPlayerInfo(playerName).getResTotals().get("food")));
   }
 
   /* Fills the choice boxes with a list of territories that a player owns.
@@ -97,7 +109,31 @@ public class AttackActionEvenPlayersController implements Initializable {
     destTerritoryName.getItems().addAll(territoryNames);
   }
 
-  public void onTypingNumUnits(KeyEvent ke) throws Exception {}
+  /* Displays the cost of attack action dynamically when user types in the number of units that they wish to attack with.
+   */
+  @FXML
+  public void onTypingNumUnits(KeyEvent ke) throws Exception {
+    Object source = ke.getCode();
+    HashSet<KeyCode> numKeys = new HashSet<>();
+    numKeys.add(KeyCode.DIGIT0);
+    numKeys.add(KeyCode.DIGIT1);
+    numKeys.add(KeyCode.DIGIT2);
+    numKeys.add(KeyCode.DIGIT3);
+    numKeys.add(KeyCode.DIGIT4);
+    numKeys.add(KeyCode.DIGIT5);
+    numKeys.add(KeyCode.DIGIT6);
+    numKeys.add(KeyCode.DIGIT7);
+    numKeys.add(KeyCode.DIGIT8);
+    numKeys.add(KeyCode.DIGIT9);
+    numKeys.add(KeyCode.BACK_SPACE);
+    numKeys.add(KeyCode.TAB);
+    if (numKeys.contains(source)) {
+      ActionInfo attackInfo = getAttackActionInfo();
+      ActionCostCalculator calc = new ActionCostCalculator();
+      int cost = calc.calculateCost(attackInfo, model.getPlayer().getMap()).get("food");
+      foodCost.setText(String.valueOf(cost));
+    }
+  }
 
   public void onSelectSource(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
@@ -121,14 +157,7 @@ public class AttackActionEvenPlayersController implements Initializable {
     if (source instanceof Button) {
       String isValidInput = checkInput(); // make sure all the inputs are valid for the move order.
       if (isValidInput == null) {
-        ActionInfoFactory af = new ActionInfoFactory();
-        HashMap<String, Integer> numUnits = getNumUnits();
-        ActionInfo info =
-            af.createAttackActionInfo(
-                model.getPlayer().getName(),
-                (String) sourceTerritoryName.getValue(),
-                (String) destTerritoryName.getValue(),
-                numUnits);
+        ActionInfo info = getAttackActionInfo();
         String success = model.getPlayer().tryIssueAttackOrder(info);
         if (success != null) {
           errorMessage.setText(success);
@@ -155,6 +184,20 @@ public class AttackActionEvenPlayersController implements Initializable {
     else {
       throw new IllegalArgumentException("Invalid source " + source + " for the cancel upgrade tech level method.");
     }
+  }
+
+  /* Returns a attack ActionInfo object based on fields entered by the user in the view.
+   */
+  private ActionInfo getAttackActionInfo() {
+    ActionInfoFactory af = new ActionInfoFactory();
+    HashMap<String, Integer> numUnits = getNumUnits();
+    ActionInfo info =
+            af.createAttackActionInfo(
+                    model.getPlayer().getName(),
+                    (String) sourceTerritoryName.getValue(),
+                    (String) destTerritoryName.getValue(),
+                    numUnits);
+    return info;
   }
 
   /* Ensures all the inputs required to make a valid move are valid and returns a null string.
