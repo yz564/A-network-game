@@ -1,12 +1,7 @@
 package edu.duke.ece651.risk.server;
 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.ArrayList;
-
-import edu.duke.ece651.risk.shared.ObjectIO;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Room implements Runnable {
   //private ServerSocket serverSocket;
@@ -14,7 +9,10 @@ public class Room implements Runnable {
   private int numPlayer;
   private volatile ArrayList<Player> playerList;
   private Game game;
-
+  private Thread worker;
+  private final AtomicBoolean running=new AtomicBoolean(false);
+  private int interval = 100;
+ 
   public Room( int id, int numPlayer){
     //this.serverSocket=ss;
     this.id=id;
@@ -37,12 +35,25 @@ public class Room implements Runnable {
   public int getCurrentNum() {
     return playerList.size();
   }
+
+  /*
+  public void start() {
+    worker = new Thread(this);
+    worker.start();
+  }
+  */
+  public void stop() {
+    playerList.clear();
+    running.set(false);
+  }
   
   @Override
   public void run(){
+    System.out.println("a new room thread is running");
     while (true) {
-      while (playerList.size() == numPlayer) {
-        try {
+      running.set(true);
+        try{
+          while (running.get() && playerList.size() == numPlayer) {
           System.out.println("room "+(id+1)+ " begins a game");
           game = new Game(numPlayer, playerList);
           game.doInitialization();
@@ -52,15 +63,29 @@ public class Room implements Runnable {
             game.doRefresh();
             if (game.checkWinner()) {
               playerList.clear();
+              System.out.println("Room "+(id+1)+" game over, all player quit the room");
               break;
             }
           }
-        } catch (Exception e) {
+      }
+    
+    } catch (Exception e) {
+Thread.currentThread().interrupt();
+          System.out.println("Room "+(id+1)+" accidently game over, because an user force quit the game");
+          playerList.clear();
         }
       }
-    }
   }
 
   
 }
+
+
+
+
+
+
+
+
+
 

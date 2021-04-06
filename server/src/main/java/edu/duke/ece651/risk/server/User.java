@@ -130,11 +130,17 @@ public class User implements Runnable{
             myWrite(new ObjectIO("failed on joining the room, retry",-1));
           }
       }
-    }catch(Exception e){}
+    }catch(Exception e){
+      for (int i : joinedRoomId) {
+        System.out.println(inputName+" force quits room "+(i+1));
+        roomList.get(i).stop();
+      }
+    }
 
   }
   
 }
+
 
 
 
