@@ -65,20 +65,10 @@ public class SelectActionController implements Initializable {
         Object source = ae.getSource();
         if (source instanceof MenuItem) {
             next = nextOnMoveAction;
-            loadNextPhaseFromMenuEvent();
-        }
-        else {
+            loadNextPhase((Stage) actionMenu.getScene().getWindow());
+        } else {
             throw new IllegalArgumentException("Action event " + ae.getSource() + " is invalid.");
         }
-    }
-
-    /* Loads next phase after a player clicks on a menu item inside a SplitMenuButton.
-     */
-    private void loadNextPhaseFromMenuEvent() throws IOException {
-        Stage window = (Stage) actionMenu.getScene().getWindow();
-        Object controller = new ControllerFactory().getController(next, model);
-        Stage newWindow = PhaseChanger.switchTo(window, controller, next);
-        newWindow.show();
     }
 
     /* Opens a new view that asks user to attack enemy territory.
@@ -107,7 +97,7 @@ public class SelectActionController implements Initializable {
         if (source instanceof Button) { // go to join room
             model.requestLeave();
             next = nextOnLeave;
-            loadNextPhase(ae);
+            loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
         }
         else {
             throw new IllegalArgumentException("Action event " + ae.getSource() + " is invalid for onAction().");
@@ -126,7 +116,7 @@ public class SelectActionController implements Initializable {
             }
             else {
                 this.next = nextOnCompleteTurn;
-                loadNextPhase(ae);
+                loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
             }
         }
         else {
@@ -134,14 +124,13 @@ public class SelectActionController implements Initializable {
         }
     }
 
-    /* Loads the next Phase.
-     * @param ae is used to compute the parent of the item that interacted
-     * with the view that this controller is attached to.
+    /* Loads next phase after a player clicks on a menu item inside a SplitMenuButton.
+     * @param window is the source Stage where the user interacted.
      */
-    private void loadNextPhase(ActionEvent ae) throws IOException {
-        Stage window = (Stage) (((Node) ae.getSource()).getScene().getWindow());
+    private void loadNextPhase(Stage window) throws IOException {
         Object controller = new ControllerFactory().getController(next, model);
         Stage newWindow = PhaseChanger.switchTo(window, controller, next);
         newWindow.show();
     }
+
 }
