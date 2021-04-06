@@ -33,28 +33,15 @@ public class AttackActionOddPlayersController implements Initializable {
 
   @FXML ChoiceBox destTerritoryName;
 
-  @FXML Label territoryGroupName;
-
   @FXML Label errorMessage;
-
-  // number of talents to move by type of talents
-  @FXML TextField numTalent1; // level0
-
-  @FXML TextField numTalent2; // level1
-
-  @FXML TextField numTalent3;
-
-  @FXML TextField numTalent4;
-
-  @FXML TextField numTalent5;
-
-  @FXML TextField numTalent6;
-
-  @FXML TextField numTalent7; // level6
 
   @FXML ArrayList<Label> labelList;
 
   @FXML Label playerInfo;
+
+  @FXML ArrayList<Label> numTalentAvailList;
+
+  @FXML ArrayList<TextField> numTalentList;
 
   public AttackActionOddPlayersController(App model) {
     this.model = model;
@@ -76,14 +63,6 @@ public class AttackActionOddPlayersController implements Initializable {
 
     setSourceTerritoryNames();
     setDestinationTerritoryNames();
-    territoryGroupName.setText("Attack");
-    numTalent1.setText("0");
-    numTalent2.setText("0");
-    numTalent3.setText("0");
-    numTalent4.setText("0");
-    numTalent5.setText("0");
-    numTalent6.setText("0");
-    numTalent7.setText("0");
   }
 
   /* Fills the choice boxes with a list of territories that a player owns.
@@ -108,14 +87,33 @@ public class AttackActionOddPlayersController implements Initializable {
   private void setDestinationTerritoryNames() {
     territoryNames.removeAll(territoryNames);
     String playerName = model.getPlayer().getName();
+    HashMap<String, Territory> playerTerritories =
+            model.getPlayer().getMap().getPlayerTerritories(playerName);
     ArrayList<String> allTerritories = model.getPlayer().getMap().getMyTerritories();
     for (String territoryName : allTerritories) {
-      territoryNames.add(territoryName);
+      // only add a territory to destination if it is not a player territory
+      if (!playerTerritories.keySet().contains(territoryName)) {
+        territoryNames.add(territoryName);
+      }
     }
     destTerritoryName.getItems().addAll(territoryNames);
   }
 
   public void onTypingNumUnits(KeyEvent ke) throws Exception {}
+
+  public void onSelectSource(ActionEvent ae) throws Exception {
+    Object source = ae.getSource();
+    if (source instanceof ChoiceBox) {
+      String srcTerritory = (String) sourceTerritoryName.getValue();
+      HashMap<String, Integer> allNumUnits =
+          model.getPlayer().getMap().getTerritory(srcTerritory).getAllNumUnits();
+      for (Label numUnitLabel : numTalentAvailList) {
+        numUnitLabel.setText(String.valueOf(allNumUnits.get(numUnitLabel.getId())));
+      }
+    } else {
+      throw new IllegalArgumentException("Invalid ActionEvent source " + source);
+    }
+  }
 
   public void onAttack(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
@@ -149,13 +147,9 @@ public class AttackActionOddPlayersController implements Initializable {
    */
   String checkInput() {
     try {
-      parseIntFromTextField(numTalent1.getText(), 1);
-      parseIntFromTextField(numTalent2.getText(), 2);
-      parseIntFromTextField(numTalent3.getText(), 3);
-      parseIntFromTextField(numTalent4.getText(), 4);
-      parseIntFromTextField(numTalent5.getText(), 5);
-      parseIntFromTextField(numTalent6.getText(), 6);
-      parseIntFromTextField(numTalent7.getText(), 7);
+      for (TextField numTalent : numTalentList) {
+        parseIntFromTextField(numTalent.getText(), numTalentList.indexOf(numTalent));
+      }
       sourceTerritoryName.getValue();
       destTerritoryName.getValue();
     } catch (IllegalArgumentException iae) {
@@ -170,13 +164,11 @@ public class AttackActionOddPlayersController implements Initializable {
    */
   HashMap<String, Integer> getNumUnits() throws IllegalArgumentException {
     HashMap<String, Integer> numUnits = new HashMap<>();
-    numUnits.put("level0", parseIntFromTextField(numTalent1.getText(), 1));
-    numUnits.put("level1", parseIntFromTextField(numTalent2.getText(), 2));
-    numUnits.put("level2", parseIntFromTextField(numTalent3.getText(), 3));
-    numUnits.put("level3", parseIntFromTextField(numTalent4.getText(), 4));
-    numUnits.put("level4", parseIntFromTextField(numTalent5.getText(), 5));
-    numUnits.put("level5", parseIntFromTextField(numTalent6.getText(), 6));
-    numUnits.put("level6", parseIntFromTextField(numTalent6.getText(), 7));
+    for (TextField numTalent : numTalentList) {
+      int itemNum = numTalentList.indexOf(numTalent);
+      numUnits.put(
+          "level" + String.valueOf(itemNum), parseIntFromTextField(numTalent.getText(), itemNum));
+    }
     return numUnits;
   }
 

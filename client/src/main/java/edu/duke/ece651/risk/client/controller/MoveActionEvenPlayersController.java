@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.ResourceBundle;
 
 public class MoveActionEvenPlayersController implements Initializable {
@@ -33,28 +35,15 @@ public class MoveActionEvenPlayersController implements Initializable {
 
   @FXML ChoiceBox destTerritoryName;
 
-  @FXML Label territoryGroupName;
-
   @FXML Label errorMessage;
-
-  // number of talents to move by type of talents
-  @FXML TextField numTalent1; // level0
-
-  @FXML TextField numTalent2; // level1
-
-  @FXML TextField numTalent3;
-
-  @FXML TextField numTalent4;
-
-  @FXML TextField numTalent5;
-
-  @FXML TextField numTalent6;
-
-  @FXML TextField numTalent7; // level6
 
   @FXML ArrayList<Label> labelList;
 
   @FXML Label playerInfo;
+
+  @FXML ArrayList<Label> numTalentAvailList;
+
+  @FXML ArrayList<TextField> numTalentList;
 
   public MoveActionEvenPlayersController(App model) {
     this.model = model;
@@ -75,14 +64,6 @@ public class MoveActionEvenPlayersController implements Initializable {
     helper.initializeTerritoryPlayerInfoColor(model, playerInfo);
 
     setTerritoryNames();
-    territoryGroupName.setText("Move");
-    numTalent1.setText("0");
-    numTalent2.setText("0");
-    numTalent3.setText("0");
-    numTalent4.setText("0");
-    numTalent5.setText("0");
-    numTalent6.setText("0");
-    numTalent7.setText("0");
   }
 
   /* Fills the choice boxes with a list of territories that a player owns.
@@ -102,6 +83,20 @@ public class MoveActionEvenPlayersController implements Initializable {
   }
 
   public void onTypingNumUnits(KeyEvent ke) throws Exception {}
+
+  public void onSelectSource(ActionEvent ae) throws Exception {
+    Object source = ae.getSource();
+    if (source instanceof ChoiceBox) {
+      String srcTerritory = (String) sourceTerritoryName.getValue();
+      HashMap<String, Integer> allNumUnits =
+          model.getPlayer().getMap().getTerritory(srcTerritory).getAllNumUnits();
+      for (Label numUnitLabel : numTalentAvailList) {
+        numUnitLabel.setText(String.valueOf(allNumUnits.get(numUnitLabel.getId())));
+      }
+    } else {
+      throw new IllegalArgumentException("Invalid ActionEvent source " + source);
+    }
+  }
 
   public void onMove(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
@@ -135,13 +130,9 @@ public class MoveActionEvenPlayersController implements Initializable {
    */
   String checkInput() {
     try {
-      parseIntFromTextField(numTalent1.getText(), 1);
-      parseIntFromTextField(numTalent2.getText(), 2);
-      parseIntFromTextField(numTalent3.getText(), 3);
-      parseIntFromTextField(numTalent4.getText(), 4);
-      parseIntFromTextField(numTalent5.getText(), 5);
-      parseIntFromTextField(numTalent6.getText(), 6);
-      parseIntFromTextField(numTalent7.getText(), 7);
+      for (TextField numTalent : numTalentList) {
+        parseIntFromTextField(numTalent.getText());
+      }
       sourceTerritoryName.getValue();
       destTerritoryName.getValue();
     } catch (IllegalArgumentException iae) {
@@ -156,13 +147,10 @@ public class MoveActionEvenPlayersController implements Initializable {
    */
   HashMap<String, Integer> getNumUnits() throws IllegalArgumentException {
     HashMap<String, Integer> numUnits = new HashMap<>();
-    numUnits.put("level0", parseIntFromTextField(numTalent1.getText(), 1));
-    numUnits.put("level1", parseIntFromTextField(numTalent2.getText(), 2));
-    numUnits.put("level2", parseIntFromTextField(numTalent3.getText(), 3));
-    numUnits.put("level3", parseIntFromTextField(numTalent4.getText(), 4));
-    numUnits.put("level4", parseIntFromTextField(numTalent5.getText(), 5));
-    numUnits.put("level5", parseIntFromTextField(numTalent6.getText(), 6));
-    numUnits.put("level6", parseIntFromTextField(numTalent6.getText(), 7));
+    for (TextField numTalent : numTalentList) {
+      int itemNum = numTalentList.indexOf(numTalent);
+      numUnits.put("level" + String.valueOf(itemNum), parseIntFromTextField(numTalent.getText()));
+    }
     return numUnits;
   }
 
@@ -171,7 +159,7 @@ public class MoveActionEvenPlayersController implements Initializable {
    * @param itemNumber is the index of the TextField. There are five TextField items 1, 2, 3, 4 and 5.
    *        itemNumber is used for printing error messages if parsing fails.
    */
-  private int parseIntFromTextField(String text, int itemNumber) throws IllegalArgumentException {
+  private int parseIntFromTextField(String text) throws IllegalArgumentException {
     int parsedInt = 0;
     try {
       parsedInt = Integer.parseInt(text);
