@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import java.util.ArrayList?>
 <SplitPane dividerPositions="0.6047094188376754" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.risk.client.controller.AllocateTalents2PController">
   <items>
       <VBox prefHeight="200.0" prefWidth="100.0">
@@ -39,22 +40,22 @@
                         <Image url="@../static-images/world-maps/V2MapDesignEven.jpg" />
                      </image>
                   </ImageView>
-                  <Label fx:id="label01" alignment="CENTER" layoutX="158.0" layoutY="105.0" prefHeight="25.0" prefWidth="53.0" text="Fuqua" textAlignment="CENTER" />
-                  <Label fx:id="label11" alignment="CENTER" layoutX="247.0" layoutY="210.0" text="Law" textAlignment="CENTER" />
-                  <Label fx:id="label21" alignment="CENTER" layoutX="318.0" layoutY="130.0" text="Gross&#10;Hall" textAlignment="CENTER" />
-                  <Label fx:id="label31" alignment="CENTER" layoutX="412.0" layoutY="175.0" text="FFRC" textAlignment="CENTER" />
-                  <Label fx:id="label41" alignment="CENTER" layoutX="345.0" layoutY="272.0" text="Bryan&#10;Center" textAlignment="CENTER" />
-                  <Label fx:id="label51" alignment="CENTER" layoutX="520.0" layoutY="166.0" text="LSRC" textAlignment="CENTER" />
-                  <Label fx:id="label61" alignment="CENTER" layoutX="504.0" layoutY="269.0" text="Pratt" textAlignment="CENTER" />
-                  <Label fx:id="label71" alignment="CENTER" layoutX="491.0" layoutY="386.0" text="Perkins&#10;Library" textAlignment="CENTER" />
-                  <Label fx:id="label81" alignment="CENTER" layoutX="665.0" layoutY="243.0" text="Duke&#10;Hospital" textAlignment="CENTER" />
-                  <Label fx:id="label91" alignment="CENTER" layoutX="596.0" layoutY="384.0" text="Duke&#10;Clinics" textAlignment="CENTER" />
-                  <Label fx:id="label101" alignment="CENTER" layoutX="570.0" layoutY="525.0" text="Duke&#10;Garden" textAlignment="CENTER" />
-                  <Label fx:id="label111" alignment="CENTER" layoutX="439.0" layoutY="335.0" text="C&#10;h&#10;a&#10;p&#10;e&#10;l" textAlignment="CENTER" />
-                  <Label fx:id="label121" alignment="CENTER" layoutX="340.0" layoutY="438.0" text="Student&#10;Housing" textAlignment="CENTER" />
-                  <Label fx:id="label131" alignment="CENTER" layoutX="218.0" layoutY="412.0" text="Wilson&#10;Gym" textAlignment="CENTER" />
-                  <Label fx:id="label141" alignment="CENTER" layoutX="175.0" layoutY="289.0" text="Cameron&#10;Stadium" textAlignment="CENTER" />
-                  <Label fx:id="label15" alignment="CENTER" layoutX="107.0" layoutY="395.0" text="Wallace&#10;Stadium" textAlignment="CENTER" />
+                   <Label fx:id="label0" alignment="CENTER" layoutX="152.0" layoutY="90.0" prefHeight="40.0" prefWidth="70.0" text="Fuqua" textAlignment="CENTER" wrapText="true" />
+                   <Label fx:id="label1" alignment="CENTER" layoutX="222.0" layoutY="178.0" prefHeight="30.0" prefWidth="50.0" text="Law" textAlignment="CENTER" wrapText="true" />
+                   <Label fx:id="label2" alignment="CENTER" layoutX="295.0" layoutY="115.0" prefHeight="40.0" prefWidth="70.0" text="Gross Hall" textAlignment="CENTER" wrapText="true" />
+                   <Label fx:id="label3" alignment="CENTER" layoutX="398.0" layoutY="171.0" prefHeight="40.0" prefWidth="70.0" text="FFRC" textAlignment="CENTER" wrapText="true" />
+                   <Label fx:id="label4" alignment="CENTER" layoutX="334.0" layoutY="267.0" prefHeight="40.0" prefWidth="70.0" text="Bryan Center" textAlignment="CENTER" wrapText="true" />
+                   <Label fx:id="label5" alignment="CENTER" layoutX="502.0" layoutY="151.0" prefHeight="40.0" prefWidth="70.0" text="LSRC" textAlignment="CENTER" wrapText="true" />
+                   <Label fx:id="label6" alignment="CENTER" layoutX="484.0" layoutY="257.0" prefHeight="40.0" prefWidth="70.0" text="Pratt" textAlignment="CENTER" wrapText="true" />
+                   <Label fx:id="label7" alignment="CENTER" layoutX="478.0" layoutY="380.0" prefHeight="40.0" prefWidth="70.0" text="Perkins Library" textAlignment="CENTER" wrapText="true" />
+                   <Label fx:id="label8" alignment="CENTER" layoutX="650.0" layoutY="243.0" prefHeight="40.0" prefWidth="70.0" text="Duke Hospital" textAlignment="CENTER" wrapText="true" />
+                   <Label fx:id="label9" alignment="CENTER" layoutX="589.0" layoutY="380.0" prefHeight="40.0" prefWidth="70.0" text="Duke Clinics" textAlignment="CENTER" wrapText="true" />
+                   <Label fx:id="label10" alignment="CENTER" layoutX="555.0" layoutY="527.0" prefHeight="40.0" prefWidth="70.0" text="Duke Garden" textAlignment="CENTER" wrapText="true" />
+                   <Label fx:id="label11" alignment="CENTER" layoutX="388.0" layoutY="382.0" prefHeight="20.0" prefWidth="120.0" rotate="90.0" text="Duke Chapel" textAlignment="CENTER" wrapText="true" />
+                   <Label fx:id="label12" alignment="CENTER" layoutX="331.0" layoutY="418.0" prefHeight="40.0" prefWidth="70.0" text="Student&#10;Housing" textAlignment="CENTER" wrapText="true" />
+                   <Label fx:id="label13" alignment="CENTER" layoutX="197.0" layoutY="417.0" prefHeight="40.0" prefWidth="70.0" text="Wilson Gym" textAlignment="CENTER" wrapText="true" />
+                   <Label fx:id="label14" alignment="CENTER" layoutX="156.0" layoutY="276.0" prefHeight="40.0" prefWidth="70.0" text="Cameron&#10;Stadium" textAlignment="CENTER" wrapText="true" />
+                   <Label fx:id="label15" alignment="CENTER" layoutX="87.0" layoutY="399.0" prefHeight="40.0" prefWidth="70.0" text="Wallace Stadium" textAlignment="CENTER" wrapText="true" />
                </children>
             </AnchorPane>
          </children>
@@ -88,18 +89,30 @@
             <TextField fx:id="numTalent2" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="numTalent3" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField fx:id="numTalent4" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Label fx:id="talentLabel3" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Cameron Stadium" GridPane.rowIndex="5" />
-            <Label text="Undergrads" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <Label text="/" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+             <TextField fx:id="numTalent5" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+             <TextField fx:id="numTalent6" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+             <TextField fx:id="numTalent7" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+             <TextField fx:id="numTalent8" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+             <Label fx:id="talentLabel1" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Fuqua" GridPane.rowIndex="3" />
+             <Label fx:id="talentLabel2" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Law" GridPane.rowIndex="4" />
+             <Label fx:id="talentLabel3" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Cameron Stadium" GridPane.rowIndex="5" />
+             <Label fx:id="talentLabel4" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Gross Hall" GridPane.rowIndex="6" />
+             <Label fx:id="talentLabel5" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Gross Hall" GridPane.rowIndex="7" />
+             <Label fx:id="talentLabel6" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Gross Hall" GridPane.rowIndex="8" />
+             <Label fx:id="talentLabel7" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Gross Hall" GridPane.rowIndex="9" />
+             <Label fx:id="talentLabel8" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Gross Hall" GridPane.rowIndex="10" />
+             <Label text="Undergrads" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+             <Label text="Undergrads" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+             <Label text="Undergrads" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+             <Label text="Undergrads" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+             <Label prefWidth="73.0" text="Undergrads" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+             <Label prefWidth="73.0" text="Undergrads" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+             <Label prefWidth="73.0" text="Undergrads" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+             <Label prefWidth="73.0" text="Undergrads" GridPane.columnIndex="3" GridPane.rowIndex="10" />
+             <Label text="/" GridPane.columnIndex="2" GridPane.rowIndex="11" />
             <Label fx:id="numUnitsAllowed" prefHeight="17.0" prefWidth="41.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="11" />
             <Label fx:id="numUnitsAllocated" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="11" />
             <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Total Units: " GridPane.rowIndex="11" />
-            <Label fx:id="talentLabel4" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Gross Hall" GridPane.rowIndex="6" />
-            <Label fx:id="talentLabel1" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Fuqua" GridPane.rowIndex="3" />
-            <Label fx:id="talentLabel2" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Law" GridPane.rowIndex="4" />
-            <Label text="Undergrads" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-            <Label text="Undergrads" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-            <Label text="Undergrads" GridPane.columnIndex="3" GridPane.rowIndex="6" />
             <Button mnemonicParsing="false" onAction="#onAllocate" prefHeight="26.0" prefWidth="95.0" text="Confirm" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="12" />
             <Label fx:id="errorMessage" alignment="CENTER" prefHeight="58.0" prefWidth="323.0" textFill="#fa0707" GridPane.columnSpan="4" GridPane.rowIndex="13" />
             <Label fx:id="allocatePrompt" alignment="CENTER" prefHeight="43.0" prefWidth="327.0" text="Assign available talent units to your territories. &#10;You start with only undergrads." textAlignment="CENTER" GridPane.columnSpan="4" GridPane.rowIndex="2">
@@ -112,19 +125,27 @@
                   <Font size="25.0" />
                </font>
             </Label>
-            <Label fx:id="talentLabel5" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Gross Hall" GridPane.rowIndex="7" />
-            <Label fx:id="talentLabel6" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Gross Hall" GridPane.rowIndex="8" />
-            <Label fx:id="talentLabel7" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Gross Hall" GridPane.rowIndex="9" />
-            <Label fx:id="talentLabel8" alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Gross Hall" GridPane.rowIndex="10" />
-            <TextField fx:id="numTalent5" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField fx:id="numTalent6" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <TextField fx:id="numTalent7" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <TextField fx:id="numTalent8" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-            <Label prefWidth="73.0" text="Undergrads" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-            <Label prefWidth="73.0" text="Undergrads" GridPane.columnIndex="3" GridPane.rowIndex="8" />
-            <Label prefWidth="73.0" text="Undergrads" GridPane.columnIndex="3" GridPane.rowIndex="9" />
-            <Label prefWidth="73.0" text="Undergrads" GridPane.columnIndex="3" GridPane.rowIndex="10" />
-         </children>
+            </children>
       </GridPane>
   </items>
+    <fx:define>
+        <ArrayList fx:id="labelList">
+            <fx:reference source="label0"/>
+            <fx:reference source="label1"/>
+            <fx:reference source="label2"/>
+            <fx:reference source="label3"/>
+            <fx:reference source="label4"/>
+            <fx:reference source="label5"/>
+            <fx:reference source="label6"/>
+            <fx:reference source="label7"/>
+            <fx:reference source="label8"/>
+            <fx:reference source="label9"/>
+            <fx:reference source="label10"/>
+            <fx:reference source="label11"/>
+            <fx:reference source="label12"/>
+            <fx:reference source="label13"/>
+            <fx:reference source="label14"/>
+            <fx:reference source="label15"/>
+        </ArrayList>
+    </fx:define>
 </SplitPane>

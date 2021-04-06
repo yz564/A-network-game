@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 public class StyleMapping {
     private static HashMap<String, String> territoryLabels = makeLabels();
+    private static HashMap<Integer, String> territoryGroupColors = makeColors();
 
     private static HashMap<String, String> makeLabels() {
         HashMap<String, String> labels = new HashMap<>();
@@ -28,5 +29,19 @@ public class StyleMapping {
 
     public String getTerritoryLabelId(String territoryName){
         return territoryLabels.get(territoryName);
+    }
+
+    private static HashMap<Integer, String> makeColors() {
+        HashMap<Integer, String> colors = new HashMap<>();
+        colors.put(1, "Pink");
+        colors.put(2, "Blue");
+        colors.put(3, "Orange");
+        colors.put(4, "Green");
+        colors.put(5, "Purple");
+        return colors;
+    }
+
+    public String territoryGroupColor(int group){
+        return territoryGroupColors.get(group);
     }
 }

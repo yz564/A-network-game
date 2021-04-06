@@ -17,7 +17,6 @@ public class Player implements Runnable {
     private BufferedReader stdIn;
     public volatile Boolean wait;
     public volatile Boolean ready;
-    private String territoryGroupSelected;
     private int maxUnitsToPlace;
     private WorldMap theMap;
     private final ActionRuleCheckerHelper ruleChecker = new ActionRuleCheckerHelper();
@@ -45,8 +44,6 @@ public class Player implements Runnable {
     public String getName() {
         return name;
     }
-
-    public String getTerritoryGroupSelected() { return territoryGroupSelected; }
 
     public WorldMap getMap() {
         return theMap;
@@ -91,7 +88,7 @@ public class Player implements Runnable {
             receiveMessage();
             if (tmp.id == 0) {
               receiveMessage();
-                this.territoryGroupSelected = info;
+                //this.territoryGroupSelected = info;
               //System.out.println(theMap.getPlayerTerritories(name));
               return true;
             }
