@@ -262,7 +262,7 @@ public class ServerOrderHelperTest {
         assertEquals(10000, map.getPlayerInfo("Green player").getResTotals().get("food"));
         assertEquals(10000 - 50, map.getPlayerInfo("Green player").getResTotals().get("tech"));
     }
-    @Disabled
+
     @Test
     public void test_try_resolve_all_orders2() {
         WorldMap map = setupV2Map();
