@@ -277,7 +277,11 @@ public class Player implements Runnable {
         upgradeTechNum = 0;
         sendMessage(toSend);
         // read in the new map for next action phase.
-        receiveMessage();
+        return checkStatus();
+    }
+
+    public String checkStatus() throws Exception {
+      receiveMessage();
         if (tmp.id == -1) {
           gameOverMessage="You lose";
           return gameOverMessage;
