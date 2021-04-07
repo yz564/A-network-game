@@ -142,23 +142,42 @@ public class AllocateTalents5PController implements Initializable {
     }
 
     /**
-     *  Asks the server to allocate the specified number of units from the view.
+     * Asks the server to allocate the specified number of units from the view.
      */
     public void onAllocate(ActionEvent ae) throws Exception {
         Object source = ae.getSource();
         if (source instanceof Button) {
-            numUnitsAllocated.setText(String.valueOf(this.getNumUnitsRequested()));
-            String allocate = model.getPlayer().tryAllocation(this.getTerritoryUnits());
-            if (allocate != null) {
-                errorMessage.setText(allocate);
+            String isValidAllocation = checkInput();
+            if (isValidAllocation != null) {
+                errorMessage.setText(isValidAllocation);
             }
             else {
-                loadNextPhase(ae);
+                numUnitsAllocated.setText(String.valueOf(this.getNumUnitsRequested()));
+                String allocate = model.getPlayer().tryAllocation(this.getTerritoryUnits());
+                if (allocate != null) {
+                    errorMessage.setText(allocate);
+                }
+                else {
+                    loadNextPhase(ae);
+                }
             }
         }
         else {
             throw new IllegalArgumentException("Invalid source " + source + " for ActionEvent");
         }
+    }
+
+    /**
+     * Ensures all the number of talents are positive
+     * Returns a string with a descriptive error if there are negative number of units, else returns null.
+     */
+    private String checkInput() {
+        if (parseIntFromTextField(numTalent1.getText(), 1) < 0 ||
+                parseIntFromTextField(numTalent2.getText(), 2) < 0 ||
+                parseIntFromTextField(numTalent3.getText(), 3) < 0) {
+            return "Invalid input. Cannot allocate negative talents.";
+        }
+        return null;
     }
 
     /**
