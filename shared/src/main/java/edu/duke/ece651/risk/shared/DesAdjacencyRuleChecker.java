@@ -8,7 +8,7 @@ public class DesAdjacencyRuleChecker extends ActionRuleChecker {
 
   /**
    * Constructs a DesAdjacencyRuleChecker
-   * 
+   *
    * @param next is the ActionRuleChecker to be passed to the super class's
    *             constructor
    */
@@ -19,17 +19,19 @@ public class DesAdjacencyRuleChecker extends ActionRuleChecker {
   /**
    * Checks if the destination territory is adjacent to the source territory on
    * the given worldmap
-   * 
+   *
    * @param action   is the ActionInfo for an action
    * @param worldmap is the worldmap to perform the action on
    * @return error message if violates action rules, else null
    */
   @Override
   protected String checkMyRule(ActionInfo action, WorldMap worldmap) {
-    Territory src = worldmap.getTerritory(action.getSrcName());
-    Territory des = worldmap.getTerritory(action.getDesName());
-    if (!src.isAdjacentTo(des)) {
-      return "That action is invalid: destination Territory is not adjacent to source Territory";
+    if (action.getSrcName() != null && action.getDesName() != null) {
+      Territory src = worldmap.getTerritory(action.getSrcName());
+      Territory des = worldmap.getTerritory(action.getDesName());
+      if (!src.isAdjacentTo(des)) {
+        return "That action is invalid: destination Territory is not adjacent to source Territory";
+      }
     }
     return null;
   }

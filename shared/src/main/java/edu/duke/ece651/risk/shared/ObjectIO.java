@@ -12,6 +12,7 @@ public class ObjectIO implements java.io.Serializable {
 
   private static final long serialVersionUID = -5874503891285235624L;
   public String message;
+  public HashMap<String, String> userTextInputs;
   public int id;
   public WorldMap map;
   public HashSet<Integer> groups;
@@ -38,6 +39,15 @@ public class ObjectIO implements java.io.Serializable {
 
   public ObjectIO(String message) {
     this.message = message;
+    this.id = 0;
+    this.map = null;
+    this.groups = new HashSet<Integer>();
+    this.playerNames = new ArrayList<String>();
+  }
+
+  public ObjectIO(HashMap<String, String> inputs) {
+    this.message = null;
+    this.userTextInputs = inputs;
     this.id = 0;
     this.map = null;
     this.groups = new HashSet<Integer>();

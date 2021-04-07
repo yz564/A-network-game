@@ -1,165 +1,259 @@
 package edu.duke.ece651.risk.server;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 
 import org.apache.commons.lang3.SerializationUtils;
 import edu.duke.ece651.risk.shared.*;
+import org.checkerframework.checker.units.qual.A;
 
 public class ServerOrderHelper {
-    /**
-     * The rule checker for move action.
-     */
-    private ActionRuleChecker moveChecker;
+    /** The rule checker helper for actions. */
+    private final ActionRuleCheckerHelper ruleChecker = new ActionRuleCheckerHelper();
 
     /**
-     * The rule checker for attack action.
-     */
-    private ActionRuleChecker attackChecker;
-
-    /**
-     * An ArrayList of ActionInfo that represents all information needed to execute
-     * the attack action.
+     * An ArrayList of ActionInfo that represents all information needed to execute the attack
+     * action.
      */
     public ArrayList<ActionInfo> attackOrders;
 
     /**
-     * An ArrayList of ActionInfo that represents all information needed to execute
-     * the move action.
+     * An ArrayList of ActionInfo that represents all information needed to execute the move action,
+     * upgrade tech action, or upgrade unit action.
      */
-    public ArrayList<ActionInfo> moveOrders;
+    public ArrayList<ActionInfo> group1Orders;
 
-    /**
-     * The executer for execute attack and move actions.
-     */
-    private ActionExecuter executer;
+    /** The executer for execute attack and move actions. */
+    private final ActionExecuter executer;
 
     /**
      * Getter of attackOrders
-     * 
-     * @return an ArrayList of ActionInfo that represents all information needed to
-     *         execute the attack action.
+     *
+     * @return an ArrayList of ActionInfo that represents all information needed to execute the
+     *     attack action.
      */
     public ArrayList<ActionInfo> getAttackOrders() {
         return this.attackOrders;
     }
 
     /**
-     * Getter of moveOrders.
-     * 
-     * @return an ArrayList of ActionInfo that represents all information needed to
-     *         execute the move action.
+     * Getter of group1Orders.
+     *
+     * <p>An ArrayList of ActionInfo that represents all information needed to execute the move
+     * action, upgrade tech action, or upgrade unit action.
      */
-    public ArrayList<ActionInfo> getMoveOrders() {
-        return this.moveOrders;
+    public ArrayList<ActionInfo> getGroup1Orders() {
+        return this.group1Orders;
     }
 
-    /**
-     * Default constructor of the ServerOrderHelper.
-     */
+    /** Default constructor of the ServerOrderHelper. */
     public ServerOrderHelper() {
-        this.moveChecker = new TerritoryExistenceRuleChecker(
-                new SrcValidityRuleChecker(new DesReachableRuleChecker(null)));
-        this.attackChecker = new TerritoryExistenceRuleChecker(
-                new SrcValidityRuleChecker(new DesOwnershipRuleChecker(new DesAdjacencyRuleChecker(null))));
         this.attackOrders = new ArrayList<ActionInfo>();
-        this.moveOrders = new ArrayList<ActionInfo>();
+        this.group1Orders = new ArrayList<ActionInfo>();
         this.executer = new ActionExecuter(); // default seed
     }
 
     /**
-     * Contructs a ServerOrderHelper with a given random seed for executing attack
-     * action.
-     * 
+     * Constructs a ServerOrderHelper with a given random seed for executing attack action.
+     *
      * @param seed the random seed for executing attack action.
      */
     public ServerOrderHelper(long seed) {
-        this.moveChecker = new TerritoryExistenceRuleChecker(
-                new SrcValidityRuleChecker(new DesReachableRuleChecker(null)));
-        this.attackChecker = new TerritoryExistenceRuleChecker(
-                new SrcValidityRuleChecker(new DesOwnershipRuleChecker(new DesAdjacencyRuleChecker(null))));
         this.attackOrders = new ArrayList<ActionInfo>();
-        this.moveOrders = new ArrayList<ActionInfo>();
+        this.group1Orders = new ArrayList<ActionInfo>();
         this.executer = new ActionExecuter(seed);
     }
 
     /*
-     * Clear all saved orders in the helper. Should be Calles after executes all
+     * Clear all saved orders in the helper. Should be Called after executes all
      * orders if this helper needs to be used for another round of orders.
      */
     public void clearAllOrders() {
         attackOrders = new ArrayList<ActionInfo>();
-        moveOrders = new ArrayList<ActionInfo>();
+        group1Orders = new ArrayList<ActionInfo>();
     }
 
     /**
      * Collects orders got from all player clients.
-     * 
+     *
      * @param orders the ObjectIO object that contains all orders.
      */
     public void collectOrders(ObjectIO orders) {
-        for (ActionInfo info : orders.moveOrders) {
-            moveOrders.add(info);
+        group1Orders.addAll(orders.moveOrders);
+        attackOrders.addAll(orders.attackOrders);
+    }
+
+    /**
+     * Checks the validity of orders in group1Order ArrayList on a given map (should be a temporary
+     * cloned map of the original map), and returns the problem of the orders as a String.
+     *
+     * @param tempMap a given WorldMap map (should be a temporary cloned * map of the original map).
+     * @return a String that describing the problem of the orders in group1 ArrayList. Or null if
+     *     there is not any problem in the orders.
+     */
+    public String rehearseGroup1Orders(WorldMap tempMap) {
+        for (ActionInfo order : group1Orders) {
+            if (order.getActionType().equals("move")) {
+                String problem = ruleChecker.checkRuleForMove(order, tempMap); // Do a check
+                if (problem != null) {
+                    return problem;
+                } else {
+                    executer.executeMove(tempMap, order); // execute a move on temp map
+                }
+            } else if (order.getActionType().equals("upgrade tech")) {
+                String problem = ruleChecker.checkRuleForUpgradeTech(order, tempMap);
+                if (problem != null) {
+                    return problem;
+                } else {
+                    executer.executeUpgradeTech(tempMap, order);
+                }
+            } else {
+                String problem = ruleChecker.checkRuleForUpgradeUnit(order, tempMap);
+                if (problem != null) {
+                    return problem;
+                } else {
+                    executer.executeUpgradeUnit(tempMap, order);
+                }
+            }
         }
-        for (ActionInfo info : orders.attackOrders) {
-            attackOrders.add(info);
+        return null;
+    }
+
+    /**
+     * Resolves the orders in group1Order ArrayList on a given map. Orders should be all valid and
+     * checked by rehearseGroup1Orders().
+     *
+     * @param map a given WorldMap map to resolve the orders on.
+     */
+    public void resolveGroup1Orders(WorldMap map) {
+        for (ActionInfo order : group1Orders) {
+            if (order.getActionType().equals("move")) {
+                executer.executeMove(map, order); // execute a move on temp map
+            } else if (order.getActionType().equals("upgrade tech")) {
+                executer.executeUpgradeTech(map, order);
+            } else {
+                executer.executeUpgradeUnit(map, order);
+            }
         }
     }
 
     /**
-     * Try to resolve all move orders in this helper. Orders will all be resolved if
-     * there is no problem in the orders. If there is problem in at least one of the
-     * orders, no order will be resolved.
-     * 
-     * @param map the WorldMap on which server executes the actions.
-     * @return a String describing the problem in the orders. If there is no
-     *         problem, returns null.
+     * Checks the validity of orders in attackOrder ArrayList on a given map (should be a temporary
+     * cloned map of the original map), and returns the problem of the orders as a String.
+     *
+     * @param tempMap a given WorldMap map (should be a temporary cloned * map of the original map).
+     * @return a String that describing the problem of the orders in attackOrder ArrayList. Or null
+     *     if there is not any problem in the orders.
      */
-    public String tryResolveMoveOrders(WorldMap map) {
-        WorldMap temp = (WorldMap) SerializationUtils.clone(map); // temp map for checking move action
-        String problem = null;
-        for (ActionInfo order : moveOrders) {
-            problem = moveChecker.checkAction(order, temp); // Do a check
+    public String rehearseAttackOrders(WorldMap tempMap) {
+        for (ActionInfo order : attackOrders) {
+            String problem = ruleChecker.checkRuleForAttack(order, tempMap);
             if (problem != null) {
                 return problem;
             } else {
-                executer.executeMove(temp, order); // execute a move on temp map
+                executer.executePreAttack(tempMap, order);
+                // just send troops for checking, because attacker units cannot take part in
+                // defending territory.
             }
         }
-        // real executions
-        for (ActionInfo order : moveOrders) {
-            executer.executeMove(map, order);
-        }
-        return problem;
+        return null;
     }
 
     /**
-     * Try to resolve all attack orders in this helper. Orders will all be resolved
-     * if there is no problem in the orders. If there is problem in at least one of
-     * the orders, no order will be resolved.
-     * 
-     * @param map the WorldMap on which server executes the actions.
-     * @return a String describing the problem in the orders. If there is no
-     *         problem, returns null.
+     * Resolves the orders in attackOrders ArrayList on a given map. Orders should be all valid and
+     * checked by rehearseAttackOrders().
+     *
+     * @param map a given WorldMap map to resolve the orders on.
      */
-    public String tryResolveAttackOrders(WorldMap map) {
-        WorldMap temp = (WorldMap) SerializationUtils.clone(map);
-        String problem = null;
+    public void resolveAttackOrders(WorldMap map) {
         for (ActionInfo order : attackOrders) {
-            problem = attackChecker.checkAction(order, temp);
-            if (problem != null) {
-                return problem;
-            } else {
-                executer.sendTroops(temp, order);
-            }
+            executer.executePreAttack(map, order);
         }
-        // real executions
-        for (ActionInfo order : attackOrders) {
-            executer.sendTroops(map, order);
-        }
-        for (ActionInfo order : attackOrders) {
+        HashMap<String, ActionInfo> mergedAttackOrders = mergeAttackOrders(attackOrders);
+        for (ActionInfo order : mergedAttackOrders.values()) {
             executer.executeAttack(map, order);
         }
+    }
+
+    /**
+     * Merges attack orders, so that the attack action infos with the same srcOwnerName and desName
+     * can be merged into one. This is to achieve merge troop feature.
+     *
+     * @param attackOrders an ArrayList of ActionInfo for attack actions.
+     * @return A HashMap with values are the merged attack action orders.
+     */
+    public HashMap<String, ActionInfo> mergeAttackOrders(ArrayList<ActionInfo> attackOrders) {
+        ActionInfoFactory af = new ActionInfoFactory();
+        HashMap<String, ActionInfo> mergedAttackOrders = new HashMap<String, ActionInfo>();
+        for (ActionInfo order : attackOrders) {
+            String ownerAndDes = order.getSrcOwnerName() + order.getDesName();
+            if (mergedAttackOrders.containsKey(ownerAndDes)) {
+                HashMap<String, Integer> mergedTroop =
+                        mergedAttackOrders.get(ownerAndDes).getNumUnits();
+                order.getNumUnits()
+                        .forEach((key, value) -> mergedTroop.merge(key, value, Integer::sum));
+                ActionInfo mergedOrder =
+                        af.createAttackActionInfo(
+                                order.getSrcOwnerName(),
+                                order.getSrcName(),
+                                order.getDesName(),
+                                mergedTroop);
+                mergedAttackOrders.put(ownerAndDes, mergedOrder);
+            } else {
+                mergedAttackOrders.put(ownerAndDes, order);
+            }
+        }
+        return mergedAttackOrders;
+    }
+
+    /**
+     * Checks and resolves all orders collected in group1Orders and attackOrders. The orders will be
+     * resolved on map only if all orders are valid.
+     *
+     * @param map a given WorldMap map to resolve the orders on.
+     * @return a String describing one of the problem in orders if there are any problems. Or null
+     *     if all orders are valid.
+     */
+    public String tryResolveAllOrders(WorldMap map) {
+        WorldMap tempMap = (WorldMap) SerializationUtils.clone(map);
+        String problem = null;
+        problem = rehearseGroup1Orders(tempMap);
+        if (problem != null) {
+            return problem;
+        }
+        problem = rehearseAttackOrders(tempMap);
+        if (problem != null) {
+            return problem;
+        }
+        resolveGroup1Orders(map);
+        resolveAttackOrders(map);
         return problem;
     }
 
+    /**
+     * Run this after resolved all orders after each turn. Sends both tech and food resources to
+     * each player. And adds one level0 units to each territory on the map.
+     *
+     * @param map the map to send the credits.
+     * @param playerNames the players names who play the game on the map.
+     */
+    public void sendCreditToPlayers(WorldMap map, ArrayList<String> playerNames) {
+        // add resources for each player
+        for (String playerName : playerNames) {
+            int foodBonus = 0;
+            int techBonus = 0;
+            for (Territory territory : map.getPlayerTerritories(playerName).values()) {
+                foodBonus = foodBonus + territory.getResProduction().get("food");
+                techBonus = techBonus + territory.getResProduction().get("tech");
+            }
+            PlayerInfo info = map.getPlayerInfo(playerName);
+            info.updateOneResTotal("food", foodBonus);
+            info.updateOneResTotal("tech", techBonus);
+        }
+        // add level0 unit for each territory
+        for (String territory : map.getMyTerritories()) {
+            map.getTerritory(territory).tryAddTroopUnits("level0", 1);
+        }
+    }
 }

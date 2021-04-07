@@ -3,41 +3,6 @@ package edu.duke.ece651.risk.shared;
 public class V1MapFactory implements WorldMapFactory {
 
   /*
-   * Creates the territories on the given world map
-   * 
-   * @param names is the array of territories names
-   * 
-   * @param adjacency is the array of adjacency lists that corresponds to the
-   * territory names
-   */
-  private void makeTerritories(WorldMap worldmap, String[] names, int[][] adjacency) {
-    for (int i = 0; i < names.length; i++) {
-      worldmap.tryAddTerritory(names[i]);
-    }
-    for (int i = 0; i < names.length; i++) {
-      for (int j = 0; j < adjacency[i].length; j++) {
-        Territory t = worldmap.getTerritory(names[i]);
-        Territory n = worldmap.getTerritory(names[adjacency[i][j]]);
-        t.tryAddNeighbor(n);
-      }
-    }
-  }
-
-  /*
-   * Creates the initial grouping of territories on the given world map
-   * 
-   * @param names is the array of territories names
-   * 
-   * @param groups is the array of initial grouping number that corresponds to the
-   * territory names
-   */
-  private void makeInitGroups(WorldMap worldmap, String[] names, int[] groups) {
-    for (int i = 0; i < names.length; i++) {
-      worldmap.tryAddInitGroup(groups[i], names[i]);
-    }
-  }
-
-  /*
    * Makes a world map with even number of territories for even number of players
    * For V1 specifically, there are 16 territories, for 2 or 4 players
    *
@@ -52,16 +17,13 @@ public class V1MapFactory implements WorldMapFactory {
     int[][] adjacency = { { 1, 3 }, { 0, 2, 3, 4 }, { 1, 4, 13, 15 }, { 0, 1, 4 }, { 1, 2, 3, 5, 13 }, { 4, 6, 13 },
         { 5, 7, 8, 12, 13 }, { 6, 8 }, { 6, 7, 9, 10, 12 }, { 8, 10 }, { 8, 9, 11, 12 }, { 10, 12 },
         { 6, 8, 10, 11, 13, 14 }, { 2, 4, 5, 6, 12, 14, 15 }, { 12, 13, 15 }, { 2, 13, 14 } };
-    WorldMap worldmap = new RiskWorldMap();
-    makeTerritories(worldmap, names, adjacency);
     if (numPlayers == 4) {
       int[] groups = { 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 2, 4, 1 };
-      makeInitGroups(worldmap, names, groups);
+      return new V1RiskWorldMap(names, adjacency, groups);
     } else {
       int[] groups = { 1, 1, 1, 2, 2, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1 };
-      makeInitGroups(worldmap, names, groups);
+      return new V1RiskWorldMap(names, adjacency, groups);
     }
-    return worldmap;
   }
 
   /*
@@ -79,16 +41,13 @@ public class V1MapFactory implements WorldMapFactory {
     int[][] adjacency = { { 1, 3 }, { 0, 2, 3, 4 }, { 1, 4, 13, 14 }, { 0, 1, 4 }, { 1, 2, 3, 5, 13 }, { 4, 6, 13 },
         { 5, 7, 8, 12, 13 }, { 6, 8 }, { 6, 7, 9, 10, 12 }, { 8, 10 }, { 8, 9, 11, 12 }, { 10, 12 },
         { 6, 8, 10, 11, 13, 14 }, { 2, 4, 5, 6, 12, 14 }, { 2, 12, 13 } };
-    WorldMap worldmap = new RiskWorldMap();
-    makeTerritories(worldmap, names, adjacency);
     if (numPlayers == 5) {
       int[] groups = { 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5 };
-      makeInitGroups(worldmap, names, groups);
+      return new V1RiskWorldMap(names, adjacency, groups);
     } else {
       int[] groups = { 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 1, 1 };
-      makeInitGroups(worldmap, names, groups);
+      return new V1RiskWorldMap(names, adjacency, groups);
     }
-    return worldmap;
   }
 
   @Override
@@ -110,10 +69,19 @@ public class V1MapFactory implements WorldMapFactory {
     String[] names = { "Narnia", "Midkemia", "Oz", "Elantris", "Roshar", "Scadrial", "Gondor", "Mordor", "Hogwarts" };
     int[][] adjacency = { { 1, 3 }, { 0, 2, 3, 4 }, { 1, 5, 6, 7 }, { 0, 1, 4, 5 }, { 3, 5, 8 }, { 1, 2, 3, 4, 7, 8 },
         { 2, 7 }, { 2, 5, 6, 8 }, { 4, 5, 7 } };
-    WorldMap worldmap = new RiskWorldMap();
-    makeTerritories(worldmap, names, adjacency);
     int[] groups = { 1, 1, 1, 2, 2, 2, 3, 3, 3 };
-    makeInitGroups(worldmap, names, groups);
-    return worldmap;
+    return new V1RiskWorldMap(names, adjacency, groups);
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+

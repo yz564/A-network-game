@@ -1,123 +1,237 @@
 package edu.duke.ece651.risk.shared;
 
-/**
- * Information used in a move or an attack action.
- */
+import java.util.HashMap;
+
+/** Information used in a move or an attack action. */
 public class ActionInfo implements java.io.Serializable {
 
-    /**
-     * A generated serial version UID for this class.
-     */
-    private static final long serialVersionUID = 4297826252791846347L;
+  /** A generated serial version UID for this class. */
+  private static final long serialVersionUID = 4297826252791846347L;
 
-    /**
-     * The onwer's name of the source Territory.
-     */
-    private final String srcOwnerName;
+  /** The owner's name of the source Territory. */
+  private final String srcOwnerName;
 
-    /**
-     * The source Territory name of the action.
-     */
-    private String srcName;
+  /** The action type of the action. */
+  private final String actionType;
 
-    /**
-     * The destination Territory name of the action.
-     */
-    private String desName;
+  /** The detailed move or attach action info. */
+  private TerritoryActionInfo territoryActionInfo;
 
-    /**
-     * The number of units assigned to the action.
-     */
-    private int unitNum;
+  /** The detailed upgrade tech action info. */
+  private UpgradeTechActionInfo upgradeTechActionInfo;
 
-    /**
-     * Default constructor of ActionInfo.
-     * 
-     * @param srcOwnerName is the onwer's name of the source Territory.
-     */
-    public ActionInfo(String srcOwnerName) {
-        this.srcOwnerName = srcOwnerName;
-        this.srcName = null;
-        this.desName = null;
-        this.unitNum = 0;
+  /** The detailed upgrade unit action info. */
+  private UpgradeUnitActionInfo upgradeUnitActionInfo;
+
+  /**
+   * Default constructor of ActionInfo.
+   *
+   * @param srcOwnerName is the owner's name of the source Territory.
+   * @param actionType   is a String represents the action type of the action.
+   */
+  public ActionInfo(String srcOwnerName, String actionType) {
+    this.srcOwnerName = srcOwnerName;
+    this.actionType = actionType;
+  }
+
+  /**
+   * Constructors an ActionInfo with given TerritoryActionInfo.
+   *
+   * @param srcOwnerName        is the owner's name of the source Territory.
+   * @param actionType          is a String represents the action type of the
+   *                            action.
+   * @param territoryActionInfo is a TerritoryActionInfo that contains detailed
+   *                            info of move or attack action.
+   */
+  public ActionInfo(String srcOwnerName, String actionType, TerritoryActionInfo territoryActionInfo) {
+    this.srcOwnerName = srcOwnerName;
+    this.actionType = actionType;
+    this.territoryActionInfo = territoryActionInfo;
+  }
+
+  /**
+   * Constructors an ActionInfo with given UpgradeTechActionInfo.
+   *
+   * @param srcOwnerName          is the owner's name of the source Territory.
+   * @param actionType            is a String represents the action type of the
+   *                              action.
+   * @param upgradeTechActionInfo is an UpgradeTechActionInfo that contains
+   *                              detailed information of upgrade tech level
+   *                              action.
+   */
+  public ActionInfo(String srcOwnerName, String actionType, UpgradeTechActionInfo upgradeTechActionInfo) {
+    this.srcOwnerName = srcOwnerName;
+    this.actionType = actionType;
+    this.upgradeTechActionInfo = upgradeTechActionInfo;
+  }
+
+  /**
+   * Constructors an ActionInfo with given UpgradeUnitActionInfo.
+   *
+   * @param srcOwnerName          is the owner's name of the source Territory.
+   * @param actionType            is a String represents the action type of the
+   *                              action.
+   * @param upgradeUnitActionInfo is an UpgradeUnitActionInfo that contains
+   *                              detailed information of upgrade unit action.
+   */
+  public ActionInfo(String srcOwnerName, String actionType, UpgradeUnitActionInfo upgradeUnitActionInfo) {
+    this.srcOwnerName = srcOwnerName;
+    this.actionType = actionType;
+    this.upgradeUnitActionInfo = upgradeUnitActionInfo;
+  }
+
+  /**
+   * Getter of srcOwnerName field.
+   *
+   * @return a String represents owner's name of the source Territory.
+   */
+  public String getSrcOwnerName() {
+    return this.srcOwnerName;
+  }
+
+  /**
+   * Getter of actionType field.
+   *
+   * @return a String that represents the action's type.
+   */
+  public String getActionType() {
+    return this.actionType;
+  }
+
+  /**
+   * Getter of territoryActionInfo field.
+   *
+   * @return a TerritoryActionInfo that contains detailed info of move or attack
+   *         action.
+   */
+  public TerritoryActionInfo getTerritoryActionInfo() {
+    return territoryActionInfo;
+  }
+
+  /**
+   * Getter of upgradeTechActionInfo field.
+   *
+   * @return an UpgradeTechActionInfo that contains detailed information of
+   *         upgrade tech level action.
+   */
+  public UpgradeTechActionInfo getUpgradeTechActionInfo() {
+    return upgradeTechActionInfo;
+  }
+
+  /**
+   * Getter of upgradeUnitActionInfo field.
+   *
+   * @return an UpgradeTechActionInfo that contains detailed information of
+   *         upgrade unit action.
+   */
+  public UpgradeUnitActionInfo getUpgradeUnitActionInfo() {
+    return upgradeUnitActionInfo;
+  }
+
+  /**
+   * Getter of srcName field in either TerritoryActionInfo or
+   * UpgradeUnitActionInfo objects.
+   *
+   * @return a String that represents the source territory name, null for other
+   *         action types.
+   */
+  public String getSrcName() {
+    if (territoryActionInfo != null) {
+      return territoryActionInfo.getSrcName();
     }
-
-    /**
-     * Constructes a ActionInfo
-     * 
-     * @param srcOwnerName is the onwer's name of the source Territory.
-     * @param srcName      is the source Territory name of the action.
-     * @param desName      is the destination Territory name of the action.
-     * @param unitNum      is the number of units assigned to the action.
-     */
-    public ActionInfo(String srcOwnerName, String srcName, String desName, int unitNum) {
-        this.srcOwnerName = srcOwnerName;
-        this.srcName = srcName;
-        this.desName = desName;
-        this.unitNum = unitNum;
+    if (upgradeUnitActionInfo != null) {
+      return upgradeUnitActionInfo.getSrcName();
     }
+    return null;
+  }
 
-    /**
-     * Getter of srcOwnerName field.
-     * 
-     * @return a String represents onwer's name of the source Territory.
-     */
-    public String getSrcOwnerName() {
-        return this.srcOwnerName;
+  /**
+   * Getter of srcName field in TerritoryActionInfo objects.
+   *
+   * @return a String that represents the destination territory name, null for
+   *         other action types.
+   */
+  public String getDesName() {
+    if (territoryActionInfo != null) {
+      return territoryActionInfo.getDesName();
     }
+    return null;
+  }
 
-    /**
-     * Getter of srcName field.
-     * 
-     * @return a String represents the source Territory name of the action.
-     */
-    public String getSrcName() {
-        return this.srcName;
+  /**
+   * Getter of uniNum in TerritoryActionInfo and combines the oldUnitLevel and
+   * numToUpgrade fields in UpgradeUnitActionInfo objects.
+   *
+   * @return a HashMap where key is String representing the troop name and value
+   *         is int representing the number of units of the troop to perform
+   *         action on, null for other action types.
+   */
+  public HashMap<String, Integer> getNumUnits() {
+    if (territoryActionInfo != null) {
+      return territoryActionInfo.getUnitNum();
     }
+    if (upgradeUnitActionInfo != null) {
+      HashMap<String, Integer> numUnits = new HashMap<String, Integer>();
+      numUnits.put(upgradeUnitActionInfo.getOldUnitLevel(), upgradeUnitActionInfo.getNumToUpgrade());
+      numUnits.put(upgradeUnitActionInfo.getNewUnitLevel(), 0);
+      return numUnits;
+    }
+    return null;
+  }
 
-    /**
-     * Getter of desName field.
-     * 
-     * @return a String represents the destination Territory name of the action.
-     */
-    public String getDesName() {
-        return this.desName;
+  /**
+   * Getter of oldUnitLevel field in UpgradeUnitActionInfo objects.
+   *
+   * @return a String that represents the old level troop name to upgrade units
+   *         from, null for other action types.
+   */
+  public String getOldUnitLevel() {
+    if (upgradeUnitActionInfo != null) {
+      return upgradeUnitActionInfo.getOldUnitLevel();
     }
+    return null;
+  }
 
-    /**
-     * Getter of unitNum field.
-     * 
-     * @return an int represents the number of units assigned to the action.
-     */
-    public int getUnitNum() {
-        return this.unitNum;
+  /**
+   * Getter of newUnitLevel field in UpgradeUnitActionInfo objects.
+   *
+   * @return a String that represents the new level troop name to upgrade units
+   *         to, null for other action types.
+   */
+  public String getNewUnitLevel() {
+    if (upgradeUnitActionInfo != null) {
+      return upgradeUnitActionInfo.getNewUnitLevel();
     }
+    return null;
+  }
 
-    /**
-     * Sets the srcName.
-     * 
-     * @param srcName a String represents the source Territory name of the action.
-     */
-    public void setSrcName(String srcName) {
-        this.srcName = srcName;
+  /**
+   * Getter of newTechLevel field in UpgradeTechActionInfo objects.
+   *
+   * @return a int that represents the new Tech level to upgrade to, 0 for other
+   *         action types.
+   */
+  public int getNewTechLevel() {
+    if (upgradeTechActionInfo != null) {
+      return upgradeTechActionInfo.getNewTechLevel();
     }
+    return 0;
+  }
 
-    /**
-     * Sets the desName.
-     * 
-     * @param desName a String represents the destination Territory name of the
-     *                action.
-     */
-    public void setDesName(String desName) {
-        this.desName = desName;
+  public int getTotalNumUnits() {
+    int total = 0;
+    if (territoryActionInfo != null || upgradeUnitActionInfo != null) {
+      for (int numUnit : getNumUnits().values()) {
+        total += numUnit;
+      }
     }
-
-    /**
-     * Sets the unitNum.
-     * 
-     * @param unitNum an int represents the number of units assigned to the action.
-     */
-    public void setUnitNum(int unitNum) {
-        this.unitNum = unitNum;
-    }
+    return total;
+  }
 }
+
+
+
+
+
+
+

@@ -1,0 +1,71 @@
+.territory-group-1 {
+    -fx-background-color: HOTPINK;
+}
+
+.territory-group-1:hover {
+    -fx-background-color: PINK;
+}
+
+.territory-group-1:pressed {
+    -fx-background-color: DEEPPINK;
+}
+
+.territory-group-2 {
+    -fx-background-color: CORNFLOWERBLUE;
+}
+
+.territory-group-2:hover {
+    -fx-background-color: LIGHTBLUE;
+}
+
+.territory-group-2:pressed {
+    -fx-background-color: DODGERBLUE;
+}
+
+.territory-group-3 {
+    -fx-background-color: ORANGE;
+}
+
+.territory-group-3:hover {
+    -fx-background-color: GOLD;
+}
+
+.territory-group-3:pressed {
+    -fx-background-color: TOMATO;
+}
+
+.territory-group-4 {
+    -fx-background-color: LIGHTSEAGREEN;
+}
+
+.territory-group-4:hover {
+    -fx-background-color: LIGHTGREEN;
+}
+
+.territory-group-4:pressed {
+    -fx-background-color: FORESTGREEN;
+}
+
+.territory-group-5 {
+    -fx-background-color: MEDIUMPURPLE;
+}
+
+territory-group-5:hover {
+    -fx-background-color: PLUM;
+}
+
+territory-group-5:pressed {
+    -fx-background-color: SLATEBLUE;
+}
+
+.tooltip-territory {
+    -fx-background-radius: 5 5 5 5;
+    -fx-font-size: 10pt;
+    white-space: pre-wrap;
+}
+
+.tooltip-player-info {
+    -fx-background-radius: 5 5 5 5;
+    -fx-font-size: 10pt;
+    white-space: pre-wrap;
+}
