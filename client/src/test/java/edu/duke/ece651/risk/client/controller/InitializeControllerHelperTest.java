@@ -1,5 +1,6 @@
 package edu.duke.ece651.risk.client.controller;
 
+import edu.duke.ece651.risk.client.App;
 import edu.duke.ece651.risk.client.controller.InitializeControllerHelper;
 import edu.duke.ece651.risk.shared.PlayerInfo;
 import edu.duke.ece651.risk.shared.V2MapFactory;
@@ -10,7 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.framework.junit5.ApplicationExtension;
 
-import static org.mockito.Mockito.mock;
+import java.util.ArrayList;
+
+import static org.mockito.Mockito.*;
 
 @ExtendWith(ApplicationExtension.class)
 public class InitializeControllerHelperTest {
@@ -28,9 +31,42 @@ public class InitializeControllerHelperTest {
     }
 
     @Test
-    public void test_getPlayerInfo() {
+    public void test_initializePlayerInfoTooltip() {
         WorldMap map = setupV2Map();
         InitializeControllerHelper helper = new InitializeControllerHelper();
-        // helper.initializePlayerInfoTooltip(map, "Green player", mock(Label.class));
+        helper.initializePlayerInfoTooltip(map, "Green player", new Label());
+    }
+
+    @Test
+    public void test_initializeTerritoryTooltips() {
+        WorldMap map = setupV2Map();
+        InitializeControllerHelper helper = new InitializeControllerHelper();
+        Label territoryLabel = new Label();
+        territoryLabel.setId("label0");
+        ArrayList<Label> labels = new ArrayList<>();
+        labels.add(territoryLabel);
+        helper.initializeTerritoryTooltips(map, labels);
+    }
+
+    @Test
+    public void test_initializeTerritoryLabelByGroup() {
+        WorldMap map = setupV2Map();
+        InitializeControllerHelper helper = new InitializeControllerHelper();
+        Label territoryLabel = new Label();
+        territoryLabel.setId("label0");
+        ArrayList<Label> labels = new ArrayList<>();
+        labels.add(territoryLabel);
+        helper.initializeTerritoryLabelByGroup(map, labels);
+    }
+
+    @Test
+    public void test_initializeTerritoryLabelByOwner() {
+        WorldMap map = setupV2Map();
+        InitializeControllerHelper helper = new InitializeControllerHelper();
+        Label territoryLabel = new Label();
+        territoryLabel.setId("label0");
+        ArrayList<Label> labels = new ArrayList<>();
+        labels.add(territoryLabel);
+        helper.initializeTerritoryLabelByOwner(map, labels);
     }
 }
