@@ -32,13 +32,20 @@ public class SelectTerritoryGroup2PController implements Initializable {
     @FXML Label selectTerritory2pErrorLabel;
     @FXML ArrayList<Label> labelList;
 
-    /* Simple constructor that initializes the model for the controller.
+    /**
+     * Constructor that initializes the model.
+     * @param model is the backend of the game.
      */
     public SelectTerritoryGroup2PController(App model) {
         this.model = model;
         this.next = "allocateTalents2p";
     }
 
+    /**
+     * Sets various elements in the view to default values.
+     * @param location is the location of the FXML resource.
+     * @param resources used to initialize the root object of the view.
+     */
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
         InitializeControllerHelper helper = new InitializeControllerHelper();
@@ -48,21 +55,24 @@ public class SelectTerritoryGroup2PController implements Initializable {
         helper.initializeTerritoryTooltips(model.getPlayer().getMap(), labelList);
     }
 
-    /* Registers group one with the player.
+    /**
+     * Registers group one with the player.
      */
     @FXML
     public void onSelectingGroupOne(ActionEvent ae) throws Exception {
         assignTerritoryToPlayer(ae, 1);
     }
 
-    /* Registers group two with the player.
+    /**
+     * Registers group two with the player.
      */
     @FXML
     public void onSelectingGroupTwo(ActionEvent ae) throws Exception {
         assignTerritoryToPlayer(ae, 2);
     }
 
-    /* Assigns a territory to a player. Or shows an error message on the
+    /**
+     * Assigns a territory to a player. Or shows an error message on the
      * screen if the group is already assigned to a different player.
      * @param ae is the action event that triggers this function.
      */
@@ -81,7 +91,8 @@ public class SelectTerritoryGroup2PController implements Initializable {
         }
     }
 
-    /* Loads the next Phase.
+    /**
+     * Loads the next Phase.
      * @param ae is used to compute the parent of the item that interacted
      * with the view that this controller is attached to.
      */

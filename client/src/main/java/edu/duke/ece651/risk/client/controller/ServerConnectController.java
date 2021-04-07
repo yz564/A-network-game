@@ -14,6 +14,10 @@ public class ServerConnectController {
     App model;
     String next;
 
+    /**
+     * Constructor that initializes the model.
+     * @param model is the backend of the game.
+     */
     public ServerConnectController(Object model) {
         this.model = (App) model;
         this.next = "userLogin";
@@ -24,6 +28,11 @@ public class ServerConnectController {
     @FXML
     Label serverConnectErrorLabel;
 
+    /**
+     *
+     * @param ae
+     * @throws Exception
+     */
     @FXML
     public void onConnectButton(ActionEvent ae) throws Exception {
 

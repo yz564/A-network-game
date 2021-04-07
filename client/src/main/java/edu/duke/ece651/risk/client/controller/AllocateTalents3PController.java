@@ -78,12 +78,21 @@ public class AllocateTalents3PController implements Initializable {
     @FXML
     Label errorMessage;
 
+    /**
+     * Constructor that initializes the model.
+     * @param model is the backend of the game.
+     */
     public AllocateTalents3PController(App model) {
         this.model = model;
         this.numUnitsEntered = 0;
         this.next = "selectActionOddPlayers";
     }
 
+    /**
+     * Sets various elements in the view to default values.
+     * @param location is the location of the FXML resource.
+     * @param resources used to initialize the root object of the view.
+     */
     public void initialize(URL location, ResourceBundle resources) {
         InitializeControllerHelper helper = new InitializeControllerHelper();
         // set coloring for each territory label
@@ -108,7 +117,8 @@ public class AllocateTalents3PController implements Initializable {
         }
     }
 
-    /* Sets the territory names in FXML that a player will see while entering number of talents.
+    /**
+     * Sets the territory names in FXML that a player will see while entering number of talents.
      */
     private void setTerritoryNameLabels() {
         Player currentPlayer = model.getPlayer();
@@ -122,7 +132,8 @@ public class AllocateTalents3PController implements Initializable {
         talentLabel5.setText(itr.next());
     }
 
-    /* Updates the view for total number of units allocated so far while typing.
+    /**
+     *  Updates the view for total number of units allocated so far while typing.
      */
     public void onTypingNumUnits(KeyEvent ke) {
         Object source = ke.getCode();
@@ -147,7 +158,8 @@ public class AllocateTalents3PController implements Initializable {
         }
     }
 
-    /* Asks the server to allocate the specified number of units from the view.
+    /**
+     *  Asks the server to allocate the specified number of units from the view.
      */
     public void onAllocate(ActionEvent ae) throws Exception {
         Object source = ae.getSource();
@@ -166,7 +178,8 @@ public class AllocateTalents3PController implements Initializable {
         }
     }
 
-    /* Returns an integer from text.
+    /**
+     * Returns an integer from text.
      * @param text is the string from which integer is parsed.
      * @param itemNumber is the index of the TextField. There are five TextField items 1, 2, 3, 4 and 5.
      *        itemNumber is used for printing error messages if parsing fails.
@@ -182,7 +195,8 @@ public class AllocateTalents3PController implements Initializable {
         return parsedInt;
     }
 
-    /* Returns a map of territory names to the number of units requested to deploy in the territory names.
+    /**
+     * Returns a map of territory names to the number of units requested to deploy in the territory names.
      */
     HashMap<String, Integer> getTerritoryUnits() {
         HashMap<String, Integer> territoryUnits = new HashMap<>();
@@ -194,7 +208,8 @@ public class AllocateTalents3PController implements Initializable {
         return territoryUnits;
     }
 
-    /* Returns the total number of units requested by the player in the view.
+    /**
+     * Returns the total number of units requested by the player in the view.
      */
     int getNumUnitsRequested() {
         return parseIntFromTextField(numTalent1.getText(), 1) +
@@ -204,7 +219,8 @@ public class AllocateTalents3PController implements Initializable {
                 parseIntFromTextField(numTalent5.getText(), 5);
     }
 
-    /* Loads the next Phase.
+    /**
+     * Loads the next Phase.
      * @param ae is used to compute the parent of the item that interacted
      * with the view that this controller is attached to.
      */
