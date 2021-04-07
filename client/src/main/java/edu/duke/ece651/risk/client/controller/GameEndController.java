@@ -28,7 +28,7 @@ public class GameEndController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    // gameEndLabel.setText();
+    gameEndLabel.setText(model.getPlayer().getGameOverMessage());
   }
 
   @FXML
