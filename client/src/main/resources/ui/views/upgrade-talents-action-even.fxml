@@ -132,7 +132,8 @@
                            GridPane.columnSpan="3" GridPane.rowIndex="3"/>
                 <Label fx:id="techLevel" alignment="CENTER" text="8" GridPane.columnIndex="1"
                        GridPane.halignment="CENTER" GridPane.rowIndex="4"/>
-                <ChoiceBox fx:id="sourceTalentName" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="3"
+                <ChoiceBox fx:id="sourceTalentName" onAction="#onSelectTalent" prefWidth="150.0"
+                           GridPane.columnIndex="1" GridPane.columnSpan="3"
                            GridPane.rowIndex="6"/>
                 <ChoiceBox fx:id="destTalentName" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="3"
                            GridPane.rowIndex="7"/>
@@ -189,6 +190,7 @@
             <fx:reference source="label12"/>
             <fx:reference source="label13"/>
             <fx:reference source="label14"/>
+            <fx:reference source="label15"/>
         </ArrayList>
     </fx:define>
 </SplitPane>
