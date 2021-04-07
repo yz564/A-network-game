@@ -79,7 +79,7 @@ public class UpgradeTechActionsOddPlayersController implements Initializable {
    */
   private void setUpgradeChoiceBox(ChoiceBox box) {
     techLevels.removeAll(techLevels);
-    for (int level = 1; level <= 7; level++) {
+    for (int level = 1; level <= 6; level++) {
       techLevels.add(String.valueOf(level));
     }
     box.getItems().addAll(techLevels);
