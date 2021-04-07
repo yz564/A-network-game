@@ -26,6 +26,7 @@ public class SelectActionController implements Initializable {
   String nextOnAttackAction;
   String nextOnUpgradeTalentsAction;
   String nextOnUpgradeTechAction;
+  String nextOnGameEnd;
 
   @FXML Label playerInfo;
 
@@ -73,6 +74,7 @@ public class SelectActionController implements Initializable {
       this.nextOnUpgradeTechAction = "upgradeTechActionOddPlayers";
     }
     this.nextOnLeave = "joinRoom";
+    this.nextOnGameEnd = "gameEnd";
   }
 
   /**
@@ -136,7 +138,7 @@ public class SelectActionController implements Initializable {
     if (source instanceof Button) { // go to join room
       model.requestLeave();
       next = nextOnLeave;
-      loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
+      loadNextPhase((Stage) actionMenu.getScene().getWindow());
     } else {
       throw new IllegalArgumentException(
           "Action event " + ae.getSource() + " is invalid for onAction().");
@@ -152,11 +154,11 @@ public class SelectActionController implements Initializable {
     if (source instanceof Button) {
       String status = model.getPlayer().doneIssueOrders();
       if (status != null) {
-        // show message in new screen
+        this.next = nextOnGameEnd;
       } else {
         this.next = nextOnCompleteTurn;
-        loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
       }
+      loadNextPhase((Stage) actionMenu.getScene().getWindow());
     } else {
       throw new IllegalArgumentException(
           "Action event " + ae.getSource() + " is invalid for onAction().");

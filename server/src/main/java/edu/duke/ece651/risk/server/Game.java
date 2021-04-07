@@ -57,7 +57,7 @@ public class Game {
                 readyNum++;
                 theMap.tryAssignInitOwner(p.tmp.id, p.getName());
                   // TODO: how many resources to assign???
-                theMap.tryAddPlayerInfo(new PlayerInfo(p.getName(),p.tmp.id, 10000, 10000));
+                theMap.tryAddPlayerInfo(new PlayerInfo(p.getName(),p.tmp.id, 100, 100));
                 System.out.println(p.getName() + " selected group " + p.tmp.message);
                 
                 
@@ -230,7 +230,7 @@ public class Game {
         }
         // broadcast the winner message
         if (count == 1) {
-            String info = "Winner is " + playerList.get(winnerID).getName();
+            String info = "The winner is " + playerList.get(winnerID).getName();
             System.out.println(info);
             for (int i = 0; i < numPlayers; i++) {
                 Player p = playerList.get(i);
