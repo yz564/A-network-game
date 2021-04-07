@@ -2,6 +2,7 @@ package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
 import edu.duke.ece651.risk.client.view.PhaseChanger;
+import edu.duke.ece651.risk.client.view.StyleMapping;
 import edu.duke.ece651.risk.shared.ActionInfo;
 import edu.duke.ece651.risk.shared.ActionInfoFactory;
 import edu.duke.ece651.risk.shared.Territory;
@@ -28,7 +29,8 @@ public class UpgradeTalentsActionEvenPlayersController implements Initializable 
   App model;
   String next;
   ObservableList territoryNames;
-  ObservableList talentNames;
+  ObservableList talentNamesFrom;
+  ObservableList talentNamesTo;
   HashMap<String, String> talents;
 
   @FXML ChoiceBox sourceTerritoryName;
@@ -41,9 +43,9 @@ public class UpgradeTalentsActionEvenPlayersController implements Initializable 
 
   @FXML TextField numTalents;
 
-  @FXML Label errorMessage;
+  @FXML Label numTalentsAvailable;
 
-  @FXML Label territoryGroupName;
+  @FXML Label errorMessage;
 
   @FXML ArrayList<Label> labelList;
 
@@ -56,8 +58,10 @@ public class UpgradeTalentsActionEvenPlayersController implements Initializable 
   public UpgradeTalentsActionEvenPlayersController(App model) {
     this.model = model;
     this.next = "selectActionEvenPlayers";
+
     territoryNames = FXCollections.observableArrayList();
-    talentNames = FXCollections.observableArrayList();
+    talentNamesFrom = FXCollections.observableArrayList();
+    talentNamesTo = FXCollections.observableArrayList();
     talents = new HashMap<>();
     talents.put("Undergrad", "level0");
     talents.put("Masters", "level1");
@@ -86,13 +90,12 @@ public class UpgradeTalentsActionEvenPlayersController implements Initializable 
     // set coloring for player info
     helper.initializeTerritoryPlayerInfoColor(model, playerInfo);
 
-    territoryGroupName.setText("Upgrade Talents");
     setSourceTerritoryNames();
     String playerName = model.getPlayer().getName();
     techLevel.setText(
         String.valueOf(model.getPlayer().getMap().getPlayerInfo(playerName).getTechLevel()));
-    setUpgradeChoiceBox(sourceTalentName);
-    setUpgradeChoiceBox(destTalentName);
+    // setUpgradeFromChoiceBox(sourceTalentName, (String) sourceTalentName.getValue());
+    // setUpgradeFromChoiceBox(destTalentName, (String) sourceTalentName.getValue());
   }
 
   /**
@@ -101,25 +104,94 @@ public class UpgradeTalentsActionEvenPlayersController implements Initializable 
    * territory for attacking.
    */
   private void setSourceTerritoryNames() {
+
     territoryNames.removeAll(territoryNames);
     String playerName = model.getPlayer().getName();
     HashMap<String, Territory> playerTerritories =
         model.getPlayer().getMap().getPlayerTerritories(playerName);
     for (String territoryName : playerTerritories.keySet()) {
-      territoryNames.add(territoryName);
+      boolean add = false;
+      HashMap<String, Integer> allNumUnits =
+          model.getPlayer().getMap().getTerritory(territoryName).getAllNumUnits();
+      for (String unitName : allNumUnits.keySet()) {
+        if (allNumUnits.get(unitName) > 0) {
+          add = true;
+        }
+      }
+      if (add) {
+        territoryNames.add(territoryName);
+      }
     }
     sourceTerritoryName.getItems().addAll(territoryNames);
   }
 
-  /**
-   *  Populates a choice box with the names of various talents present in the game such as 'Undergrad', 'Masters', etc.
+  private void setUpgradeFromChoiceBox(ChoiceBox box, String territoryName) {
+    StyleMapping mapping = new StyleMapping();
+    box.getItems().removeAll(talentNamesFrom);
+    talentNamesFrom.removeAll(talentNamesFrom);
+    HashMap<String, Integer> numUnits =
+        model.getPlayer().getMap().getTerritory(territoryName).getAllNumUnits();
+    for (String unitName : numUnits.keySet()) {
+      if (numUnits.get(unitName) > 0) {
+        int index = Integer.valueOf(Character.toString(unitName.charAt(5)));
+        talentNamesFrom.add(mapping.getTalentNames().get(index));
+      }
+    }
+    box.getItems().addAll(talentNamesFrom);
+  }
+
+  private void setUpgradeToChoiceBox(ChoiceBox box, String territoryName) {
+    StyleMapping mapping = new StyleMapping();
+    box.getItems().removeAll(talentNamesTo);
+    talentNamesTo.removeAll(talentNamesTo);
+    ArrayList<String> talentNames = mapping.getTalentNames();
+    for (String talentName : talentNames) {
+      int indexTo = talentNames.indexOf(talentName);
+      int indexFrom = talentNames.indexOf((String) sourceTalentName.getValue());
+      if (indexTo > indexFrom) {
+        talentNamesTo.add(talentName);
+      }
+    }
+    box.getItems().addAll(talentNamesTo);
+  }
+
+  /* Populates a choice box with the names of various talents present in the game such as 'Undergrad', 'Masters', etc.
    */
+  /*
   private void setUpgradeChoiceBox(ChoiceBox box) {
     talentNames.removeAll(talentNames);
     for (String name : talents.keySet()) {
       talentNames.add(name);
     }
+    box.getItems().removeAll();
     box.getItems().addAll(talentNames);
+  }*/
+
+  public void onSelectSource(ActionEvent ae) throws Exception {
+    Object source = ae.getSource();
+    if (source instanceof ChoiceBox) {
+      // String srcTerritory = (String) sourceTerritoryName.getValue();
+      String territoryName = (String) sourceTerritoryName.getValue();
+      setUpgradeFromChoiceBox(sourceTalentName, territoryName);
+    } else {
+      throw new IllegalArgumentException("Invalid ActionEvent source " + source);
+    }
+  }
+
+  public void onSelectTalent(ActionEvent ae) throws Exception {
+    Object source = ae.getSource();
+    if (source instanceof ChoiceBox) {
+      StyleMapping mapping = new StyleMapping();
+      String srcTerritory = (String) sourceTerritoryName.getValue();
+      String srcTalent = (String) sourceTalentName.getValue();
+      String unitName = mapping.getTalents(srcTalent);
+      HashMap<String, Integer> allNumUnits =
+          model.getPlayer().getMap().getTerritory(srcTerritory).getAllNumUnits();
+      numTalentsAvailable.setText(String.valueOf(allNumUnits.get(unitName)));
+      setUpgradeToChoiceBox(destTalentName, srcTerritory);
+    } else {
+      throw new IllegalArgumentException("Invalid ActionEvent source " + source);
+    }
   }
 
   /**
@@ -135,12 +207,13 @@ public class UpgradeTalentsActionEvenPlayersController implements Initializable 
         errorMessage.setText(validate);
       } else {
         ActionInfoFactory af = new ActionInfoFactory();
+        StyleMapping mapping = new StyleMapping();
         ActionInfo info =
             af.createUpgradeUnitActionInfo(
                 model.getPlayer().getName(),
                 (String) sourceTerritoryName.getValue(),
-                talents.get((String) sourceTalentName.getValue()),
-                talents.get((String) destTalentName.getValue()),
+                mapping.getTalents((String) sourceTalentName.getValue()),
+                mapping.getTalents((String) destTalentName.getValue()),
                 parseIntFromTextField(numTalents.getText()));
         String success = model.getPlayer().tryIssueUpgradeUnitOrder(info);
         if (success != null) {
@@ -163,9 +236,9 @@ public class UpgradeTalentsActionEvenPlayersController implements Initializable 
     Object source = ae.getSource();
     if (source instanceof Button) {
       loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
-    }
-    else {
-      throw new IllegalArgumentException("Invalid source " + source + " for the cancel upgrade tech level method.");
+    } else {
+      throw new IllegalArgumentException(
+          "Invalid source " + source + " for the cancel upgrade tech level method.");
     }
   }
 
