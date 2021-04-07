@@ -17,25 +17,11 @@ import java.io.PrintStream;
 import java.io.StringReader;
 
 class AppTest {
-  /*
     @Test
     void test_constructor() {
-        ObjectInputStream mockedObjIn = mock(ObjectInputStream.class);
-        ObjectOutputStream mockedObjOut = mock(ObjectOutputStream.class);
-        ObjectIO tmp = null;
-        App client = new App(mockedObjIn, mockedObjOut, tmp);
-
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        BufferedReader input = new BufferedReader(new StringReader(""));
-        PrintStream output = new PrintStream(bytes, true);
-        client.stdIn = input;
-        try{
-          String[] args={};
-          App.main(args);
-        }
-        catch(Exception e){}
+      App myApp=new App();
     }
-  */
+  
 }
 
 

@@ -179,6 +179,7 @@ public class App {
    * the enter point of the client. after connecting with the server, new App, and call its method
    * to communicate with the server(game).
    */
+  /*
   public static void main(String[] args) throws Exception {
     System.out.println("Please enter server address: (default is localhost by hitting Enter)");
     BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
@@ -210,5 +211,18 @@ public class App {
       }
     } // catch (Exception e) {
     // }
-  }
+    }*/
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -63,7 +63,7 @@ public class Room implements Runnable {
             game.doRefresh();
             if (game.checkWinner()) {
               playerList.clear();
-              System.out.println("Room "+(id+1)+" game over, all player quit the room");
+              System.out.println("Room "+(id+1)+" game over, all players are cleared");
               break;
             }
           }

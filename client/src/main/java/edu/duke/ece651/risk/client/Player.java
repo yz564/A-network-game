@@ -23,6 +23,7 @@ public class Player implements Runnable {
     private final ActionExecuter executer = new ActionExecuter();
     private ArrayList<ActionInfo> tmpOrders;
     private int upgradeTechNum;
+    private String gameOverMessage;
 
     public Player(int id, ObjectInputStream in, ObjectOutputStream out, BufferedReader stdIn) {
         this.id = id;
@@ -37,10 +38,21 @@ public class Player implements Runnable {
         this.upgradeTechNum = 0;
     }
 
+    public String getGameOverMessage() {
+      return gameOverMessage;
+    }
     public int getRoomId() {
+      quitRoom();
       return id;
     }
 
+    private void quitRoom() {
+      try{
+      sendMessage(new ObjectIO("/gameOver"));
+    } catch (Exception e) {
+    }
+    }
+  
     public void setName(String n) {
         this.name = n;
     }
@@ -116,7 +128,7 @@ public class Player implements Runnable {
 
       }
     }*/
-
+  /*
     public void doInitialization(Boolean b) throws Exception {
         if (b) {
             if ((tmp = (ObjectIO) in.readObject()) != null) {}
@@ -159,7 +171,7 @@ public class Player implements Runnable {
             doInitialization(false);
         }
     }
-
+  */
     public void startAllocation() throws Exception {
         receiveMessage();
         this.maxUnitsToPlace = tmp.id;
@@ -267,17 +279,20 @@ public class Player implements Runnable {
         // read in the new map for next action phase.
         receiveMessage();
         if (tmp.id == -1) {
-            return "Your lost all territories...";
+          gameOverMessage="You lose";
+          return gameOverMessage;
         }
         if (tmp.id == -2) {
-            return tmp.message; // other player wins
+            gameOverMessage=tmp.message; // other player wins
+            return gameOverMessage;
         }
         if (tmp.id == -3) {
-            return "You win!";
+            gameOverMessage="You win!";
+            return gameOverMessage;
         }
         return null;
     }
-
+  /*
     public void doPlacement() throws Exception {
         System.out.println("-----waitServerInput-----");
         if ((tmp = (ObjectIO) in.readObject()) != null) {
@@ -306,11 +321,12 @@ public class Player implements Runnable {
             }
         }
     }
-
+  */
     /**
      * first wait the ObjectIO from server, then call the placeOrder method in the helper class,
      * finally send ObjectIO to server need to check the status of the player: win or lose
      */
+  /*
     public void doAction() throws Exception {
         while (true) {
             // doAskLeave();
@@ -332,7 +348,7 @@ public class Player implements Runnable {
             }
             // doAskLeave();
             // stdIn = null;
-            /* tmpS = null;
+            tmpS = null;
             System.out.println("you can leave by /leave, continue by entering anything else");
             wait = true;
             while (!ready) {
@@ -345,7 +361,7 @@ public class Player implements Runnable {
                   wait = false;
                   continue mark2;
                 }
-              }*/
+              }
         }
         if (tmp.id == -1) {
             System.out.println("Your lost all territories...");
@@ -357,11 +373,16 @@ public class Player implements Runnable {
             System.out.println("You win!");
         }
     }
-
+*/
+    
     /**
      * each turn ask the user watch or not, enter something start with /q will quit, no longer print
      * the game enter others will update the game's map
      */
+    public void doWatch() throws Exception {
+      receiveMessage();
+    }
+/*
     public void doWatch() throws Exception {
         while (true) {
             if ((tmp = (ObjectIO) in.readObject()) != null) {
@@ -379,7 +400,7 @@ public class Player implements Runnable {
             }
         }
     }
-
+*/
     @Override
     public void run() {
         try {

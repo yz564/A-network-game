@@ -122,6 +122,11 @@ public class User implements Runnable{
                   System.out.println(inputName + " leaved the room " + (currentRoomId+1));
                   break;
                 }
+                if (tempObj.message.equals("/gameOver")) {
+                  System.out.println("Game over "+inputName + " leaved the room " + (currentRoomId+1));
+                  joinedRoomId.remove(currentRoomId);
+                  break;
+                }
                 players.get(currentRoomId).updateInput(tempObj);
             }
           }
