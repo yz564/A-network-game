@@ -254,7 +254,9 @@ public class UpgradeTalentsActionEvenPlayersController implements Initializable 
       validateChoiceBox(sourceTerritoryName);
       validateChoiceBox(sourceTalentName);
       validateChoiceBox(destTalentName);
-      parseIntFromTextField(numTalents.getText());
+      if (parseIntFromTextField(numTalents.getText()) < 0) {
+        throw new IllegalArgumentException("Please enter a non-negative number for number of talents.");
+      }
     } catch (Exception e) {
       return e.getMessage();
     }

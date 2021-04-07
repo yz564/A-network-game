@@ -127,7 +127,15 @@ public class MoveActionEvenPlayersController implements Initializable {
       ActionInfo moveInfo = getMoveActionInfo();
       ActionCostCalculator calc = new ActionCostCalculator();
       int cost = calc.calculateCost(moveInfo, model.getPlayer().getMap()).get("food");
-      foodCost.setText(String.valueOf(cost));
+      String isValid = checkInput();
+      if (isValid != null) {
+        errorMessage.setText(isValid);
+        foodCost.setText("0");
+      }
+      else {
+        errorMessage.setText("");
+        foodCost.setText(String.valueOf(cost));
+      }
     }
   }
 
@@ -209,7 +217,9 @@ public class MoveActionEvenPlayersController implements Initializable {
   String checkInput() {
     try {
       for (TextField numTalent : numTalentList) {
-        parseIntFromTextField(numTalent.getText());
+        if (parseIntFromTextField(numTalent.getText(), numTalentList.indexOf(numTalent)) < 0) {
+          throw new IllegalArgumentException("Please enter a non-negative number in box " + numTalentList.indexOf(numTalent) + 1);
+        }
       }
       sourceTerritoryName.getValue();
       destTerritoryName.getValue();
@@ -228,7 +238,7 @@ public class MoveActionEvenPlayersController implements Initializable {
     HashMap<String, Integer> numUnits = new HashMap<>();
     for (TextField numTalent : numTalentList) {
       int itemNum = numTalentList.indexOf(numTalent);
-      numUnits.put("level" + String.valueOf(itemNum), parseIntFromTextField(numTalent.getText()));
+      numUnits.put("level" + String.valueOf(itemNum), parseIntFromTextField(numTalent.getText(), itemNum));
     }
     return numUnits;
   }
@@ -236,8 +246,10 @@ public class MoveActionEvenPlayersController implements Initializable {
   /**
    * Returns an integer from text.
    * @param text is the string from which integer is parsed.
+   * @param itemNumber is the index of the TextField. There are five TextField items 1, 2, 3, 4 and 5.
+   *        itemNumber is used for printing error messages if parsing fails.
    */
-  private int parseIntFromTextField(String text) throws IllegalArgumentException {
+  private int parseIntFromTextField(String text, int itemNumber) throws IllegalArgumentException {
     int parsedInt = 0;
     try {
       parsedInt = Integer.parseInt(text);
