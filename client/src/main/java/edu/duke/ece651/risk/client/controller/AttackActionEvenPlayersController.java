@@ -143,7 +143,15 @@ public class AttackActionEvenPlayersController implements Initializable {
       ActionInfo attackInfo = getAttackActionInfo();
       ActionCostCalculator calc = new ActionCostCalculator();
       int cost = calc.calculateCost(attackInfo, model.getPlayer().getMap()).get("food");
-      foodCost.setText(String.valueOf(cost));
+      String isValid = checkInput();
+      if (isValid != null) {
+        errorMessage.setText(isValid);
+        foodCost.setText("0");
+      }
+      else {
+        errorMessage.setText("");
+        foodCost.setText(String.valueOf(cost));
+      }
     }
   }
 
@@ -226,7 +234,9 @@ public class AttackActionEvenPlayersController implements Initializable {
   String checkInput() {
     try {
       for (TextField numTalent : numTalentList) {
-        parseIntFromTextField(numTalent.getText(), numTalentList.indexOf(numTalent));
+        if (parseIntFromTextField(numTalent.getText(), numTalentList.indexOf(numTalent)) < 0) {
+          throw new IllegalArgumentException("Please enter a non-negative number in box " + numTalentList.indexOf(numTalent) + 1);
+        }
       }
       String srcName = (String) sourceTerritoryName.getValue();
       String dstName = (String) destTerritoryName.getValue();
