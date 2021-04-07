@@ -48,12 +48,21 @@ public class AttackActionEvenPlayersController implements Initializable {
 
   @FXML Label foodAvailable;
 
+  /**
+   * Constructor that initializes the model.
+   * @param model is the backend of the game.
+   */
   public AttackActionEvenPlayersController(App model) {
     this.model = model;
     this.next = "selectActionEvenPlayers";
     HashSet<KeyCode> numKeys;
   }
 
+  /**
+   * Sets various elements in the view to default values.
+   * @param location is the location of the FXML resource.
+   * @param resources used to initialize the root object of the view.
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     InitializeControllerHelper helper = new InitializeControllerHelper();
@@ -75,7 +84,8 @@ public class AttackActionEvenPlayersController implements Initializable {
     foodAvailable.setText(String.valueOf(model.getPlayer().getMap().getPlayerInfo(playerName).getResTotals().get("food")));
   }
 
-  /* Fills the choice boxes with a list of territories that a player owns.
+  /**
+   * Fills the choice boxes with a list of territories that a player owns.
    * After the choice boxes are filled, the player is able to select the source
    * territory for attacking.
    */
@@ -90,7 +100,8 @@ public class AttackActionEvenPlayersController implements Initializable {
     sourceTerritoryName.getItems().addAll(territoryNames);
   }
 
-  /* Fills the choice boxes with a list of all the territories present on the map.
+  /**
+   * Fills the choice boxes with a list of all the territories present on the map.
    * After the choice boxes are filled, the player is able to select the destination
    * territory for attacking.
    */
@@ -109,7 +120,8 @@ public class AttackActionEvenPlayersController implements Initializable {
     destTerritoryName.getItems().addAll(territoryNames);
   }
 
-  /* Displays the cost of attack action dynamically when user types in the number of units that they wish to attack with.
+  /**
+   * Displays the cost of attack action dynamically when user types in the number of units that they wish to attack with.
    */
   @FXML
   public void onTypingNumUnits(KeyEvent ke) throws Exception {
@@ -135,6 +147,10 @@ public class AttackActionEvenPlayersController implements Initializable {
     }
   }
 
+  /**
+   * Sets number of units in the view based on the source territory selected by the player.
+   * @param ae is the action event that triggers this function.
+   */
   public void onSelectSource(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
     if (source instanceof ChoiceBox) {
@@ -149,7 +165,8 @@ public class AttackActionEvenPlayersController implements Initializable {
     }
   }
 
-  /* Triggered when player confirms their attack action by clicking on the Confirm button.
+  /**
+   * Triggered when player confirms their attack action by clicking on the Confirm button.
    */
   @FXML
   public void onAttack(ActionEvent ae) throws Exception {
@@ -172,7 +189,8 @@ public class AttackActionEvenPlayersController implements Initializable {
     }
   }
 
-  /* Triggered when a player hits the cancel button.
+  /**
+   * Triggered when a player hits the cancel button.
    * Player is taken back to the select action window.
    */
   @FXML
@@ -186,7 +204,8 @@ public class AttackActionEvenPlayersController implements Initializable {
     }
   }
 
-  /* Returns a attack ActionInfo object based on fields entered by the user in the view.
+  /**
+   * Returns a attack ActionInfo object based on fields entered by the user in the view.
    */
   private ActionInfo getAttackActionInfo() {
     ActionInfoFactory af = new ActionInfoFactory();
@@ -200,7 +219,8 @@ public class AttackActionEvenPlayersController implements Initializable {
     return info;
   }
 
-  /* Ensures all the inputs required to make a valid move are valid and returns a null string.
+  /**
+   * Ensures all the inputs required to make a valid move are valid and returns a null string.
    * Returns a string with a descriptive error if check fails.
    */
   String checkInput() {
@@ -218,7 +238,8 @@ public class AttackActionEvenPlayersController implements Initializable {
     return null;
   }
 
-  /* Returns the number of units requested by the user (by typing in the respective TextField boxes) to issue a move order.
+  /**
+   * Returns the number of units requested by the user (by typing in the respective TextField boxes) to issue a move order.
    */
   HashMap<String, Integer> getNumUnits() throws IllegalArgumentException {
     HashMap<String, Integer> numUnits = new HashMap<>();
@@ -230,7 +251,8 @@ public class AttackActionEvenPlayersController implements Initializable {
     return numUnits;
   }
 
-  /* Returns an integer from text.
+  /**
+   * Returns an integer from text.
    * @param text is the string from which integer is parsed.
    * @param itemNumber is the index of the TextField. There are five TextField items 1, 2, 3, 4 and 5.
    *        itemNumber is used for printing error messages if parsing fails.
@@ -245,7 +267,8 @@ public class AttackActionEvenPlayersController implements Initializable {
     return parsedInt;
   }
 
-  /* Loads next phase after a player clicks on a menu item inside a SplitMenuButton.
+  /**
+   * Loads next phase after a player clicks on a menu item inside a SplitMenuButton.
    * @param window is the source Stage where the user interacted.
    */
   private void loadNextPhase(Stage window) throws IOException {

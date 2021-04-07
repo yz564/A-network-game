@@ -2,6 +2,7 @@ package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
 import edu.duke.ece651.risk.client.view.PhaseChanger;
+import edu.duke.ece651.risk.shared.ActionCostCalculator;
 import edu.duke.ece651.risk.shared.ActionInfo;
 import edu.duke.ece651.risk.shared.ActionInfoFactory;
 import javafx.collections.FXCollections;
@@ -13,11 +14,14 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.ResourceBundle;
 
 public class UpgradeTechActionsEvenPlayersController implements Initializable {
@@ -37,12 +41,25 @@ public class UpgradeTechActionsEvenPlayersController implements Initializable {
 
   @FXML Label playerInfo;
 
+  @FXML Label techCost;
+
+  @FXML Label techAvailable;
+
+  /**
+   * Constructor that initializes the model.
+   * @param model is the backend of the game.
+   */
   public UpgradeTechActionsEvenPlayersController(App model) {
     this.model = model;
     this.next = "selectActionEvenPlayers";
     techLevels = FXCollections.observableArrayList();
   }
 
+  /**
+   * Sets various elements in the view to default values.
+   * @param location is the location of the FXML resource.
+   * @param resources used to initialize the root object of the view.
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     InitializeControllerHelper helper = new InitializeControllerHelper();
@@ -61,19 +78,25 @@ public class UpgradeTechActionsEvenPlayersController implements Initializable {
     currTechLevel.setText(
         String.valueOf(model.getPlayer().getMap().getPlayerInfo(playerName).getTechLevel()));
     setUpgradeChoiceBox(newTechLevel);
+
+    // set tech resources
+    techCost.setText("0");
+    techAvailable.setText(String.valueOf(model.getPlayer().getMap().getPlayerInfo(playerName).getResTotals().get("tech")));
   }
 
-  /* Populates a choice box with the names of various talents present in the game such as 'Undergrad', 'Masters', etc.
+  /**
+   * Populates a choice box with the names of various talents present in the game such as 'Undergrad', 'Masters', etc.
    */
   private void setUpgradeChoiceBox(ChoiceBox box) {
     techLevels.removeAll(techLevels);
-    for (int level = 1; level <= 7; level++) {
+    for (int level = 1; level <= 6; level++) {
       techLevels.add(String.valueOf(level));
     }
     box.getItems().addAll(techLevels);
   }
 
-  /* Asks server to upgrade the technology of the current player. If upgrade is successful, view switches to
+  /**
+   * Asks server to upgrade the technology of the current player. If upgrade is successful, view switches to
    * Action Selection window, else an error is displayed describing the problem with the upgrade.
    */
   @FXML
@@ -84,10 +107,7 @@ public class UpgradeTechActionsEvenPlayersController implements Initializable {
       if (validate != null) {
         errorMessage.setText(validate);
       } else {
-        ActionInfoFactory af = new ActionInfoFactory();
-        ActionInfo info =
-            af.createUpgradeTechActionInfo(
-                model.getPlayer().getName(), Integer.parseInt((String) newTechLevel.getValue()));
+        ActionInfo info = getUpgradeTechActionInfo();
         String success = model.getPlayer().tryIssueUpgradeTechOrder(info);
         if (success != null) {
           errorMessage.setText(success);
@@ -100,7 +120,8 @@ public class UpgradeTechActionsEvenPlayersController implements Initializable {
     }
   }
 
-  /* Triggered when a player hits the cancel button.
+  /**
+   * Triggered when a player hits the cancel button.
    * Player is taken back to the select action window.
    */
   @FXML
@@ -114,9 +135,36 @@ public class UpgradeTechActionsEvenPlayersController implements Initializable {
     }
   }
 
-  public void onSelectingTechLevel() throws Exception {}
+  /**
+   * Displays the cost of upgrading the tech level.
+   */
+  @FXML
+  public void onSelectingTechLevel(MouseEvent me) throws Exception {
+    String validChoice = validateChoiceBox(newTechLevel);
+    if (validChoice != null) {
+      techCost.setText("0");
+    }
+    else {
+      ActionInfo upgradeTechInfo = getUpgradeTechActionInfo();
+      ActionCostCalculator calc = new ActionCostCalculator();
+      int cost = calc.calculateCost(upgradeTechInfo, model.getPlayer().getMap()).get("tech");
+      techCost.setText(String.valueOf(cost));
+    }
+  }
 
-  /* Validates that the on screen options selected by the user are okay enough to create an ActionInfo object that
+  /**
+   * Returns a upgrade tech ActionInfo object based on new tech level selected by the player in the view.
+   */
+  private ActionInfo getUpgradeTechActionInfo() {
+    ActionInfoFactory af = new ActionInfoFactory();
+    ActionInfo info =
+            af.createUpgradeTechActionInfo(
+                    model.getPlayer().getName(), Integer.parseInt((String) newTechLevel.getValue()));
+    return info;
+  }
+
+  /**
+   * Validates that the on screen options selected by the user are okay enough to create an ActionInfo object that
    * would be used to upgrade the tech.
    */
   private String validateAction() {
@@ -128,7 +176,8 @@ public class UpgradeTechActionsEvenPlayersController implements Initializable {
     return null;
   }
 
-  /* Returns a string with an error description if ChoiceBox has null value, else returns a null string.
+  /**
+   * Returns a string with an error description if ChoiceBox has null value, else returns a null string.
    */
   private String validateChoiceBox(ChoiceBox box) {
     String error = box + " cannot be empty.";
@@ -142,7 +191,8 @@ public class UpgradeTechActionsEvenPlayersController implements Initializable {
     return null;
   }
 
-  /* Loads next phase after a player clicks on a menu item inside a SplitMenuButton.
+  /**
+   * Loads next phase after a player clicks on a menu item inside a SplitMenuButton.
    * @param window is the source Stage where the user interacted.
    */
   private void loadNextPhase(Stage window) throws IOException {

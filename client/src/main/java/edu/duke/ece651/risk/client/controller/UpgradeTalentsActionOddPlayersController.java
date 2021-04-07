@@ -52,6 +52,10 @@ public class UpgradeTalentsActionOddPlayersController implements Initializable {
 
   @FXML Label playerInfo;
 
+  /**
+   * Constructor that initializes the model.
+   * @param model is the backend of the game.
+   */
   public UpgradeTalentsActionOddPlayersController(App model) {
     this.model = model;
     this.next = "selectActionOddPlayers";
@@ -69,6 +73,11 @@ public class UpgradeTalentsActionOddPlayersController implements Initializable {
     talents.put("Professor", "level6");
   }
 
+  /**
+   * Sets various elements in the view to default values.
+   * @param location is the location of the FXML resource.
+   * @param resources used to initialize the root object of the view.
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     InitializeControllerHelper helper = new InitializeControllerHelper();
@@ -90,7 +99,8 @@ public class UpgradeTalentsActionOddPlayersController implements Initializable {
     // setUpgradeFromChoiceBox(destTalentName, (String) sourceTalentName.getValue());
   }
 
-  /* Fills the choice boxes with a list of territories that a player owns.
+  /**
+   *  Fills the choice boxes with a list of territories that a player owns.
    * After the choice boxes are filled, the player is able to select the source
    * territory for attacking.
    */
@@ -185,7 +195,8 @@ public class UpgradeTalentsActionOddPlayersController implements Initializable {
     }
   }
 
-  /* Sends upgrade talent request to the server. Switches the view back to Action Selection view if successful,
+  /**
+   *  Sends upgrade talent request to the server. Switches the view back to Action Selection view if successful,
    * or displays an error message.
    */
   @FXML
@@ -217,7 +228,8 @@ public class UpgradeTalentsActionOddPlayersController implements Initializable {
     }
   }
 
-  /* Triggered when a player hits the cancel button.
+  /**
+   *  Triggered when a player hits the cancel button.
    * Player is taken back to the select action window.
    */
   @FXML
@@ -234,7 +246,8 @@ public class UpgradeTalentsActionOddPlayersController implements Initializable {
   @FXML
   public void onTypingNumUnits(KeyEvent ke) throws Exception {}
 
-  /* Ensures all the inputs through various buttons, textfields, choice boxes, etc are valid for creating a
+  /**
+   *  Ensures all the inputs through various buttons, textfields, choice boxes, etc are valid for creating a
    * ActionInfo object for upgrading tech talent. Returns null is choices are valid, else a string describing error.
    */
   private String validateAction() {
@@ -249,7 +262,8 @@ public class UpgradeTalentsActionOddPlayersController implements Initializable {
     return null;
   }
 
-  /* Returns a string with an error description if ChoiceBox has null value, else returns a null string.
+  /**
+   *  Returns a string with an error description if ChoiceBox has null value, else returns a null string.
    */
   private String validateChoiceBox(ChoiceBox box) {
     String error = box + " cannot be empty.";
@@ -263,10 +277,9 @@ public class UpgradeTalentsActionOddPlayersController implements Initializable {
     return null;
   }
 
-  /* Returns an integer from text.
+  /**
+   *  Returns an integer from text.
    * @param text is the string from which integer is parsed.
-   * @param itemNumber is the index of the TextField. There are five TextField items 1, 2, 3, 4 and 5.
-   *        itemNumber is used for printing error messages if parsing fails.
    */
   private int parseIntFromTextField(String text) throws IllegalArgumentException {
     int parsedInt = 0;
@@ -278,7 +291,8 @@ public class UpgradeTalentsActionOddPlayersController implements Initializable {
     return parsedInt;
   }
 
-  /* Loads next phase after a player clicks on a menu item inside a SplitMenuButton.
+  /**
+   *  Loads next phase after a player clicks on a menu item inside a SplitMenuButton.
    * @param window is the source Stage where the user interacted.
    */
   private void loadNextPhase(Stage window) throws IOException {

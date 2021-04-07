@@ -33,13 +33,18 @@ public class SelectActionController implements Initializable {
 
   @FXML ArrayList<Label> labelList;
 
-  /* Constructor that initializes the model and the next view.
+  /**
+   * Constructor that initializes the model.
+   * @param model is the backend of the game.
    */
   public SelectActionController(App model) {
     this.model = model;
   }
 
-  /* Sets various labels in the view to help player understand their status in the game.
+  /**
+   * Sets various elements in the view to default values.
+   * @param location is the location of the FXML resource.
+   * @param resources used to initialize the root object of the view.
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -70,7 +75,8 @@ public class SelectActionController implements Initializable {
     this.nextOnLeave = "joinRoom";
   }
 
-  /* Opens a new view that asks user to move their talents within their territories.
+  /**
+   * Opens a new view that asks user to move their talents within their territories.
    */
   public void onSelectMove(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
@@ -82,7 +88,8 @@ public class SelectActionController implements Initializable {
     }
   }
 
-  /* Opens a new view that asks user to attack enemy territory.
+  /**
+   * Opens a new view that asks user to attack enemy territory.
    */
   public void onSelectAttack(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
@@ -94,7 +101,8 @@ public class SelectActionController implements Initializable {
     }
   }
 
-  /* Opens a new view that asks user to upgrade their talents.
+  /**
+   * Opens a new view that asks user to upgrade their talents.
    */
   public void onSelectUpgradeTalents(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
@@ -106,7 +114,8 @@ public class SelectActionController implements Initializable {
     }
   }
 
-  /* Opens a new view that asks user to upgrade their technology level.
+  /**
+   * Opens a new view that asks user to upgrade their technology level.
    */
   public void onSelectUpgradeTech(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
@@ -118,7 +127,8 @@ public class SelectActionController implements Initializable {
     }
   }
 
-  /* Switches to the view that asks player join a  room.
+  /**
+   * Switches to the view that asks player join a  room.
    */
   @FXML
   public void onLeavingGame(ActionEvent ae) throws Exception {
@@ -133,7 +143,8 @@ public class SelectActionController implements Initializable {
     }
   }
 
-  /* Takes the user to a view that asks them to wait for other players to finish their turn.
+  /**
+   * Takes the user to a view that asks them to wait for other players to finish their turn.
    */
   @FXML
   public void onCompletingTurn(ActionEvent ae) throws Exception {
@@ -152,7 +163,8 @@ public class SelectActionController implements Initializable {
     }
   }
 
-  /* Loads next phase after a player clicks on a menu item inside a SplitMenuButton.
+  /**
+   * Loads next phase after a player clicks on a menu item inside a SplitMenuButton.
    * @param window is the source Stage where the user interacted.
    */
   private void loadNextPhase(Stage window) throws IOException {

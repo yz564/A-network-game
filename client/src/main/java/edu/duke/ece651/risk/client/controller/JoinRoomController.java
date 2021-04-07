@@ -30,14 +30,16 @@ public class JoinRoomController {
     @FXML
     Label joinRoomErrorLabel;
 
-    /* Simple constructor which sets the model.
+    /**
+     * Simple constructor which sets the model.
      * @param model is the model for the RISK game.
      */
     public JoinRoomController(App model) {
         this.model = model;
     }
 
-    /* Loads the next Phase.
+    /**
+     *  Loads the next Phase.
      * @param ae is used to compute the parent of the item that interacted
      * with the view that this controller is attached to.
      */
@@ -49,7 +51,8 @@ public class JoinRoomController {
     }
 
 
-    /* Lets user join a given room.
+    /**
+     * Lets user join a given room.
      * @param ae is used to determine if button for joining this room was clicked on.
      * @param roomId is the room number you want to join. Currently supports joining room 1, 2, 3, and 4.
      */
@@ -76,7 +79,8 @@ public class JoinRoomController {
         }
     }
 
-    /* Lets user join room one.
+    /**
+     * Lets user join room one.
      * @param ae is used to determine if button for joining this room was clicked on.
      */
     @FXML
@@ -86,7 +90,8 @@ public class JoinRoomController {
         joinRoom(ae, 1, newPlayerNextView, existingPlayerNextView);
     }
 
-    /* Lets user join room two.
+    /**
+     * Lets user join room two.
      * @param ae is used to determine if button for joining this room was clicked on.
      */
     @FXML
@@ -97,7 +102,8 @@ public class JoinRoomController {
 
     }
 
-    /* Lets user join room three.
+    /**
+     * Lets user join room three.
      * @param ae is used to determine if button for joining this room was clicked on.
      */
     @FXML
@@ -107,7 +113,8 @@ public class JoinRoomController {
         joinRoom(ae, 3, newPlayerNextView, existingPlayerNextView);
     }
 
-    /* Lets user join room four.
+    /**
+     * Lets user join room four.
      * @param ae is used to determine if button for joining this room was clicked on.
      */
     @FXML

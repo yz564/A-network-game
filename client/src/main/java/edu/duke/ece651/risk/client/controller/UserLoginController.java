@@ -14,6 +14,10 @@ public class UserLoginController {
     App model;
     String next;
 
+    /**
+     * Constructor that initializes the model.
+     * @param model is the backend of the game.
+     */
     public UserLoginController(App model){
         this.model = model;
         this.next = "joinRoom";
@@ -25,6 +29,10 @@ public class UserLoginController {
     @FXML
     Label userLoginErrorLabel;
 
+    /**
+     * Lets user log in.
+     * @param ae is the action event
+     */
     @FXML
     public void logInButton(ActionEvent ae) throws Exception {
 
