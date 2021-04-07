@@ -2,6 +2,7 @@ package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
 import edu.duke.ece651.risk.client.view.PhaseChanger;
+import edu.duke.ece651.risk.shared.ActionCostCalculator;
 import edu.duke.ece651.risk.shared.ActionInfo;
 import edu.duke.ece651.risk.shared.ActionInfoFactory;
 import javafx.collections.FXCollections;
@@ -13,11 +14,14 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.ResourceBundle;
 
 public class UpgradeTechActionsEvenPlayersController implements Initializable {
@@ -36,6 +40,10 @@ public class UpgradeTechActionsEvenPlayersController implements Initializable {
   @FXML ArrayList<Label> labelList;
 
   @FXML Label playerInfo;
+
+  @FXML Label techCost;
+
+  @FXML Label techAvailable;
 
   public UpgradeTechActionsEvenPlayersController(App model) {
     this.model = model;
@@ -61,6 +69,10 @@ public class UpgradeTechActionsEvenPlayersController implements Initializable {
     currTechLevel.setText(
         String.valueOf(model.getPlayer().getMap().getPlayerInfo(playerName).getTechLevel()));
     setUpgradeChoiceBox(newTechLevel);
+
+    // set tech resources
+    techCost.setText("0");
+    techAvailable.setText(String.valueOf(model.getPlayer().getMap().getPlayerInfo(playerName).getResTotals().get("tech")));
   }
 
   /* Populates a choice box with the names of various talents present in the game such as 'Undergrad', 'Masters', etc.
@@ -84,10 +96,7 @@ public class UpgradeTechActionsEvenPlayersController implements Initializable {
       if (validate != null) {
         errorMessage.setText(validate);
       } else {
-        ActionInfoFactory af = new ActionInfoFactory();
-        ActionInfo info =
-            af.createUpgradeTechActionInfo(
-                model.getPlayer().getName(), Integer.parseInt((String) newTechLevel.getValue()));
+        ActionInfo info = getUpgradeTechActionInfo();
         String success = model.getPlayer().tryIssueUpgradeTechOrder(info);
         if (success != null) {
           errorMessage.setText(success);
@@ -114,7 +123,31 @@ public class UpgradeTechActionsEvenPlayersController implements Initializable {
     }
   }
 
-  public void onSelectingTechLevel() throws Exception {}
+  /* Displays the cost of upgrading the tech level.
+   */
+  @FXML
+  public void onSelectingTechLevel(MouseEvent me) throws Exception {
+    String validChoice = validateChoiceBox(newTechLevel);
+    if (validChoice != null) {
+      techCost.setText("0");
+    }
+    else {
+      ActionInfo upgradeTechInfo = getUpgradeTechActionInfo();
+      ActionCostCalculator calc = new ActionCostCalculator();
+      int cost = calc.calculateCost(upgradeTechInfo, model.getPlayer().getMap()).get("tech");
+      techCost.setText(String.valueOf(cost));
+    }
+  }
+
+  /* Returns a upgrade tech ActionInfo object based on new tech level selected by the player in the view.
+   */
+  private ActionInfo getUpgradeTechActionInfo() {
+    ActionInfoFactory af = new ActionInfoFactory();
+    ActionInfo info =
+            af.createUpgradeTechActionInfo(
+                    model.getPlayer().getName(), Integer.parseInt((String) newTechLevel.getValue()));
+    return info;
+  }
 
   /* Validates that the on screen options selected by the user are okay enough to create an ActionInfo object that
    * would be used to upgrade the tech.
