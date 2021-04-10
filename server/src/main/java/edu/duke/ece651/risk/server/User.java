@@ -12,17 +12,17 @@ import edu.duke.ece651.risk.shared.ObjectIO;
 
 public class User implements Runnable{
   private Socket clientSocket;
-  private volatile String inputName;
-  private volatile String inputPassword;
+  private String inputName;
+  private String inputPassword;
   private final HashMap<String, String> accounts;
   private final ArrayList<Room> roomList;
   private ObjectInputStream in;
   private ObjectOutputStream out;
-  private volatile ObjectIO tempObj;
+  private ObjectIO tempObj;
   private Boolean leave;
-  private volatile int currentRoomId;
-  private volatile ArrayList<Player> players;
-  private volatile HashSet<Integer> joinedRoomId;
+  private int currentRoomId;
+  private ArrayList<Player> players;
+  private HashSet<Integer> joinedRoomId;
  
   public User (Socket client, HashMap<String,String> accounts, ArrayList<Room> rooms){
     this.clientSocket=client;

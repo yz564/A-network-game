@@ -7,11 +7,10 @@ public class Room implements Runnable {
   //private ServerSocket serverSocket;
   private int id;
   private int numPlayer;
-  private volatile ArrayList<Player> playerList;
+  private ArrayList<Player> playerList;
   private Game game;
   private Thread worker;
   private final AtomicBoolean running=new AtomicBoolean(false);
-  private int interval = 100;
  
   public Room( int id, int numPlayer){
     //this.serverSocket=ss;

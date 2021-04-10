@@ -11,7 +11,7 @@ public class Server {
   private int portNumber;
   private ServerSocket serverSocket;
   private HashMap<String,String> accounts;
-  private volatile ArrayList<Room> roomList;
+  private ArrayList<Room> roomList;
 
   public Server(int num,ServerSocket ss){
     this.portNumber = num;

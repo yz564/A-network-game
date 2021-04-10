@@ -19,13 +19,13 @@ import edu.duke.ece651.risk.shared.ObjectIO;
 public class Player implements Runnable {
   private Socket client;
   private String name;
-  public volatile Boolean isEnd;
+  public Boolean isEnd;
   public ObjectInputStream in;
   public ObjectOutputStream out;
-  public volatile Boolean ready; // volatile: always updates this variable before being accessed by other threads
-  public volatile int availableUnitNum;
+  public Boolean ready; // volatile: always updates this variable before being accessed by other threads
+  public int availableUnitNum;
   public Boolean watch;
-  public volatile ObjectIO tmp;
+  public ObjectIO tmp;
 
   /**
    * A simple constructor
