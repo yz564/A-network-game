@@ -9,11 +9,11 @@ import edu.duke.ece651.risk.shared.*;
 
 public class Game {
     private int numPlayers;
-    private volatile ArrayList<Player> playerList;
+    private ArrayList<Player> playerList;
     private WorldMapFactory factory;
     private WorldMap theMap;
-    private volatile ArrayList<String> playerNames;
-    private volatile HashSet<Integer> availableGroups;
+    private ArrayList<String> playerNames;
+    private HashSet<Integer> availableGroups;
     private ServerOrderHelper soh;
     private HashSet<Integer> readyPlayer;
     /** a simple constructor */
