@@ -1,10 +1,11 @@
 package edu.duke.ece651.risk.shared;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.HashMap;
+import java.util.HashSet;
 
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerInfoTest {
   @Test
@@ -42,8 +43,29 @@ public class PlayerInfoTest {
   }
 
   @Test
-  public void test_getplayerid(){
+  public void test_getplayerid() {
     PlayerInfo p1 = new PlayerInfo("Player 1", 1, 50, 30);
     assertEquals(1, p1.getPlayerId());
+  }
+
+  @Test
+  public void test_vizstatus() {
+    PlayerInfo p1 = new PlayerInfo("Player 1", 1, 50, 30);
+    p1.setOneVizStatus("Narnia", true);
+    assertTrue(p1.getOneVizStatus("Narnia"));
+    p1.setOneVizStatus("Hogwarts", false);
+    assertFalse(p1.getOneVizStatus("Hogwarts"));
+
+    HashSet<String> t1 = new HashSet<>();
+    t1.add("Midkemia");
+    t1.add("Oz");
+    p1.setMultiVizStatus(t1, true);
+
+    HashMap<String, Boolean> expected = new HashMap<>();
+    expected.put("Narnia", true);
+    expected.put("Hogwarts", false);
+    expected.put("Midkemia", true);
+    expected.put("Oz", true);
+    assertEquals(expected, p1.getAllVizStatus());
   }
 }

@@ -8,13 +8,13 @@ public class PlayerInfo implements java.io.Serializable {
   private final int playerId;
   private int techLevel;
   private HashMap<String, Integer> resTotals;
+  private HashMap<String, Boolean> vizStatus;
 
   /**
-   * Makes the HashMap with initial resource amounts for the player. Pass
-   * makeResTotals() in constructor of playerInfo.
+   * Makes the HashMap with initial resource amounts for the player. Pass makeResTotals() in
+   * constructor of playerInfo.
    *
-   * @return a HashMap with String key as the resource names, and int value of the
-   *         initial amounts.
+   * @return a HashMap with String key as the resource names, and int value of the initial amounts.
    */
   private static HashMap<String, Integer> makeResTotals(int foodInitAmt, int techInitAmt) {
     HashMap<String, Integer> resources = new HashMap<String, Integer>();
@@ -27,28 +27,25 @@ public class PlayerInfo implements java.io.Serializable {
    * Constructs a PlayerInfo object.
    *
    * @param playerName is the name of the player.
-   * @param techLevel  is the maximum technology level for the player.
-   * @param resTotals  is a HashMap that contains the total amounts of different
-   *                   resouces for the player, where the key is the name of the
-   *                   resource, and the value is the player's current amount of
-   *                   the resource.
+   * @param techLevel is the maximum technology level for the player.
+   * @param resTotals is a HashMap that contains the total amounts of different resouces for the
+   *     player, where the key is the name of the resource, and the value is the player's current
+   *     amount of the resource.
    */
   public PlayerInfo(String playerName, int techLevel, HashMap<String, Integer> resTotals) {
     this.playerName = playerName;
     this.playerId = 0;
     this.techLevel = techLevel;
     this.resTotals = resTotals;
+    this.vizStatus = new HashMap<>();
   }
 
   /**
-   * Constructs a PlayerInfo object, using makeResTotals() to set the initial
-   * resources amounts.
+   * Constructs a PlayerInfo object, using makeResTotals() to set the initial resources amounts.
    *
-   * @param playerName  is the name of the player.
-   * @param foodInitAmt is the initial amount of food resources given to the
-   *                    player.
-   * @param techInitAmt is the initial amount of tech resouces given to the
-   *                    player.
+   * @param playerName is the name of the player.
+   * @param foodInitAmt is the initial amount of food resources given to the player.
+   * @param techInitAmt is the initial amount of tech resouces given to the player.
    */
   public PlayerInfo(String playerName, int foodInitAmt, int techInitAmt) {
     this(playerName, 1, makeResTotals(foodInitAmt, techInitAmt));
@@ -58,30 +55,28 @@ public class PlayerInfo implements java.io.Serializable {
    * Constructs a PlayerInfo object.
    *
    * @param playerName is the name of the player.
-   * @param playerId    is the ID of the player.
-   * @param techLevel  is the maximum technology level for the player.
-   * @param resTotals  is a HashMap that contains the total amounts of different
-   *                   resouces for the player, where the key is the name of the
-   *                   resource, and the value is the player's current amount of
-   *                   the resource.
+   * @param playerId is the ID of the player.
+   * @param techLevel is the maximum technology level for the player.
+   * @param resTotals is a HashMap that contains the total amounts of different resouces for the
+   *     player, where the key is the name of the resource, and the value is the player's current
+   *     amount of the resource.
    */
-  public PlayerInfo(String playerName, int playerId, int techLevel, HashMap<String, Integer> resTotals) {
+  public PlayerInfo(
+      String playerName, int playerId, int techLevel, HashMap<String, Integer> resTotals) {
     this.playerName = playerName;
     this.playerId = playerId;
     this.techLevel = techLevel;
     this.resTotals = resTotals;
+    this.vizStatus = new HashMap<>();
   }
 
   /**
-   * Constructs a PlayerInfo object, using makeResTotals() to set the initial
-   * resources amounts.
+   * Constructs a PlayerInfo object, using makeResTotals() to set the initial resources amounts.
    *
-   * @param playerName  is the name of the player.
-   * @param playerId    is the ID of the player.
-   * @param foodInitAmt is the initial amount of food resources given to the
-   *                    player.
-   * @param techInitAmt is the initial amount of tech resouces given to the
-   *                    player.
+   * @param playerName is the name of the player.
+   * @param playerId is the ID of the player.
+   * @param foodInitAmt is the initial amount of food resources given to the player.
+   * @param techInitAmt is the initial amount of tech resouces given to the player.
    */
   public PlayerInfo(String playerName, int playerId, int foodInitAmt, int techInitAmt) {
     this(playerName, playerId, 1, makeResTotals(foodInitAmt, techInitAmt));
@@ -99,8 +94,7 @@ public class PlayerInfo implements java.io.Serializable {
   /**
    * Gets the current maximum technology level of the player.
    *
-   * @return an int representing the current maximum technology level of the
-   *         player.
+   * @return an int representing the current maximum technology level of the player.
    */
   public int getTechLevel() {
     return this.techLevel;
@@ -109,16 +103,16 @@ public class PlayerInfo implements java.io.Serializable {
   /**
    * Gets the current resource totals of the player.
    *
-   * @return a HashMap where the keys are the resource names, and the values are
-   *         the current resouce amounts owned by the player.
+   * @return a HashMap where the keys are the resource names, and the values are the current resouce
+   *     amounts owned by the player.
    */
   public HashMap<String, Integer> getResTotals() {
     return this.resTotals;
   }
 
   /**
-   * Checks if a given tech level is valid for upgrade: 1) between 1 and 6
-   * inclusive 2) more than current tech level.
+   * Checks if a given tech level is valid for upgrade: 1) between 1 and 6 inclusive 2) more than
+   * current tech level.
    *
    * @param toUpgrade is an int representing a technology level to check
    * @return true if tech level is valid, return false if not
@@ -128,32 +122,31 @@ public class PlayerInfo implements java.io.Serializable {
   }
 
   /**
-   * Checks if a given unit level is valid for upgrade: 1) between 1 and 6
-   * inclusive 2) less than or equals current tech level.
+   * Checks if a given unit level is valid for upgrade: 1) between 1 and 6 inclusive 2) less than or
+   * equals current tech level.
    *
    * @param toUpgrade is an int representing the level to upgrade units to
    * @return true if tech level is valid, return false if not
    */
-  public boolean isValidUnitLevel(int toUpgrade){
+  public boolean isValidUnitLevel(int toUpgrade) {
     return (toUpgrade >= 1 && toUpgrade <= techLevel);
   }
 
   /**
    * Sets the player's current maximum technology level to a given value.
    *
-   * @param newTechLevel is an int representing the player's new maximum
-   *                     technology level.
+   * @param newTechLevel is an int representing the player's new maximum technology level.
    */
   public void setTechLevel(int newTechLevel) {
     this.techLevel = newTechLevel;
   }
 
   /**
-   * Updates the total amount of a specific resources with the given name by a
-   * given change amount. The change amount can be positive or negative,
-   * indicating increase of decrease of the resource amount respectively.
+   * Updates the total amount of a specific resources with the given name by a given change amount.
+   * The change amount can be positive or negative, indicating increase of decrease of the resource
+   * amount respectively.
    *
-   * @param resName   is the name of the resource to update.
+   * @param resName is the name of the resource to update.
    * @param changeAmt is the amount to change the resource amount by.
    */
   public void updateOneResTotal(String resName, int changeAmt) {
@@ -164,9 +157,8 @@ public class PlayerInfo implements java.io.Serializable {
   /**
    * Updates the total amount of multiple resources.
    *
-   * @param toUpdate is a HashMap of the resources to update, where the keys are
-   *                 the names of the resources, and the vlaues are the change
-   *                 amount for each resource.
+   * @param toUpdate is a HashMap of the resources to update, where the keys are the names of the
+   *     resources, and the vlaues are the change amount for each resource.
    */
   public void updateMultiResTotals(HashMap<String, Integer> toUpdate) {
     for (String resName : toUpdate.keySet()) {
@@ -174,7 +166,25 @@ public class PlayerInfo implements java.io.Serializable {
     }
   }
 
-  public int getPlayerId(){
+  public int getPlayerId() {
     return this.playerId;
+  }
+
+  public boolean getOneVizStatus(String territoryName) {
+    return vizStatus.get(territoryName);
+  }
+
+  public HashMap<String, Boolean> getAllVizStatus() {
+    return this.vizStatus;
+  }
+
+  public void setOneVizStatus(String territoryName, boolean status) {
+    vizStatus.put(territoryName, status);
+  }
+
+  public void setMultiVizStatus(Iterable<String> territories, boolean status) {
+    for (String territoryName : territories) {
+      this.setOneVizStatus(territoryName, status);
+    }
   }
 }
