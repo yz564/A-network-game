@@ -57,4 +57,12 @@ class ActionInfoFactoryTest {
         assertEquals("Player 1", info1.getSrcOwnerName());
         assertNull(info1.getUpgradeUnitActionInfo());
     }
+
+    @Test
+    public void test_cloaking() {
+        ActionInfoFactory af = new ActionInfoFactory();
+        ActionInfo info1 = af.createCloakingActionInfo("Player 1", "Fuqua");
+        assertEquals("Player 1", info1.getSrcOwnerName());
+        assertEquals("Fuqua", info1.getSrcName());
+    }
 }

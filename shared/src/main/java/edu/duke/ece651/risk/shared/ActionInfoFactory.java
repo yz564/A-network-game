@@ -77,4 +77,17 @@ public class ActionInfoFactory {
     public ActionInfo createResearchCloakingActionInfo(String srcOwnerName) {
         return new ActionInfo(srcOwnerName, "research cloaking");
     }
+
+    /**
+     * Creates an adapted ActionInfo for cloaking action.
+     *
+     * @param srcOwnerName is the owner's name of this action.
+     * @param targetTerritoryName is a String that represents the target territory, on which to do
+     *     cloaking.
+     * @return an adapted ActionInfo for cloaking action.
+     */
+    public ActionInfo createCloakingActionInfo(String srcOwnerName, String targetTerritoryName) {
+        CloakingActionInfo info = new CloakingActionInfo(targetTerritoryName);
+        return new ActionInfo(srcOwnerName, "cloaking", info);
+    }
 }
