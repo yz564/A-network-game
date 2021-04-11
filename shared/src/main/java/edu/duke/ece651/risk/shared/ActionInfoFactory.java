@@ -67,15 +67,14 @@ public class ActionInfoFactory {
                 new UpgradeUnitActionInfo(srcName, oldUnitLevel, newUnitLevel, numToUpgrade);
         return new ActionInfo(srcOwnerName, "upgrade unit", info);
     }
+
+    /**
+     * Creates an adapted ActionInfo for research cloaking.
+     *
+     * @param srcOwnerName is the owner's name of this action.
+     * @return an adapted ActionInfo for research cloaking.
+     */
+    public ActionInfo createResearchCloakingActionInfo(String srcOwnerName) {
+        return new ActionInfo(srcOwnerName, "research cloaking");
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
