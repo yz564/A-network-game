@@ -256,4 +256,43 @@ public class ServerOrderHelper {
             map.getTerritory(territory).tryAddTroopUnits("level0", 1);
         }
     }
+
+    /**
+     * Updates the visibility status for a single player.
+     *
+     * @param map the WorkMap to update status with.
+     * @param playerName the player for whom to update the status.
+     */
+    public void updateVizStatus(WorldMap map, String playerName) {
+        PlayerInfo toUpdate = map.getPlayerInfo(playerName);
+        for (String territoryName : toUpdate.getAllVizStatus().keySet()) {
+            // cast to V2Territory to use spy related methods
+            V2Territory territory = (V2Territory) map.getTerritory(territoryName);
+            if (territory.getOwnerName().equals(playerName)) {
+                // if player owns the territory, set visible
+                toUpdate.setOneVizStatus(territoryName, true);
+            } else if (territory.getSpyTroopNumUnits(playerName) > 0) {
+                // if player has spy in the territory, set visible
+                toUpdate.setOneVizStatus(territoryName, true);
+            } else if (isPlayerAdjTerritory(map, playerName, territory)
+                    && territory.getCloakingTurns() < 1) {
+                // if territory is adjacent to one of the player's territory and no cloaking on that
+                // territory, set visible
+                toUpdate.setOneVizStatus(territoryName, true);
+            } else {
+                // set invisible
+                toUpdate.setOneVizStatus(territoryName, false);
+            }
+        }
+    }
+
+    private Boolean isPlayerAdjTerritory(
+            WorldMap map, String playerName, Territory targetTerritory) {
+        for (Territory myTerritory : map.getPlayerTerritories(playerName).values()) {
+            if (myTerritory.isAdjacentTo(targetTerritory)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
