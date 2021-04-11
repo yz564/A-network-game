@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashMap;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class V2TerritoryTest {
@@ -170,4 +169,41 @@ public class V2TerritoryTest {
     Territory t2 = map.getTerritory("LSRC");
     assertEquals(5, t1.findMinMoveCost(t2)); 
   }
+
+  @Test
+  public void test_spyTroop(){
+    V2Territory t1 = new V2Territory("ABC", new HashMap<String, Integer>(), 0);
+    assertEquals(null,t1.getSpyTroop("ABC"));
+    assertTrue(t1.tryAddSpyTroopUnits("ABCD", 2));
+    assertEquals(0, t1.getSpyTroopNumUnits("ABC"));
+    assertEquals(2, t1.getSpyTroopNumUnits("ABCD"));
+    assertTrue(t1.tryAddSpyTroopUnits("ABCD", 5));
+    assertEquals(0, t1.getSpyTroopNumUnits("ABC"));
+    assertEquals(7, t1.getSpyTroopNumUnits("ABCD"));
+    assertTrue(t1.tryAddSpyTroopUnits("ABC", 10));
+    assertEquals(10, t1.getSpyTroopNumUnits("ABC"));
+    assertEquals(7, t1.getSpyTroopNumUnits("ABCD"));
+    assertTrue(t1.tryRemoveSpyTroopUnits("ABC", 2));
+    assertEquals(8, t1.getSpyTroopNumUnits("ABC"));
+    assertEquals(7, t1.getSpyTroopNumUnits("ABCD"));
+    assertTrue(t1.tryRemoveSpyTroopUnits("ABC", 8));
+    assertFalse(t1.tryRemoveSpyTroopUnits("AB", 1));
+    assertEquals(0, t1.getSpyTroopNumUnits("ABC"));
+    assertEquals(7, t1.getSpyTroopNumUnits("ABCD"));
+    assertEquals(null,t1.getSpyTroop("ABC"));
+    t1.getSpyTroop("ABCD");
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

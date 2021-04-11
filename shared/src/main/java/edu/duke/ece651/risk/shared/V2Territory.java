@@ -7,6 +7,7 @@ public class V2Territory extends AbstractTerritory {
   private static final long serialVersionUID = -8815409601117401416L;
   private final HashMap<String, Integer> resProduction;
   private final int size;
+  private HashMap<String, Troop> spyTroop=new HashMap<String, Troop>();
 
   /**
    * Makes initial troops for a new territory. Pass makeTroops() in constructor of
@@ -23,7 +24,6 @@ public class V2Territory extends AbstractTerritory {
     myTroops.put("level4", new LevelTroop("level4", 0, 8, 4, 55));
     myTroops.put("level5", new LevelTroop("level5", 0, 11, 5, 90));
     myTroops.put("level6", new LevelTroop("level6", 0, 15, 6, 140));
-    myTroops.put("Spy", new SpyTroop(0, "playerName"));
     return myTroops;
   }
 
@@ -157,4 +157,59 @@ public class V2Territory extends AbstractTerritory {
   public int findMinMoveCost(Territory toReach) {
     return findAllMinMoveCost().get(toReach.getName());
   }
+
+
+  public Troop getSpyTroop(String playerName){
+    if (isExistSpyTroop(playerName)) {
+      return spyTroop.get(playerName);
+    }
+    return null;
+  }
+  
+  public Boolean isExistSpyTroop(String playerName){
+    if (spyTroop.containsKey(playerName)){ 
+      return true;
+    }
+    return false;
+  }
+  /**
+   *return true if added
+   */
+  public Boolean tryAddSpyTroopUnits(String playerName, int addNum){
+    if (!isExistSpyTroop(playerName)){
+      Troop newSpy=new LevelTroop("spy",0,0,1,20);
+      Boolean temp=newSpy.tryAddUnits(addNum);
+      spyTroop.put(playerName,newSpy);
+      return temp;
+    }
+    Troop oldSpy=spyTroop.get(playerName);
+    return oldSpy.tryAddUnits(addNum);
+  }
+  /**
+   *if the play's spy units are all removed, the playerName will be removed from spyTroop
+   */
+  public Boolean tryRemoveSpyTroopUnits(String playerName, int removeNum){
+    if (!isExistSpyTroop(playerName)){
+      return false;
+    }
+    Troop oldSpy=spyTroop.get(playerName);
+    Boolean temp=oldSpy.tryRemoveUnits(removeNum);
+      if(temp && oldSpy.getNumUnits()==0){
+        spyTroop.remove(playerName);
+      }
+    return temp;
+  }
+
+  public int getSpyTroopNumUnits(String playerName){
+  if (!isExistSpyTroop(playerName)){
+      return 0;
+    }
+  Troop oldSpy=spyTroop.get(playerName);
+  return oldSpy.getNumUnits();
+  }
+
+  
+  
 }
+
+
