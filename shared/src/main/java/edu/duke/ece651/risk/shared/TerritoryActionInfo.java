@@ -13,11 +13,14 @@ public class TerritoryActionInfo implements java.io.Serializable {
     /** The number of units in tech type of troop assigned to the action. */
     private HashMap<String, Integer> unitNum;
 
+    private int spyUnitNum;
+
     /** Default constructor of TerritoryActionInfo. */
     public TerritoryActionInfo() {
         this.srcName = null;
         this.desName = null;
         this.unitNum = null;
+        this.spyUnitNum = 0;
     }
 
     /**
@@ -31,6 +34,18 @@ public class TerritoryActionInfo implements java.io.Serializable {
         this.srcName = srcName;
         this.desName = desName;
         this.unitNum = unitNum;
+        this.spyUnitNum = 0;
+    }
+
+  public TerritoryActionInfo(String srcName, String desName, int spyUnitNum) {
+        this.srcName = srcName;
+        this.desName = desName;
+        this.unitNum = new HashMap<String, Integer>();
+        this.spyUnitNum = spyUnitNum;
+    }
+
+    public int getSpyUnitNum() {
+      return spyUnitNum;
     }
 
     /**
