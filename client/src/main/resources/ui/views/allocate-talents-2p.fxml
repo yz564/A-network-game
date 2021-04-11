@@ -148,4 +148,28 @@
             <fx:reference source="label15"/>
         </ArrayList>
     </fx:define>
+    <fx:define>
+        <ArrayList fx:id="talentLabelList">
+            <fx:reference source="talentLabel1" />
+            <fx:reference source="talentLabel2" />
+            <fx:reference source="talentLabel3" />
+            <fx:reference source="talentLabel4" />
+            <fx:reference source="talentLabel5" />
+            <fx:reference source="talentLabel6" />
+            <fx:reference source="talentLabel7" />
+            <fx:reference source="talentLabel8" />
+        </ArrayList>
+    </fx:define>
+    <fx:define>
+        <ArrayList fx:id="numTalentList">
+            <fx:reference source="numTalent1" />
+            <fx:reference source="numTalent2" />
+            <fx:reference source="numTalent3" />
+            <fx:reference source="numTalent4" />
+            <fx:reference source="numTalent5" />
+            <fx:reference source="numTalent6" />
+            <fx:reference source="numTalent7" />
+            <fx:reference source="numTalent8" />
+        </ArrayList>
+    </fx:define>
 </SplitPane>

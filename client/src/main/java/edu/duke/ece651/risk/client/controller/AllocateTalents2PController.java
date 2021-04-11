@@ -25,75 +25,21 @@ public class AllocateTalents2PController implements Initializable {
     String next;
     int numUnitsEntered;
 
-    // territory name for which player will enter number of talents to deploy
-    @FXML
-    Label talentLabel1;
+    @FXML ArrayList<Label> talentLabelList;
 
-    @FXML
-    Label talentLabel2;
+    @FXML  ArrayList<TextField> numTalentList;
 
-    @FXML
-    Label talentLabel3;
+    @FXML Label allocatePrompt;
 
-    @FXML
-    Label talentLabel4;
+    @FXML Label numUnitsAllocated;
 
-    @FXML
-    Label talentLabel5;
+    @FXML Label numUnitsAllowed;
 
-    @FXML
-    Label talentLabel6;
+    @FXML Label territoryGroupName;
 
-    @FXML
-    Label talentLabel7;
+    @FXML Label errorMessage;
 
-    @FXML
-    Label talentLabel8;
-
-    // number of talents to deploy in each territory
-    @FXML
-    TextField numTalent1;
-
-    @FXML
-    TextField numTalent2;
-
-    @FXML
-    TextField numTalent3;
-
-    @FXML
-    TextField numTalent4;
-
-    @FXML
-    TextField numTalent5;
-
-    @FXML
-    TextField numTalent6;
-
-    @FXML
-    TextField numTalent7;
-
-    @FXML
-    TextField numTalent8;
-
-    // allocation prompt that asks to enter the number of talents.
-    @FXML
-    Label allocatePrompt;
-
-    @FXML
-    Label numUnitsAllocated;
-
-    @FXML
-    Label numUnitsAllowed;
-
-    @FXML
-    Label territoryGroupName;
-
-    // label for printing error messages and acknowledgement messages to the player.
-    @FXML
-    Label errorMessage;
-
-    @FXML
-    ArrayList<Label> labelList;
+    @FXML ArrayList<Label> labelList;
 
     /**
      * Constructor that initializes the model.
@@ -113,24 +59,27 @@ public class AllocateTalents2PController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         InitializeControllerHelper helper = new InitializeControllerHelper();
+
         // set coloring for each territory label
         helper.initializeTerritoryLabelByGroup(model.getPlayer().getMap(), labelList);
+
         // set tooltip for each territory label
         helper.initializeTerritoryTooltips(model.getPlayer().getMap(), labelList);
 
+        // set player color
         helper.initializeTerritoryGroupLabelColor(model, territoryGroupName);
+
+        // set territory names for this type of territory group
         setTerritoryNameLabels();
-        //territoryGroupName.setText(model.getPlayer().getTerritoryGroupSelected());
-        numTalent1.setText("0");
-        numTalent2.setText("0");
-        numTalent3.setText("0");
-        numTalent4.setText("0");
-        numTalent5.setText("0");
-        numTalent6.setText("0");
-        numTalent7.setText("0");
-        numTalent8.setText("0");
+
+        // set number of talents to 0
+        for (TextField numTalent: numTalentList) {
+            numTalent.setText("0");
+        }
+
         numUnitsAllocated.setText(String.valueOf(0));
         numUnitsAllowed.setText(String.valueOf(model.getPlayer().getMaxUnitsToPlace()));
+
         try {
             model.getPlayer().startAllocation();
         } catch (Exception e) {
@@ -146,14 +95,9 @@ public class AllocateTalents2PController implements Initializable {
         WorldMap map = currentPlayer.getMap();
         HashMap<String, Territory> playerTerritories = map.getPlayerTerritories(currentPlayer.getName());
         Iterator<String> itr = playerTerritories.keySet().iterator();
-        talentLabel1.setText(itr.next());
-        talentLabel2.setText(itr.next());
-        talentLabel3.setText(itr.next());
-        talentLabel4.setText(itr.next());
-        talentLabel5.setText(itr.next());
-        talentLabel6.setText(itr.next());
-        talentLabel7.setText(itr.next());
-        talentLabel8.setText(itr.next());
+        for (Label talentName: talentLabelList) {
+            talentName.setText(itr.next());
+        }
     }
 
     /**
@@ -213,15 +157,10 @@ public class AllocateTalents2PController implements Initializable {
      * Returns a string with a descriptive error if there are negative number of units, else returns null.
      */
     private String checkInput() {
-        if (parseIntFromTextField(numTalent1.getText(), 1) < 0 ||
-                parseIntFromTextField(numTalent2.getText(), 2) < 0 ||
-                parseIntFromTextField(numTalent3.getText(), 3) < 0 ||
-                parseIntFromTextField(numTalent4.getText(), 4) < 0 ||
-                parseIntFromTextField(numTalent5.getText(), 5) < 0 ||
-                parseIntFromTextField(numTalent6.getText(), 6) < 0 ||
-                parseIntFromTextField(numTalent7.getText(), 7) < 0 ||
-                parseIntFromTextField(numTalent8.getText(), 8) < 0) {
-            return "Invalid input. Cannot allocate negative talents.";
+        for (TextField numTalent: numTalentList) {
+            if (parseIntFromTextField(numTalent.getText(), numTalentList.indexOf(numTalent) + 1) < 0) {
+                return "Invalid input. Cannot allocate negative talents.";
+            }
         }
         return null;
     }
@@ -248,14 +187,16 @@ public class AllocateTalents2PController implements Initializable {
      */
     HashMap<String, Integer> getTerritoryUnits() {
         HashMap<String, Integer> territoryUnits = new HashMap<>();
-        territoryUnits.put(talentLabel1.getText(), parseIntFromTextField(numTalent1.getText(), 1));
-        territoryUnits.put(talentLabel2.getText(), parseIntFromTextField(numTalent2.getText(), 2));
-        territoryUnits.put(talentLabel3.getText(), parseIntFromTextField(numTalent3.getText(), 3));
-        territoryUnits.put(talentLabel4.getText(), parseIntFromTextField(numTalent4.getText(), 4));
-        territoryUnits.put(talentLabel5.getText(), parseIntFromTextField(numTalent5.getText(), 5));
-        territoryUnits.put(talentLabel6.getText(), parseIntFromTextField(numTalent6.getText(), 6));
-        territoryUnits.put(talentLabel7.getText(), parseIntFromTextField(numTalent7.getText(), 7));
-        territoryUnits.put(talentLabel8.getText(), parseIntFromTextField(numTalent8.getText(), 8));
+        Iterator<Label> talentNameItr = talentLabelList.iterator();
+        Iterator<TextField> numTalentItr = numTalentList.iterator();
+        Label currTalentName;
+        TextField currNumTalents;
+        while(talentNameItr.hasNext() && numTalentItr.hasNext()) {
+            currTalentName = talentNameItr.next();
+            currNumTalents = numTalentItr.next();
+            territoryUnits.put(currTalentName.getText(),
+                    parseIntFromTextField(currNumTalents.getText(), numTalentList.indexOf(currNumTalents) + 1));
+        }
         return territoryUnits;
     }
 
@@ -263,14 +204,11 @@ public class AllocateTalents2PController implements Initializable {
      * Returns the total number of units requested by the player in the view.
      */
     int getNumUnitsRequested() {
-        return parseIntFromTextField(numTalent1.getText(), 1) +
-                parseIntFromTextField(numTalent2.getText(), 2) +
-                parseIntFromTextField(numTalent3.getText(), 3) +
-                parseIntFromTextField(numTalent4.getText(), 4) +
-                parseIntFromTextField(numTalent5.getText(), 5) +
-                parseIntFromTextField(numTalent6.getText(), 6) +
-                parseIntFromTextField(numTalent7.getText(), 7) +
-                parseIntFromTextField(numTalent8.getText(), 8);
+        int totalUnits = 0;
+        for (TextField numTalents: numTalentList) {
+            totalUnits += parseIntFromTextField(numTalents.getText(), numTalentList.indexOf(numTalents) + 1);
+        }
+        return totalUnits;
     }
 
     /**
