@@ -6,8 +6,7 @@ public class BasicTerritory extends AbstractTerritory {
   private static final long serialVersionUID = -8815409601117401416L;
 
   /**
-   * Makes initial troops for a new territory. Pass makeTroops() in constructor of
-   * basic territory.
+   * Makes initial troops for a new territory. Pass makeTroops() in constructor of basic territory.
    *
    * @return a HashMap with String key as the Troop name, and Troop object value.
    */
@@ -20,20 +19,19 @@ public class BasicTerritory extends AbstractTerritory {
   /**
    * Construct a BasicTerritory object.
    *
-   * @param name   is the name to assign to the territory.
-   * @param troops are the troops that are present in this territory. HashMap key
-   *               is troop name, and value is the Troop objects representing
-   *               troops in this territory.
+   * @param name is the name to assign to the territory.
+   * @param troops are the troops that are present in this territory. HashMap key is troop name, and
+   *     value is the Troop objects representing troops in this territory.
    */
   public BasicTerritory(String name, HashMap<String, Troop> troops) {
     super(name, troops);
   }
 
   /**
-   * Construct a BasicTerritory object with default Troops made by makeTroops(),
-   * taking numUnits as a parameter.
+   * Construct a BasicTerritory object with default Troops made by makeTroops(), taking numUnits as
+   * a parameter.
    *
-   * @param name     is the name to assign to the territory.
+   * @param name is the name to assign to the territory.
    * @param numUnits is the number of basic units to assign to this territory.
    */
   public BasicTerritory(String name, int numUnits) {
@@ -41,8 +39,7 @@ public class BasicTerritory extends AbstractTerritory {
   }
 
   /**
-   * Construct a BasicTerritory object with default Troops set as Basic Troop with
-   * 0 units.
+   * Construct a BasicTerritory object with default Troops set as Basic Troop with 0 units.
    *
    * @param name is the name to assign to the territory.
    */
@@ -54,7 +51,8 @@ public class BasicTerritory extends AbstractTerritory {
   public boolean equals(Object o) {
     if (o != null && o.getClass().equals(getClass())) {
       BasicTerritory other = (BasicTerritory) o;
-      return this.myTroops.equals(other.getMyTroops()) && this.territoryName.equals(other.getName())
+      return this.myTroops.equals(other.getMyTroops())
+          && this.territoryName.equals(other.getName())
           && this.myNeighbors.equals(other.getMyNeighbors());
     }
     return false;
@@ -62,8 +60,12 @@ public class BasicTerritory extends AbstractTerritory {
 
   @Override
   public String toString() {
-    return "Territory " + this.territoryName + " contains the following troop:\n" + myTroops.toString()
-        + " and is adjacent to the following territories:\n" + myNeighbors.keySet().toString();
+    return "Territory "
+        + this.territoryName
+        + " contains the following troop:\n"
+        + myTroops.toString()
+        + " and is adjacent to the following territories:\n"
+        + myNeighbors.keySet().toString();
   }
 
   @Override
@@ -90,15 +92,15 @@ public class BasicTerritory extends AbstractTerritory {
   public int findMinMoveCost(Territory toReach) {
     return 0;
   }
+
+  @Override
+  public int getCloakingTurns() {
+    return 0;
+  }
+
+  @Override
+  public void setCloakingTurns(int cloakingTurns) {}
+
+  @Override
+  public void reduceCloakingTurns() {}
 }
-
-
-
-
-
-
-
-
-
-
-

@@ -162,12 +162,24 @@ public class V2TerritoryTest {
   @Test
   public void test_findmincost3() {
     WorldMapFactory factory = new V2MapFactory();
-    WorldMap map = factory.makeWorldMap(3); 
+    WorldMap map = factory.makeWorldMap(3);
     map.tryAssignInitOwner(1, "Player 1");
     map.tryAssignInitOwner(2, "Player 2");
     map.tryAssignInitOwner(3, "Player 3");
     Territory t1 = map.getTerritory("Gross Hall");
     Territory t2 = map.getTerritory("LSRC");
-    assertEquals(5, t1.findMinMoveCost(t2)); 
+    assertEquals(5, t1.findMinMoveCost(t2));
+  }
+
+  @Test
+  public void test_cloakingturn() {
+    WorldMapFactory factory = new V2MapFactory();
+    WorldMap map = factory.makeTestWorldMap();
+    Territory t1 = map.getTerritory("Narnia");
+    assertEquals(0, t1.getCloakingTurns());
+    t1.setCloakingTurns(3);
+    assertEquals(3, t1.getCloakingTurns());
+    t1.reduceCloakingTurns();
+    assertEquals(2, t1.getCloakingTurns());
   }
 }
