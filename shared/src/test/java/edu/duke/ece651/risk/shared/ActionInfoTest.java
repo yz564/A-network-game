@@ -100,4 +100,17 @@ public class ActionInfoTest {
         assertEquals(3, info.getTotalNumUnits());
         assertEquals(0, info2.getTotalNumUnits());
     }
+
+  @Test
+    public void test_getNumSpyUnits() {
+        TerritoryActionInfo infoDetail = new TerritoryActionInfo("Narnia", "Elantris", 3);
+        ActionInfo info = new ActionInfo("Player 1", "move", infoDetail);
+        assertEquals(3, info.getNumSpyUnits());
+        UpgradeUnitActionInfo infoDetail2 = new UpgradeUnitActionInfo("Oz", "level0", "level1", 1);
+        ActionInfo info2 = new ActionInfo("Player 1", "upgrade unit", infoDetail2);
+        assertEquals(1, info2.getNumSpyUnits());
+        UpgradeTechActionInfo infoDetail3 = new UpgradeTechActionInfo(3);
+        ActionInfo info3 = new ActionInfo("Player 1", "upgrade tech", infoDetail3);
+        assertEquals(0,info3.getNumSpyUnits());
+    }
 }
