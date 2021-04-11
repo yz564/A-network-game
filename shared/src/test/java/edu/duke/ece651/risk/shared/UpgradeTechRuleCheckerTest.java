@@ -11,6 +11,8 @@ public class UpgradeTechRuleCheckerTest {
     WorldMapFactory factory = new V2MapFactory();
     WorldMap worldmap = factory.makeTestWorldMap();
     worldmap.tryAssignInitOwner(1, "Player 1");
+    worldmap.tryAssignInitOwner(2, "Player 2");
+    worldmap.tryAssignInitOwner(3, "Player 3");
     PlayerInfo p1 = new PlayerInfo("Player 1", 30, 30);
     worldmap.tryAddPlayerInfo(p1);
     Territory t1 = worldmap.getTerritory("Narnia");
