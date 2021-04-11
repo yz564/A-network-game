@@ -184,7 +184,7 @@ public class V2TerritoryTest {
 
   @Test
   public void test_spyTroop(){
-    V2Territory t1 = new V2Territory("ABC", new HashMap<String, Integer>(), 0);
+    Territory t1 = new V2Territory("ABC", new HashMap<String, Integer>(), 0);
     assertEquals(null,t1.getSpyTroop("ABC"));
     assertTrue(t1.tryAddSpyTroopUnits("ABCD", 2));
     assertEquals(0, t1.getSpyTroopNumUnits("ABC"));

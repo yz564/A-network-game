@@ -9,6 +9,7 @@ public abstract class AbstractTerritory implements Territory {
   protected String ownerName;
   protected HashMap<String, Territory> myNeighbors;
   protected HashMap<String, Troop> myTroops;
+  protected HashMap<String, Troop> spyTroop=new HashMap<String, Troop>();
 
   /**
    * Construct a AbstractTerritory object with default ownerName being null and
@@ -183,4 +184,57 @@ public abstract class AbstractTerritory implements Territory {
     }
     return allNumUnits;
   }
+
+  @Override
+  public Troop getSpyTroop(String playerName){
+    if (isExistSpyTroop(playerName)) {
+      return spyTroop.get(playerName);
+    }
+    return null;
+  }
+  @Override
+  public Boolean isExistSpyTroop(String playerName){
+    if (spyTroop.containsKey(playerName)){ 
+      return true;
+    }
+    return false;
+  }
+  /**
+   *return true if added
+   */
+  @Override
+  public Boolean tryAddSpyTroopUnits(String playerName, int addNum){
+    if (!isExistSpyTroop(playerName)){
+      Troop newSpy=new LevelTroop("spy",0,0,1,20);
+      Boolean temp=newSpy.tryAddUnits(addNum);
+      spyTroop.put(playerName,newSpy);
+      return temp;
+    }
+    Troop oldSpy=spyTroop.get(playerName);
+    return oldSpy.tryAddUnits(addNum);
+  }
+  /**
+   *if the play's spy units are all removed, the playerName will be removed from spyTroop
+   */
+  @Override
+  public Boolean tryRemoveSpyTroopUnits(String playerName, int removeNum){
+    if (!isExistSpyTroop(playerName)){
+      return false;
+    }
+    Troop oldSpy=spyTroop.get(playerName);
+    Boolean temp=oldSpy.tryRemoveUnits(removeNum);
+      if(temp && oldSpy.getNumUnits()==0){
+        spyTroop.remove(playerName);
+      }
+    return temp;
+  }
+
+  public int getSpyTroopNumUnits(String playerName){
+  if (!isExistSpyTroop(playerName)){
+      return 0;
+    }
+  Troop oldSpy=spyTroop.get(playerName);
+  return oldSpy.getNumUnits();
+  }
+
 }
