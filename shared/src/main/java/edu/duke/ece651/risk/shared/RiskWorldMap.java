@@ -87,8 +87,10 @@ public abstract class RiskWorldMap implements WorldMap {
     HashMap<String, Territory> territories = new HashMap<String, Territory>();
     for (String territoryName : myTerritories.keySet()) {
       Territory t = getTerritory(territoryName);
-      if (t.getOwnerName().equals(playerName)) {
-        territories.put(territoryName, t);
+      if (t.getOwnerName() != null) {
+        if (t.getOwnerName().equals(playerName)) {
+          territories.put(territoryName, t);
+        }
       }
     }
     return territories;
