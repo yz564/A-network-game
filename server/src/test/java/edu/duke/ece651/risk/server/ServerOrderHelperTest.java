@@ -94,6 +94,9 @@ public class ServerOrderHelperTest {
         map.tryAddPlayerInfo(new PlayerInfo("Green player", 10000, 10000));
         map.tryAddPlayerInfo(new PlayerInfo("Blue player", 10000, 10000));
         map.tryAddPlayerInfo(new PlayerInfo("Red player", 10000, 10000));
+        map.getPlayerInfo("Green player").setMultiVizStatus(map.getMyTerritories(), false);
+        map.getPlayerInfo("Blue player").setMultiVizStatus(map.getMyTerritories(), false);
+        map.getPlayerInfo("Red player").setMultiVizStatus(map.getMyTerritories(), false);
         return map;
     }
 
@@ -314,5 +317,21 @@ public class ServerOrderHelperTest {
         assertEquals(10020, map.getPlayerInfo("Blue player").getResTotals().get("tech"));
         assertEquals(10050, map.getPlayerInfo("Red player").getResTotals().get("food"));
         assertEquals(10020, map.getPlayerInfo("Red player").getResTotals().get("tech"));
+    }
+
+    @Test
+    public void test_update_viz_status() {
+        WorldMap map = setupV2Map();
+        ServerOrderHelper oh = new ServerOrderHelper();
+        oh.updateVizStatus(map, "Green player");
+        assertTrue(map.getPlayerInfo("Green player").getOneVizStatus("Fuqua"));
+        assertTrue(map.getPlayerInfo("Green player").getOneVizStatus("Gross Hall"));
+        assertFalse(map.getPlayerInfo("Green player").getOneVizStatus("Duke Clinics"));
+
+        map.getTerritory("Gross Hall").setCloakingTurns(1);
+        map.getTerritory("Duke Clinics").tryAddSpyTroopUnits("Green player", 1);
+        oh.updateVizStatus(map, "Green player");
+        assertFalse(map.getPlayerInfo("Green player").getOneVizStatus("Gross Hall"));
+        assertTrue(map.getPlayerInfo("Green player").getOneVizStatus("Duke Clinics"));
     }
 }

@@ -266,8 +266,7 @@ public class ServerOrderHelper {
     public void updateVizStatus(WorldMap map, String playerName) {
         PlayerInfo toUpdate = map.getPlayerInfo(playerName);
         for (String territoryName : toUpdate.getAllVizStatus().keySet()) {
-            // cast to V2Territory to use spy related methods
-            V2Territory territory = (V2Territory) map.getTerritory(territoryName);
+            Territory territory = map.getTerritory(territoryName);
             if (territory.getOwnerName().equals(playerName)) {
                 // if player owns the territory, set visible
                 toUpdate.setOneVizStatus(territoryName, true);
