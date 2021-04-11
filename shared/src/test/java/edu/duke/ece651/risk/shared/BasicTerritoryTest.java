@@ -191,4 +191,12 @@ public class BasicTerritoryTest {
     assertEquals(0, t1.getMoveCost(t1));
     assertEquals(0, t1.findMinMoveCost(t1));
   }
+
+  @Test
+  public void test_cloakingturns() {
+    Territory t1 = new BasicTerritory("Narnia", 10);
+    assertEquals(0, t1.getCloakingTurns());
+    t1.setCloakingTurns(0);
+    t1.reduceCloakingTurns();
+  }
 }

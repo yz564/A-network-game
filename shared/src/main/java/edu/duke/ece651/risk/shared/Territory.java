@@ -36,14 +36,12 @@ public interface Territory extends java.io.Serializable {
   /**
    * Get the neighbors of the Territory.
    *
-   * @return a HashMap of Territory, which are neighbors of this Territory mapped
-   *         to their names.
+   * @return a HashMap of Territory, which are neighbors of this Territory mapped to their names.
    */
   public HashMap<String, Territory> getMyNeighbors();
 
   /**
-   * Add a given territory to the list of neghboring territories of the current
-   * territory.
+   * Add a given territory to the list of neghboring territories of the current territory.
    *
    * @param neighbor is the territory to add.
    * @return true if the add is successful, false if not.
@@ -61,8 +59,8 @@ public interface Territory extends java.io.Serializable {
   /**
    * Check if a territory is reachable from the current territory
    *
-   * @param toReach is the territory to check for a path of adjacent territories
-   *                that belong to the same player.
+   * @param toReach is the territory to check for a path of adjacent territories that belong to the
+   *     same player.
    * @return true if reachable, false if not.
    */
   public boolean isReachableTo(Territory toReach);
@@ -70,8 +68,7 @@ public interface Territory extends java.io.Serializable {
   /**
    * Returns the troops in a territory.
    *
-   * @return a HashMap with keys are the troop names, and values are the Troop
-   *         objects.
+   * @return a HashMap with keys are the troop names, and values are the Troop objects.
    */
   public HashMap<String, Troop> getMyTroops();
 
@@ -100,7 +97,7 @@ public interface Territory extends java.io.Serializable {
    * Adds units to a specific troop in the territory.
    *
    * @param troopName is the name of the troop to add units to.
-   * @param addNum    is the number of units to add to the given troop.
+   * @param addNum is the number of units to add to the given troop.
    * @return true if adding is successful, else return false.
    */
   public boolean tryAddTroopUnits(String troopName, int addNum);
@@ -118,28 +115,27 @@ public interface Territory extends java.io.Serializable {
    * Sets the number of units to a specific troop in the territory.
    *
    * @param troopName is the name of the troop to set units.
-   * @param setNum    is the number of units to set to the given troop.
+   * @param setNum is the number of units to set to the given troop.
    * @return true if setting is successful, else return false.
    */
-
   public boolean trySetTroopUnits(String troopName, int setNum);
 
   /**
-   * Sets number of units of troops in the territory. Checks if all number of
-   * units are valid before setting.
+   * Sets number of units of troops in the territory. Checks if all number of units are valid before
+   * setting.
    *
-   * @param toSet is a HashMap with String keys are the Troops to set units and
-   *              Integer values are the number of units to set to the Troop.
-   * @return true if setting is successful is valid for all Troops, else return
-   *         false and leave all Troops unchanged.
+   * @param toSet is a HashMap with String keys are the Troops to set units and Integer values are
+   *     the number of units to set to the Troop.
+   * @return true if setting is successful is valid for all Troops, else return false and leave all
+   *     Troops unchanged.
    */
   public boolean trySetNumUnits(HashMap<String, Integer> toSet);
 
   /**
    * Returns the total number of units of each Troop inside a territory.
    *
-   * @return a HashMap<String, Integer> with keys are Troop names, and values are
-   *         number of units in the corresponding troop.
+   * @return a HashMap<String, Integer> with keys are Troop names, and values are number of units in
+   *     the corresponding troop.
    */
   public HashMap<String, Integer> getAllNumUnits();
 
@@ -153,23 +149,22 @@ public interface Territory extends java.io.Serializable {
   /**
    * Gets the production rate HashMap of the territory.
    *
-   * @return a HashMap that is the production rate of different types of
-   *         resources. HashMap key is * the resource name, and value is the
-   *         production rate.
+   * @return a HashMap that is the production rate of different types of resources. HashMap key is *
+   *     the resource name, and value is the production rate.
    */
   public HashMap<String, Integer> getResProduction();
 
   /**
    * Gets the neighbors of the Territory that belong to current owner.
    *
-   * @return a HashMap of Territory, which are reachable neighbors of this
-   *         Territory mapped to their names.
+   * @return a HashMap of Territory, which are reachable neighbors of this Territory mapped to their
+   *     names.
    */
   public HashMap<String, Territory> getReachableNeighbors();
 
   /**
-   * Gets the moving cost to a neighbouring territory, which is the sum of size of
-   * current territory and the neighboring territory.
+   * Gets the moving cost to a neighbouring territory, which is the sum of size of current territory
+   * and the neighboring territory.
    *
    * @parm neighbor is the Territory object of the neighboring territory.
    * @return an int of moving cost.
@@ -177,11 +172,28 @@ public interface Territory extends java.io.Serializable {
   public int getMoveCost(Territory neighbor);
 
   /**
-   * Find the minimum moving cost from the current territory to the destination
-   * territory
+   * Find the minimum moving cost from the current territory to the destination territory
    *
    * @param toReach is the Territory object representing the destination territory
    * @return an int of the minimum moving cost.
    */
   public int findMinMoveCost(Territory toReach);
+
+  /**
+   * Gets the cloaking turns of the Territory.
+   *
+   * @return int represent the number of turns the current territory has been cloaked, 0 if not
+   *     cloaked.
+   */
+  public int getCloakingTurns();
+
+  /**
+   * Sets the cloaking turns of the Territory to a given number of turns.
+   *
+   * @param cloakingTurns is the number of turns to cloak this territory.
+   */
+  public void setCloakingTurns(int cloakingTurns);
+
+  /** Reduce the cloaking turns of the Territory by 1 turn. */
+  public void reduceCloakingTurns();
 }
