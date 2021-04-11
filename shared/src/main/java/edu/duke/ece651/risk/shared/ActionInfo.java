@@ -207,11 +207,24 @@ public class ActionInfo implements java.io.Serializable {
     }
 
     /**
-     * Getter of oldUnitLevel field in UpgradeUnitActionInfo objects.
      *
-     * @return a String that represents the old level troop name to upgrade units from, null for
-     *     other action types.
-     */
+     */    
+    public int getNumSpyUnits() {
+          if (territoryActionInfo != null) {
+              return territoryActionInfo.getSpyUnitNum();
+          }
+          if (upgradeUnitActionInfo != null) {
+              return upgradeUnitActionInfo.getNumToUpgrade();
+          }
+          return 0;
+      }
+    
+      /**
+       * Getter of oldUnitLevel field in UpgradeUnitActionInfo objects.
+       *
+       * @return a String that represents the old level troop name to upgrade units from, null for
+       *     other action types.
+       */
     public String getOldUnitLevel() {
         if (upgradeUnitActionInfo != null) {
             return upgradeUnitActionInfo.getOldUnitLevel();

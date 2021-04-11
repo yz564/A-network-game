@@ -196,4 +196,27 @@ public interface Territory extends java.io.Serializable {
 
   /** Reduce the cloaking turns of the Territory by 1 turn. */
   public void reduceCloakingTurns();
+
+  public Troop getSpyTroop(String playerName);
+
+  public Boolean isExistSpyTroop(String playerName);
+
+  public Boolean tryAddSpyTroopUnits(String playerName, int addNum);
+
+  public Boolean tryRemoveSpyTroopUnits(String playerName,int removeNum);
+
+  public int getSpyTroopNumUnits(String playerName);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

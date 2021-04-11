@@ -28,6 +28,16 @@ class ActionInfoFactoryTest {
         assertEquals("move", info1.getActionType());
         assertEquals("Player 1", info1.getSrcOwnerName());
     }
+  @Test
+    public void test_create_spy_move() {
+        ActionInfoFactory af = new ActionInfoFactory();
+        ActionInfo info1 = af.createSpyMoveActionInfo("Player 1", "A", "B", 1);
+        assertEquals("A", info1.getTerritoryActionInfo().getSrcName());
+        assertEquals("B", info1.getTerritoryActionInfo().getDesName());
+        assertEquals(1, info1.getTerritoryActionInfo().getSpyUnitNum());
+        assertEquals("spy move", info1.getActionType());
+        assertEquals("Player 1", info1.getSrcOwnerName());
+    }
 
     @Test
     public void test_create_upgrade_tech() {
@@ -47,6 +57,18 @@ class ActionInfoFactoryTest {
         assertEquals("A", info1.getUpgradeUnitActionInfo().getSrcName());
         assertEquals("level2", info1.getUpgradeUnitActionInfo().getOldUnitLevel());
         assertEquals("level4", info1.getUpgradeUnitActionInfo().getNewUnitLevel());
+        assertEquals(10, info1.getUpgradeUnitActionInfo().getNumToUpgrade());
+    }
+
+  @Test
+    public void test_create_upgrade_spy_unit() {
+        ActionInfoFactory af = new ActionInfoFactory();
+        ActionInfo info1 = af.createUpgradeSpyUnitActionInfo("Player 1", "A", 10);
+        assertEquals("Player 1", info1.getSrcOwnerName());
+        assertEquals("upgrade spy unit", info1.getActionType());
+        assertEquals("A", info1.getUpgradeUnitActionInfo().getSrcName());
+        assertEquals("level0", info1.getUpgradeUnitActionInfo().getOldUnitLevel());
+        assertEquals("spy", info1.getUpgradeUnitActionInfo().getNewUnitLevel());
         assertEquals(10, info1.getUpgradeUnitActionInfo().getNumToUpgrade());
     }
 

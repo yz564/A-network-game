@@ -19,6 +19,12 @@ public class ActionInfoFactory {
         return new ActionInfo(srcOwnerName, "move", info);
     }
 
+  public ActionInfo createSpyMoveActionInfo(
+            String srcOwnerName, String srcName, String desName, int spyUnitNum) {
+        TerritoryActionInfo info = new TerritoryActionInfo(srcName, desName, spyUnitNum);
+        return new ActionInfo(srcOwnerName, "spy move", info);
+    }
+
     /**
      * Creates an adapted ActionInfo for attack action.
      *
@@ -66,6 +72,15 @@ public class ActionInfoFactory {
         UpgradeUnitActionInfo info =
                 new UpgradeUnitActionInfo(srcName, oldUnitLevel, newUnitLevel, numToUpgrade);
         return new ActionInfo(srcOwnerName, "upgrade unit", info);
+    }
+
+  public ActionInfo createUpgradeSpyUnitActionInfo(
+            String srcOwnerName,
+            String srcName,
+            Integer numToUpgrade) {
+        UpgradeUnitActionInfo info =
+                new UpgradeUnitActionInfo(srcName, "level0", "spy", numToUpgrade);
+        return new ActionInfo(srcOwnerName, "upgrade spy unit", info);
     }
 
     /**
