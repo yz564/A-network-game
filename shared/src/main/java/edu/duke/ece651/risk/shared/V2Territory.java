@@ -23,6 +23,7 @@ public class V2Territory extends AbstractTerritory {
     myTroops.put("level4", new LevelTroop("level4", 0, 8, 4, 55));
     myTroops.put("level5", new LevelTroop("level5", 0, 11, 5, 90));
     myTroops.put("level6", new LevelTroop("level6", 0, 15, 6, 140));
+    myTroops.put("Spy", new SpyTroop(0, "playerName"));
     return myTroops;
   }
 
