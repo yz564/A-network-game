@@ -49,6 +49,14 @@ public class PlayerInfoTest {
   }
 
   @Test
+  public void test_isCloakingResearched() {
+    PlayerInfo p1 = new PlayerInfo("Player 1", 50, 30);
+    assertEquals(false, p1.getIsCloakingResearched());
+    p1.setIfCloakingResearched(true);
+    assertEquals(true, p1.getIsCloakingResearched());
+  }
+
+  @Test
   public void test_vizstatus() {
     PlayerInfo p1 = new PlayerInfo("Player 1", 1, 50, 30);
     p1.setOneVizStatus("Narnia", true);

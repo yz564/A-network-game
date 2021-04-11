@@ -7,6 +7,7 @@ public class PlayerInfo implements java.io.Serializable {
   private final String playerName;
   private final int playerId;
   private int techLevel;
+  private Boolean isCloakingResearched;
   private HashMap<String, Integer> resTotals;
   private HashMap<String, Boolean> vizStatus;
 
@@ -37,6 +38,7 @@ public class PlayerInfo implements java.io.Serializable {
     this.playerId = 0;
     this.techLevel = techLevel;
     this.resTotals = resTotals;
+    this.isCloakingResearched = false;
     this.vizStatus = new HashMap<>();
   }
 
@@ -67,6 +69,7 @@ public class PlayerInfo implements java.io.Serializable {
     this.playerId = playerId;
     this.techLevel = techLevel;
     this.resTotals = resTotals;
+    this.isCloakingResearched = false;
     this.vizStatus = new HashMap<>();
   }
 
@@ -170,18 +173,61 @@ public class PlayerInfo implements java.io.Serializable {
     return this.playerId;
   }
 
+  /**
+   * Getter of isCloakingResearched filed.
+   *
+   * @return true if the player has researched cloaking action, false other wise.
+   */
+  public Boolean getIsCloakingResearched() {
+    return isCloakingResearched;
+  }
+
+  /**
+   * Setter of isCloakingResearched filed.
+   *
+   * @param isCloakingResearched a Boolean represents is the new cloaking researched or not. Ture if
+   *     we set the new field as the cloaking is researched, false otherwise.
+   */
+  public void setIfCloakingResearched(Boolean isCloakingResearched) {
+    this.isCloakingResearched = isCloakingResearched;
+  }
+
+  /**
+   * Gets the visibility status for one given territory name.
+   *
+   * @param territoryName is the name of the territory
+   * @return true if the territory is visible to the player, false otherwise.
+   */
   public boolean getOneVizStatus(String territoryName) {
     return vizStatus.get(territoryName);
   }
 
+  /**
+   * Gets the visibility status for all territories.
+   *
+   * @return a HashMap of visibility status where key is the territory name and value is the boolean
+   *     values if the player can see the territory
+   */
   public HashMap<String, Boolean> getAllVizStatus() {
     return this.vizStatus;
   }
 
+  /**
+   * Sets the visibility status for one territory
+   *
+   * @param territoryName is the name of the territory
+   * @param status is the boolean value if the player can see the territory
+   */
   public void setOneVizStatus(String territoryName, boolean status) {
     vizStatus.put(territoryName, status);
   }
 
+  /**
+   * Sets the visibility status for one territory
+   *
+   * @param territories is an iterable of String which each respresents a territory name
+   * @param status is the boolean value if the player can see the territory
+   */
   public void setMultiVizStatus(Iterable<String> territories, boolean status) {
     for (String territoryName : territories) {
       this.setOneVizStatus(territoryName, status);
