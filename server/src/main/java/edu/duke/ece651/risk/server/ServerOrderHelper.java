@@ -285,6 +285,16 @@ public class ServerOrderHelper {
         }
     }
 
+    /**
+     * Determines if the given territory is adjacent to one of the given player's territory.
+     *
+     * @param map the WorldMap to check the adjacency on.
+     * @param playerName the player's name for whom to check if the given territory is adjacent to
+     *     one of the player's territory.
+     * @param targetTerritory the territory for which to check if it is adjacent to one of the given
+     *     player's territory.
+     * @return
+     */
     private Boolean isPlayerAdjTerritory(
             WorldMap map, String playerName, Territory targetTerritory) {
         for (Territory myTerritory : map.getPlayerTerritories(playerName).values()) {
@@ -293,5 +303,19 @@ public class ServerOrderHelper {
             }
         }
         return false;
+    }
+
+    /**
+     * Updates the visibility status for a list of players.
+     *
+     * @param map the WorkMap to update status with.
+     * @param playerNames the players' names for which to update the status.
+     * @param map
+     * @param playerNames
+     */
+    public void updateMultiVizStatus(WorldMap map, ArrayList<String> playerNames) {
+        for (String playerName : playerNames) {
+            updateVizStatus(map, playerName);
+        }
     }
 }

@@ -334,4 +334,16 @@ public class ServerOrderHelperTest {
         assertFalse(map.getPlayerInfo("Green player").getOneVizStatus("Gross Hall"));
         assertTrue(map.getPlayerInfo("Green player").getOneVizStatus("Duke Clinics"));
     }
+
+    @Test
+    public void test_update_multi_viz_status() {
+        WorldMap map = setupV2Map();
+        ServerOrderHelper oh = new ServerOrderHelper();
+        ArrayList<String> playerNames = new ArrayList<>();
+        playerNames.add("Green player");
+        oh.updateMultiVizStatus(map, playerNames);
+        assertTrue(map.getPlayerInfo("Green player").getOneVizStatus("Fuqua"));
+        assertTrue(map.getPlayerInfo("Green player").getOneVizStatus("Gross Hall"));
+        assertFalse(map.getPlayerInfo("Green player").getOneVizStatus("Duke Clinics"));
+    }
 }
