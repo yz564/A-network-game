@@ -341,9 +341,34 @@ public class ServerOrderHelperTest {
         ServerOrderHelper oh = new ServerOrderHelper();
         ArrayList<String> playerNames = new ArrayList<>();
         playerNames.add("Green player");
+        playerNames.add("Blue player");
+        playerNames.add("Red player");
         oh.updateMultiVizStatus(map, playerNames);
         assertTrue(map.getPlayerInfo("Green player").getOneVizStatus("Fuqua"));
         assertTrue(map.getPlayerInfo("Green player").getOneVizStatus("Gross Hall"));
         assertFalse(map.getPlayerInfo("Green player").getOneVizStatus("Duke Clinics"));
+    }
+
+    @Test
+    public void test_deduct_cloaking_turns() {
+        WorldMap map = setupV2Map();
+        ServerOrderHelper oh = new ServerOrderHelper();
+        map.getTerritory("Gross Hall").setCloakingTurns(1);
+        assertEquals(1, map.getTerritory("Gross Hall").getCloakingTurns());
+        assertEquals(0, map.getTerritory("Fuqua").getCloakingTurns());
+        oh.deductCloakingTurns(map);
+        assertEquals(0, map.getTerritory("Gross Hall").getCloakingTurns());
+        assertEquals(0, map.getTerritory("Fuqua").getCloakingTurns());
+    }
+
+    @Test
+    public void test_do_after_turn() {
+        WorldMap map = setupV2Map();
+        ServerOrderHelper oh = new ServerOrderHelper();
+        ArrayList<String> playerNames = new ArrayList<>();
+        playerNames.add("Green player");
+        playerNames.add("Blue player");
+        playerNames.add("Red player");
+        oh.doAfterTurn(map, playerNames);
     }
 }
