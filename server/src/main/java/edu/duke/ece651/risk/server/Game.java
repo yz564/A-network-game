@@ -37,67 +37,83 @@ public class Game {
      * initialOwners in theMap
      */
     public void doInitialization() throws Exception {
-      for (int i = 0; i < numPlayers; i++) {
-        Player p = playerList.get(i);
-        ObjectIO m = new ObjectIO(p.getName() + " ,please select your territory groups: ", i, theMap, availableGroups);
-        p.out.writeObject(m);
-        p.out.flush();
-        p.out.reset(); // very important to make theMap next time written in ObjectIO is
-        // updated...
-      }
-      int readyNum = 0;
-      while (readyNum < numPlayers) {
         for (int i = 0; i < numPlayers; i++) {
-          if (!readyPlayer.contains(i)) {
             Player p = playerList.get(i);
-            if (p.isReady()) {
-              if (availableGroups.contains(p.tmp.id)) {
-                availableGroups.remove(p.tmp.id);
-                readyPlayer.add(i);
-                readyNum++;
-                theMap.tryAssignInitOwner(p.tmp.id, p.getName());
-                  // TODO: how many resources to assign???
-                theMap.tryAddPlayerInfo(new PlayerInfo(p.getName(),p.tmp.id, 100, 100));
-                System.out.println(p.getName() + " selected group " + p.tmp.message);
-                
-                
-                ObjectIO m = new ObjectIO(p.getName() + "group selected", 0, theMap, availableGroups);
-        p.out.writeObject(m);
-        p.out.flush();
-        p.out.reset();
-              }
-              else {
-                ObjectIO m = new ObjectIO(p.getName() + " ,please reselect your territory groups: ", -1, theMap, availableGroups);
-        p.out.writeObject(m);
-        p.out.flush();
-        p.out.reset();
-              }
-              
-              p.setNotReady();
-              
-            }
-          }
+            ObjectIO m =
+                    new ObjectIO(
+                            p.getName() + " ,please select your territory groups: ",
+                            i,
+                            theMap,
+                            availableGroups);
+            p.out.writeObject(m);
+            p.out.flush();
+            p.out.reset(); // very important to make theMap next time written in ObjectIO is
+            // updated...
         }
-      }
-       for (int i = 0; i < numPlayers; i++) {
-            Player p = playerList.get(i);
-             try {
-               //System.out.println(theMap.getPlayerTerritories(p.getName()));
-                  p.out.writeObject(new ObjectIO(p.getName(), 0, theMap));
-                  p.out.flush();
-                  p.out.reset();
-                } catch (Exception e) {
-               //System.out.println("theMap is not updated");
+        int readyNum = 0;
+        while (readyNum < numPlayers) {
+            for (int i = 0; i < numPlayers; i++) {
+                if (!readyPlayer.contains(i)) {
+                    Player p = playerList.get(i);
+                    if (p.isReady()) {
+                        if (availableGroups.contains(p.tmp.id)) {
+                            availableGroups.remove(p.tmp.id);
+                            readyPlayer.add(i);
+                            readyNum++;
+                            theMap.tryAssignInitOwner(p.tmp.id, p.getName());
+                            // TODO: how many resources to assign???
+                            theMap.tryAddPlayerInfo(
+                                    new PlayerInfo(p.getName(), p.tmp.id, 100, 100));
+                            // initialize vizStatus for a player.
+                            // theMap.getPlayerInfo(p.getName()).setMultiVizStatus(theMap.getMyTerritories(), false);
+                            System.out.println(p.getName() + " selected group " + p.tmp.message);
+
+                            ObjectIO m =
+                                    new ObjectIO(
+                                            p.getName() + "group selected",
+                                            0,
+                                            theMap,
+                                            availableGroups);
+                            p.out.writeObject(m);
+                            p.out.flush();
+                            p.out.reset();
+                        } else {
+                            ObjectIO m =
+                                    new ObjectIO(
+                                            p.getName()
+                                                    + " ,please reselect your territory groups: ",
+                                            -1,
+                                            theMap,
+                                            availableGroups);
+                            p.out.writeObject(m);
+                            p.out.flush();
+                            p.out.reset();
+                        }
+
+                        p.setNotReady();
+                    }
                 }
-       }
-    }
-    
-      /* try to make the last player auto choice but has a IO porblem...
-      Player p = playerList.get(numPlayers-1);
-      if (theMap.tryAssignInitOwner(availableGroups.iterator().next(), p.getName())) {
-          System.out.println(p.getName() + " auto selected ");
+            }
         }
-      */
+        for (int i = 0; i < numPlayers; i++) {
+            Player p = playerList.get(i);
+            try {
+                // System.out.println(theMap.getPlayerTerritories(p.getName()));
+                p.out.writeObject(new ObjectIO(p.getName(), 0, theMap));
+                p.out.flush();
+                p.out.reset();
+            } catch (Exception e) {
+                // System.out.println("theMap is not updated");
+            }
+        }
+    }
+
+    /* try to make the last player auto choice but has a IO porblem...
+    Player p = playerList.get(numPlayers-1);
+    if (theMap.tryAssignInitOwner(availableGroups.iterator().next(), p.getName())) {
+        System.out.println(p.getName() + " auto selected ");
+      }
+    */
 
     /**
      * the first for loop: Server send message to all clients let they do placement,clients can do
@@ -131,11 +147,11 @@ public class Game {
         for (int i = 0; i < numPlayers; i++) {
             Player p = playerList.get(i);
             HashMap<String, Integer> po = p.tmp.placeOrders;
-            
+
             for (String t : po.keySet()) {
                 if (theMap.getTerritory(t).trySetTroopUnits("level0", po.get(t))) {
                     System.out.println(p.getName() + " placed " + po.get(t) + " on territory " + t);
-                }   
+                }
             }
         }
     }
@@ -190,7 +206,7 @@ public class Game {
     }
     /** add 1 unit to each territory after one turn, also check the player isEnd */
     public void doRefresh() {
-      //soh.sendCreditToPlayers(theMap, playerNames);
+        // soh.sendCreditToPlayers(theMap, playerNames);
         for (int i = 0; i < numPlayers; i++) {
             Player p = playerList.get(i);
             if (!p.isEnd) {
@@ -199,10 +215,10 @@ public class Game {
                     p.isEnd = true;
                     p.ready = true;
                 } else {
-                  /* for (String tname : tlist.keySet()) {
-                        Territory t = tlist.get(tname);
-                        t.tryAddTroopUnits("Basic", 1);
-                        }*/
+                    /* for (String tname : tlist.keySet()) {
+                    Territory t = tlist.get(tname);
+                    t.tryAddTroopUnits("Basic", 1);
+                    }*/
                 }
             }
         }
