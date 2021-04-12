@@ -51,4 +51,36 @@ public class ActionCostCalculatorTest {
     ActionInfo a5 = new ActionInfo("Player 1", "test");
     assertNull(cal.calculateCost(a5, worldmap));
   }
+  @Test
+  public void test_calculator_spy() {
+    ActionCostCalculator cal = new ActionCostCalculator();
+    WorldMap worldmap = makeTestMap();
+    
+    ActionInfoFactory af = new ActionInfoFactory();
+    ActionInfo a1 = af.createSpyMoveActionInfo("Player 1", "Narnia", "Midkemia", 3);
+    ActionInfo a2 = af.createUpgradeSpyUnitActionInfo("Player 1", "Elantris", 2);
+    ActionInfo a3 = af.createResearchCloakingActionInfo("Player 1");
+    ActionInfo a4 = af.createCloakingActionInfo("Player 1", "Narnia");
+    HashMap<String, Integer> costs = new HashMap<String, Integer>();
+    costs.put("food", 12);
+    assertEquals(costs, cal.calculateCost(a1, worldmap));
+    costs.clear();
+    costs.put("tech", 40);
+    assertEquals(costs, cal.calculateCost(a2, worldmap));
+    costs.clear();
+    costs.put("tech", 100);
+    assertEquals(costs, cal.calculateCost(a3, worldmap));
+    costs.clear();
+    costs.put("tech", 20);
+    assertEquals(costs, cal.calculateCost(a4, worldmap));
+
+    assertNull(cal.calculateSpyMoveCost(a3, worldmap));
+    assertNull(cal.calculateUpgradeSpyUnitCost(a3, worldmap));
+    assertNull(cal.calculateResearchCloakingCost(null, worldmap));
+    assertNull(cal.calculateCloakingCost(a2, worldmap));
+
+    ActionInfo a5 = new ActionInfo("Player 1", "test");
+    assertNull(cal.calculateCost(a5, worldmap));
+  }
 }
+

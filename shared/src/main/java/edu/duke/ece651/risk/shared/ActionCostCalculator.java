@@ -51,6 +51,19 @@ public class ActionCostCalculator {
     return null;
   }
 
+  public HashMap<String, Integer> calculateSpyMoveCost(ActionInfo action, WorldMap worldmap) {
+    if (action.getTerritoryActionInfo() != null) {
+      HashMap<String, Integer> costs = new HashMap<String, Integer>();
+      Territory src = worldmap.getTerritory(action.getSrcName());
+      Territory des = worldmap.getTerritory(action.getDesName());
+      int spyNumUnits = action.getNumSpyUnits();
+      int minMoveCost = src.findMinMoveCost(des);
+      costs.put("food", spyNumUnits * minMoveCost);
+      return costs;
+    }
+    return null;
+  }
+
   /**
    * Calculates the total costs for an attack action on a worldmap.
    *
@@ -88,6 +101,16 @@ public class ActionCostCalculator {
     return null;
   }
 
+  public HashMap<String, Integer> calculateUpgradeSpyUnitCost(ActionInfo action, WorldMap worldmap) {
+    if (action.getUpgradeUnitActionInfo() != null) {
+      HashMap<String, Integer> costs = new HashMap<String, Integer>();
+      int totalNumUnits = action.getTotalNumUnits();
+      costs.put("tech", totalNumUnits * 20);
+      return costs;
+    }
+    return null;
+  }
+
   /**
    * Calculates the total costs for an upgrade tech action on a worldmap.
    *
@@ -106,6 +129,25 @@ public class ActionCostCalculator {
     }
     return null;
   }
+  
+  public HashMap<String, Integer> calculateResearchCloakingCost(ActionInfo action, WorldMap worldmap) {
+    if (action != null) {
+      HashMap<String, Integer> costs = new HashMap<String, Integer>();
+      costs.put("tech", 100);
+      return costs;
+    }
+    return null;
+  }
+  
+  public HashMap<String, Integer> calculateCloakingCost(ActionInfo action, WorldMap worldmap) {
+    if (action.getCloakingActionInfo() != null) {
+      HashMap<String, Integer> costs = new HashMap<String, Integer>();
+      costs.put("tech", 20);
+      return costs;
+    }
+    return null;
+  }
+  
   public HashMap<String, Integer> calculateCost(ActionInfo action, WorldMap worldmap){
     if (action.getActionType().equals("move")) {
         return calculateMoveCost(action, worldmap);
@@ -119,6 +161,22 @@ public class ActionCostCalculator {
     if (action.getActionType().equals("upgrade tech")) {
       return calculateUpgradeTechCost(action, worldmap);
     }
+    if (action.getActionType().equals("upgrade spy unit")) {
+        return calculateUpgradeSpyUnitCost(action, worldmap);
+    }
+    if (action.getActionType().equals("spy move")) {
+      return calculateSpyMoveCost(action, worldmap);
+    }
+    if (action.getActionType().equals("research cloaking")) {
+      return calculateResearchCloakingCost(action, worldmap);
+    }
+    if (action.getActionType().equals("cloaking")) {
+      return calculateCloakingCost(action, worldmap);
+    }
     return null;
   }
 }
+
+
+
+
