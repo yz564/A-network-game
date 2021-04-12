@@ -31,11 +31,11 @@ class ActionInfoFactoryTest {
   @Test
     public void test_create_spy_move() {
         ActionInfoFactory af = new ActionInfoFactory();
-        ActionInfo info1 = af.createSpyMoveActionInfo("Player 1", "A", "B", 1);
+        ActionInfo info1 = af.createMoveSpyActionInfo("Player 1", "A", "B", 1);
         assertEquals("A", info1.getTerritoryActionInfo().getSrcName());
         assertEquals("B", info1.getTerritoryActionInfo().getDesName());
         assertEquals(1, info1.getTerritoryActionInfo().getSpyUnitNum());
-        assertEquals("spy move", info1.getActionType());
+        assertEquals("move spy", info1.getActionType());
         assertEquals("Player 1", info1.getSrcOwnerName());
     }
 
