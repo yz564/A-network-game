@@ -7,6 +7,7 @@ import edu.duke.ece651.risk.shared.WorldMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -21,9 +22,7 @@ import java.util.ArrayList;
 
 /* Controller for the screen that asks user to join a room.
  */
-public class JoinRoomController {
-    App model;
-    String next;
+public class JoinRoomController extends Controller implements Initializable {
     String newPlayerNextView;
     String existingPlayerNextView;
 
@@ -35,21 +34,8 @@ public class JoinRoomController {
      * @param model is the model for the RISK game.
      */
     public JoinRoomController(App model) {
-        this.model = model;
+        super(model);
     }
-
-    /**
-     *  Loads the next Phase.
-     * @param ae is used to compute the parent of the item that interacted
-     * with the view that this controller is attached to.
-     */
-    private void loadNextPhase(ActionEvent ae) throws IOException {
-        Stage window = (Stage) (((Node) ae.getSource()).getScene().getWindow());
-        Object controller = new ControllerFactory().getController(next, model);
-        Stage newWindow = PhaseChanger.switchTo(window, controller, next);
-        newWindow.show();
-    }
-
 
     /**
      * Lets user join a given room.
@@ -72,7 +58,7 @@ public class JoinRoomController {
                 else {
                     this.next = existingPlayerNextView;
                 }
-                loadNextPhase(ae);
+                loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
             }
         } else {
             throw new IllegalArgumentException("Invalid source " + source + " for ActionEvent");

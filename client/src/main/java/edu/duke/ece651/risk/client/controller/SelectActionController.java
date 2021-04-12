@@ -17,9 +17,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class SelectActionController implements Initializable {
-  App model;
-  String next;
+public class SelectActionController extends Controller implements Initializable {
   String nextOnCompleteTurn;
   String nextOnLeave;
   String nextOnMoveAction;
@@ -39,7 +37,7 @@ public class SelectActionController implements Initializable {
    * @param model is the backend of the game.
    */
   public SelectActionController(App model) {
-    this.model = model;
+    super(model);
   }
 
   /**
@@ -163,15 +161,5 @@ public class SelectActionController implements Initializable {
       throw new IllegalArgumentException(
           "Action event " + ae.getSource() + " is invalid for onAction().");
     }
-  }
-
-  /**
-   * Loads next phase after a player clicks on a menu item inside a SplitMenuButton.
-   * @param window is the source Stage where the user interacted.
-   */
-  private void loadNextPhase(Stage window) throws IOException {
-    Object controller = new ControllerFactory().getController(next, model);
-    Stage newWindow = PhaseChanger.switchTo(window, controller, next);
-    newWindow.show();
   }
 }

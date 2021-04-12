@@ -15,12 +15,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class GameEndController implements Initializable {
-  App model;
-  String next;
-
+public class GameEndController extends Controller implements Initializable {
   public GameEndController(App model) {
-    this.model = model;
+    super(model);
     this.next = "joinRoom";
   }
 
@@ -38,19 +35,9 @@ public class GameEndController implements Initializable {
       // add delete room id method
       int roomId = model.getPlayer().getRoomId();
       model.deleteJoinedRoomId(roomId);
-      loadNextPhase(ae);
+      loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
     } else {
       throw new IllegalArgumentException("Invalid source " + source + " for ActionEvent");
     }
-  }
-
-  /* Loads next phase after a player clicks on a menu item inside a SplitMenuButton.
-   * @param window is the source Stage where the user interacted.
-   */
-  private void loadNextPhase(ActionEvent ae) throws IOException {
-    Stage window = (Stage) (((Node) ae.getSource()).getScene().getWindow());
-    Object controller = new ControllerFactory().getController(next, model);
-    Stage newWindow = PhaseChanger.switchTo(window, controller, next);
-    newWindow.show();
   }
 }

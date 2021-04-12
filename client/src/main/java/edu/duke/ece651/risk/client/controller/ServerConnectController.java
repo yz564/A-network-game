@@ -10,16 +10,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class ServerConnectController {
-    App model;
-    String next;
-
+public class ServerConnectController extends Controller {
     /**
      * Constructor that initializes the model.
      * @param model is the backend of the game.
      */
     public ServerConnectController(Object model) {
-        this.model = (App) model;
+        super((App) model);
         this.next = "userLogin";
     }
 

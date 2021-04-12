@@ -24,9 +24,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 
-public class UpgradeTechActionsOddPlayersController implements Initializable {
-  App model;
-  String next;
+public class UpgradeTechActionsOddPlayersController extends Controller implements Initializable {
   ObservableList techLevels;
 
   @FXML Label currTechLevel;
@@ -50,7 +48,7 @@ public class UpgradeTechActionsOddPlayersController implements Initializable {
    * @param model is the backend of the game.
    */
   public UpgradeTechActionsOddPlayersController(App model) {
-    this.model = model;
+    super(model);
     this.next = "selectActionOddPlayers";
     techLevels = FXCollections.observableArrayList();
   }
@@ -189,15 +187,5 @@ public class UpgradeTechActionsOddPlayersController implements Initializable {
       throw new IllegalArgumentException(error);
     }
     return null;
-  }
-
-  /**
-   * Loads next phase after a player clicks on a menu item inside a SplitMenuButton.
-   * @param window is the source Stage where the user interacted.
-   */
-  private void loadNextPhase(Stage window) throws IOException {
-    Object controller = new ControllerFactory().getController(next, model);
-    Stage newWindow = PhaseChanger.switchTo(window, controller, next);
-    newWindow.show();
   }
 }

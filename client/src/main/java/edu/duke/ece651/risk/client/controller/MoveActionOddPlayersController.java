@@ -27,9 +27,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 
-public class MoveActionOddPlayersController implements Initializable {
-  App model;
-  String next;
+public class MoveActionOddPlayersController extends Controller implements Initializable {
   ObservableList territoryNames = FXCollections.observableArrayList();
   HashSet<KeyCode> numKeys;
 
@@ -56,7 +54,7 @@ public class MoveActionOddPlayersController implements Initializable {
    * @param model is the backend of the game.
    */
   public MoveActionOddPlayersController(App model) {
-    this.model = model;
+    super(model);
     this.next = "selectActionOddPlayers";
 
     // keys that trigger dynamic cost calculation for the move order
@@ -258,15 +256,5 @@ public class MoveActionOddPlayersController implements Initializable {
       throw new IllegalArgumentException("Integer cannot be parsed from " + text);
     }
     return parsedInt;
-  }
-
-  /**
-   * Loads next phase after a player clicks on a menu item inside a SplitMenuButton.
-   * @param window is the source Stage where the user interacted.
-   */
-  private void loadNextPhase(Stage window) throws IOException {
-    Object controller = new ControllerFactory().getController(next, model);
-    Stage newWindow = PhaseChanger.switchTo(window, controller, next);
-    newWindow.show();
   }
 }

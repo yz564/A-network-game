@@ -27,9 +27,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 
-public class AttackActionOddPlayersController implements Initializable {
-  App model;
-  String next;
+public class AttackActionOddPlayersController extends Controller implements Initializable {
   ObservableList territoryNames = FXCollections.observableArrayList();
 
   @FXML ChoiceBox sourceTerritoryName;
@@ -55,7 +53,7 @@ public class AttackActionOddPlayersController implements Initializable {
    * @param model is the backend of the game.
    */
   public AttackActionOddPlayersController(App model) {
-    this.model = model;
+    super(model);
     this.next = "selectActionOddPlayers";
   }
 
@@ -276,15 +274,5 @@ public class AttackActionOddPlayersController implements Initializable {
       throw new IllegalArgumentException("Integer cannot be parsed from " + text);
     }
     return parsedInt;
-  }
-
-  /**
-   * Loads next phase after a player clicks on a menu item inside a SplitMenuButton.
-   * @param window is the source Stage where the user interacted.
-   */
-  private void loadNextPhase(Stage window) throws IOException {
-    Object controller = new ControllerFactory().getController(next, model);
-    Stage newWindow = PhaseChanger.switchTo(window, controller, next);
-    newWindow.show();
   }
 }
