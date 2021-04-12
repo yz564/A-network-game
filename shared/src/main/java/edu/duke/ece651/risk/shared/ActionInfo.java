@@ -200,7 +200,9 @@ public class ActionInfo implements java.io.Serializable {
             numUnits.put(
                     upgradeUnitActionInfo.getOldUnitLevel(),
                     upgradeUnitActionInfo.getNumToUpgrade());
-            numUnits.put(upgradeUnitActionInfo.getNewUnitLevel(), 0);
+            if (!upgradeUnitActionInfo.getNewUnitLevel().equals("spy")){
+                numUnits.put(upgradeUnitActionInfo.getNewUnitLevel(), 0);
+            }
             return numUnits;
         }
         return null;

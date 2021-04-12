@@ -57,8 +57,8 @@ public class ActionCostCalculator {
       Territory src = worldmap.getTerritory(action.getSrcName());
       Territory des = worldmap.getTerritory(action.getDesName());
       int spyNumUnits = action.getNumSpyUnits();
-      int minMoveCost = src.findMinMoveCost(des);
-      costs.put("food", spyNumUnits * minMoveCost);
+      int moveCost = src.getMoveCost(des);
+      costs.put("food", spyNumUnits * moveCost);
       return costs;
     }
     return null;
