@@ -173,12 +173,16 @@ public class PlayerInfo implements java.io.Serializable {
     return this.playerId;
   }
 
+  public boolean canCloakingResearched() {
+    return (techLevel >= 3);
+  }
+
   /**
    * Getter of isCloakingResearched filed.
    *
    * @return true if the player has researched cloaking action, false other wise.
    */
-  public Boolean getIsCloakingResearched() {
+  public boolean getIsCloakingResearched() {
     return isCloakingResearched;
   }
 
