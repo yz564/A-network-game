@@ -26,9 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-public class UpgradeTalentsActionOddPlayersController implements Initializable {
-  App model;
-  String next;
+public class UpgradeTalentsActionOddPlayersController extends Controller implements Initializable {
   ObservableList territoryNames;
   ObservableList talentNamesFrom;
   ObservableList talentNamesTo;
@@ -57,7 +55,7 @@ public class UpgradeTalentsActionOddPlayersController implements Initializable {
    * @param model is the backend of the game.
    */
   public UpgradeTalentsActionOddPlayersController(App model) {
-    this.model = model;
+    super(model);
     this.next = "selectActionOddPlayers";
 
     territoryNames = FXCollections.observableArrayList();
@@ -291,15 +289,5 @@ public class UpgradeTalentsActionOddPlayersController implements Initializable {
       throw new IllegalArgumentException("Integer cannot be parsed from " + text);
     }
     return parsedInt;
-  }
-
-  /**
-   *  Loads next phase after a player clicks on a menu item inside a SplitMenuButton.
-   * @param window is the source Stage where the user interacted.
-   */
-  private void loadNextPhase(Stage window) throws IOException {
-    Object controller = new ControllerFactory().getController(next, model);
-    Stage newWindow = PhaseChanger.switchTo(window, controller, next);
-    newWindow.show();
   }
 }

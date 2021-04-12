@@ -24,9 +24,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-public class AttackActionEvenPlayersController implements Initializable {
-  App model;
-  String next;
+public class AttackActionEvenPlayersController extends Controller implements Initializable {
   ObservableList territoryNames = FXCollections.observableArrayList();
 
 
@@ -53,7 +51,7 @@ public class AttackActionEvenPlayersController implements Initializable {
    * @param model is the backend of the game.
    */
   public AttackActionEvenPlayersController(App model) {
-    this.model = model;
+    super(model);
     this.next = "selectActionEvenPlayers";
     HashSet<KeyCode> numKeys;
   }
@@ -275,15 +273,5 @@ public class AttackActionEvenPlayersController implements Initializable {
       throw new IllegalArgumentException("Integer cannot be parsed from " + text);
     }
     return parsedInt;
-  }
-
-  /**
-   * Loads next phase after a player clicks on a menu item inside a SplitMenuButton.
-   * @param window is the source Stage where the user interacted.
-   */
-  private void loadNextPhase(Stage window) throws IOException {
-    Object controller = new ControllerFactory().getController(next, model);
-    Stage newWindow = PhaseChanger.switchTo(window, controller, next);
-    newWindow.show();
   }
 }

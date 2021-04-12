@@ -20,9 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-public class AllocateTalents5PController implements Initializable {
-    App model;
-    String next;
+public class AllocateTalents5PController extends Controller implements Initializable {
     int numUnitsEntered;
 
     @FXML ArrayList<Label> talentLabelList;
@@ -46,7 +44,7 @@ public class AllocateTalents5PController implements Initializable {
      * @param model is the backend of the game.
      */
     public AllocateTalents5PController(App model) {
-        this.model = model;
+        super(model);
         this.numUnitsEntered = 0;
         this.next = "selectActionOddPlayers";
     }
@@ -142,7 +140,7 @@ public class AllocateTalents5PController implements Initializable {
                     errorMessage.setText(allocate);
                 }
                 else {
-                    loadNextPhase(ae);
+                    loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
                 }
             }
         }
@@ -208,17 +206,5 @@ public class AllocateTalents5PController implements Initializable {
             totalUnits += parseIntFromTextField(numTalents.getText(), numTalentList.indexOf(numTalents) + 1);
         }
         return totalUnits;
-    }
-
-    /**
-     * Loads the next Phase.
-     * @param ae is used to compute the parent of the item that interacted
-     * with the view that this controller is attached to.
-     */
-    private void loadNextPhase(ActionEvent ae) throws IOException {
-        Stage window = (Stage) (((Node) ae.getSource()).getScene().getWindow());
-        Object controller = new ControllerFactory().getController(next, model);
-        Stage newWindow = PhaseChanger.switchTo(window, controller, next);
-        newWindow.show();
     }
 }

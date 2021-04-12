@@ -24,9 +24,7 @@ import java.util.ResourceBundle;
 
 /* Class responsible for registering territory group for a player.
  */
-public class SelectTerritoryGroup2PController implements Initializable {
-    App model;
-    String next;
+public class SelectTerritoryGroup2PController extends Controller implements Initializable {
     WorldMap map;
 
     @FXML Label selectTerritory2pErrorLabel;
@@ -37,7 +35,7 @@ public class SelectTerritoryGroup2PController implements Initializable {
      * @param model is the backend of the game.
      */
     public SelectTerritoryGroup2PController(App model) {
-        this.model = model;
+        super(model);
         this.next = "allocateTalents2p";
     }
 
@@ -84,22 +82,10 @@ public class SelectTerritoryGroup2PController implements Initializable {
                 selectTerritory2pErrorLabel.setText(
                         "Territory group is already taken by another player.\nTry choosing a different group.");
             } else {
-                loadNextPhase(ae);
+                loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
             }
         } else {
             throw new IllegalArgumentException("Invalid source " + source + " for ActionEvent");
         }
-    }
-
-    /**
-     * Loads the next Phase.
-     * @param ae is used to compute the parent of the item that interacted
-     * with the view that this controller is attached to.
-     */
-    private void loadNextPhase(ActionEvent ae) throws IOException {
-        Stage window = (Stage) (((Node) ae.getSource()).getScene().getWindow());
-        Object controller = new ControllerFactory().getController(next, model);
-        Stage newWindow = PhaseChanger.switchTo(window, controller, next);
-        newWindow.show();
     }
 }
