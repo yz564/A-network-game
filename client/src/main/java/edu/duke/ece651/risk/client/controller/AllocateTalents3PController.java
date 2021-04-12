@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-public class AllocateTalents3PController extends Controller implements Initializable {
+public class AllocateTalents3PController extends Controller implements Initializable, ErrorHandlingController {
     int numUnitsEntered;
 
     @FXML ArrayList<Label> talentLabelList;
@@ -101,6 +101,7 @@ public class AllocateTalents3PController extends Controller implements Initializ
      *  Updates the view for total number of units allocated so far while typing.
      */
     public void onTypingNumUnits(KeyEvent ke) {
+        clearErrorMessage();
         Object source = ke.getCode();
         HashSet<KeyCode> numKeys = new HashSet<>();
         numKeys.add(KeyCode.DIGIT0);
@@ -129,15 +130,16 @@ public class AllocateTalents3PController extends Controller implements Initializ
     public void onAllocate(ActionEvent ae) throws Exception {
         Object source = ae.getSource();
         if (source instanceof Button) {
+            clearErrorMessage();
             String isValidAllocation = checkInput();
             if (isValidAllocation != null) {
-                errorMessage.setText(isValidAllocation);
+                setErrorMessage(isValidAllocation);
             }
             else {
                 numUnitsAllocated.setText(String.valueOf(this.getNumUnitsRequested()));
                 String allocate = model.getPlayer().tryAllocation(this.getTerritoryUnits());
                 if (allocate != null) {
-                    errorMessage.setText(allocate);
+                    setErrorMessage(allocate);
                 }
                 else {
                     loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
@@ -174,7 +176,7 @@ public class AllocateTalents3PController extends Controller implements Initializ
             parsedInt = Integer.parseInt(text);
         }
         catch (Exception e) {
-            errorMessage.setText("Please enter an integer in box number " + itemNumber);
+            setErrorMessage("Please enter an integer in box number " + itemNumber);
         }
         return parsedInt;
     }
@@ -206,5 +208,15 @@ public class AllocateTalents3PController extends Controller implements Initializ
             totalUnits += parseIntFromTextField(numTalents.getText(), numTalentList.indexOf(numTalents) + 1);
         }
         return totalUnits;
+    }
+
+    @Override
+    public void setErrorMessage(String error) {
+        errorMessage.setText(error);
+    }
+
+    @Override
+    public void clearErrorMessage() {
+        setErrorMessage(null);
     }
 }

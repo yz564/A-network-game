@@ -1,33 +1,22 @@
 package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
-import edu.duke.ece651.risk.client.view.PhaseChanger;
-import edu.duke.ece651.risk.client.view.StyleMapping;
-import edu.duke.ece651.risk.shared.WorldMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
 
 /* Controller for the screen that asks user to join a room.
  */
-public class JoinRoomController extends Controller implements Initializable {
+public class JoinRoomController extends Controller implements Initializable, ErrorHandlingController {
     String newPlayerNextView;
     String existingPlayerNextView;
 
     @FXML
-    Label joinRoomErrorLabel;
+    Label errorMessage;
 
     /**
      * Simple constructor which sets the model.
@@ -45,9 +34,10 @@ public class JoinRoomController extends Controller implements Initializable {
     private void joinRoom(ActionEvent ae, int roomId, String newPlayerNextView, String existingPlayerNextView) throws Exception {
         Object source = ae.getSource();
         if (source instanceof Button) {
+            clearErrorMessage();
             Boolean joinRoomSuccess = model.tryJoinRoom(roomId);
             if (!joinRoomSuccess){
-                joinRoomErrorLabel.setText("The room is full! Try another room.");
+                errorMessage.setText("The room is full! Try another room.");
             }
             else {
                 Boolean checkInSuccess = model.checkIn();
@@ -108,5 +98,15 @@ public class JoinRoomController extends Controller implements Initializable {
         this.newPlayerNextView = "selectTerritoryGroup5P";
         this.existingPlayerNextView = "selectActionOddPlayers";
         joinRoom(ae, 4, newPlayerNextView, existingPlayerNextView);
+    }
+
+    @Override
+    public void setErrorMessage(String error) {
+        errorMessage.setText(error);
+    }
+
+    @Override
+    public void clearErrorMessage() {
+        setErrorMessage(null);
     }
 }

@@ -158,9 +158,9 @@
 
                 <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Total Food Cost: "
                        GridPane.rowIndex="9"/>
-                <Label fx:id="foodCost" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
+                <Label fx:id="techCost" text="" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
                 <Label text="/" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="9"/>
-                <Label fx:id="foodAvailable" prefHeight="17.0" prefWidth="41.0" text="Label" GridPane.columnIndex="3"
+                <Label fx:id="techAvailable" prefHeight="17.0" prefWidth="41.0" text="" GridPane.columnIndex="3"
                        GridPane.rowIndex="9"/>
 
                 <Button mnemonicParsing="false" onAction="#onUpgradeTalent" prefHeight="26.0" prefWidth="95.0"

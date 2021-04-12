@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class ServerConnectController extends Controller {
+public class ServerConnectController extends Controller implements ErrorHandlingController {
     /**
      * Constructor that initializes the model.
      * @param model is the backend of the game.
@@ -23,7 +23,7 @@ public class ServerConnectController extends Controller {
     @FXML
     TextField serverConnectAddressField;
     @FXML
-    Label serverConnectErrorLabel;
+    Label errorMessage;
 
     /**
      *
@@ -35,10 +35,11 @@ public class ServerConnectController extends Controller {
 
         Object source = ae.getSource();
         if (source instanceof Button) {
+            clearErrorMessage();
             String serverAdd = serverConnectAddressField.getText();
             String serverMsg = model.tryConnect(serverAdd);
             if (serverMsg != null){
-                serverConnectErrorLabel.setText(serverMsg);
+                setErrorMessage(serverMsg);
             }
             else{
             Stage window = (Stage) (((Node) ae.getSource()).getScene().getWindow());
@@ -49,5 +50,15 @@ public class ServerConnectController extends Controller {
         } else {
             throw new IllegalArgumentException("Invalid source " + source + " for ActionEvent");
         }
+    }
+
+    @Override
+    public void setErrorMessage(String error) {
+        errorMessage.setText(error);
+    }
+
+    @Override
+    public void clearErrorMessage() {
+        setErrorMessage(null);
     }
 }

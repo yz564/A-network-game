@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 
-public class MoveActionEvenPlayersController extends Controller implements Initializable {
+public class MoveActionEvenPlayersController extends Controller implements Initializable, ErrorHandlingController {
   ObservableList territoryNames = FXCollections.observableArrayList();
   HashSet<KeyCode> numKeys;
 
@@ -122,16 +122,16 @@ public class MoveActionEvenPlayersController extends Controller implements Initi
   public void onTypingNumUnits(KeyEvent ke) throws Exception {
     Object source = ke.getCode();
     if (this.numKeys.contains(source)) {
+      clearErrorMessage();
       ActionInfo moveInfo = getMoveActionInfo();
       ActionCostCalculator calc = new ActionCostCalculator();
       int cost = calc.calculateCost(moveInfo, model.getPlayer().getMap()).get("food");
       String isValid = checkInput();
       if (isValid != null) {
-        errorMessage.setText(isValid);
+        setErrorMessage(isValid);
         foodCost.setText("0");
       }
       else {
-        errorMessage.setText("");
         foodCost.setText(String.valueOf(cost));
       }
     }
@@ -144,6 +144,7 @@ public class MoveActionEvenPlayersController extends Controller implements Initi
   public void onSelectSource(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
     if (source instanceof ChoiceBox) {
+      clearErrorMessage();
       String srcTerritory = (String) sourceTerritoryName.getValue();
       HashMap<String, Integer> allNumUnits =
           model.getPlayer().getMap().getTerritory(srcTerritory).getAllNumUnits();
@@ -162,17 +163,18 @@ public class MoveActionEvenPlayersController extends Controller implements Initi
   public void onMove(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
     if (source instanceof Button) {
+      clearErrorMessage();
       String isValidInput = checkInput(); // make sure all the inputs are valid for the move order.
       if (isValidInput == null) {
         ActionInfo info = getMoveActionInfo();
         String success = model.getPlayer().tryIssueMoveOrder(info);
         if (success != null) {
-          errorMessage.setText(success);
+          setErrorMessage(success);
         } else {
           loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
         }
       } else {
-        errorMessage.setText(isValidInput);
+        setErrorMessage(isValidInput);
       }
     } else {
       throw new IllegalArgumentException("Invalid ActionEvent source " + source);
@@ -255,5 +257,15 @@ public class MoveActionEvenPlayersController extends Controller implements Initi
       throw new IllegalArgumentException("Integer cannot be parsed from " + text);
     }
     return parsedInt;
+  }
+
+  @Override
+  public void setErrorMessage(String error) {
+    errorMessage.setText(error);
+  }
+
+  @Override
+  public void clearErrorMessage() {
+    setErrorMessage(null);
   }
 }

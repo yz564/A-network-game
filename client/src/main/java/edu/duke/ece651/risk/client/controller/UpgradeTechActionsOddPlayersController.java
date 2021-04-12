@@ -1,7 +1,6 @@
 package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
-import edu.duke.ece651.risk.client.view.PhaseChanger;
 import edu.duke.ece651.risk.shared.ActionCostCalculator;
 import edu.duke.ece651.risk.shared.ActionInfo;
 import edu.duke.ece651.risk.shared.ActionInfoFactory;
@@ -14,17 +13,15 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.ResourceBundle;
 
-public class UpgradeTechActionsOddPlayersController extends Controller implements Initializable {
+public class UpgradeTechActionsOddPlayersController extends Controller implements Initializable, ErrorHandlingController {
   ObservableList techLevels;
 
   @FXML Label currTechLevel;
@@ -101,7 +98,8 @@ public class UpgradeTechActionsOddPlayersController extends Controller implement
   public void onUpgradeTech(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
     if (source instanceof Button) {
-      String validate = validateAction();
+      clearErrorMessage();
+      String validate = checkInput();
       if (validate != null) {
         errorMessage.setText(validate);
       } else {
@@ -138,6 +136,7 @@ public class UpgradeTechActionsOddPlayersController extends Controller implement
    */
   @FXML
   public void onSelectingTechLevel(MouseEvent me) throws Exception {
+    clearErrorMessage();
     String validChoice = validateChoiceBox(newTechLevel);
     if (validChoice != null) {
       techCost.setText("0");
@@ -165,7 +164,7 @@ public class UpgradeTechActionsOddPlayersController extends Controller implement
    * Validates that the on screen options selected by the user are okay enough to create an ActionInfo object that
    * would be used to upgrade the tech.
    */
-  private String validateAction() {
+  private String checkInput() {
     try {
       validateChoiceBox(newTechLevel);
     } catch (Exception e) {
@@ -187,5 +186,15 @@ public class UpgradeTechActionsOddPlayersController extends Controller implement
       throw new IllegalArgumentException(error);
     }
     return null;
+  }
+
+  @Override
+  public void setErrorMessage(String error) {
+    errorMessage.setText(error);
+  }
+
+  @Override
+  public void clearErrorMessage() {
+    setErrorMessage(null);
   }
 }

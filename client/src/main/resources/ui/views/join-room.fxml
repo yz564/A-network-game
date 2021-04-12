@@ -60,7 +60,7 @@
             <Insets left="5.0" right="20.0" />
          </GridPane.margin>
       </Button>
-      <Label fx:id="joinRoomErrorLabel" alignment="CENTER" prefHeight="17.0" prefWidth="338.0" textFill="#fd0808" GridPane.columnSpan="3" GridPane.rowIndex="7">
+      <Label fx:id="errorMessage" alignment="CENTER" prefHeight="17.0" prefWidth="338.0" textFill="#fd0808" GridPane.columnSpan="3" GridPane.rowIndex="7">
          <font>
             <Font size="14.0" />
          </font>
