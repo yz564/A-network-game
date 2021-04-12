@@ -25,12 +25,14 @@ public class ResearchCloakingRuleChecker extends ActionRuleChecker {
    */
   @Override
   protected String checkMyRule(ActionInfo action, WorldMap worldmap) {
-    PlayerInfo playerInfo = worldmap.getPlayerInfo(action.getSrcOwnerName());
-    if (playerInfo.getIsCloakingResearched()) {
-      return "That action is invalid: cloaking has already been researched";
-    }
-    if (!playerInfo.canCloakingResearched()) {
-      return "That action is invalid: current tech level is not high enough to research cloaking";
+    if (action.getActionType().equals("research cloaking")){
+      PlayerInfo playerInfo = worldmap.getPlayerInfo(action.getSrcOwnerName());
+      if (playerInfo.getIsCloakingResearched()) {
+        return "That action is invalid: cloaking has already been researched";
+      }
+      if (!playerInfo.canCloakingResearched()) {
+        return "That action is invalid: current tech level is not high enough to research cloaking";
+      }
     }
     return null;
   }
