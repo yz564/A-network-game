@@ -49,10 +49,13 @@ public class PlayerInfoTest {
   }
 
   @Test
-  public void test_isCloakingResearched() {
+  public void test_cloaking() {
     PlayerInfo p1 = new PlayerInfo("Player 1", 50, 30);
+    assertFalse(p1.canCloakingResearched());
+    p1.setTechLevel(3);
+    assertTrue(p1.canCloakingResearched());
     assertEquals(false, p1.getIsCloakingResearched());
-    p1.setIfCloakingResearched(true);
+    p1.setIsCloakingResearched(true);
     assertEquals(true, p1.getIsCloakingResearched());
   }
 

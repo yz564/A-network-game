@@ -51,14 +51,14 @@ public class ActionCostCalculator {
     return null;
   }
 
-  public HashMap<String, Integer> calculateSpyMoveCost(ActionInfo action, WorldMap worldmap) {
+  public HashMap<String, Integer> calculateMoveSpyCost(ActionInfo action, WorldMap worldmap) {
     if (action.getTerritoryActionInfo() != null) {
       HashMap<String, Integer> costs = new HashMap<String, Integer>();
       Territory src = worldmap.getTerritory(action.getSrcName());
       Territory des = worldmap.getTerritory(action.getDesName());
       int spyNumUnits = action.getNumSpyUnits();
-      int minMoveCost = src.findMinMoveCost(des);
-      costs.put("food", spyNumUnits * minMoveCost);
+      int moveCost = src.getMoveCost(des);
+      costs.put("food", spyNumUnits * moveCost);
       return costs;
     }
     return null;
@@ -164,8 +164,8 @@ public class ActionCostCalculator {
     if (action.getActionType().equals("upgrade spy unit")) {
         return calculateUpgradeSpyUnitCost(action, worldmap);
     }
-    if (action.getActionType().equals("spy move")) {
-      return calculateSpyMoveCost(action, worldmap);
+    if (action.getActionType().equals("move spy")) {
+      return calculateMoveSpyCost(action, worldmap);
     }
     if (action.getActionType().equals("research cloaking")) {
       return calculateResearchCloakingCost(action, worldmap);

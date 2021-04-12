@@ -169,8 +169,23 @@ public class PlayerInfo implements java.io.Serializable {
     }
   }
 
+  /**
+   * Gets the PlayerId.
+   *
+   * @return int of player id of the player.
+   */
+
   public int getPlayerId() {
     return this.playerId;
+  }
+
+  /**
+   * Checks if cloaking can be researched, i.e. current tech level is 3 or above.
+   *
+   * @return true if the player can research cloaking action, false otherwise.
+   */
+  public boolean canCloakingResearched() {
+    return (techLevel >= 3);
   }
 
   /**
@@ -178,7 +193,7 @@ public class PlayerInfo implements java.io.Serializable {
    *
    * @return true if the player has researched cloaking action, false other wise.
    */
-  public Boolean getIsCloakingResearched() {
+  public boolean getIsCloakingResearched() {
     return isCloakingResearched;
   }
 
@@ -188,7 +203,7 @@ public class PlayerInfo implements java.io.Serializable {
    * @param isCloakingResearched a Boolean represents is the new cloaking researched or not. Ture if
    *     we set the new field as the cloaking is researched, false otherwise.
    */
-  public void setIfCloakingResearched(Boolean isCloakingResearched) {
+  public void setIsCloakingResearched(Boolean isCloakingResearched) {
     this.isCloakingResearched = isCloakingResearched;
   }
 

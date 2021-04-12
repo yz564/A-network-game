@@ -19,10 +19,10 @@ public class ActionInfoFactory {
         return new ActionInfo(srcOwnerName, "move", info);
     }
 
-  public ActionInfo createSpyMoveActionInfo(
+  public ActionInfo createMoveSpyActionInfo(
             String srcOwnerName, String srcName, String desName, int spyUnitNum) {
         TerritoryActionInfo info = new TerritoryActionInfo(srcName, desName, spyUnitNum);
-        return new ActionInfo(srcOwnerName, "spy move", info);
+        return new ActionInfo(srcOwnerName, "move spy", info);
     }
 
     /**

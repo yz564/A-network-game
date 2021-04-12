@@ -89,4 +89,29 @@ public class ActionRuleCheckerHelperTest {
         "That action is invalid: new troop level is invalid",
         rc.checkRuleForUpgradeUnit(a1, worldmap));
   }
+
+  @Test
+  public void test_actionrulecheckerhelper_spy_cloaking() {
+    WorldMapFactory factory = new V2MapFactory();
+    WorldMap worldmap = factory.makeTestWorldMap();
+    worldmap.tryAssignInitOwner(1, "Player 1");
+    worldmap.tryAssignInitOwner(2, "Player 2");
+    worldmap.tryAssignInitOwner(3, "Player 3");
+    PlayerInfo p1 = new PlayerInfo("Player 1", 100, 100);
+    p1.setTechLevel(3);
+    worldmap.tryAddPlayerInfo(p1);
+    Territory t1 = worldmap.getTerritory("Narnia");
+    t1.tryAddTroopUnits("level0", 10);
+    t1.tryAddSpyTroopUnits("Player 1", 1);
+    ActionInfoFactory af = new ActionInfoFactory();
+    ActionInfo a1 = af.createUpgradeSpyUnitActionInfo("Player 1", "Narnia", 1);
+    ActionInfo a2 = af.createMoveSpyActionInfo("Player 1", "Narnia", "Elantris", 1);
+    ActionInfo a3 = af.createResearchCloakingActionInfo("Player 1");
+    ActionInfo a4 = af.createCloakingActionInfo("Player 1", "Narnia");
+    ActionRuleCheckerHelper rc = new ActionRuleCheckerHelper();
+    assertNull(rc.checkRuleForUpgradeSpy(a1, worldmap));
+    assertNull(rc.checkRuleForMoveSpy(a2, worldmap));
+    assertNull(rc.checkRuleForResearchCloaking(a3, worldmap));
+    assertNull(rc.checkRuleForCloaking(a4, worldmap));
+  }
 }

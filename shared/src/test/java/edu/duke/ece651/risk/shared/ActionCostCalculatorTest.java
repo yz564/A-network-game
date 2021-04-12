@@ -57,7 +57,7 @@ public class ActionCostCalculatorTest {
     WorldMap worldmap = makeTestMap();
     
     ActionInfoFactory af = new ActionInfoFactory();
-    ActionInfo a1 = af.createSpyMoveActionInfo("Player 1", "Narnia", "Midkemia", 3);
+    ActionInfo a1 = af.createMoveSpyActionInfo("Player 1", "Narnia", "Midkemia", 3);
     ActionInfo a2 = af.createUpgradeSpyUnitActionInfo("Player 1", "Elantris", 2);
     ActionInfo a3 = af.createResearchCloakingActionInfo("Player 1");
     ActionInfo a4 = af.createCloakingActionInfo("Player 1", "Narnia");
@@ -74,7 +74,7 @@ public class ActionCostCalculatorTest {
     costs.put("tech", 20);
     assertEquals(costs, cal.calculateCost(a4, worldmap));
 
-    assertNull(cal.calculateSpyMoveCost(a3, worldmap));
+    assertNull(cal.calculateMoveSpyCost(a3, worldmap));
     assertNull(cal.calculateUpgradeSpyUnitCost(a3, worldmap));
     assertNull(cal.calculateResearchCloakingCost(null, worldmap));
     assertNull(cal.calculateCloakingCost(a2, worldmap));
