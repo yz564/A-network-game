@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-public class AttackActionEvenPlayersController extends Controller implements Initializable {
+public class AttackActionEvenPlayersController extends Controller implements Initializable, ErrorHandlingController {
   ObservableList territoryNames = FXCollections.observableArrayList();
 
 
@@ -123,6 +123,7 @@ public class AttackActionEvenPlayersController extends Controller implements Ini
    */
   @FXML
   public void onTypingNumUnits(KeyEvent ke) throws Exception {
+    clearErrorMessage();
     Object source = ke.getCode();
     HashSet<KeyCode> numKeys = new HashSet<>();
     numKeys.add(KeyCode.DIGIT0);
@@ -143,11 +144,10 @@ public class AttackActionEvenPlayersController extends Controller implements Ini
       int cost = calc.calculateCost(attackInfo, model.getPlayer().getMap()).get("food");
       String isValid = checkInput();
       if (isValid != null) {
-        errorMessage.setText(isValid);
+        setErrorMessage(isValid);
         foodCost.setText("0");
       }
       else {
-        errorMessage.setText("");
         foodCost.setText(String.valueOf(cost));
       }
     }
@@ -160,6 +160,7 @@ public class AttackActionEvenPlayersController extends Controller implements Ini
   public void onSelectSource(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
     if (source instanceof ChoiceBox) {
+      clearErrorMessage();
       String srcTerritory = (String) sourceTerritoryName.getValue();
       HashMap<String, Integer> allNumUnits =
           model.getPlayer().getMap().getTerritory(srcTerritory).getAllNumUnits();
@@ -178,17 +179,18 @@ public class AttackActionEvenPlayersController extends Controller implements Ini
   public void onAttack(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
     if (source instanceof Button) {
+      clearErrorMessage();
       String isValidInput = checkInput(); // make sure all the inputs are valid for the move order.
       if (isValidInput == null) {
         ActionInfo info = getAttackActionInfo();
         String success = model.getPlayer().tryIssueAttackOrder(info);
         if (success != null) {
-          errorMessage.setText(success);
+          setErrorMessage(success);
         } else {
           loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
         }
       } else {
-        errorMessage.setText(isValidInput);
+        setErrorMessage(isValidInput);
       }
     } else {
       throw new IllegalArgumentException("Invalid ActionEvent source " + source);
@@ -273,5 +275,15 @@ public class AttackActionEvenPlayersController extends Controller implements Ini
       throw new IllegalArgumentException("Integer cannot be parsed from " + text);
     }
     return parsedInt;
+  }
+
+  @Override
+  public void setErrorMessage(String error) {
+    errorMessage.setText(error);
+  }
+
+  @Override
+  public void clearErrorMessage() {
+    setErrorMessage(null);
   }
 }

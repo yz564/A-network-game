@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 
-public class AttackActionOddPlayersController extends Controller implements Initializable {
+public class AttackActionOddPlayersController extends Controller implements Initializable, ErrorHandlingController {
   ObservableList territoryNames = FXCollections.observableArrayList();
 
   @FXML ChoiceBox sourceTerritoryName;
@@ -124,6 +124,7 @@ public class AttackActionOddPlayersController extends Controller implements Init
    */
   @FXML
   public void onTypingNumUnits(KeyEvent ke) throws Exception {
+    clearErrorMessage();
     Object source = ke.getCode();
     HashSet<KeyCode> numKeys = new HashSet<>();
     numKeys.add(KeyCode.DIGIT0);
@@ -144,11 +145,10 @@ public class AttackActionOddPlayersController extends Controller implements Init
       int cost = calc.calculateCost(attackInfo, model.getPlayer().getMap()).get("food");
       String isValid = checkInput();
       if (isValid != null) {
-        errorMessage.setText(isValid);
+        setErrorMessage(isValid);
         foodCost.setText("0");
       }
       else {
-        errorMessage.setText("");
         foodCost.setText(String.valueOf(cost));
       }
     }
@@ -161,6 +161,7 @@ public class AttackActionOddPlayersController extends Controller implements Init
   public void onSelectSource(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
     if (source instanceof ChoiceBox) {
+      clearErrorMessage();
       String srcTerritory = (String) sourceTerritoryName.getValue();
       HashMap<String, Integer> allNumUnits =
           model.getPlayer().getMap().getTerritory(srcTerritory).getAllNumUnits();
@@ -179,17 +180,18 @@ public class AttackActionOddPlayersController extends Controller implements Init
   public void onAttack(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
     if (source instanceof Button) {
+      clearErrorMessage();
       String isValidInput = checkInput(); // make sure all the inputs are valid for the move order.
       if (isValidInput == null) {
         ActionInfo info = getAttackActionInfo();
         String success = model.getPlayer().tryIssueAttackOrder(info);
         if (success != null) {
-          errorMessage.setText(success);
+          setErrorMessage(success);
         } else {
           loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
         }
       } else {
-        errorMessage.setText(isValidInput);
+        setErrorMessage(isValidInput);
       }
     } else {
       throw new IllegalArgumentException("Invalid ActionEvent source " + source);
@@ -274,5 +276,15 @@ public class AttackActionOddPlayersController extends Controller implements Init
       throw new IllegalArgumentException("Integer cannot be parsed from " + text);
     }
     return parsedInt;
+  }
+
+  @Override
+  public void setErrorMessage(String error) {
+    errorMessage.setText(error);
+  }
+
+  @Override
+  public void clearErrorMessage() {
+    setErrorMessage(null);
   }
 }

@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class UserLoginController {
+public class UserLoginController implements ErrorHandlingController {
     App model;
     String next;
 
@@ -27,7 +27,7 @@ public class UserLoginController {
     @FXML
     TextField userLoginPasswordField;
     @FXML
-    Label userLoginErrorLabel;
+    Label errorMessage;
 
     /**
      * Lets user log in.
@@ -42,7 +42,7 @@ public class UserLoginController {
             String password = userLoginPasswordField.getText();
             boolean success = model.tryLogin(username, password);
             if (!success){
-                userLoginErrorLabel.setText("Log in failed! Try Again.");
+                errorMessage.setText("Log in failed! Try Again.");
             }
             else{
                 Stage window = (Stage) (((Node) ae.getSource()).getScene().getWindow());
@@ -53,5 +53,15 @@ public class UserLoginController {
         } else {
             throw new IllegalArgumentException("Invalid source " + source + " for ActionEvent");
         }
+    }
+
+    @Override
+    public void setErrorMessage(String error) {
+        errorMessage.setText(error);
+    }
+
+    @Override
+    public void clearErrorMessage() {
+        setErrorMessage(null);
     }
 }
