@@ -116,6 +116,7 @@ public class User implements Runnable{
             System.out.println(inputName + " joined the room " + (currentRoomId+1));
             joinedRoomId.add(currentRoomId);
             myWrite(new ObjectIO("successful join the room",0));
+            myWrite(new ObjectIO("waiting for other player(s) to join the room"));
             while (true){
               tempObj = (ObjectIO) in.readObject();
                 if (tempObj.message.equals("/leave")) {
