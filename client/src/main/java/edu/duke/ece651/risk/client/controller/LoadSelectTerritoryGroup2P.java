@@ -33,14 +33,13 @@ public class LoadSelectTerritoryGroup2P extends Controller implements Initializa
     public void initialize(URL location, ResourceBundle resources) {
     }
 
-
     @FXML
     public void onLoadSelectTerritoryGroups(MouseEvent me) {
         try {
             this.next = "selectTerritoryGroup2P";
             model.getPlayer().startInitialization();
-            //loadNextPhase((Stage) loadingMessage.getScene().getWindow());
-            loadNextPhase((Stage) (((Node) me.getSource()).getScene().getWindow()));
+            //loadNextPhase((Stage) loadingMessage.getScene().getWindow()); if inside initialize
+            loadNextPhase((Stage) (((Node) me.getSource()).getScene().getWindow())); // if inside move mouse
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
