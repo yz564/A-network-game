@@ -31,6 +31,7 @@ public class LoadSelectTerritoryGroup2P extends Controller implements Initializa
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+      
     }
 
     @FXML
@@ -38,7 +39,7 @@ public class LoadSelectTerritoryGroup2P extends Controller implements Initializa
         try {
             this.next = "selectTerritoryGroup2P";
             model.getPlayer().startInitialization();
-            //loadNextPhase((Stage) loadingMessage.getScene().getWindow()); if inside initialize
+            //loadNextPhase((Stage) loadingMessage.getScene().getWindow()); //if inside initialize
             loadNextPhase((Stage) (((Node) me.getSource()).getScene().getWindow())); // if inside move mouse
         }
         catch (Exception e) {
