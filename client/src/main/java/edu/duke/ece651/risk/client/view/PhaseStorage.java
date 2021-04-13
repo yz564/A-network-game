@@ -11,7 +11,7 @@ public class PhaseStorage {
         makePhase(
             "serverConnect",
             "/ui/views/server-connect.fxml",
-            null,
+                "/ui/styling/territory-group.css",
             "Duke Risk Game! - Server Connect");
     Phase phase2 =
         makePhase("userLogin", "/ui/views/user-login.fxml", null, "Duke Risk Game! - Log In");
