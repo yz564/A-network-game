@@ -192,8 +192,10 @@ public class ActionExecuterTest {
         HashMap<String, Integer> numUnits2 = new HashMap<String, Integer>();
         numUnits2.put("level3", 10);
         map.getTerritory("Fuqua").trySetNumUnits(numUnits2);
+        map.getTerritory("Fuqua").setCloakingTurns(3);
         assertEquals("Blue player", map.getTerritory("Gross Hall").getOwnerName());
         assertEquals("Green player", map.getTerritory("Fuqua").getOwnerName());
+        assertEquals(3, map.getTerritory("Fuqua").getCloakingTurns());
 
         // create order
         ActionInfoFactory af = new ActionInfoFactory();
@@ -207,6 +209,7 @@ public class ActionExecuterTest {
         assertEquals("Blue player", map.getTerritory("Fuqua").getOwnerName());
         assertEquals(30, map.getTerritory("Fuqua").getTroopNumUnits("level6"));
         assertEquals(17, map.getTerritory("Fuqua").getTroopNumUnits("level5"));
+        assertEquals(0, map.getTerritory("Fuqua").getCloakingTurns());
     }
 
     @Test

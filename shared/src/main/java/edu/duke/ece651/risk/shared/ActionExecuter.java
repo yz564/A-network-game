@@ -202,6 +202,7 @@ public class ActionExecuter {
             // des Territory changes owner and updates unit to attackerUnitNum
             des.trySetNumUnits(attackerUnits);
             des.setOwnerName(info.getSrcOwnerName());
+            des.setCloakingTurns(0);
         } else { // defender wins the combat in attack
             // des Territory loses units to defenderUnitNum
             des.trySetNumUnits(defenderUnits);
