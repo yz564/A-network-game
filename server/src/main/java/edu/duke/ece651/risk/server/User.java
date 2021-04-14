@@ -23,7 +23,13 @@ public class User implements Runnable{
   private int currentRoomId;
   private ArrayList<Player> players;
   private HashSet<Integer> joinedRoomId;
+  private Server theServer;
  
+  public User (Socket client, HashMap<String,String> accounts, ArrayList<Room> rooms, Server theServer){
+    this(client,accounts,rooms);
+    this.theServer = theServer;
+  }
+
   public User (Socket client, HashMap<String,String> accounts, ArrayList<Room> rooms){
     this.clientSocket=client;
     this.inputName="";
@@ -37,7 +43,6 @@ public class User implements Runnable{
       players.add(new Player("default"));
     }
   }
-
   public String getName(){
     return this.inputName;
   }
@@ -67,10 +72,20 @@ public class User implements Runnable{
     return inputPassword.equals(accounts.get(inputName));
   }
 
+  public Boolean checkConflict() {
+    Boolean ans= theServer.isUserOnline(inputName);
+    theServer.addOnlineUserNames(inputName);
+    return ans;
+  }
+
   public void  tryLogin() throws Exception {
     logIn();
     while(!checkAccount()){
       myWrite(new ObjectIO("username/password is wrong,try again",-1));
+      logIn();
+    }
+    while(checkConflict()){
+      myWrite(new ObjectIO("the user has been logged in",-1));
       logIn();
     }
     System.out.println(inputName + " logged in ");
@@ -136,6 +151,7 @@ public class User implements Runnable{
           }
       }
     }catch(Exception e){
+      theServer.removeOnlineUserNames(inputName);
       for (int i : joinedRoomId) {
         System.out.println(inputName+" force quits room "+(i+1));
         roomList.get(i).stop();
