@@ -86,6 +86,7 @@ public class User implements Runnable{
     }
     while(checkConflict()){
       myWrite(new ObjectIO("the user has been logged in",-1));
+      System.out.println(inputName + " login failed because this user is already online");
       logIn();
     }
     System.out.println(inputName + " logged in ");
