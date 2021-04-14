@@ -38,6 +38,12 @@ public class Player implements Runnable {
         this.upgradeTechNum = 0;
     }
 
+  public String waitOtherPlayers() throws Exception{
+    sendMessage(new ObjectIO("wait others",0));
+    tmp = (ObjectIO) in.readObject();
+    System.out.println(tmp.message);
+    return tmp.message;
+  }
     public String getGameOverMessage() {
       return gameOverMessage;
     }
