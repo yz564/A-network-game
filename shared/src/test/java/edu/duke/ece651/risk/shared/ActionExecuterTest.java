@@ -18,6 +18,9 @@ public class ActionExecuterTest {
         map.tryAddPlayerInfo(new PlayerInfo("Green player", 100, 100));
         map.tryAddPlayerInfo(new PlayerInfo("Blue player", 100, 100));
         map.tryAddPlayerInfo(new PlayerInfo("Red player", 100, 100));
+        map.getPlayerInfo("Green player").setMultiVizStatus(map.getMyTerritories(), false);
+        map.getPlayerInfo("Blue player").setMultiVizStatus(map.getMyTerritories(), false);
+        map.getPlayerInfo("Red player").setMultiVizStatus(map.getMyTerritories(), false);
         return map;
     }
 
@@ -284,5 +287,31 @@ public class ActionExecuterTest {
         assertEquals(7, map.getTerritory("Fuqua").getTroopNumUnits("level3"));
         assertEquals(100 - 25 * 3, map.getPlayerInfo("Green player").getResTotals().get("tech"));
         assertEquals(100, map.getPlayerInfo("Green player").getResTotals().get("food"));
+    }
+
+    @Test
+    public void test_research_cloaking() {
+        WorldMap map = setupV2Map();
+        ActionInfoFactory af = new ActionInfoFactory();
+        ActionInfo info = af.createResearchCloakingActionInfo("Green player");
+        assertFalse(map.getPlayerInfo("Green player").getIsCloakingResearched());
+        assertEquals(100, map.getPlayerInfo("Green player").getResTotals().get("tech"));
+        ActionExecuter executer = new ActionExecuter();
+        executer.executeResearchCloaking(map, info);
+        assertTrue(map.getPlayerInfo("Green player").getIsCloakingResearched());
+        assertEquals(0, map.getPlayerInfo("Green player").getResTotals().get("tech"));
+    }
+
+    @Test
+    public void test_cloaking() {
+        WorldMap map = setupV2Map();
+        ActionInfoFactory af = new ActionInfoFactory();
+        ActionInfo info = af.createCloakingActionInfo("Green player", "Fuqua");
+        assertEquals(0, map.getTerritory("Fuqua").getCloakingTurns());
+        assertEquals(100, map.getPlayerInfo("Green player").getResTotals().get("tech"));
+        ActionExecuter executer = new ActionExecuter();
+        executer.executeCloaking(map, info);
+        assertEquals(3, map.getTerritory("Fuqua").getCloakingTurns());
+        assertEquals(80, map.getPlayerInfo("Green player").getResTotals().get("tech"));
     }
 }
