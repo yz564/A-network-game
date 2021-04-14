@@ -71,6 +71,36 @@ public class ActionExecuter {
     }
 
     /**
+     * Executes research cloaking action for a player who is the owner of the given action.
+     *
+     * @param map a WorldMap on which the research cloaking action should be implemented.
+     * @param info an ActionInfo that contains the information of the owner of this action.
+     */
+    public void executeResearchCloaking(WorldMap map, ActionInfo info) {
+        // player research cloaking
+        String playerName = info.getSrcOwnerName();
+        map.getPlayerInfo(playerName).setIsCloakingResearched(true);
+        // deducts costs
+        HashMap<String, Integer> resCost = costCal.calculateResearchCloakingCost(info, map);
+        deductCost(map, info, resCost);
+    }
+
+    /**
+     * Executes cloaking action on a territory.
+     *
+     * @param map a WorldMap on which the cloaking action should be implemented.
+     * @param info an ActionInfo that contains the information of target territory name.
+     */
+    public void executeCloaking(WorldMap map, ActionInfo info) {
+        // do cloaking on a territory
+        String territoryName = info.getSrcName();
+        map.getTerritory(territoryName).setCloakingTurns(3);
+        // deducts costs
+        HashMap<String, Integer> resCost = costCal.calculateCloakingCost(info, map);
+        deductCost(map, info, resCost);
+    }
+
+    /**
      * Moves troops from the src Territory to dis Territory, and deducts the cost of moving troop.
      *
      * <p>Info of src, dis, and troop to send is in ActionInfo info argument.
@@ -92,6 +122,25 @@ public class ActionExecuter {
         }
         // deducts costs
         HashMap<String, Integer> resCost = costCal.calculateMoveCost(info, map);
+        deductCost(map, info, resCost);
+    }
+
+    /**
+     * Executes the move spy action.
+     *
+     * @param map the WorldMap object where the action is implemented.
+     * @param info a ActionInfo object that contains the information of src, dis, and number of spy
+     *     to move.
+     */
+    public void executeMoveSpy(WorldMap map, ActionInfo info) {
+        // move spy
+        Territory src = map.getTerritory(info.getSrcName());
+        Territory des = map.getTerritory(info.getDesName());
+        int numSpy = info.getNumSpyUnits();
+        src.tryRemoveSpyTroopUnits(info.getSrcOwnerName(), numSpy);
+        des.tryAddSpyTroopUnits(info.getSrcOwnerName(), numSpy);
+        // deducts costs
+        HashMap<String, Integer> resCost = costCal.calculateMoveSpyCost(info, map);
         deductCost(map, info, resCost);
     }
 
@@ -134,6 +183,25 @@ public class ActionExecuter {
     }
 
     /**
+     * Upgrades the spy units.
+     *
+     * @param map a WorldMap object where the action is implemented.
+     * @param info a ActionInfo object that contains source owner name and the info of the upgrade
+     *     units order.
+     */
+    public void executeUpgradeSpyUnit(WorldMap map, ActionInfo info) {
+        // upgrade the spy
+        String srcName = info.getSrcName();
+        String oldUnitLevel = info.getOldUnitLevel();
+        int numToUpgrade = info.getNumSpyUnits();
+        map.getTerritory(srcName).tryAddSpyTroopUnits(info.getSrcOwnerName(), numToUpgrade);
+        map.getTerritory(srcName).tryRemoveTroopUnits(oldUnitLevel, numToUpgrade);
+        // deducts costs
+        HashMap<String, Integer> resCost = costCal.calculateUpgradeSpyUnitCost(info, map);
+        deductCost(map, info, resCost);
+    }
+
+    /**
      * Executes the attack order with given action info for attack. Before calling this function,
      * troops are removed from src territory and costs are deducted in executePreAttack() already.
      *
@@ -169,9 +237,11 @@ public class ActionExecuter {
             }
         }
         if (getTotalUnitNum(attackerUnits) > 0) { // attacker wins the combat in attack
-            // des Territory changes owner and updates unit to attackerUnitNum
+            // des Territory changes owner, and updates unit to attackerUnitNum, and resets cloaking
+            // turn to 0.
             des.trySetNumUnits(attackerUnits);
             des.setOwnerName(info.getSrcOwnerName());
+            des.setCloakingTurns(0);
         } else { // defender wins the combat in attack
             // des Territory loses units to defenderUnitNum
             des.trySetNumUnits(defenderUnits);
