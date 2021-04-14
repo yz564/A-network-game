@@ -71,6 +71,36 @@ public class ActionExecuter {
     }
 
     /**
+     * Executes research cloaking action for a player who is the owner of the given action.
+     *
+     * @param map a WorldMap on which the research cloaking action should be implemented.
+     * @param info an ActionInfo that contains the information of the owner of this action.
+     */
+    public void executeResearchCloaking(WorldMap map, ActionInfo info) {
+        // player research cloaking
+        String playerName = info.getSrcOwnerName();
+        map.getPlayerInfo(playerName).setIsCloakingResearched(true);
+        // deducts costs
+        HashMap<String, Integer> resCost = costCal.calculateResearchCloakingCost(info, map);
+        deductCost(map, info, resCost);
+    }
+
+    /**
+     * Executes cloaking action on a territory.
+     *
+     * @param map a WorldMap on which the cloaking action should be implemented.
+     * @param info an ActionInfo that contains the information of target territory name.
+     */
+    public void executeCloaking(WorldMap map, ActionInfo info) {
+        // do cloaking on a territory
+        String territoryName = info.getSrcName();
+        map.getTerritory(territoryName).setCloakingTurns(3);
+        // deducts costs
+        HashMap<String, Integer> resCost = costCal.calculateCloakingCost(info, map);
+        deductCost(map, info, resCost);
+    }
+
+    /**
      * Moves troops from the src Territory to dis Territory, and deducts the cost of moving troop.
      *
      * <p>Info of src, dis, and troop to send is in ActionInfo info argument.
