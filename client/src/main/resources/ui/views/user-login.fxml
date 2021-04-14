@@ -9,26 +9,26 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="990.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.risk.client.controller.UserLoginController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="990.0" style="-fx-background-color: #00539B#00539B;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.risk.client.controller.UserLoginController">
     <children>
         <ImageView fitHeight="660.0" fitWidth="990.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../static-images/background/blue-chairs.jpg" />
+                <Image url="@../static-images/background/chairs.jpg" />
             </image>
         </ImageView>
-        <Label alignment="CENTER" layoutX="513.0" layoutY="45.0" text="User Log In" textAlignment="CENTER" textFill="WHITE">
+        <Label alignment="CENTER" layoutX="611.0" layoutY="129.0" text="User Log In" textAlignment="CENTER" textFill="WHITE">
             <font>
                 <Font name="EB Garamond Regular" size="50.0" />
             </font>
         </Label>
-        <Button fx:id="userLogin" layoutX="672.0" layoutY="152.0" mnemonicParsing="false" onAction="#logInButton" prefHeight="34.0" prefWidth="94.0" text="Log In" />
-        <TextField fx:id="userLoginUsernameField" layoutX="495.0" layoutY="129.0" prefHeight="34.0" prefWidth="166.0" promptText="Enter username">
+        <Button fx:id="userLogin" layoutX="676.0" layoutY="372.0" mnemonicParsing="false" onAction="#logInButton" prefHeight="34.0" prefWidth="94.0" text="Log In" />
+        <TextField fx:id="userLoginUsernameField" alignment="CENTER" layoutX="640.0" layoutY="243.0" prefHeight="34.0" prefWidth="166.0" promptText="Enter username">
             <font>
                 <Font name="Open Sans Regular" size="13.0" />
             </font>
         </TextField>
-        <PasswordField fx:id="userLoginPasswordField" layoutX="495.0" layoutY="175.0" prefHeight="34.0" prefWidth="166.0" promptText="Enter password" />
-        <Label fx:id="errorMessage" alignment="CENTER" layoutX="508.0" layoutY="219.0" prefHeight="17.0" prefWidth="238.0" text="" textAlignment="CENTER" textFill="HOTPINK" />
+        <PasswordField fx:id="userLoginPasswordField" alignment="CENTER" layoutX="640.0" layoutY="297.0" prefHeight="34.0" prefWidth="166.0" promptText="Enter password" />
+        <Label fx:id="errorMessage" alignment="CENTER" layoutX="606.0" layoutY="435.0" prefHeight="17.0" prefWidth="238.0" text="" textAlignment="CENTER" textFill="HOTPINK" />
 
     </children>
 </Pane>
