@@ -267,6 +267,21 @@ public class Player implements Runnable {
         }
     }
 
+    public String tryIssueMoveSpyOrder(ActionInfo order) {
+        String problem = ruleChecker.checkRuleForMoveSpy(order, this.theMap);
+        if (problem == null) {
+            if (isLimitedActionUsed.get("move spy")) {
+                return "Invalid action: You can only move spy once in each turn.";
+            }
+            this.tmpOrders.add(order);
+            executer.executeMoveSpy(this.theMap, order);
+            isLimitedActionUsed.put("move spy", true);
+            return null;
+        } else {
+            return problem;
+        }
+    }
+
     public String tryIssueUpgradeTechOrder(ActionInfo order) {
         String problem = ruleChecker.checkRuleForUpgradeTech(order, this.theMap);
         if (problem == null) {
