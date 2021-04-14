@@ -282,6 +282,32 @@ public class Player implements Runnable {
         }
     }
 
+    public String tryIssueResearchCloakingOrder(ActionInfo order) {
+        String problem = ruleChecker.checkRuleForResearchCloaking(order, this.theMap);
+        if (problem == null) {
+            this.tmpOrders.add(order);
+            executer.executeResearchCloaking(this.theMap, order);
+            return null;
+        } else {
+            return problem;
+        }
+    }
+
+    public String tryIssueCloakingOrder(ActionInfo order) {
+        String problem = ruleChecker.checkRuleForCloaking(order, this.theMap);
+        if (problem == null) {
+            if (isLimitedActionUsed.get("cloaking")) {
+                return "Invalid action: You can only order cloaking once in each turn.";
+            }
+            this.tmpOrders.add(order);
+            executer.executeCloaking(this.theMap, order);
+            isLimitedActionUsed.put("cloaking", true);
+            return null;
+        } else {
+            return problem;
+        }
+    }
+
     public String tryIssueUpgradeTechOrder(ActionInfo order) {
         String problem = ruleChecker.checkRuleForUpgradeTech(order, this.theMap);
         if (problem == null) {
