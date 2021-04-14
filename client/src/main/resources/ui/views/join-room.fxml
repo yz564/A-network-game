@@ -73,7 +73,7 @@
                 <Font size="14.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" prefHeight="43.0" prefWidth="516.0" text="Select game room to start or continue a game.&#10;Once you have selected the room, please wait for the other players before game will start." textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="7" />
+        <Label alignment="CENTER" prefHeight="43.0" prefWidth="867.0" text="Select game room to start or continue a game.&#10;Once you have selected the room, please wait for the other players before game will start." textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="7" />
       <Label alignment="CENTER" prefHeight="27.0" prefWidth="23.0" text="2" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
          <font>
             <Font name="EB Garamond Regular" size="20.0" />
