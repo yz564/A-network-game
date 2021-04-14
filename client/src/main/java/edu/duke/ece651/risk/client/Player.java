@@ -22,7 +22,7 @@ public class Player implements Runnable {
     private final ActionRuleCheckerHelper ruleChecker = new ActionRuleCheckerHelper();
     private final ActionExecuter executer = new ActionExecuter();
     private ArrayList<ActionInfo> tmpOrders;
-    private int upgradeTechNum;
+    private HashMap<String, Boolean> isLimitedActionUsed;
     private String gameOverMessage;
 
     public Player(int id, ObjectInputStream in, ObjectOutputStream out, BufferedReader stdIn) {
@@ -35,30 +35,35 @@ public class Player implements Runnable {
         this.ready = false;
         this.maxUnitsToPlace = 30;
         this.tmpOrders = new ArrayList<ActionInfo>();
-        this.upgradeTechNum = 0;
+        this.isLimitedActionUsed = new HashMap<String, Boolean>();
+        isLimitedActionUsed.put("upgrade tech", false);
+        isLimitedActionUsed.put("move spy", false);
+        isLimitedActionUsed.put("cloaking", false);
     }
 
-  public String waitOtherPlayers() throws Exception{
-    sendMessage(new ObjectIO("wait others",0));
-    tmp = (ObjectIO) in.readObject();
-    System.out.println(tmp.message);
-    return tmp.message;
-  }
-    public String getGameOverMessage() {
-      return gameOverMessage;
+    public String waitOtherPlayers() throws Exception {
+        sendMessage(new ObjectIO("wait others", 0));
+        tmp = (ObjectIO) in.readObject();
+        System.out.println(tmp.message);
+        return tmp.message;
     }
+
+    public String getGameOverMessage() {
+        return gameOverMessage;
+    }
+
     public int getRoomId() {
-      quitRoom();
-      return id;
+        quitRoom();
+        return id;
     }
 
     private void quitRoom() {
-      try{
-      sendMessage(new ObjectIO("/gameOver"));
-    } catch (Exception e) {
+        try {
+            sendMessage(new ObjectIO("/gameOver"));
+        } catch (Exception e) {
+        }
     }
-    }
-  
+
     public void setName(String n) {
         this.name = n;
     }
@@ -109,10 +114,10 @@ public class Player implements Runnable {
             sendMessage(new ObjectIO(info, Integer.parseInt(info)));
             receiveMessage();
             if (tmp.id == 0) {
-              receiveMessage();
-                //this.territoryGroupSelected = info;
-              //System.out.println(theMap.getPlayerTerritories(name));
-              return true;
+                receiveMessage();
+                // this.territoryGroupSelected = info;
+                // System.out.println(theMap.getPlayerTerritories(name));
+                return true;
             }
         }
         return false;
@@ -134,50 +139,50 @@ public class Player implements Runnable {
 
       }
     }*/
-  /*
-    public void doInitialization(Boolean b) throws Exception {
-        if (b) {
-            if ((tmp = (ObjectIO) in.readObject()) != null) {}
-        }
-        mark:
-        while (true) {
-            wait = true; // let the main thread to listen input just once
-            while (!ready) {}
-            wait = false;
-            ready = false;
-            tmpS = null;
-            System.out.println(tmp.message);
-            System.out.println("(you can leave the game by /leave) Your available choices are: ");
-            Iterator<Integer> itr = (tmp.groups).iterator();
-            while (itr.hasNext()) {
-                Integer g = (Integer) itr.next();
-                System.out.println(Integer.toString(g) + " : " + tmp.map.getInitGroup(g));
-            }
-            // if ((tmpS = stdIn.readLine()) != null) {}
-            while (tmpS == null) {
-                if (wait) {
-                    continue mark;
-                }
-            }
-            try {
-                if (tmp.groups.contains(Integer.parseInt(tmpS))) {
-                    break;
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Input should be a number, please retry");
-            }
-            System.out.println("Your input is not valid, please retry");
-        }
-        out.writeObject(new ObjectIO(tmpS, Integer.parseInt(tmpS)));
-        out.flush();
-        out.reset();
-        tmpS = null;
-        if ((tmp = (ObjectIO) in.readObject()) != null) {}
-        if (tmp.id == -1) {
-            doInitialization(false);
-        }
-    }
-  */
+    /*
+      public void doInitialization(Boolean b) throws Exception {
+          if (b) {
+              if ((tmp = (ObjectIO) in.readObject()) != null) {}
+          }
+          mark:
+          while (true) {
+              wait = true; // let the main thread to listen input just once
+              while (!ready) {}
+              wait = false;
+              ready = false;
+              tmpS = null;
+              System.out.println(tmp.message);
+              System.out.println("(you can leave the game by /leave) Your available choices are: ");
+              Iterator<Integer> itr = (tmp.groups).iterator();
+              while (itr.hasNext()) {
+                  Integer g = (Integer) itr.next();
+                  System.out.println(Integer.toString(g) + " : " + tmp.map.getInitGroup(g));
+              }
+              // if ((tmpS = stdIn.readLine()) != null) {}
+              while (tmpS == null) {
+                  if (wait) {
+                      continue mark;
+                  }
+              }
+              try {
+                  if (tmp.groups.contains(Integer.parseInt(tmpS))) {
+                      break;
+                  }
+              } catch (NumberFormatException e) {
+                  System.out.println("Input should be a number, please retry");
+              }
+              System.out.println("Your input is not valid, please retry");
+          }
+          out.writeObject(new ObjectIO(tmpS, Integer.parseInt(tmpS)));
+          out.flush();
+          out.reset();
+          tmpS = null;
+          if ((tmp = (ObjectIO) in.readObject()) != null) {}
+          if (tmp.id == -1) {
+              doInitialization(false);
+          }
+      }
+    */
     public void startAllocation() throws Exception {
         receiveMessage();
         this.maxUnitsToPlace = tmp.id;
@@ -251,15 +256,26 @@ public class Player implements Runnable {
         }
     }
 
+    public String tryIssueUpgradeSpyUnitOrder(ActionInfo order) {
+        String problem = ruleChecker.checkRuleForUpgradeSpy(order, this.theMap);
+        if (problem == null) {
+            this.tmpOrders.add(order);
+            executer.executeUpgradeSpyUnit(this.theMap, order);
+            return null;
+        } else {
+            return problem;
+        }
+    }
+
     public String tryIssueUpgradeTechOrder(ActionInfo order) {
         String problem = ruleChecker.checkRuleForUpgradeTech(order, this.theMap);
         if (problem == null) {
-            if (upgradeTechNum != 0) {
+            if (isLimitedActionUsed.get("upgrade tech")) {
                 return "Invalid action: You can only upgrade tech once in each turn.";
             }
             this.tmpOrders.add(order);
             executer.executeUpgradeTech(this.theMap, order);
-            upgradeTechNum = 1;
+            isLimitedActionUsed.put("upgrade tech", true);
             return null;
         } else {
             return problem;
@@ -280,137 +296,139 @@ public class Player implements Runnable {
         this.tmpOrders = new ArrayList<>(); // refresh the local order ArrayList<ActionInfo>
         toSend.moveOrders = group1Orders;
         toSend.attackOrders = attackOrders;
-        upgradeTechNum = 0;
+        // resets all to false in isLimitedActionUsed for limited orders
+        isLimitedActionUsed.replaceAll((n, v) -> false);
+        // send the orders to server
         sendMessage(toSend);
         // read in the new map for next action phase.
         return checkStatus();
     }
 
     public String checkStatus() throws Exception {
-      receiveMessage();
+        receiveMessage();
         if (tmp.id == -1) {
-          gameOverMessage="You lose";
-          return gameOverMessage;
+            gameOverMessage = "You lose";
+            return gameOverMessage;
         }
         if (tmp.id == -2) {
-            gameOverMessage=tmp.message; // other player wins
+            gameOverMessage = tmp.message; // other player wins
             return gameOverMessage;
         }
         if (tmp.id == -3) {
-            gameOverMessage="You win!";
+            gameOverMessage = "You win!";
             return gameOverMessage;
         }
         return null;
     }
-  /*
-    public void doPlacement() throws Exception {
-        System.out.println("-----waitServerInput-----");
-        if ((tmp = (ObjectIO) in.readObject()) != null) {
-            String playerName = tmp.message;
-            ClientOrderHelper coh =
-                    new ClientOrderHelper(playerName, stdIn, new PrintStream(System.out));
-            out.writeObject(
-                    coh.issuePlaceOrders(
-                            tmp.id, tmp.playerNames)); // here tmp.playerNames is territory names...
-        }
-    }
+    /*
+      public void doPlacement() throws Exception {
+          System.out.println("-----waitServerInput-----");
+          if ((tmp = (ObjectIO) in.readObject()) != null) {
+              String playerName = tmp.message;
+              ClientOrderHelper coh =
+                      new ClientOrderHelper(playerName, stdIn, new PrintStream(System.out));
+              out.writeObject(
+                      coh.issuePlaceOrders(
+                              tmp.id, tmp.playerNames)); // here tmp.playerNames is territory names...
+          }
+      }
 
-    public void doAskLeave() {
-        tmpS = null;
-        System.out.println("you can leave by /leave, or continue by entering anything else");
-        wait = true;
-        while (!ready) {}
-        wait = false;
-        ready = false;
-        while (tmpS == null) {
-            if (wait) {
-                System.out.println("Return to the game...");
-                wait = false;
-                tmpS = null;
-                doAskLeave();
-            }
-        }
-    }
-  */
+      public void doAskLeave() {
+          tmpS = null;
+          System.out.println("you can leave by /leave, or continue by entering anything else");
+          wait = true;
+          while (!ready) {}
+          wait = false;
+          ready = false;
+          while (tmpS == null) {
+              if (wait) {
+                  System.out.println("Return to the game...");
+                  wait = false;
+                  tmpS = null;
+                  doAskLeave();
+              }
+          }
+      }
+    */
     /**
      * first wait the ObjectIO from server, then call the placeOrder method in the helper class,
      * finally send ObjectIO to server need to check the status of the player: win or lose
      */
-  /*
-    public void doAction() throws Exception {
-        while (true) {
-            // doAskLeave();
+    /*
+        public void doAction() throws Exception {
+            while (true) {
+                // doAskLeave();
 
-            System.out.println("waiting other players");
-            // stdIn = new BufferedReader(new InputStreamReader(System.in));
-            if ((tmp = (ObjectIO) in.readObject()) != null) {
-                if (tmp.id < 0) {
-                    break;
+                System.out.println("waiting other players");
+                // stdIn = new BufferedReader(new InputStreamReader(System.in));
+                if ((tmp = (ObjectIO) in.readObject()) != null) {
+                    if (tmp.id < 0) {
+                        break;
+                    }
+                    doAskLeave();
+                    // MapTextView mapview = new MapTextView(tmp.playerNames);
+                    // System.out.println(mapview.displayMap(tmp.map));
+                    // System.out.println(tmp.message);
+                    String playerName = tmp.message;
+                    ClientOrderHelper coh =
+                            new ClientOrderHelper(playerName, stdIn, new PrintStream(System.out));
+                    out.writeObject(coh.issueActionOrders(tmp.map, tmp.playerNames));
                 }
-                doAskLeave();
-                // MapTextView mapview = new MapTextView(tmp.playerNames);
-                // System.out.println(mapview.displayMap(tmp.map));
-                // System.out.println(tmp.message);
-                String playerName = tmp.message;
-                ClientOrderHelper coh =
-                        new ClientOrderHelper(playerName, stdIn, new PrintStream(System.out));
-                out.writeObject(coh.issueActionOrders(tmp.map, tmp.playerNames));
-            }
-            // doAskLeave();
-            // stdIn = null;
-            tmpS = null;
-            System.out.println("you can leave by /leave, continue by entering anything else");
-            wait = true;
-            while (!ready) {
-            }
-            wait = false;
-            ready = false;
-            while (tmpS == null) {
-                if (wait) {
-                  System.out.println("Return to the game...");
-                  wait = false;
-                  continue mark2;
+                // doAskLeave();
+                // stdIn = null;
+                tmpS = null;
+                System.out.println("you can leave by /leave, continue by entering anything else");
+                wait = true;
+                while (!ready) {
                 }
-              }
+                wait = false;
+                ready = false;
+                while (tmpS == null) {
+                    if (wait) {
+                      System.out.println("Return to the game...");
+                      wait = false;
+                      continue mark2;
+                    }
+                  }
+            }
+            if (tmp.id == -1) {
+                System.out.println("Your lost all territories...");
+            }
+            if (tmp.id == -2) {
+                System.out.println(tmp.message);
+            }
+            if (tmp.id == -3) {
+                System.out.println("You win!");
+            }
         }
-        if (tmp.id == -1) {
-            System.out.println("Your lost all territories...");
-        }
-        if (tmp.id == -2) {
-            System.out.println(tmp.message);
-        }
-        if (tmp.id == -3) {
-            System.out.println("You win!");
-        }
-    }
-*/
-    
+    */
+
     /**
      * each turn ask the user watch or not, enter something start with /q will quit, no longer print
      * the game enter others will update the game's map
      */
     public void doWatch() throws Exception {
-      receiveMessage();
+        receiveMessage();
     }
-/*
-    public void doWatch() throws Exception {
-        while (true) {
-            if ((tmp = (ObjectIO) in.readObject()) != null) {
-                MapTextView mapview = new MapTextView(tmp.playerNames);
-                System.out.println(mapview.displayMap(tmp.map));
-                System.out.println(tmp.message);
-            }
-            String tmpstr;
-            System.out.println("Do you want watch? you can quit by /q");
-            if ((tmpstr = stdIn.readLine()) != null) {
-                if (tmpstr.toLowerCase().startsWith("/q")) {
-                    System.out.println("quited");
-                    break;
+    /*
+        public void doWatch() throws Exception {
+            while (true) {
+                if ((tmp = (ObjectIO) in.readObject()) != null) {
+                    MapTextView mapview = new MapTextView(tmp.playerNames);
+                    System.out.println(mapview.displayMap(tmp.map));
+                    System.out.println(tmp.message);
+                }
+                String tmpstr;
+                System.out.println("Do you want watch? you can quit by /q");
+                if ((tmpstr = stdIn.readLine()) != null) {
+                    if (tmpstr.toLowerCase().startsWith("/q")) {
+                        System.out.println("quited");
+                        break;
+                    }
                 }
             }
         }
-    }
-*/
+    */
     @Override
     public void run() {
         try {
