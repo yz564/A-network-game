@@ -371,4 +371,7 @@ public class ServerOrderHelperTest {
         playerNames.add("Red player");
         oh.doAfterTurn(map, playerNames);
     }
+
+    @Test
+    public void test_move_spy() {}
 }
