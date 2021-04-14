@@ -11,12 +11,20 @@ public class PhaseStorage {
         makePhase(
             "serverConnect",
             "/ui/views/server-connect.fxml",
-            null,
+            "/ui/styling/general-design.css",
             "Duke Risk Game! - Server Connect");
     Phase phase2 =
-        makePhase("userLogin", "/ui/views/user-login.fxml", null, "Duke Risk Game! - Log In");
+        makePhase(
+            "userLogin",
+            "/ui/views/user-login.fxml",
+            "/ui/styling/general-design.css",
+            "Duke Risk Game! - Log In");
     Phase phase3 =
-        makePhase("joinRoom", "/ui/views/join-room.fxml", null, "Duke Risk Game! - Join Room");
+        makePhase(
+            "joinRoom",
+            "/ui/views/join-room.fxml",
+            "/ui/styling/general-design.css",
+            "Duke Risk Game! - Join Room");
     Phase phase4_1 =
         makePhase(
             "selectTerritoryGroup2P",
