@@ -108,12 +108,40 @@ public class ServerOrderHelper {
                 } else {
                     executer.executeUpgradeTech(tempMap, order);
                 }
-            } else {
+            } else if (order.getActionType().equals("upgrade unit")) {
                 String problem = ruleChecker.checkRuleForUpgradeUnit(order, tempMap);
                 if (problem != null) {
                     return problem;
                 } else {
                     executer.executeUpgradeUnit(tempMap, order);
+                }
+            } else if (order.getActionType().equals("upgrade spy unit")) {
+                String problem = ruleChecker.checkRuleForUpgradeSpy(order, tempMap);
+                if (problem != null) {
+                    return problem;
+                } else {
+                    executer.executeUpgradeSpyUnit(tempMap, order);
+                }
+            } else if (order.getActionType().equals("move spy")) {
+                String problem = ruleChecker.checkRuleForMoveSpy(order, tempMap);
+                if (problem != null) {
+                    return problem;
+                } else {
+                    executer.executeMoveSpy(tempMap, order);
+                }
+            } else if (order.getActionType().equals("cloaking")) {
+                String problem = ruleChecker.checkRuleForCloaking(order, tempMap);
+                if (problem != null) {
+                    return problem;
+                } else {
+                    executer.executeCloaking(tempMap, order);
+                }
+            } else { // research cloaking
+                String problem = ruleChecker.checkRuleForResearchCloaking(order, tempMap);
+                if (problem != null) {
+                    return problem;
+                } else {
+                    executer.executeResearchCloaking(tempMap, order);
                 }
             }
         }
@@ -132,8 +160,16 @@ public class ServerOrderHelper {
                 executer.executeMove(map, order); // execute a move on temp map
             } else if (order.getActionType().equals("upgrade tech")) {
                 executer.executeUpgradeTech(map, order);
-            } else {
+            } else if (order.getActionType().equals("upgrade unit")) {
                 executer.executeUpgradeUnit(map, order);
+            } else if (order.getActionType().equals("upgrade spy unit")) {
+                executer.executeUpgradeSpyUnit(map, order);
+            } else if (order.getActionType().equals("move spy")) {
+                executer.executeMoveSpy(map, order);
+            } else if (order.getActionType().equals("cloaking")) {
+                executer.executeCloaking(map, order);
+            } else { // research cloaking
+                executer.executeResearchCloaking(map, order);
             }
         }
     }

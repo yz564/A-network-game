@@ -301,6 +301,95 @@ public class ServerOrderHelperTest {
     }
 
     @Test
+    public void test_try_resolve_all_orders_move_spy() {
+        WorldMap map = setupV2Map();
+        ActionInfoFactory af = new ActionInfoFactory();
+        ActionInfo info1 = af.createMoveSpyActionInfo("Green player", "Gross Hall", "LSRC", 1);
+        ObjectIO obj1 = new ObjectIO();
+        obj1.moveOrders.add(info1);
+        ServerOrderHelper oh = new ServerOrderHelper();
+        oh.collectOrders(obj1);
+        // fail
+        assertEquals(
+                "That action is invalid: source Territory does not contain your spy units",
+                oh.tryResolveAllOrders(map));
+        // success
+        map.getTerritory("Gross Hall").tryAddSpyTroopUnits("Green player", 1);
+        assertEquals(1, map.getTerritory("Gross Hall").getSpyTroopNumUnits("Green player"));
+        assertNull(oh.tryResolveAllOrders(map));
+        assertEquals(0, map.getTerritory("Gross Hall").getSpyTroopNumUnits("Green player"));
+        assertEquals(1, map.getTerritory("LSRC").getSpyTroopNumUnits("Green player"));
+        assertEquals(9995, map.getPlayerInfo("Green player").getResTotals().get("food"));
+    }
+
+    @Test
+    public void test_try_resolve_all_orders_upgrade_spy_unit() {
+        WorldMap map = setupV2Map();
+        HashMap<String, Integer> numUnits2 = new HashMap<String, Integer>();
+        numUnits2.put("level5", 10);
+        map.getTerritory("Fuqua").trySetNumUnits(numUnits2);
+        ActionInfoFactory af = new ActionInfoFactory();
+        ActionInfo info1 = af.createUpgradeSpyUnitActionInfo("Green player", "Fuqua", 1);
+        ObjectIO obj1 = new ObjectIO();
+        obj1.moveOrders.add(info1);
+        ServerOrderHelper oh = new ServerOrderHelper();
+        oh.collectOrders(obj1);
+        // fail
+        assertEquals(
+                "That action is invalid: source Territory does not contain enough level0 units",
+                oh.tryResolveAllOrders(map));
+        map.getTerritory("Fuqua").tryAddTroopUnits("level0", 10);
+        oh.tryResolveAllOrders(map);
+        assertEquals(9, map.getTerritory("Fuqua").getTroopNumUnits("level0"));
+        assertEquals(1, map.getTerritory("Fuqua").getSpyTroopNumUnits("Green player"));
+        assertEquals(9980, map.getPlayerInfo("Green player").getResTotals().get("tech"));
+    }
+
+    @Test
+    public void test_try_resolve_all_orders_research_cloaking() {
+        WorldMap map = setupV2Map();
+        ActionInfoFactory af = new ActionInfoFactory();
+        ActionInfo info1 = af.createResearchCloakingActionInfo("Green player");
+        assertFalse(map.getPlayerInfo("Green player").getIsCloakingResearched());
+        assertEquals(10000, map.getPlayerInfo("Green player").getResTotals().get("tech"));
+        ObjectIO obj1 = new ObjectIO();
+        obj1.moveOrders.add(info1);
+        ServerOrderHelper oh = new ServerOrderHelper();
+        oh.collectOrders(obj1);
+        // fail
+        assertEquals(
+                "That action is invalid: current tech level is not high enough to research cloaking",
+                oh.tryResolveAllOrders(map));
+        // success
+        map.getPlayerInfo("Green player").setTechLevel(3);
+        assertEquals(10000, map.getPlayerInfo("Green player").getResTotals().get("tech"));
+        assertNull(oh.tryResolveAllOrders(map));
+        assertTrue(map.getPlayerInfo("Green player").getIsCloakingResearched());
+        assertEquals(9900, map.getPlayerInfo("Green player").getResTotals().get("tech"));
+    }
+
+    @Test
+    public void test_test_try_resolve_all_orders_cloaking() {
+        WorldMap map = setupV2Map();
+        ActionInfoFactory af = new ActionInfoFactory();
+        ActionInfo info1 = af.createCloakingActionInfo("Green player", "Fuqua");
+        assertEquals(0, map.getTerritory("Fuqua").getCloakingTurns());
+        assertEquals(10000, map.getPlayerInfo("Green player").getResTotals().get("tech"));
+        ObjectIO obj1 = new ObjectIO();
+        obj1.moveOrders.add(info1);
+        ServerOrderHelper oh = new ServerOrderHelper();
+        oh.collectOrders(obj1);
+        // fail
+        assertFalse(map.getPlayerInfo("Green player").getIsCloakingResearched());
+        // assertEquals("", oh.tryResolveAllOrders(map));
+        // success
+        map.getPlayerInfo("Green player").setIsCloakingResearched(true);
+        assertNull(oh.tryResolveAllOrders(map));
+        assertEquals(3, map.getTerritory("Fuqua").getCloakingTurns());
+        assertEquals(9980, map.getPlayerInfo("Green player").getResTotals().get("tech"));
+    }
+
+    @Test
     public void test_send_credit_to_players() {
         WorldMap map = setupV2Map();
         ServerOrderHelper oh = new ServerOrderHelper();
