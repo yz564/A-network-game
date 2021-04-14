@@ -126,6 +126,25 @@ public class ActionExecuter {
     }
 
     /**
+     * Executes the move spy action.
+     *
+     * @param map the WorldMap object where the action is implemented.
+     * @param info a ActionInfo object that contains the information of src, dis, and number of spy
+     *     to move.
+     */
+    public void executeMoveSpy(WorldMap map, ActionInfo info) {
+        // move spy
+        Territory src = map.getTerritory(info.getSrcName());
+        Territory des = map.getTerritory(info.getDesName());
+        int numSpy = info.getNumSpyUnits();
+        src.tryRemoveSpyTroopUnits(info.getSrcOwnerName(), numSpy);
+        des.tryAddSpyTroopUnits(info.getSrcOwnerName(), numSpy);
+        // deducts costs
+        HashMap<String, Integer> resCost = costCal.calculateMoveSpyCost(info, map);
+        deductCost(map, info, resCost);
+    }
+
+    /**
      * Upgrades the tech level for the source owner player, and deducts the resources from the
      * player.
      *
@@ -160,6 +179,25 @@ public class ActionExecuter {
         map.getTerritory(srcName).tryRemoveTroopUnits(oldUnitLevel, numToUpgrade);
         // deducts costs
         HashMap<String, Integer> resCost = costCal.calculateUpgradeUnitCost(info, map);
+        deductCost(map, info, resCost);
+    }
+
+    /**
+     * Upgrades the spy units.
+     *
+     * @param map a WorldMap object where the action is implemented.
+     * @param info a ActionInfo object that contains source owner name and the info of the upgrade
+     *     units order.
+     */
+    public void executeUpgradeSpyUnit(WorldMap map, ActionInfo info) {
+        // upgrade the spy
+        String srcName = info.getSrcName();
+        String oldUnitLevel = info.getOldUnitLevel();
+        int numToUpgrade = info.getNumSpyUnits();
+        map.getTerritory(srcName).tryAddSpyTroopUnits(info.getSrcOwnerName(), numToUpgrade);
+        map.getTerritory(srcName).tryRemoveTroopUnits(oldUnitLevel, numToUpgrade);
+        // deducts costs
+        HashMap<String, Integer> resCost = costCal.calculateUpgradeSpyUnitCost(info, map);
         deductCost(map, info, resCost);
     }
 
@@ -199,7 +237,8 @@ public class ActionExecuter {
             }
         }
         if (getTotalUnitNum(attackerUnits) > 0) { // attacker wins the combat in attack
-            // des Territory changes owner and updates unit to attackerUnitNum
+            // des Territory changes owner, and updates unit to attackerUnitNum, and resets cloaking
+            // turn to 0.
             des.trySetNumUnits(attackerUnits);
             des.setOwnerName(info.getSrcOwnerName());
             des.setCloakingTurns(0);
