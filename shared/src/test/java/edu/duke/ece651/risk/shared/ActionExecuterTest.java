@@ -317,4 +317,33 @@ public class ActionExecuterTest {
         assertEquals(3, map.getTerritory("Fuqua").getCloakingTurns());
         assertEquals(80, map.getPlayerInfo("Green player").getResTotals().get("tech"));
     }
+
+    @Test
+    public void test_move_spy() {
+        WorldMap map = setupV2Map();
+        map.getTerritory("Gross Hall").tryAddSpyTroopUnits("Green player", 1);
+        assertEquals(1, map.getTerritory("Gross Hall").getSpyTroopNumUnits("Green player"));
+        ActionInfoFactory af = new ActionInfoFactory();
+        ActionInfo info = af.createMoveSpyActionInfo("Green player", "Gross Hall", "LSRC", 1);
+        ActionExecuter executer = new ActionExecuter();
+        executer.executeMoveSpy(map, info);
+        assertEquals(0, map.getTerritory("Gross Hall").getSpyTroopNumUnits("Green player"));
+        assertEquals(1, map.getTerritory("LSRC").getSpyTroopNumUnits("Green player"));
+        assertEquals(95, map.getPlayerInfo("Green player").getResTotals().get("food"));
+    }
+
+    @Test
+    public void test_upgrade_spy_unit() {
+        WorldMap map = setupV2Map();
+        HashMap<String, Integer> numUnits2 = new HashMap<String, Integer>();
+        numUnits2.put("level0", 10);
+        map.getTerritory("Fuqua").trySetNumUnits(numUnits2);
+        ActionInfoFactory af = new ActionInfoFactory();
+        ActionInfo info = af.createUpgradeSpyUnitActionInfo("Green player", "Fuqua", 1);
+        ActionExecuter executer = new ActionExecuter();
+        executer.executeUpgradeSpyUnit(map, info);
+        assertEquals(9, map.getTerritory("Fuqua").getTroopNumUnits("level0"));
+        assertEquals(1, map.getTerritory("Fuqua").getSpyTroopNumUnits("Green player"));
+        assertEquals(80, map.getPlayerInfo("Green player").getResTotals().get("tech"));
+    }
 }
