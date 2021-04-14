@@ -17,6 +17,7 @@ public class ControllerFactory {
     controllers.put("serverConnect", new ServerConnectController(model));
     controllers.put("userLogin", new UserLoginController((App) model));
     controllers.put("joinRoom", new JoinRoomController((App) model));
+    controllers.put("loadSelectTerritoryGroup2P", new LoadSelectTerritoryGroup2P((App) model));
     controllers.put("selectTerritoryGroup2P", new SelectTerritoryGroup2PController((App) model));
     controllers.put("selectTerritoryGroup3P", new SelectTerritoryGroup3PController((App) model));
     controllers.put("selectTerritoryGroup4P", new SelectTerritoryGroup4PController((App) model));

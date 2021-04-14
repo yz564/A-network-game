@@ -42,8 +42,8 @@ public class JoinRoomController extends Controller implements Initializable, Err
             else {
                 Boolean checkInSuccess = model.checkIn();
                 if (checkInSuccess) {
+                    model.getPlayer().waitOtherPlayers();
                     this.next = newPlayerNextView;
-                    model.getPlayer().startInitialization();
                 }
                 else {
                     this.next = existingPlayerNextView;
@@ -61,7 +61,8 @@ public class JoinRoomController extends Controller implements Initializable, Err
      */
     @FXML
     public void onJoinRoomOne(ActionEvent ae) throws Exception {
-        this.newPlayerNextView = "selectTerritoryGroup2P";
+        //this.newPlayerNextView = "selectTerritoryGroup2P";
+        this.newPlayerNextView = "loadSelectTerritoryGroup2P";
         this.existingPlayerNextView = "selectActionEvenPlayers";
         joinRoom(ae, 1, newPlayerNextView, existingPlayerNextView);
     }
