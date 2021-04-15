@@ -8,269 +8,249 @@ import java.util.HashSet;
 import edu.duke.ece651.risk.shared.*;
 
 public class Game {
-    private int numPlayers;
-    private ArrayList<Player> playerList;
-    private WorldMapFactory factory;
-    private WorldMap theMap;
-    private ArrayList<String> playerNames;
-    private HashSet<Integer> availableGroups;
-    private ServerOrderHelper soh;
-    private HashSet<Integer> readyPlayer;
-    /** a simple constructor */
-    public Game(int num, ArrayList<Player> playerList) {
-        this.numPlayers = num;
-        this.playerList = playerList;
-        this.playerNames = new ArrayList<String>();
-        this.availableGroups = new HashSet<Integer>();
-        for (int i = 0; i < num; i++) {
-            playerNames.add(playerList.get(i).getName());
-            availableGroups.add(i + 1);
-        }
-        this.factory = new V2MapFactory();
-        this.theMap = factory.makeWorldMap(numPlayers);
-        this.soh = new ServerOrderHelper();
-        this.readyPlayer = new HashSet<Integer>();
+  private int numPlayers;
+  private ArrayList<Player> playerList;
+  private WorldMapFactory factory;
+  private WorldMap theMap;
+  private ArrayList<String> playerNames;
+  private HashSet<Integer> availableGroups;
+  private ServerOrderHelper soh;
+  private HashSet<Integer> readyPlayer;
+
+  /** a simple constructor */
+  public Game(int num, ArrayList<Player> playerList) {
+    this.numPlayers = num;
+    this.playerList = playerList;
+    this.playerNames = new ArrayList<String>();
+    this.availableGroups = new HashSet<Integer>();
+    for (int i = 0; i < num; i++) {
+      playerNames.add(playerList.get(i).getName());
+      availableGroups.add(i + 1);
     }
+    this.factory = new V2MapFactory();
+    this.theMap = factory.makeWorldMap(numPlayers);
+    this.soh = new ServerOrderHelper();
+    this.readyPlayer = new HashSet<Integer>();
+  }
 
-    /**
-     * select the group of territories sequently, the hashset availableGroups record it then assign
-     * initialOwners in theMap
-     */
-    public void doInitialization() throws Exception {
-        for (int i = 0; i < numPlayers; i++) {
-            Player p = playerList.get(i);
-            ObjectIO m =
-                    new ObjectIO(
-                            p.getName() + " ,please select your territory groups: ",
-                            i,
-                            theMap,
-                            availableGroups);
-            p.out.writeObject(m);
-            p.out.flush();
-            p.out.reset(); // very important to make theMap next time written in ObjectIO is
-            // updated...
-        }
-        int readyNum = 0;
-        while (readyNum < numPlayers) {
-            for (int i = 0; i < numPlayers; i++) {
-                if (!readyPlayer.contains(i)) {
-                    Player p = playerList.get(i);
-                    if (p.isReady()) {
-                        if (availableGroups.contains(p.tmp.id)) {
-                            availableGroups.remove(p.tmp.id);
-                            readyPlayer.add(i);
-                            readyNum++;
-                            theMap.tryAssignInitOwner(p.tmp.id, p.getName());
-                            // TODO: how many resources to assign???
-                            theMap.tryAddPlayerInfo(
-                                    new PlayerInfo(p.getName(), p.tmp.id, 100, 100));
-                            // initialize vizStatus for a player.
-                            // theMap.getPlayerInfo(p.getName()).setMultiVizStatus(theMap.getMyTerritories(), false);
-                            System.out.println(p.getName() + " selected group " + p.tmp.message);
-
-                            ObjectIO m =
-                                    new ObjectIO(
-                                            p.getName() + "group selected",
-                                            0,
-                                            theMap,
-                                            availableGroups);
-                            p.out.writeObject(m);
-                            p.out.flush();
-                            p.out.reset();
-                        } else {
-                            ObjectIO m =
-                                    new ObjectIO(
-                                            p.getName()
-                                                    + " ,please reselect your territory groups: ",
-                                            -1,
-                                            theMap,
-                                            availableGroups);
-                            p.out.writeObject(m);
-                            p.out.flush();
-                            p.out.reset();
-                        }
-
-                        p.setNotReady();
-                    }
-                }
-            }
-        }
-        for (int i = 0; i < numPlayers; i++) {
-            Player p = playerList.get(i);
-            try {
-                // System.out.println(theMap.getPlayerTerritories(p.getName()));
-                p.out.writeObject(new ObjectIO(p.getName(), 0, theMap));
-                p.out.flush();
-                p.out.reset();
-            } catch (Exception e) {
-                // System.out.println("theMap is not updated");
-            }
-        }
+  /**
+   * select the group of territories sequently, the hashset availableGroups record
+   * it then assign initialOwners in theMap
+   */
+  public void doInitialization() throws Exception {
+    for (int i = 0; i < numPlayers; i++) {
+      Player p = playerList.get(i);
+      theMap.tryAddPlayerInfo(new PlayerInfo(p.getName(), 100, 100));
+      // initialize vizStatus for a player.
+      theMap.getPlayerInfo(p.getName()).setMultiVizStatus(theMap.getMyTerritories(), false);
+      ObjectIO m = new ObjectIO(p.getName() + " ,please select your territory groups: ", i, theMap, availableGroups);
+      p.out.writeObject(m);
+      p.out.flush();
+      p.out.reset(); // very important to make theMap next time written in ObjectIO is
+      // updated...
     }
+    int readyNum = 0;
+    while (readyNum < numPlayers) {
+      for (int i = 0; i < numPlayers; i++) {
+        if (!readyPlayer.contains(i)) {
+          Player p = playerList.get(i);
+          if (p.isReady()) {
+            if (availableGroups.contains(p.tmp.id)) {
+              availableGroups.remove(p.tmp.id);
+              readyPlayer.add(i);
+              readyNum++;
+              theMap.tryAssignInitOwner(p.tmp.id, p.getName());
+              // TODO: how many resources to assign???
+              theMap.getPlayerInfo(p.getName()).setPlayerId(p.tmp.id);
+              // initialize vizStatus for a player.
+              // theMap.getPlayerInfo(p.getName()).setMultiVizStatus(theMap.getMyTerritories(),
+              // false);
+              System.out.println(p.getName() + " selected group " + p.tmp.message);
 
-    /* try to make the last player auto choice but has a IO porblem...
-    Player p = playerList.get(numPlayers-1);
-    if (theMap.tryAssignInitOwner(availableGroups.iterator().next(), p.getName())) {
-        System.out.println(p.getName() + " auto selected ");
-      }
-    */
-
-    /**
-     * the first for loop: Server send message to all clients let they do placement,clients can do
-     * it simultaneously the second while loop: wait until all clients finished placement orders the
-     * third loop: update theMap (execute the placement orders)
-     */
-    public void doPlacement() throws Exception {
-        int readyNum = 0;
-        // send infomation to clients
-        for (int i = 0; i < numPlayers; i++) {
-            Player p = playerList.get(i);
-            HashMap<String, Territory> tlist = theMap.getPlayerTerritories(p.getName());
-            ArrayList<String> territoryNames = new ArrayList<String>(tlist.keySet());
-            p.out.writeObject(
-                    new ObjectIO(p.getName(), p.availableUnitNum, theMap, territoryNames));
-            p.out.flush();
-            p.out.reset();
-            p.setNotReady();
-        }
-        // check all clients placement order are collected
-        while (readyNum < numPlayers) {
-            readyNum = 0;
-            for (int i = 0; i < numPlayers; i++) {
-                if (playerList.get(i).isReady()) {
-                    readyNum++;
-                }
-            }
-        }
-        // update theMap
-        System.out.println("All allocation collected");
-        for (int i = 0; i < numPlayers; i++) {
-            Player p = playerList.get(i);
-            HashMap<String, Integer> po = p.tmp.placeOrders;
-
-            for (String t : po.keySet()) {
-                if (theMap.getTerritory(t).trySetTroopUnits("level0", po.get(t))) {
-                    System.out.println(p.getName() + " placed " + po.get(t) + " on territory " + t);
-                }
-            }
-        }
-    }
-
-    /**
-     * three loops which are similar to those in the doPlacement difference: need to check the
-     * Player isEnd or not before sending info to clients, if isEnd, set tmp.id=-1,let the client
-     * stop to collect action orders a serverOrderHelper is used to check and execute orders
-     */
-    public void doOneTurn() throws IOException {
-        int readyNum = 0;
-        // sent info to clients
-        for (int i = 0; i < numPlayers; i++) {
-            Player p = playerList.get(i);
-            HashMap<String, Territory> tlist = theMap.getPlayerTerritories(p.getName());
-            if (tlist.size() == 0) {
-                p.isEnd = true;
-                p.ready = true;
-            }
-            if (!p.isEnd) {
-                p.out.writeObject(new ObjectIO(p.getName(), i, theMap, playerNames));
-                p.out.flush();
-                p.out.reset();
-                p.setNotReady(); // set notready after writeObject,  and let the players
-                // thread readObject then set ready agian
+              ObjectIO m = new ObjectIO(p.getName() + "group selected", 0, theMap, availableGroups);
+              p.out.writeObject(m);
+              p.out.flush();
+              p.out.reset();
             } else {
-                p.out.writeObject(
-                        new ObjectIO(
-                                p.getName() + ", you are watching the game ",
-                                -1,
-                                theMap,
-                                playerNames));
-                p.out.flush();
-                p.out.reset();
+              ObjectIO m = new ObjectIO(p.getName() + " ,please reselect your territory groups: ", -1, theMap,
+                  availableGroups);
+              p.out.writeObject(m);
+              p.out.flush();
+              p.out.reset();
             }
+
+            p.setNotReady();
+          }
         }
-        // wait until all clients done
-        while (readyNum < numPlayers) {
-            readyNum = 0;
-            for (int i = 0; i < numPlayers; i++) {
-                if (playerList.get(i).isReady()) {
-                    readyNum++;
-                }
-            }
-        }
-        // check and execute
-        for (int i = 0; i < numPlayers; i++) {
-            soh.collectOrders(playerList.get(i).tmp);
-        }
-        System.out.println("Action Error: " + soh.tryResolveAllOrders(theMap));
-        soh.clearAllOrders();
+      }
     }
-    /** add 1 unit to each territory after one turn, also check the player isEnd */
-    public void doRefresh() {
-        // soh.sendCreditToPlayers(theMap, playerNames);
-        for (int i = 0; i < numPlayers; i++) {
-            Player p = playerList.get(i);
-            if (!p.isEnd) {
-                HashMap<String, Territory> tlist = theMap.getPlayerTerritories(p.getName());
-                if (tlist.size() == 0) {
-                    p.isEnd = true;
-                    p.ready = true;
-                } else {
-                    /* for (String tname : tlist.keySet()) {
-                    Territory t = tlist.get(tname);
-                    t.tryAddTroopUnits("Basic", 1);
-                    }*/
-                }
-            }
-        }
-        soh.sendCreditToPlayers(theMap, playerNames);
+    soh.updateMultiVizStatus(theMap, playerNames);
+    for (int i = 0; i < numPlayers; i++) {
+      Player p = playerList.get(i);
+      try {
+        // System.out.println(theMap.getPlayerTerritories(p.getName()));
+        p.out.writeObject(new ObjectIO(p.getName(), 0, theMap));
+        p.out.flush();
+        p.out.reset();
+      } catch (Exception e) {
+        // System.out.println("theMap is not updated");
+      }
     }
-    /**
-     * return true if there is only one player has territories also send the winner message to each
-     * watching clients
-     */
-    public Boolean checkWinner() throws Exception {
-        int count = 0;
-        int winnerID = 0;
-        for (int i = 0; i < numPlayers; i++) {
-            Player p = playerList.get(i);
-            if (!p.isEnd) {
-                HashMap<String, Territory> tlist = theMap.getPlayerTerritories(p.getName());
-                if (tlist.size() == 0) {
-                    p.isEnd = true;
-                    p.ready = true;
-                } else {
-                    count++;
-                    winnerID = i;
-                }
-            }
-        }
-        // broadcast the winner message
-        if (count == 1) {
-            String info = "The winner is " + playerList.get(winnerID).getName();
-            System.out.println(info);
-            for (int i = 0; i < numPlayers; i++) {
-                Player p = playerList.get(i);
-                if (i == winnerID) {
-                    p.out.writeObject(
-                            new ObjectIO(
-                                    info,
-                                    -3,
-                                    theMap,
-                                    playerNames)); // tmp.id=-3 indicates the player is the winner.
-                } else {
-                    p.out.writeObject(
-                            new ObjectIO(
-                                    info,
-                                    -2,
-                                    theMap,
-                                    playerNames)); // tmp.id=-2 indicates the client received thay
-                    // need to print whe winner name.
-                }
-                p.out.flush();
-                p.out.reset();
-            }
-            return true;
-        }
-        return false;
+  }
+
+  /*
+   * try to make the last player auto choice but has a IO porblem... Player p =
+   * playerList.get(numPlayers-1); if
+   * (theMap.tryAssignInitOwner(availableGroups.iterator().next(), p.getName())) {
+   * System.out.println(p.getName() + " auto selected "); }
+   */
+
+  /**
+   * the first for loop: Server send message to all clients let they do
+   * placement,clients can do it simultaneously the second while loop: wait until
+   * all clients finished placement orders the third loop: update theMap (execute
+   * the placement orders)
+   */
+  public void doPlacement() throws Exception {
+    int readyNum = 0;
+    // send infomation to clients
+    for (int i = 0; i < numPlayers; i++) {
+      Player p = playerList.get(i);
+      HashMap<String, Territory> tlist = theMap.getPlayerTerritories(p.getName());
+      ArrayList<String> territoryNames = new ArrayList<String>(tlist.keySet());
+      p.out.writeObject(new ObjectIO(p.getName(), p.availableUnitNum, theMap, territoryNames));
+      p.out.flush();
+      p.out.reset();
+      p.setNotReady();
     }
+    // check all clients placement order are collected
+    while (readyNum < numPlayers) {
+      readyNum = 0;
+      for (int i = 0; i < numPlayers; i++) {
+        if (playerList.get(i).isReady()) {
+          readyNum++;
+        }
+      }
+    }
+    // update theMap
+    System.out.println("All allocation collected");
+    for (int i = 0; i < numPlayers; i++) {
+      Player p = playerList.get(i);
+      HashMap<String, Integer> po = p.tmp.placeOrders;
+
+      for (String t : po.keySet()) {
+        if (theMap.getTerritory(t).trySetTroopUnits("level0", po.get(t))) {
+          System.out.println(p.getName() + " placed " + po.get(t) + " on territory " + t);
+        }
+      }
+    }
+  }
+
+  /**
+   * three loops which are similar to those in the doPlacement difference: need to
+   * check the Player isEnd or not before sending info to clients, if isEnd, set
+   * tmp.id=-1,let the client stop to collect action orders a serverOrderHelper is
+   * used to check and execute orders
+   */
+  public void doOneTurn() throws IOException {
+    int readyNum = 0;
+    // sent info to clients
+    for (int i = 0; i < numPlayers; i++) {
+      Player p = playerList.get(i);
+      HashMap<String, Territory> tlist = theMap.getPlayerTerritories(p.getName());
+      if (tlist.size() == 0) {
+        p.isEnd = true;
+        p.ready = true;
+      }
+      if (!p.isEnd) {
+        p.out.writeObject(new ObjectIO(p.getName(), i, theMap, playerNames));
+        p.out.flush();
+        p.out.reset();
+        p.setNotReady(); // set notready after writeObject, and let the players
+        // thread readObject then set ready agian
+      } else {
+        p.out.writeObject(new ObjectIO(p.getName() + ", you are watching the game ", -1, theMap, playerNames));
+        p.out.flush();
+        p.out.reset();
+      }
+    }
+    // wait until all clients done
+    while (readyNum < numPlayers) {
+      readyNum = 0;
+      for (int i = 0; i < numPlayers; i++) {
+        if (playerList.get(i).isReady()) {
+          readyNum++;
+        }
+      }
+    }
+    // check and execute
+    for (int i = 0; i < numPlayers; i++) {
+      soh.collectOrders(playerList.get(i).tmp);
+    }
+    System.out.println("Action Error: " + soh.tryResolveAllOrders(theMap));
+    soh.clearAllOrders();
+  }
+
+  /** add 1 unit to each territory after one turn, also check the player isEnd */
+  public void doRefresh() {
+    // soh.sendCreditToPlayers(theMap, playerNames);
+    for (int i = 0; i < numPlayers; i++) {
+      Player p = playerList.get(i);
+      if (!p.isEnd) {
+        HashMap<String, Territory> tlist = theMap.getPlayerTerritories(p.getName());
+        if (tlist.size() == 0) {
+          p.isEnd = true;
+          p.ready = true;
+        } else {
+          /*
+           * for (String tname : tlist.keySet()) { Territory t = tlist.get(tname);
+           * t.tryAddTroopUnits("Basic", 1); }
+           */
+        }
+      }
+    }
+    soh.doAfterTurn(theMap, playerNames);
+  }
+
+  /**
+   * return true if there is only one player has territories also send the winner
+   * message to each watching clients
+   */
+  public Boolean checkWinner() throws Exception {
+    int count = 0;
+    int winnerID = 0;
+    for (int i = 0; i < numPlayers; i++) {
+      Player p = playerList.get(i);
+      if (!p.isEnd) {
+        HashMap<String, Territory> tlist = theMap.getPlayerTerritories(p.getName());
+        if (tlist.size() == 0) {
+          p.isEnd = true;
+          p.ready = true;
+        } else {
+          count++;
+          winnerID = i;
+        }
+      }
+    }
+    // broadcast the winner message
+    if (count == 1) {
+      String info = "The winner is " + playerList.get(winnerID).getName();
+      System.out.println(info);
+      for (int i = 0; i < numPlayers; i++) {
+        Player p = playerList.get(i);
+        if (i == winnerID) {
+          p.out.writeObject(new ObjectIO(info, -3, theMap, playerNames)); // tmp.id=-3 indicates the player is the
+                                                                          // winner.
+        } else {
+          p.out.writeObject(new ObjectIO(info, -2, theMap, playerNames)); // tmp.id=-2 indicates the client received
+                                                                          // thay
+          // need to print whe winner name.
+        }
+        p.out.flush();
+        p.out.reset();
+      }
+      return true;
+    }
+    return false;
+  }
 }

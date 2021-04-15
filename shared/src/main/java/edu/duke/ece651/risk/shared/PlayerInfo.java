@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class PlayerInfo implements java.io.Serializable {
 
   private final String playerName;
-  private final int playerId;
+  private int playerId;
   private int techLevel;
   private Boolean isCloakingResearched;
   private HashMap<String, Integer> resTotals;
@@ -83,6 +83,10 @@ public class PlayerInfo implements java.io.Serializable {
    */
   public PlayerInfo(String playerName, int playerId, int foodInitAmt, int techInitAmt) {
     this(playerName, playerId, 1, makeResTotals(foodInitAmt, techInitAmt));
+  }
+
+  public void setPlayerId(int id){
+    this.playerId=id;
   }
 
   /**
