@@ -5,6 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 
 public class Server {
@@ -12,14 +13,30 @@ public class Server {
   private ServerSocket serverSocket;
   private HashMap<String,String> accounts;
   private ArrayList<Room> roomList;
+  private HashSet<String> onlineUserNames;
 
   public Server(int num,ServerSocket ss){
     this.portNumber = num;
     this.serverSocket=ss;
     this.accounts=new HashMap<String,String>();
     this.roomList=new ArrayList<Room>();
+    this.onlineUserNames = new HashSet<String>();
+    
   }
 
+  public synchronized void  addOnlineUserNames(String name) {
+    this.onlineUserNames.add(name);
+  }
+
+  public synchronized void removeOnlineUserNames(String name) {
+    this.onlineUserNames.remove(name);
+  }
+  
+public  Boolean isUserOnline(String name) {
+    return onlineUserNames.contains(name);
+  }
+  
+  
   public void createRooms()throws IOException{
     for(int i=0; i<4; i++){
       Room room = new Room( i, i + 2);
@@ -36,11 +53,16 @@ public class Server {
     accounts.put("JY","jy");
     accounts.put("Yutong","yt");
     accounts.put("Yang","y");
+    accounts.put("Bots1", "1");
+    accounts.put("Bots2", "2");
+    accounts.put("Bots3", "3");
+    accounts.put("Bots4", "4");
+    accounts.put("Bots5", "5");
   }
 
   public void acceptConnection()throws IOException{
     Socket client=serverSocket.accept();
-    User user=new User(client,accounts,roomList);
+    User user=new User(client,accounts,roomList,this);
     Thread t= new Thread(user);
     t.start();
     System.out.println("a client connected");

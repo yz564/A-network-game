@@ -123,6 +123,10 @@ public class PhaseStorage {
             "Duke Risk Game! - Upgrade Your Tech Level");
     Phase phase11 =
         makePhase("gameEnd", "/ui/views/game-end.fxml", null, "Duke Risk Game! - Game End");
+    Phase phase12 = makePhase("loadSelectTerritoryGroup2P",
+            "/ui/views/load-select-territory-group-2p.fxml",
+            null,
+            "Waiting for Other Players");
     Phase phaseTest = makePhase("test", "/ui/views/test.fxml", null, "Duke Risk Game! - Test");
     // Add new Phases here
 
@@ -146,6 +150,7 @@ public class PhaseStorage {
     phases.put(phase10_1.getName(), phase10_1);
     phases.put(phase10_2.getName(), phase10_2);
     phases.put(phase11.getName(), phase11);
+    phases.put(phase12.getName(), phase12);
     phases.put(phaseTest.getName(), phaseTest);
     // Put new Phases into HashMap here
     return phases;
