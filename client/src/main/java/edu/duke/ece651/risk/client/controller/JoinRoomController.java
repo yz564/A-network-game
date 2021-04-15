@@ -43,6 +43,7 @@ public class JoinRoomController extends Controller implements Initializable, Err
                 Boolean checkInSuccess = model.checkIn();
                 if (checkInSuccess) {
                     model.getPlayer().waitOtherPlayers();
+                    model.getPlayer().startInitialization();
                     this.next = newPlayerNextView;
                 }
                 else {

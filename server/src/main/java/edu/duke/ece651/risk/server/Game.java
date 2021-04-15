@@ -43,6 +43,9 @@ public class Game {
       theMap.tryAddPlayerInfo(new PlayerInfo(p.getName(), 100, 100));
       // initialize vizStatus for a player.
       theMap.getPlayerInfo(p.getName()).setMultiVizStatus(theMap.getMyTerritories(), false);
+    }
+    for (int i = 0; i < numPlayers; i++){
+      Player p = playerList.get(i);
       ObjectIO m = new ObjectIO(p.getName() + " ,please select your territory groups: ", i, theMap, availableGroups);
       p.out.writeObject(m);
       p.out.flush();

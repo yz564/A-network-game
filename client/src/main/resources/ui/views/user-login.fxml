@@ -21,14 +21,20 @@
                 <Font name="EB Garamond Regular" size="50.0" />
             </font>
         </Label>
-        <Button fx:id="userLogin" layoutX="676.0" layoutY="372.0" mnemonicParsing="false" onAction="#logInButton" prefHeight="34.0" prefWidth="94.0" text="Log In" />
+        <Button fx:id="userLogin" layoutX="676.0" layoutY="372.0" mnemonicParsing="false" onAction="#logInButton" prefHeight="34.0" prefWidth="94.0" text="Log In">
+         <font>
+            <Font name="Open Sans Regular" size="13.0" />
+         </font></Button>
         <TextField fx:id="userLoginUsernameField" alignment="CENTER" layoutX="640.0" layoutY="243.0" prefHeight="34.0" prefWidth="166.0" promptText="Enter username">
             <font>
                 <Font name="Open Sans Regular" size="13.0" />
             </font>
         </TextField>
         <PasswordField fx:id="userLoginPasswordField" alignment="CENTER" layoutX="640.0" layoutY="297.0" prefHeight="34.0" prefWidth="166.0" promptText="Enter password" />
-        <Label fx:id="errorMessage" alignment="CENTER" layoutX="606.0" layoutY="435.0" prefHeight="17.0" prefWidth="238.0" text="" textAlignment="CENTER" textFill="HOTPINK" />
+        <Label fx:id="errorMessage" alignment="CENTER" layoutX="606.0" layoutY="435.0" prefHeight="17.0" prefWidth="238.0" text="" textAlignment="CENTER" textFill="HOTPINK">
+         <font>
+            <Font name="Open Sans Regular" size="13.0" />
+         </font></Label>
 
     </children>
 </Pane>

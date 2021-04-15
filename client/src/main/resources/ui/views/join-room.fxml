@@ -26,9 +26,9 @@
         <RowConstraints maxHeight="233.9582977294922" minHeight="29.746917724609375" prefHeight="88.84722900390625" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="289.2113800048828" minHeight="49.26301574707031" prefHeight="136.80508422851562" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="305.9483642578125" minHeight="14.720916748046875" prefHeight="44.694915771484375" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="181.69326782226562" minHeight="4.084228515625" prefHeight="47.16571044921875" />
-        <RowConstraints maxHeight="192.721923828125" minHeight="4.084228515625" prefHeight="159.73822021484375" />
-      <RowConstraints maxHeight="112.169677734375" minHeight="4.084228515625" prefHeight="72.76177978515625" />
+        <RowConstraints maxHeight="191.5" minHeight="4.084228515625" prefHeight="191.5" />
+        <RowConstraints maxHeight="192.721923828125" minHeight="4.084228515625" prefHeight="32.0" />
+      <RowConstraints maxHeight="112.169677734375" minHeight="4.084228515625" prefHeight="57.0" />
     </rowConstraints>
     <children>
         <ImageView fitHeight="660.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="7" GridPane.halignment="CENTER" GridPane.rowSpan="8">
@@ -52,28 +52,43 @@
             <GridPane.margin>
                 <Insets left="17.0" top="2.0" />
             </GridPane.margin>
+         <font>
+            <Font name="Open Sans Regular" size="13.0" />
+         </font>
         </Button>
         <Button fx:id="joinRoomTwoButton" alignment="CENTER" mnemonicParsing="false" onAction="#onJoinRoomTwo" prefHeight="34.0" prefWidth="91.0" text="Join" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
             <GridPane.margin>
                 <Insets left="8.0" />
             </GridPane.margin>
+         <font>
+            <Font name="Open Sans Regular" size="13.0" />
+         </font>
         </Button>
         <Button fx:id="joinRoomThreeButton" alignment="CENTER" mnemonicParsing="false" onAction="#onJoinRoomThree" prefHeight="34.0" prefWidth="91.0" text="Join" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4">
             <GridPane.margin>
                 <Insets right="7.0" />
             </GridPane.margin>
+         <font>
+            <Font name="Open Sans Regular" size="13.0" />
+         </font>
         </Button>
         <Button fx:id="joinRoomFourButton" alignment="CENTER" mnemonicParsing="false" onAction="#onJoinRoomFour" prefHeight="34.0" prefWidth="91.0" text="Join" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="4">
             <GridPane.margin>
                 <Insets right="20.0" />
             </GridPane.margin>
+         <font>
+            <Font name="Open Sans Regular" size="13.0" />
+         </font>
         </Button>
-        <Label fx:id="errorMessage" alignment="CENTER" prefHeight="18.0" prefWidth="517.0" textAlignment="CENTER" textFill="HOTPINK" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="5">
+        <Label fx:id="errorMessage" alignment="CENTER" prefHeight="18.0" prefWidth="517.0" textAlignment="CENTER" textFill="HOTPINK" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="6">
             <font>
-                <Font size="14.0" />
+                <Font name="Open Sans Regular" size="14.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" prefHeight="43.0" prefWidth="867.0" text="Select game room to start or continue a game.&#10;Once you have selected the room, please wait for the other players before game will start." textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="7" />
+        <Label alignment="CENTER" prefHeight="43.0" prefWidth="867.0" text="Select game room to start or continue a game.&#10;Once you have selected the room, please wait for the other players before game will start." textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="7" GridPane.valignment="TOP">
+         <font>
+            <Font name="Open Sans Regular" size="13.0" />
+         </font></Label>
       <Label alignment="CENTER" prefHeight="27.0" prefWidth="23.0" text="2" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
          <font>
             <Font name="EB Garamond Regular" size="20.0" />

@@ -193,7 +193,7 @@
             <font>
                 <Font name="Open Sans Regular" size="13.0" />
             </font></Label>
-        <Label fx:id="error" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="576.0" textAlignment="CENTER" textFill="HOTPINK" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+        <Label fx:id="errorMessage" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="576.0" textAlignment="CENTER" textFill="HOTPINK" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
     </children>
 
     <fx:define>

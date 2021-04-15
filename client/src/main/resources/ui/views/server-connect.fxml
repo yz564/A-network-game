@@ -34,6 +34,9 @@
                 <Font name="Open Sans Regular" size="13.0" />
             </font>
         </TextField>
-        <Label fx:id="errorMessage" alignment="CENTER" layoutX="521.0" layoutY="187.0" prefHeight="17.0" prefWidth="238.0" text="" textAlignment="CENTER" textFill="HOTPINK" />
+        <Label fx:id="errorMessage" alignment="CENTER" layoutX="521.0" layoutY="187.0" prefHeight="17.0" prefWidth="238.0" text="" textAlignment="CENTER" textFill="HOTPINK">
+         <font>
+            <Font name="Open Sans Regular" size="13.0" />
+         </font></Label>
     </children>
 </Pane>

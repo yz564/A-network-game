@@ -20,11 +20,10 @@ import java.util.ResourceBundle;
 
 /* Class responsible for registering territory group for a player.
  */
-public class SelectTerritoryGroupController extends Controller implements Initializable {
-    WorldMap map;
+public class SelectTerritoryGroupController extends Controller implements Initializable, ErrorHandlingController {
     int numPlayers;
 
-    @FXML Label error;
+    @FXML Label errorMessage;
     @FXML ArrayList<Label> labelList;
     @FXML ArrayList<Circle> charList;
     @FXML ArrayList<Label> nameList;
@@ -50,7 +49,7 @@ public class SelectTerritoryGroupController extends Controller implements Initia
         // set tooltip for each territory label
         helper.initializeTerritoryTooltips(model.getPlayer().getMap(), labelList);
         // set image and label for each character
-        this.numPlayers = model.getPlayer().getNumPlayers();
+        this.numPlayers = model.getPlayer().getMap().getNumPlayers();
         helper.initializeCharacter(charList, nameList, numPlayers);
         this.next = "allocateTalents" + String.valueOf(numPlayers) + "p";
     }
@@ -72,15 +71,25 @@ public class SelectTerritoryGroupController extends Controller implements Initia
     private void assignTerritoryToPlayer(MouseEvent ae, int territoryGroup) throws Exception {
         Object source = ae.getSource();
         if (source instanceof Node) {
+            clearErrorMessage();
             Boolean success = model.getPlayer().tryInitialization(String.valueOf(territoryGroup));
             if (!success) {
-                error.setText(
-                        "Character has already been taken by another player. Try choosing a different character.");
+                errorMessage.setText("Character has already been taken by another player. Try choosing a different character.");
             } else {
                 loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
             }
         } else {
             throw new IllegalArgumentException("Invalid source " + source + " for ActionEvent");
         }
+    }
+
+    @Override
+    public void setErrorMessage(String error) {
+        errorMessage.setText(error);
+    }
+
+    @Override
+    public void clearErrorMessage() {
+        setErrorMessage(null);
     }
 }
