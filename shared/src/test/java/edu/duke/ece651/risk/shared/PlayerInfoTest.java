@@ -46,6 +46,8 @@ public class PlayerInfoTest {
   public void test_getplayerid() {
     PlayerInfo p1 = new PlayerInfo("Player 1", 1, 50, 30);
     assertEquals(1, p1.getPlayerId());
+    p1.setPlayerId(3);
+    assertEquals(3, p1.getPlayerId());
   }
 
   @Test

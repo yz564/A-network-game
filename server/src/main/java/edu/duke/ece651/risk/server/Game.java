@@ -61,7 +61,7 @@ public class Game {
               readyNum++;
               theMap.tryAssignInitOwner(p.tmp.id, p.getName());
               // TODO: how many resources to assign???
-              theMap.tryAddPlayerInfo(new PlayerInfo(p.getName(), p.tmp.id, 100, 100));
+              theMap.getPlayerInfo(p.getName()).setPlayerId(p.tmp.id);
               // initialize vizStatus for a player.
               // theMap.getPlayerInfo(p.getName()).setMultiVizStatus(theMap.getMyTerritories(),
               // false);
@@ -84,6 +84,7 @@ public class Game {
         }
       }
     }
+    soh.updateMultiVizStatus(theMap, playerNames);
     for (int i = 0; i < numPlayers; i++) {
       Player p = playerList.get(i);
       try {
@@ -208,7 +209,7 @@ public class Game {
         }
       }
     }
-    soh.sendCreditToPlayers(theMap, playerNames);
+    soh.doAfterTurn(theMap, playerNames);
   }
 
   /**
