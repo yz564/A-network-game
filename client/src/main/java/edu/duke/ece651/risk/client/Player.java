@@ -48,6 +48,10 @@ public class Player implements Runnable {
         return tmp.message;
     }
 
+    public int getNumPlayers(){
+        return id+2;
+    }
+
     public String getGameOverMessage() {
         return gameOverMessage;
     }

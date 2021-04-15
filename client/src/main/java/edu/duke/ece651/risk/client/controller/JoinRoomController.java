@@ -61,8 +61,7 @@ public class JoinRoomController extends Controller implements Initializable, Err
      */
     @FXML
     public void onJoinRoomOne(ActionEvent ae) throws Exception {
-        //this.newPlayerNextView = "selectTerritoryGroup2P";
-        this.newPlayerNextView = "loadSelectTerritoryGroup2P";
+        this.newPlayerNextView = "selectTerritoryGroupEven";
         this.existingPlayerNextView = "selectActionEvenPlayers";
         joinRoom(ae, 1, newPlayerNextView, existingPlayerNextView);
     }
@@ -73,7 +72,7 @@ public class JoinRoomController extends Controller implements Initializable, Err
      */
     @FXML
     public void onJoinRoomTwo(ActionEvent ae) throws Exception {
-        this.newPlayerNextView = "selectTerritoryGroup3P";
+        this.newPlayerNextView = "selectTerritoryGroupOdd";
         this.existingPlayerNextView = "selectActionOddPlayers";
         joinRoom(ae, 2, newPlayerNextView, existingPlayerNextView);
 
@@ -85,7 +84,7 @@ public class JoinRoomController extends Controller implements Initializable, Err
      */
     @FXML
     public void onJoinRoomThree(ActionEvent ae) throws Exception {
-        this.newPlayerNextView = "selectTerritoryGroup4P";
+        this.newPlayerNextView = "selectTerritoryGroupEven";
         this.existingPlayerNextView = "selectActionEvenPlayers";
         joinRoom(ae, 3, newPlayerNextView, existingPlayerNextView);
     }
@@ -96,7 +95,7 @@ public class JoinRoomController extends Controller implements Initializable, Err
      */
     @FXML
     public void onJoinRoomFour(ActionEvent ae) throws Exception {
-        this.newPlayerNextView = "selectTerritoryGroup5P";
+        this.newPlayerNextView = "selectTerritoryGroupOdd";
         this.existingPlayerNextView = "selectActionOddPlayers";
         joinRoom(ae, 4, newPlayerNextView, existingPlayerNextView);
     }

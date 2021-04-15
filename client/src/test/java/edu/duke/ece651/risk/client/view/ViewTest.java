@@ -1,6 +1,6 @@
 package edu.duke.ece651.risk.client.view;
 
-import edu.duke.ece651.risk.client.controller.SelectTerritoryGroup2PController;
+import edu.duke.ece651.risk.client.controller.SelectTerritoryGroupController;
 import edu.duke.ece651.risk.client.controller.ServerConnectController;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,9 +25,9 @@ public class ViewTest {
         v2.makeScene(mock(ServerConnectController.class));
         View v3 =
                 new View(
-                        "selectTerritoryGroup2P",
-                        "/ui/views/select-territory-2p.fxml",
+                        "selectTerritoryGroupEven",
+                        "/ui/views/select-territory-even.fxml",
                         "/ui/styling/territory-group.css");
-        v3.makeScene(mock(SelectTerritoryGroup2PController.class));
+        v3.makeScene(mock(SelectTerritoryGroupController.class));
     }
 }
