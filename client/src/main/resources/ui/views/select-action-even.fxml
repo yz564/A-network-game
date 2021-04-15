@@ -94,10 +94,10 @@
                         <MenuItem mnemonicParsing="false" onAction="#onSelectAttack" text="Attack"/>
                         <MenuItem mnemonicParsing="false" onAction="#onSelectUpgradeTalents" text="Upgrade Talents"/>
                         <MenuItem mnemonicParsing="false" onAction="#onSelectUpgradeTech" text="Upgrade Tech Level"/>
-                        <MenuItem mnemonicParsing="false" onAction="#onSelectMove" text="Upgrade Spy"/>
-                        <MenuItem mnemonicParsing="false" onAction="#onSelectMove" text="Move Spy"/>
-                        <MenuItem mnemonicParsing="false" onAction="#onSelectMove" text="Research Cloaking"/>
-                        <MenuItem mnemonicParsing="false" onAction="#onSelectMove" text="Cloaking"/>
+                        <MenuItem mnemonicParsing="false" onAction="#onSelectUpgradeSpy" text="Upgrade Spy"/>
+                        <MenuItem mnemonicParsing="false" onAction="#onSelectMoveSpy" text="Move Spy"/>
+                        <MenuItem mnemonicParsing="false" onAction="#onSelectResearchCloaking" text="Research Cloaking"/>
+                        <MenuItem mnemonicParsing="false" onAction="#onSelectCloaking" text="Cloaking"/>
                     </items>
                 </SplitMenuButton>
                 <Button mnemonicParsing="false" onAction="#onCompletingTurn" prefHeight="30.0" prefWidth="125.0"

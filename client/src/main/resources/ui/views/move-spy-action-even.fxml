@@ -19,7 +19,7 @@
 <SplitPane dividerPositions="0.6047094188376754" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
            minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16"
            xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="edu.duke.ece651.risk.client.controller.MoveActionEvenPlayersController">
+           fx:controller="edu.duke.ece651.risk.client.controller.MoveSpyActionEven">
     <items>
         <VBox prefHeight="200.0" prefWidth="100.0">
             <children>
@@ -140,12 +140,12 @@
 
                 <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Spy" GridPane.rowIndex="5"/>
 
-                <TextField fx:id="numTalent1" onKeyReleased="#onTypingNumUnits" text="0" GridPane.columnIndex="1"
+                <TextField fx:id="numSpies" onKeyReleased="#onTypingNumUnits" text="0" GridPane.columnIndex="1"
                            GridPane.rowIndex="5"/>
 
                 <Label text="/" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5"/>
 
-                <Label id="level0" fx:id="numTalentAvailable1" text="" GridPane.columnIndex="3" GridPane.rowIndex="5"/>
+                <Label id="level0" fx:id="numSpiesAvailable" text="" GridPane.columnIndex="3" GridPane.rowIndex="5"/>
 
                 <Label fx:id="foodCost" text="0" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
                 <Label text="/" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6"/>
@@ -185,12 +185,12 @@
     </fx:define>
     <fx:define>
         <ArrayList fx:id="numTalentAvailList">
-            <fx:reference source="numTalentAvailable1"/>
+            <fx:reference source="numSpiesAvailable"/>
         </ArrayList>
     </fx:define>
     <fx:define>
         <ArrayList fx:id="numTalentList">
-            <fx:reference source="numTalent1"/>
+            <fx:reference source="numSpies"/>
         </ArrayList>
     </fx:define>
 </SplitPane>

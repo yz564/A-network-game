@@ -139,6 +139,10 @@ public class PhaseStorage {
             "/ui/views/load-select-territory-group-2p.fxml",
             null,
             "Waiting for Other Players");
+    Phase moveSpyEven = makePhase("moveSpyActionEvenPlayers", "/ui/views/move-spy-action-even.fxml", "/ui/styling/territory-group.css", "Duke Risk Game! - Move Your Spy");
+    Phase moveSpyOdd = makePhase("moveSpyActionOddPlayers", "/ui/views/move-spy-action-odd.fxml", "/ui/styling/territory-group.css", "Duke Risk Game! - Move Your Spy");
+    Phase upgradeSpyEven = makePhase("upgradeSpyActionEvenPlayers", "/ui/views/upgrade-spy-action-even.fxml", "/ui/styling/territory-group.css", "Duke Risk Game! - Upgrade Your Spy");
+    Phase upgradeSpyOdd = makePhase("upgradeSpyActionOddPlayers", "/ui/views/upgrade-spy-action-odd.fxml", "/ui/styling/territory-group.css", "Duke Risk Game! - Upgrade Your Spy");
     Phase phaseTest = makePhase("test", "/ui/views/test.fxml", null, "Duke Risk Game! - Test");
     // Add new Phases here
 
@@ -165,6 +169,10 @@ public class PhaseStorage {
     phases.put(phase10_2.getName(), phase10_2);
     phases.put(phase11.getName(), phase11);
     phases.put(phase12.getName(), phase12);
+    phases.put(moveSpyEven.getName(), moveSpyEven);
+    phases.put(moveSpyOdd.getName(), moveSpyOdd);
+    phases.put(upgradeSpyEven.getName(), upgradeSpyEven);
+    phases.put(upgradeSpyOdd.getName(), upgradeSpyOdd);
     phases.put(phaseTest.getName(), phaseTest);
     // Put new Phases into HashMap here
     return phases;

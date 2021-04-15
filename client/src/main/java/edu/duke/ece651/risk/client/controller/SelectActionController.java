@@ -24,6 +24,7 @@ public class SelectActionController extends Controller implements Initializable 
   String nextOnAttackAction;
   String nextOnUpgradeTalentsAction;
   String nextOnUpgradeTechAction;
+  String nextOnMoveSpy;
   String nextOnGameEnd;
 
   @FXML Label playerInfo;
@@ -64,12 +65,14 @@ public class SelectActionController extends Controller implements Initializable 
       this.nextOnAttackAction = "attackActionEvenPlayers";
       this.nextOnUpgradeTalentsAction = "upgradeTalentsActionEvenPlayers";
       this.nextOnUpgradeTechAction = "upgradeTechActionEvenPlayers";
+      this.nextOnMoveSpy = "moveSpyActionEvenPlayers";
     } else {
       this.nextOnCompleteTurn = "selectActionOddPlayers";
       this.nextOnMoveAction = "moveActionOddPlayers";
       this.nextOnAttackAction = "attackActionOddPlayers";
       this.nextOnUpgradeTalentsAction = "upgradeTalentsActionOddPlayers";
       this.nextOnUpgradeTechAction = "upgradeTechActionOddPlayers";
+      this.nextOnMoveSpy = "moveSpyActionOddPlayers";
     }
     this.nextOnLeave = "joinRoom";
     this.nextOnGameEnd = "gameEnd";
@@ -126,6 +129,30 @@ public class SelectActionController extends Controller implements Initializable 
       throw new IllegalArgumentException("Action event " + ae.getSource() + " is invalid.");
     }
   }
+
+  /**
+   * Opens a new view that asks user to move their spies.
+   * @param ae is the action event that triggers this function.
+   */
+  public void onSelectMoveSpy(ActionEvent ae) throws IOException {
+    Object source = ae.getSource();
+    if (source instanceof MenuItem) {
+      next = nextOnMoveSpy;
+      loadNextPhase((Stage) actionMenu.getScene().getWindow());
+    }
+    else {
+      throw new IllegalArgumentException("Action event " + ae.getSource() + " is invalid.");
+    }
+  }
+
+  @FXML
+  public void onSelectUpgradeSpy(ActionEvent ae) {}
+
+  @FXML
+  public void onSelectResearchCloaking(ActionEvent ae) {}
+
+  @FXML
+  public void onSelectCloaking(ActionEvent ae) {}
 
   /**
    * Switches to the view that asks player join a  room.
