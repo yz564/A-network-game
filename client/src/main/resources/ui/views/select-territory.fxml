@@ -27,104 +27,111 @@
     <children>
         <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="630.0" prefWidth="826.0" GridPane.rowIndex="2">
             <children>
-                <ImageView fitHeight="660.0" fitWidth="990.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="mapImageView" fitHeight="660.0" fitWidth="990.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../static-images/world-maps/new-map-odd.png" />
+                        <Image url="@../static-images/world-maps/new-map-even.png" />
                     </image>
                 </ImageView>
                 <Label fx:id="label0" alignment="CENTER" layoutX="146.0" layoutY="28.0" opacity="0.5" prefHeight="189.0" prefWidth="187.0" styleClass="territory-0" stylesheets="@../styling/territory.css" text="Fuqua" textAlignment="CENTER" wrapText="true">
-                    <font>
-                        <Font name="Open Sans Regular" size="13.0" />
-                    </font>
-                    <padding>
-                        <Insets right="45.0" top="10.0" />
-                    </padding></Label>
+               <font>
+                  <Font name="Open Sans Regular" size="13.0" />
+               </font>
+               <padding>
+                  <Insets right="45.0" top="10.0" />
+               </padding></Label>
                 <Label fx:id="label1" alignment="CENTER" layoutX="257.0" layoutY="141.0" opacity="0.5" prefHeight="171.0" prefWidth="90.0" styleClass="territory-1" stylesheets="@../styling/territory.css" text="Law" textAlignment="CENTER" wrapText="true">
-                    <font>
-                        <Font name="Open Sans Regular" size="13.0" />
-                    </font>
-                    <padding>
-                        <Insets bottom="100.0" />
-                    </padding></Label>
+               <font>
+                  <Font name="Open Sans Regular" size="13.0" />
+               </font>
+               <padding>
+                  <Insets bottom="100.0" />
+               </padding></Label>
                 <Label fx:id="label2" alignment="CENTER" layoutX="338.0" layoutY="66.0" opacity="0.5" prefHeight="159.0" prefWidth="195.0" styleClass="territory-2" stylesheets="@../styling/territory.css" text="Gross&#10;Hall" textAlignment="CENTER" wrapText="true">
-                    <font>
-                        <Font name="Open Sans Regular" size="13.0" />
-                    </font>
-                    <padding>
-                        <Insets right="110.0" top="40.0" />
-                    </padding></Label>
+               <font>
+                  <Font name="Open Sans Regular" size="13.0" />
+               </font>
+               <padding>
+                  <Insets right="110.0" top="40.0" />
+               </padding></Label>
                 <Label fx:id="label3" alignment="CENTER" layoutX="421.0" layoutY="121.0" opacity="0.5" prefHeight="103.0" prefWidth="128.0" styleClass="territory-3" stylesheets="@../styling/territory.css" text="FFRC" textAlignment="CENTER" wrapText="true">
-                    <font>
-                        <Font name="Open Sans Regular" size="13.0" />
-                    </font></Label>
+               <font>
+                  <Font name="Open Sans Regular" size="13.0" />
+               </font></Label>
                 <Label fx:id="label4" alignment="CENTER" layoutX="339.0" layoutY="223.0" opacity="0.5" prefHeight="135.0" prefWidth="185.0" styleClass="territory-4" stylesheets="@../styling/territory.css" text="Bryan&#10;Center" textAlignment="CENTER" wrapText="true">
-                    <font>
-                        <Font name="Open Sans Regular" size="13.0" />
-                    </font>
-                    <padding>
-                        <Insets left="40.0" top="30.0" />
-                    </padding></Label>
+               <font>
+                  <Font name="Open Sans Regular" size="13.0" />
+               </font>
+               <padding>
+                  <Insets left="40.0" top="30.0" />
+               </padding></Label>
                 <Label fx:id="label5" alignment="CENTER" layoutX="528.0" layoutY="82.0" opacity="0.5" prefHeight="163.0" prefWidth="157.0" styleClass="territory-5" stylesheets="@../styling/territory.css" text="LSRC" textAlignment="CENTER" wrapText="true">
-                    <padding>
-                        <Insets right="20.0" top="50.0" />
-                    </padding>
-                    <font>
-                        <Font name="Open Sans Regular" size="13.0" />
-                    </font></Label>
+               <padding>
+                  <Insets right="20.0" top="50.0" />
+               </padding>
+               <font>
+                  <Font name="Open Sans Regular" size="13.0" />
+               </font></Label>
                 <Label fx:id="label6" alignment="CENTER" layoutX="522.0" layoutY="195.0" opacity="0.5" prefHeight="142.0" prefWidth="120.0" styleClass="territory-6" stylesheets="@../styling/territory.css" text="Pratt" textAlignment="CENTER" wrapText="true">
-                    <font>
-                        <Font name="Open Sans Regular" size="13.0" />
-                    </font>
-                    <padding>
-                        <Insets left="20.0" top="60.0" />
-                    </padding></Label>
+               <font>
+                  <Font name="Open Sans Regular" size="13.0" />
+               </font>
+               <padding>
+                  <Insets left="20.0" top="60.0" />
+               </padding></Label>
                 <Label fx:id="label7" alignment="CENTER" layoutX="522.0" layoutY="301.0" opacity="0.5" prefHeight="188.0" prefWidth="124.0" styleClass="territory-7" stylesheets="@../styling/territory.css" text="Perkins&#10;Library" textAlignment="CENTER" wrapText="true">
-                    <font>
-                        <Font name="Open Sans Regular" size="13.0" />
-                    </font>
-                    <padding>
-                        <Insets bottom="35.0" right="20.0" />
-                    </padding></Label>
+                <font>
+                    <Font name="Open Sans Regular" size="13.0" />
+                </font>
+                <padding>
+                  <Insets bottom="35.0" right="20.0" />
+               </padding></Label>
                 <Label fx:id="label8" alignment="CENTER" layoutX="640.0" layoutY="122.0" opacity="0.5" prefHeight="245.0" prefWidth="263.0" styleClass="territory-8" stylesheets="@../styling/territory.css" text="Duke&#10;Hospital" textAlignment="CENTER" wrapText="true">
-                    <padding>
-                        <Insets left="70.0" top="90.0" />
-                    </padding>
-                    <font>
-                        <Font name="Open Sans Regular" size="13.0" />
-                    </font></Label>
+               <padding>
+                  <Insets left="70.0" top="90.0" />
+               </padding>
+               <font>
+                  <Font name="Open Sans Regular" size="13.0" />
+               </font></Label>
                 <Label fx:id="label9" alignment="CENTER" layoutX="623.0" layoutY="280.0" opacity="0.5" prefHeight="199.0" prefWidth="177.0" styleClass="territory-9" stylesheets="@../styling/territory.css" text="Duke&#10;Clinics" textAlignment="CENTER" wrapText="true">
-                    <font>
-                        <Font name="Open Sans Regular" size="13.0" />
-                    </font></Label>
+               <font>
+                  <Font name="Open Sans Regular" size="13.0" />
+               </font></Label>
                 <Label fx:id="label10" alignment="CENTER" layoutX="508.0" layoutY="481.0" opacity="0.5" prefHeight="142.0" prefWidth="327.0" styleClass="territory-10" stylesheets="@../styling/territory.css" text="Duke&#10;Garden" textAlignment="CENTER" wrapText="true">
-                    <font>
-                        <Font name="Open Sans Regular" size="13.0" />
-                    </font></Label>
+               <font>
+                  <Font name="Open Sans Regular" size="13.0" />
+               </font></Label>
                 <Label fx:id="label11" alignment="CENTER" layoutX="394.0" layoutY="385.0" opacity="0.5" prefHeight="46.0" prefWidth="225.0" rotate="90.0" styleClass="territory-11" stylesheets="@../styling/territory.css" text="Duke Chapel" textAlignment="CENTER" wrapText="true">
-                    <font>
-                        <Font name="Open Sans Regular" size="13.0" />
-                    </font></Label>
+               <font>
+                  <Font name="Open Sans Regular" size="13.0" />
+               </font></Label>
                 <Label fx:id="label12" alignment="CENTER" layoutX="347.0" layoutY="353.0" opacity="0.5" prefHeight="268.0" prefWidth="157.0" styleClass="territory-12" stylesheets="@../styling/territory.css" text="Student&#10;Housing" textAlignment="CENTER" wrapText="true">
-                    <font>
-                        <Font name="Open Sans Regular" size="13.0" />
-                    </font>
-                    <padding>
-                        <Insets bottom="160.0" />
-                    </padding></Label>
+               <font>
+                  <Font name="Open Sans Regular" size="13.0" />
+               </font>
+               <padding>
+                  <Insets bottom="160.0" />
+               </padding></Label>
                 <Label fx:id="label13" alignment="CENTER" layoutX="219.0" layoutY="381.0" opacity="0.5" prefHeight="149.0" prefWidth="126.0" styleClass="territory-13" stylesheets="@../styling/territory.css" text="Wilson &#10;Gym" textAlignment="CENTER" wrapText="true">
-                    <padding>
-                        <Insets bottom="50.0" right="40.0" />
-                    </padding>
-                    <font>
-                        <Font name="Open Sans Regular" size="13.0" />
-                    </font></Label>
+               <padding>
+                  <Insets bottom="50.0" right="40.0" />
+               </padding>
+               <font>
+                  <Font name="Open Sans Regular" size="13.0" />
+               </font></Label>
                 <Label fx:id="label14" alignment="CENTER" layoutX="198.0" layoutY="219.0" opacity="0.5" prefHeight="165.0" prefWidth="150.0" styleClass="territory-14" stylesheets="@../styling/territory.css" text="Cameron&#10;Stadium" textAlignment="CENTER" wrapText="true">
-                    <padding>
-                        <Insets bottom="60.0" right="55.0" />
-                    </padding>
-                    <font>
-                        <Font name="Open Sans Regular" size="13.0" />
-                    </font></Label>
+               <padding>
+                  <Insets bottom="60.0" right="55.0" />
+               </padding>
+               <font>
+                  <Font name="Open Sans Regular" size="13.0" />
+               </font></Label>
+                <Label fx:id="label15" alignment="CENTER" layoutX="36.0" layoutY="340.0" opacity="0.5" prefHeight="192.0" prefWidth="189.0" styleClass="territory-15" stylesheets="@../styling/territory.css" text="Wallace&#10;Stadium" textAlignment="CENTER" wrapText="true">
+               <padding>
+                  <Insets left="90.0" />
+               </padding>
+               <font>
+                  <Font name="Open Sans Regular" size="13.0" />
+               </font></Label>
             </children>
         </AnchorPane>
         <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="99.0" prefWidth="413.0" text="Select Character " textAlignment="CENTER" textFill="WHITE">
@@ -132,48 +139,48 @@
                 <Font name="EB Garamond Regular" size="50.0" />
             </font>
         </Label>
-        <HBox alignment="CENTER" maxHeight="111.0" maxWidth="543.0" prefHeight="111.0" prefWidth="543.0" spacing="10.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER">
-            <children>
-                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="105.0">
-                    <children>
-                        <Circle fx:id="char4" accessibleRole="NODE" fill="TRANSPARENT" onMouseClicked="#onSelectingGroup" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-                        <Label fx:id="name4" alignment="CENTER" contentDisplay="CENTER" text="" textAlignment="CENTER" textFill="WHITE">
-                            <font>
-                                <Font name="Open Sans Regular" size="15.0" />
-                            </font>
-                        </Label>
-                    </children>
-                </VBox>
-                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="105.0">
-                    <children>
-                        <Circle fx:id="char2" accessibleRole="NODE" fill="TRANSPARENT" onMouseClicked="#onSelectingGroup" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-                        <Label fx:id="name2" alignment="CENTER" contentDisplay="CENTER" text="" textAlignment="CENTER" textFill="WHITE">
-                            <font>
-                                <Font name="Open Sans Regular" size="15.0" />
-                            </font>
-                        </Label>
-                    </children>
-                </VBox>
-                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="105.0">
-                    <children>
-                        <Circle fx:id="char1" accessibleRole="NODE" fill="TRANSPARENT" onMouseClicked="#onSelectingGroup" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-                        <Label fx:id="name1" alignment="CENTER" contentDisplay="CENTER" text="" textAlignment="CENTER" textFill="WHITE">
-                            <font>
-                                <Font name="Open Sans Regular" size="15.0" />
-                            </font>
-                        </Label>
-                    </children>
-                </VBox>
-                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="105.0">
-                    <children>
-                        <Circle fx:id="char3" accessibleRole="NODE" fill="TRANSPARENT" onMouseClicked="#onSelectingGroup" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-                        <Label fx:id="name3" alignment="CENTER" contentDisplay="CENTER" text="" textAlignment="CENTER" textFill="WHITE">
-                            <font>
-                                <Font name="Open Sans Regular" size="15.0" />
-                            </font>
-                        </Label>
-                    </children>
-                </VBox>
+      <HBox alignment="CENTER" maxHeight="111.0" maxWidth="544.0" prefHeight="111.0" prefWidth="544.0" spacing="10.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="105.0">
+               <children>
+                  <Circle fx:id="char4" accessibleRole="NODE" fill="TRANSPARENT" onMouseClicked="#onSelectingGroup" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                  <Label fx:id="name4" alignment="CENTER" contentDisplay="CENTER" text="" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Open Sans Regular" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="105.0">
+               <children>
+                  <Circle fx:id="char1" accessibleRole="NODE" fill="TRANSPARENT" onMouseClicked="#onSelectingGroup" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                  <Label fx:id="name1" alignment="CENTER" contentDisplay="CENTER" text="" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Open Sans Regular" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="105.0">
+               <children>
+                  <Circle fx:id="char2" accessibleRole="NODE" fill="TRANSPARENT" onMouseClicked="#onSelectingGroup" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                  <Label fx:id="name2" alignment="CENTER" contentDisplay="CENTER" text="" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Open Sans Regular" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="105.0">
+               <children>
+                  <Circle fx:id="char3" accessibleRole="NODE" fill="TRANSPARENT" onMouseClicked="#onSelectingGroup" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                  <Label fx:id="name3" alignment="CENTER" contentDisplay="CENTER" text="" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Open Sans Regular" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="105.0">
                <children>
                   <Circle fx:id="char5" accessibleRole="NODE" fill="TRANSPARENT" onMouseClicked="#onSelectingGroup" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
@@ -184,16 +191,16 @@
                   </Label>
                </children>
             </VBox>
-            </children>
-            <GridPane.margin>
-                <Insets bottom="15.0" />
-            </GridPane.margin>
-        </HBox>
+         </children>
+         <GridPane.margin>
+            <Insets bottom="15.0" />
+         </GridPane.margin>
+      </HBox>
         <Label alignment="CENTER" prefHeight="43.0" prefWidth="413.0" text="Please select a leader as your character for the game. Each character is assigned an initial group of territories." textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.rowIndex="1">
-            <font>
-                <Font name="Open Sans Regular" size="13.0" />
-            </font></Label>
-        <Label fx:id="errorMessage" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="576.0" textAlignment="CENTER" textFill="HOTPINK" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+         <font>
+            <Font name="Open Sans Regular" size="13.0" />
+         </font></Label>
+          <Label fx:id="errorMessage" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="576.0" textAlignment="CENTER" textFill="HOTPINK" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
     </children>
 
     <fx:define>
@@ -213,6 +220,7 @@
             <fx:reference source="label12" />
             <fx:reference source="label13" />
             <fx:reference source="label14" />
+            <fx:reference source="label15" />
         </ArrayList>
     </fx:define>
     <fx:define>

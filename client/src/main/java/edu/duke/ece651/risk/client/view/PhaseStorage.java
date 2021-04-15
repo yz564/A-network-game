@@ -25,16 +25,10 @@ public class PhaseStorage {
             "/ui/views/join-room.fxml",
             "/ui/styling/general-design.css",
             "Duke Risk Game! - Join Room");
-    Phase phase4_1 =
+    Phase phase4 =
         makePhase(
-                "selectTerritoryGroupEven",
-                "/ui/views/select-territory-even.fxml",
-                "/ui/styling/territory-group.css",
-                "Duke Risk Game! - Choose Your Character");
-    Phase phase4_2 =
-        makePhase(
-                "selectTerritoryGroupOdd",
-                "/ui/views/select-territory-odd.fxml",
+                "selectTerritoryGroup",
+                "/ui/views/select-territory.fxml",
                 "/ui/styling/territory-group.css",
                 "Duke Risk Game! - Choose Your Character");
     Phase phase5_1 =
@@ -133,8 +127,7 @@ public class PhaseStorage {
     phases.put(phase1.getName(), phase1);
     phases.put(phase2.getName(), phase2);
     phases.put(phase3.getName(), phase3);
-    phases.put(phase4_1.getName(), phase4_1);
-    phases.put(phase4_2.getName(), phase4_2);
+    phases.put(phase4.getName(), phase4);
     phases.put(phase5_1.getName(), phase5_1);
     phases.put(phase5_2.getName(), phase5_2);
     phases.put(phase5_3.getName(), phase5_3);

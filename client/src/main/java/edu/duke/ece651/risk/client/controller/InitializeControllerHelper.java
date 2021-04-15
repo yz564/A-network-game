@@ -8,6 +8,8 @@ import edu.duke.ece651.risk.shared.Territory;
 import edu.duke.ece651.risk.shared.WorldMap;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 
 import java.util.ArrayList;
@@ -21,8 +23,14 @@ public class InitializeControllerHelper {
    * @param territoryLabelList the territory label ArrayList.
    */
   public void initializeTerritoryTooltips(WorldMap map, ArrayList<Label> territoryLabelList) {
+    int numPlayers = map.getNumPlayers();
     StyleMapping mapping = new StyleMapping();
     for (Label territoryLabel : territoryLabelList) {
+      if (numPlayers % 2 == 1 && territoryLabelList.indexOf(territoryLabel) == 15) {
+        territoryLabel.setDisable(true);
+        territoryLabel.setText("");
+        continue;
+      }
       String territoryName = mapping.getTerritoryLabelId(territoryLabel.getId());
       Tooltip tt = new Tooltip();
       tt.setText(getTerritoryTextInfo(map, territoryName));
@@ -45,12 +53,28 @@ public class InitializeControllerHelper {
     playerInfoLabel.setTooltip(tt);
   }
 
-  public void initializeCharacter(ArrayList<Circle> characterButtonList, ArrayList<Label> characterLabelList, int numPlayers){
+  public void initializeCharacter(WorldMap map, ArrayList<Circle> characterButtonList, ArrayList<Label> characterLabelList){
+    int numPlayers = map.getNumPlayers();
     StyleMapping mapping = new StyleMapping();
-    for (int i = 0; i < numPlayers; i++){
+    for (int i = 0; i < characterButtonList.size(); i++){
+      if (i >= numPlayers){
+        characterButtonList.get(i).setDisable(true);
+        characterLabelList.get(i).setDisable(true);
+        continue;
+      }
       LeaderCharacter leader = new LeaderCharacter(characterButtonList.get(i), characterLabelList.get(i), mapping);
       leader.setImage();
       leader.setLabel();
+    }
+  }
+
+  public void initializeMap(WorldMap map, ImageView mapImageView){
+    int numPlayers = map.getNumPlayers();
+    if (numPlayers % 2 == 0){
+      mapImageView.setImage(new Image("ui/static-images/world-maps/new-map-even.png"));
+    }
+    else{
+      mapImageView.setImage(new Image("ui/static-images/world-maps/new-map-odd.png"));
     }
   }
 
@@ -61,9 +85,15 @@ public class InitializeControllerHelper {
    * @param territoryLabelList the territory label ArrayList.
    */
   public void initializeTerritoryLabelByGroup(WorldMap map, ArrayList<Label> territoryLabelList) {
+    int numPlayers = map.getNumPlayers();
     StyleMapping mapping = new StyleMapping();
     // set coloring for each territory label
     for (Label territoryLabel : territoryLabelList) {
+      if (numPlayers % 2 == 1 && territoryLabelList.indexOf(territoryLabel) == 15) {
+        territoryLabel.setText("");
+        territoryLabel.setDisable(true);
+        continue;
+      }
       String territoryName = mapping.getTerritoryLabelId(territoryLabel.getId());
       int initGroup = map.inWhichInitGroup(territoryName);
       territoryLabel.getStyleClass().add("territory-group-" + String.valueOf(initGroup));
@@ -71,9 +101,15 @@ public class InitializeControllerHelper {
   }
 
   public void initializeTerritoryLabelByOwner(WorldMap map, ArrayList<Label> territoryLabelList) {
+    int numPlayers = map.getNumPlayers();
     StyleMapping mapping = new StyleMapping();
     // set coloring for each territory label
     for (Label territoryLabel : territoryLabelList) {
+      if (numPlayers % 2 == 1 && territoryLabelList.indexOf(territoryLabel) == 15) {
+        territoryLabel.setText("");
+        territoryLabel.setDisable(true);
+        continue;
+      }
       String territoryName = mapping.getTerritoryLabelId(territoryLabel.getId());
       int initGroup =
           map.getPlayerInfo(map.getTerritory(territoryName).getOwnerName()).getPlayerId();

@@ -26,7 +26,7 @@ public class ViewTest {
         View v3 =
                 new View(
                         "selectTerritoryGroupEven",
-                        "/ui/views/select-territory-even.fxml",
+                        "/ui/views/select-territory.fxml",
                         "/ui/styling/territory-group.css");
         v3.makeScene(mock(SelectTerritoryGroupController.class));
     }
