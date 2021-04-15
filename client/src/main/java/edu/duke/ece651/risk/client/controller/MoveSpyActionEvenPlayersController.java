@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 
-public class MoveSpyActionEven extends Controller implements Initializable, ErrorHandlingController {
+public class MoveSpyActionEvenPlayersController extends Controller implements Initializable, ErrorHandlingController {
     ObservableList sourceTerritoryNames = FXCollections.observableArrayList();
     ObservableList destTerritoryNames = FXCollections.observableArrayList();
     @FXML ArrayList<Label> labelList;
@@ -42,7 +42,7 @@ public class MoveSpyActionEven extends Controller implements Initializable, Erro
      * Constructor that initializes the model.
      * @param model is the backend of the game.
      */
-    public MoveSpyActionEven (App model) {
+    public MoveSpyActionEvenPlayersController(App model) {
         super(model);
         this.next = "selectActionEvenPlayers";
 
@@ -166,16 +166,16 @@ public class MoveSpyActionEven extends Controller implements Initializable, Erro
         Object source = ke.getCode();
         if (this.numKeys.contains(source)) {
             clearErrorMessage();
-            ActionInfo moveSpyInfo = getMoveSpyActionInfo();
-            ActionCostCalculator calc = new ActionCostCalculator();
-            int cost = calc.calculateCost(moveSpyInfo, model.getPlayer().getMap()).get("food");
-            String isValid = checkInput();
-            if (isValid != null) {
-                setErrorMessage(isValid);
-                foodCost.setText("0");
+            String isValidInput = checkInput();
+            if (isValidInput == null) {
+                ActionInfo moveSpyInfo = getMoveSpyActionInfo();
+                ActionCostCalculator calc = new ActionCostCalculator();
+                int cost = calc.calculateCost(moveSpyInfo, model.getPlayer().getMap()).get("food");
+                foodCost.setText(String.valueOf(cost));
             }
             else {
-                foodCost.setText(String.valueOf(cost));
+                setErrorMessage(isValidInput);
+                foodCost.setText("0");
             }
         }
     }
@@ -183,7 +183,7 @@ public class MoveSpyActionEven extends Controller implements Initializable, Erro
     /**
      * Returns a move spy ActionInfo object based on fields entered by the user in the view.
      */
-    private ActionInfo getMoveSpyActionInfo() throws IllegalArgumentException {
+    private ActionInfo getMoveSpyActionInfo() throws IllegalArgumentException, NullPointerException {
         ActionInfoFactory af = new ActionInfoFactory();
         int numUnits = parseIntFromTextField(numSpies.getText(), 1);
         ActionInfo info =
@@ -199,17 +199,23 @@ public class MoveSpyActionEven extends Controller implements Initializable, Erro
      * Ensures all the inputs required to make a valid spy move are valid and returns a null string.
      * Returns a string with a descriptive error if check fails.
      */
-    String checkInput() {
+    private String checkInput() {
         try {
             if (parseIntFromTextField(numSpies.getText(), 1) < 0) {
                 throw new IllegalArgumentException("Please enter a non-negative number for moving spies.");
             }
-            sourceTerritoryName.getValue();
-            destTerritoryName.getValue();
+            if ((String) sourceTerritoryName.getValue() == null) {
+                throw new NullPointerException("Source territory is empty.");
+            }
+            else if ((String) destTerritoryName.getValue() == null) {
+                throw new NullPointerException("Destination territory is empty.");
+            }
         } catch (IllegalArgumentException iae) {
             return iae.getMessage();
         } catch (NullPointerException npe) {
-            return "Source and/or destination are empty.";
+            return npe.getMessage();
+        } catch (Exception e) {
+            return "Invalid input.";
         }
         return null;
     }

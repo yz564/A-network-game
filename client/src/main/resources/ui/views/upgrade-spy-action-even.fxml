@@ -15,7 +15,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane dividerPositions="0.6047094188376754" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.risk.client.controller.UpgradeTalentsActionEvenPlayersController">
+<?import java.util.ArrayList?>
+<SplitPane dividerPositions="0.6047094188376754" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.risk.client.controller.UpgradeSpyActionEvenPlayersController">
     <items>
         <VBox prefHeight="200.0" prefWidth="100.0">
             <children>
@@ -98,24 +99,23 @@
                     </font>
                 </Label>
 
-                <ChoiceBox fx:id="sourceTerritoryName" onAction="#onSelectSource" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3" />
-                <TextField fx:id="numTalents" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                <Label fx:id="numTalentsAvailable" prefHeight="17.0" prefWidth="41.0" text="8" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                <ChoiceBox fx:id="sourceTerritoryName" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3" />
+                <TextField fx:id="numUnits" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <Label fx:id="numUnitsAvailable" prefHeight="17.0" prefWidth="41.0" text="8" GridPane.columnIndex="3" GridPane.rowIndex="4" />
 
                 <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Territory:" GridPane.rowIndex="3" />
                 <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Num of Undergrads:" GridPane.rowIndex="4" />
                 <Label text="/" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
 
                 <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Total Tech Cost: " GridPane.rowIndex="5" />
-                <Label fx:id="techCost" text="" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                 <Label text="/" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
                 <Label fx:id="techAvailable" prefHeight="17.0" prefWidth="41.0" text="" GridPane.columnIndex="3" GridPane.rowIndex="5" />
 
-                <Button mnemonicParsing="false" onAction="#onUpgradeTalent" prefHeight="26.0" prefWidth="95.0" text="Confirm" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6" />
+                <Button mnemonicParsing="false" onAction="#onUpgradeToSpy" prefHeight="26.0" prefWidth="95.0" text="Confirm" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6" />
                 <Button mnemonicParsing="false" onAction="#onCancel" prefHeight="26.0" prefWidth="95.0" text="Cancel" GridPane.columnIndex="1" GridPane.rowIndex="7" />
 
                 <Label fx:id="errorMessage" alignment="CENTER" prefHeight="58.0" prefWidth="323.0" textFill="#fa0707" GridPane.columnSpan="4" GridPane.rowIndex="12" />
-            <Label fx:id="techAvailable1" alignment="CENTER" prefHeight="17.0" prefWidth="41.0" text="" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+            <Label fx:id="techCost" alignment="CENTER" prefHeight="17.0" prefWidth="41.0" text="" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
             </children>
         </GridPane>
     </items>
