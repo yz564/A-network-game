@@ -1,12 +1,14 @@
 package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
+import edu.duke.ece651.risk.client.view.LeaderCharacter;
 import edu.duke.ece651.risk.client.view.StyleMapping;
 import edu.duke.ece651.risk.shared.PlayerInfo;
 import edu.duke.ece651.risk.shared.Territory;
 import edu.duke.ece651.risk.shared.WorldMap;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.scene.shape.Circle;
 
 import java.util.ArrayList;
 
@@ -41,6 +43,15 @@ public class InitializeControllerHelper {
     tt.setText(getPlayerInfo(map, playerName));
     tt.getStyleClass().add("tooltip-player-info");
     playerInfoLabel.setTooltip(tt);
+  }
+
+  public void initializeCharacter(ArrayList<Circle> characterButtonList, ArrayList<Label> characterLabelList, int numPlayers){
+    StyleMapping mapping = new StyleMapping();
+    for (int i = 0; i < numPlayers; i++){
+      LeaderCharacter leader = new LeaderCharacter(characterButtonList.get(i), characterLabelList.get(i), mapping);
+      leader.setImage();
+      leader.setLabel();
+    }
   }
 
   /**

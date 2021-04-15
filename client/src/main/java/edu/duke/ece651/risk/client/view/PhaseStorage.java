@@ -27,28 +27,16 @@ public class PhaseStorage {
             "Duke Risk Game! - Join Room");
     Phase phase4_1 =
         makePhase(
-            "selectTerritoryGroup2P",
-            "/ui/views/select-territory-2p.fxml",
-            "/ui/styling/territory-group.css",
-            "Duke Risk Game! - Choose Your Territory Group");
+                "selectTerritoryGroupEven",
+                "/ui/views/select-territory-even.fxml",
+                "/ui/styling/territory-group.css",
+                "Duke Risk Game! - Choose Your Character");
     Phase phase4_2 =
         makePhase(
-            "selectTerritoryGroup3P",
-            "/ui/views/select-territory-3p.fxml",
-            "/ui/styling/territory-group.css",
-            "Duke Risk Game! - Choose Your Territory Group");
-    Phase phase4_3 =
-        makePhase(
-            "selectTerritoryGroup4P",
-            "/ui/views/select-territory-4p.fxml",
-            "/ui/styling/territory-group.css",
-            "Duke Risk Game! - Choose Your Territory Group");
-    Phase phase4_4 =
-        makePhase(
-            "selectTerritoryGroup5P",
-            "/ui/views/select-territory-5p.fxml",
-            "/ui/styling/territory-group.css",
-            "Duke Risk Game! - Choose Your Territory Group");
+                "selectTerritoryGroupOdd",
+                "/ui/views/select-territory-odd.fxml",
+                "/ui/styling/territory-group.css",
+                "Duke Risk Game! - Choose Your Character");
     Phase phase5_1 =
         makePhase(
             "allocateTalents2p",
@@ -143,8 +131,6 @@ public class PhaseStorage {
     phases.put(phase3.getName(), phase3);
     phases.put(phase4_1.getName(), phase4_1);
     phases.put(phase4_2.getName(), phase4_2);
-    phases.put(phase4_3.getName(), phase4_3);
-    phases.put(phase4_4.getName(), phase4_4);
     phases.put(phase5_1.getName(), phase5_1);
     phases.put(phase5_2.getName(), phase5_2);
     phases.put(phase5_3.getName(), phase5_3);

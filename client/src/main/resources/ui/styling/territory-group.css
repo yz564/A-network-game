@@ -69,3 +69,78 @@
     -fx-font-size: 10pt;
     white-space: pre-wrap;
 }
+
+.character-1 {
+    -fx-stroke: HOTPINK;
+    -fx-stroke-width: 3;
+}
+
+.character-1:hover {
+    -fx-stroke: PINK;
+    -fx-stroke-width: 3;
+}
+
+.character-1:pressed {
+    -fx-stroke: DEEPPINK;
+    -fx-stroke-width: 3;
+}
+
+.character-2 {
+    -fx-stroke: CORNFLOWERBLUE;
+    -fx-stroke-width: 3;
+}
+
+.character-2:hover {
+    -fx-stroke: LIGHTBLUE;
+    -fx-stroke-width: 3;
+}
+
+.character-2:pressed {
+    -fx-stroke: DODGERBLUE;
+    -fx-stroke-width: 3;
+}
+
+.character-3 {
+    -fx-stroke: ORANGE;
+    -fx-stroke-width: 3;
+}
+
+.character-3:hover {
+    -fx-stroke: GOLD;
+    -fx-stroke-width: 3;
+}
+
+.character-3:pressed {
+    -fx-stroke: TOMATO;
+    -fx-stroke-width: 3;
+}
+
+.character-4 {
+    -fx-stroke: LIGHTSEAGREEN;
+    -fx-stroke-width: 3;
+}
+
+.character-4:hover {
+    -fx-stroke: LIGHTGREEN;
+    -fx-stroke-width: 3;
+}
+
+.character-4:pressed {
+    -fx-stroke: FORESTGREEN;
+    -fx-stroke-width: 3;
+}
+
+.character-5 {
+    -fx-stroke: MEDIUMPURPLE;
+    -fx-stroke-width: 3;
+}
+
+.character-5:hover {
+    -fx-stroke: PLUM;
+    -fx-stroke-width: 3;
+}
+
+.character-5:pressed {
+    -fx-stroke: SLATEBLUE;
+    -fx-stroke-width: 3;
+}

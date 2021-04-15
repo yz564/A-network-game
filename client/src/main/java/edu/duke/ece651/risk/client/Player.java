@@ -38,6 +38,10 @@ public class Player implements Runnable {
         this.upgradeTechNum = 0;
     }
 
+    public int getNumPlayers(){
+        return id+2;
+    }
+
     public String getGameOverMessage() {
       return gameOverMessage;
     }

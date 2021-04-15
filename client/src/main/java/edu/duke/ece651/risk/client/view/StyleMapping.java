@@ -8,6 +8,7 @@ public class StyleMapping {
   private static HashMap<Integer, String> territoryGroupColors = makeColors();
   private static HashMap<String, String> unitNameToTalent = makeTalents();
   private static ArrayList<String> TalentNames = makeTalentNames();
+  private static ArrayList<String> characterNames = makeCharacterNames();
 
   private static HashMap<String, String> makeLabels() {
     HashMap<String, String> labels = new HashMap<>();
@@ -78,5 +79,19 @@ public class StyleMapping {
 
   public String getTalents(String unitName) {
     return unitNameToTalent.get(unitName);
+  }
+
+  private static ArrayList<String> makeCharacterNames(){
+    ArrayList<String> characterNames = new ArrayList<>();
+    characterNames.add("Melinda Gates"); //Fuqua
+    characterNames.add("William Kaelin"); //Medicine
+    characterNames.add("Coach K"); //Sports
+    characterNames.add("Drew Hilton"); //Pratt
+    characterNames.add("Valerie Ashby"); //Trinity
+    return characterNames;
+  }
+
+  public String getCharacterNames(int id) {
+    return characterNames.get(id);
   }
 }
