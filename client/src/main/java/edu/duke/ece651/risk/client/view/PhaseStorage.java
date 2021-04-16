@@ -101,12 +101,11 @@ public class PhaseStorage {
             "/ui/views/upgrade-tech-action-odd.fxml",
             "/ui/styling/territory-group.css");
     Phase phase11 =
-        makePhase("gameEnd", "Duke Risk Game! - Game End", "/ui/views/game-end.fxml", null);
+        makePhase("gameEnd", "Duke Risk Game! - Game End", "/ui/views/game-end.fxml");
     Phase phase12 = makePhase("loadSelectTerritoryGroup2P",
             "Waiting for Other Players",
-            "/ui/views/load-select-territory-group-2p.fxml",
-            null);
-    Phase phaseTest = makePhase("test", "Duke Risk Game! - Test", "/ui/views/test.fxml", null);
+            "/ui/views/load-select-territory-group-2p.fxml");
+    Phase phaseTest = makePhase("test", "Duke Risk Game! - Test", "/ui/views/test.fxml");
     // Add new Phases here
 
     phases.put(phase1.getName(), phase1);

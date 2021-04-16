@@ -22,10 +22,6 @@ public class View {
         }
     }
 
-    public View(String name, String xmlPath) {
-        this(name, xmlPath, null);
-    }
-
     public String getName() {
         return this.name;
     }
@@ -34,7 +30,7 @@ public class View {
         return this.xmlPath;
     }
 
-    public ArrayList<String> getCSSPath() {
+    public ArrayList<String> getCSSPathList() {
         return this.cssPathList;
     }
 
