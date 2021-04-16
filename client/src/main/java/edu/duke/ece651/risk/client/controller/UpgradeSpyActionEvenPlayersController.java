@@ -83,7 +83,7 @@ public class UpgradeSpyActionEvenPlayersController extends Controller implements
     /**
      * Fills the source territory choice box with all the territories that a player owns.
      */
-    private void setSourceTerritoryNames() private void setTerritoryNames() {
+    private void setSourceTerritoryNames() {
         sourceTerritoryNames.removeAll(sourceTerritoryNames);
         String playerName = model.getPlayer().getName();
         HashMap<String, Territory> playerTerritories =
@@ -143,7 +143,7 @@ public class UpgradeSpyActionEvenPlayersController extends Controller implements
             String isValidInput = checkInput(); // make sure all the inputs are valid for the move spy order.
             if (isValidInput == null) {
                 ActionInfo info = getUpgradeSpyActionInfo();
-                String success = model.getPlayer().tryIssueMoveSpyOrder(info);
+                String success = model.getPlayer().tryIssueUpgradeSpyUnitOrder(info);
                 if (success != null) {
                     setErrorMessage(success);
                 } else {
@@ -162,12 +162,11 @@ public class UpgradeSpyActionEvenPlayersController extends Controller implements
      */
     private ActionInfo getUpgradeSpyActionInfo() throws IllegalArgumentException, NullPointerException {
         ActionInfoFactory af = new ActionInfoFactory();
-        int numUnits = parseIntFromTextField(numUnits.getText(), 1);
         ActionInfo info =
                 af.createUpgradeSpyUnitActionInfo(
                         model.getPlayer().getName(),
                         (String) sourceTerritoryName.getValue(),
-                        numUnits);
+                        parseIntFromTextField(numUnits.getText(), 1));
         return info;
     }
 

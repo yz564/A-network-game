@@ -26,10 +26,8 @@ import java.util.ResourceBundle;
 public class MoveSpyActionOddPlayersController extends Controller implements Initializable, ErrorHandlingController {
     ObservableList sourceTerritoryNames = FXCollections.observableArrayList();
     ObservableList destTerritoryNames = FXCollections.observableArrayList();
-    @FXML
-    ArrayList<Label> labelList;
-    @FXML
-    ChoiceBox sourceTerritoryName;
+    @FXML ArrayList<Label> labelList;
+    @FXML ChoiceBox sourceTerritoryName;
     @FXML ChoiceBox destTerritoryName;
     @FXML Label playerInfo;
     @FXML TextField numSpies;
@@ -81,7 +79,12 @@ public class MoveSpyActionOddPlayersController extends Controller implements Ini
         // set coloring for player info
         helper.initializeTerritoryPlayerInfoColor(model, playerInfo);
 
+        // set source territory names in the choice box
         setSourceTerritoryNames();
+
+        // set available food amount
+        String playerName = model.getPlayer().getName();
+        foodAvailable.setText(String.valueOf(model.getPlayer().getMap().getPlayerInfo(playerName).getResTotals().get("food")));
     }
 
     /**
@@ -115,6 +118,11 @@ public class MoveSpyActionOddPlayersController extends Controller implements Ini
             HashMap<String, Territory> neighbors = srcTerritory.getMyNeighbors();
             destTerritoryNames.addAll(neighbors.keySet());
             destTerritoryName.getItems().addAll(destTerritoryNames);
+
+            // show the available spies in selected source territory
+            WorldMap worldMap = model.getPlayer().getMap();
+            String playerName = model.getPlayer().getName();
+            numSpiesAvailable.setText(String.valueOf(worldMap.getTerritory((String) sourceTerritoryName.getValue()).getSpyTroopNumUnits(playerName)));
         }
         else {
             throw new IllegalArgumentException("Invalid ActionEvent source " + source);
@@ -187,13 +195,12 @@ public class MoveSpyActionOddPlayersController extends Controller implements Ini
      */
     private ActionInfo getMoveSpyActionInfo() throws IllegalArgumentException, NullPointerException {
         ActionInfoFactory af = new ActionInfoFactory();
-        int numUnits = parseIntFromTextField(numSpies.getText(), 1);
         ActionInfo info =
-                af.createUpgradeSpyActionInfo(
+                af.createMoveSpyActionInfo(
                         model.getPlayer().getName(),
                         (String) sourceTerritoryName.getValue(),
                         (String) destTerritoryName.getValue(),
-                        numUnits);
+                        parseIntFromTextField(numSpies.getText(), 1));
         return info;
     }
 

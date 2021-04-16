@@ -25,6 +25,7 @@ public class SelectActionController extends Controller implements Initializable 
   String nextOnUpgradeTalentsAction;
   String nextOnUpgradeTechAction;
   String nextOnMoveSpy;
+  String nextOnUpgradeSpy;
   String nextOnGameEnd;
 
   @FXML Label playerInfo;
@@ -66,6 +67,7 @@ public class SelectActionController extends Controller implements Initializable 
       this.nextOnUpgradeTalentsAction = "upgradeTalentsActionEvenPlayers";
       this.nextOnUpgradeTechAction = "upgradeTechActionEvenPlayers";
       this.nextOnMoveSpy = "moveSpyActionEvenPlayers";
+      this.nextOnUpgradeSpy = "upgradeSpyActionEvenPlayers";
     } else {
       this.nextOnCompleteTurn = "selectActionOddPlayers";
       this.nextOnMoveAction = "moveActionOddPlayers";
@@ -73,6 +75,7 @@ public class SelectActionController extends Controller implements Initializable 
       this.nextOnUpgradeTalentsAction = "upgradeTalentsActionOddPlayers";
       this.nextOnUpgradeTechAction = "upgradeTechActionOddPlayers";
       this.nextOnMoveSpy = "moveSpyActionOddPlayers";
+      this.nextOnUpgradeSpy = "upgradeSpyActionOddPlayers";
     }
     this.nextOnLeave = "joinRoom";
     this.nextOnGameEnd = "gameEnd";
@@ -145,8 +148,21 @@ public class SelectActionController extends Controller implements Initializable 
     }
   }
 
+  /**
+   * Opens a new view that asks user to upgrade their spies.
+   * @param ae is the action event that triggers this function.
+   */
   @FXML
-  public void onSelectUpgradeSpy(ActionEvent ae) {}
+  public void onSelectUpgradeSpy(ActionEvent ae) throws IOException {
+    Object source = ae.getSource();
+    if (source instanceof MenuItem) {
+      next = nextOnUpgradeSpy;
+      loadNextPhase((Stage) actionMenu.getScene().getWindow());
+    }
+    else {
+      throw new IllegalArgumentException("Action event " + ae.getSource() + " is invalid.");
+    }
+  }
 
   @FXML
   public void onSelectResearchCloaking(ActionEvent ae) {}
