@@ -2,10 +2,7 @@ package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
 import edu.duke.ece651.risk.client.view.PhaseChanger;
-import edu.duke.ece651.risk.shared.ActionCostCalculator;
-import edu.duke.ece651.risk.shared.ActionInfo;
-import edu.duke.ece651.risk.shared.ActionInfoFactory;
-import edu.duke.ece651.risk.shared.Territory;
+import edu.duke.ece651.risk.shared.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -27,9 +25,12 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 
-public class MoveActionEvenPlayersController extends Controller implements Initializable, ErrorHandlingController {
+public class MoveActionController extends Controller implements Initializable, ErrorHandlingController {
   ObservableList territoryNames = FXCollections.observableArrayList();
   HashSet<KeyCode> numKeys;
+  WorldMap map;
+
+  @FXML ImageView mapImageView;
 
   @FXML ChoiceBox sourceTerritoryName;
 
@@ -53,9 +54,9 @@ public class MoveActionEvenPlayersController extends Controller implements Initi
    * Constructor that initializes the model.
    * @param model is the backend of the game.
    */
-  public MoveActionEvenPlayersController(App model) {
+  public MoveActionController(App model) {
     super(model);
-    this.next = "selectActionEvenPlayers";
+    this.next = "selectAction";
 
     // keys that trigger dynamic cost calculation for the move order
     this.numKeys = new HashSet<>();
@@ -80,7 +81,11 @@ public class MoveActionEvenPlayersController extends Controller implements Initi
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    // get map from client App
+    this.map = model.getPlayer().getMap();
     InitializeControllerHelper helper = new InitializeControllerHelper();
+    // set map image according to number of players
+    helper.initializeMap(map, mapImageView);
     // set coloring for each territory label
     helper.initializeTerritoryLabelByOwner(model.getPlayer().getMap(), labelList);
     // set tooltip for each territory label

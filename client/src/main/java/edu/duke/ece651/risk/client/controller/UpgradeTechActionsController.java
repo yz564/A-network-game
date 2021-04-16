@@ -4,6 +4,7 @@ import edu.duke.ece651.risk.client.App;
 import edu.duke.ece651.risk.shared.ActionCostCalculator;
 import edu.duke.ece651.risk.shared.ActionInfo;
 import edu.duke.ece651.risk.shared.ActionInfoFactory;
+import edu.duke.ece651.risk.shared.WorldMap;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -21,8 +23,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class UpgradeTechActionsOddPlayersController extends Controller implements Initializable, ErrorHandlingController {
+public class UpgradeTechActionsController extends Controller implements Initializable, ErrorHandlingController {
   ObservableList techLevels;
+  WorldMap map;
+
+  @FXML ImageView mapImageView;
 
   @FXML Label currTechLevel;
 
@@ -44,9 +49,9 @@ public class UpgradeTechActionsOddPlayersController extends Controller implement
    * Constructor that initializes the model.
    * @param model is the backend of the game.
    */
-  public UpgradeTechActionsOddPlayersController(App model) {
+  public UpgradeTechActionsController(App model) {
     super(model);
-    this.next = "selectActionOddPlayers";
+    this.next = "selectAction";
     techLevels = FXCollections.observableArrayList();
   }
 
@@ -57,8 +62,11 @@ public class UpgradeTechActionsOddPlayersController extends Controller implement
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    // get map from client App
+    this.map = model.getPlayer().getMap();
     InitializeControllerHelper helper = new InitializeControllerHelper();
-    // set coloring for each territory label
+    // set map image according to number of players
+    helper.initializeMap(map, mapImageView);// set coloring for each territory label
     helper.initializeTerritoryLabelByOwner(model.getPlayer().getMap(), labelList);
     // set tooltip for each territory label
     helper.initializeTerritoryTooltips(model.getPlayer().getMap(), labelList);
@@ -80,7 +88,7 @@ public class UpgradeTechActionsOddPlayersController extends Controller implement
   }
 
   /**
-   *  Populates a choice box with the names of various talents present in the game such as 'Undergrad', 'Masters', etc.
+   * Populates a choice box with the names of various talents present in the game such as 'Undergrad', 'Masters', etc.
    */
   private void setUpgradeChoiceBox(ChoiceBox box) {
     techLevels.removeAll(techLevels);
@@ -91,7 +99,7 @@ public class UpgradeTechActionsOddPlayersController extends Controller implement
   }
 
   /**
-   *  Asks server to upgrade the technology of the current player. If upgrade is successful, view switches to
+   * Asks server to upgrade the technology of the current player. If upgrade is successful, view switches to
    * Action Selection window, else an error is displayed describing the problem with the upgrade.
    */
   @FXML
@@ -117,7 +125,7 @@ public class UpgradeTechActionsOddPlayersController extends Controller implement
   }
 
   /**
-   *  Triggered when a player hits the cancel button.
+   * Triggered when a player hits the cancel button.
    * Player is taken back to the select action window.
    */
   @FXML
@@ -132,7 +140,7 @@ public class UpgradeTechActionsOddPlayersController extends Controller implement
   }
 
   /**
-   *  Displays the cost of upgrading the tech level.
+   * Displays the cost of upgrading the tech level.
    */
   @FXML
   public void onSelectingTechLevel(MouseEvent me) throws Exception {
@@ -150,7 +158,7 @@ public class UpgradeTechActionsOddPlayersController extends Controller implement
   }
 
   /**
-   *  Returns a upgrade tech ActionInfo object based on new tech level selected by the player in the view.
+   * Returns a upgrade tech ActionInfo object based on new tech level selected by the player in the view.
    */
   private ActionInfo getUpgradeTechActionInfo() {
     ActionInfoFactory af = new ActionInfoFactory();

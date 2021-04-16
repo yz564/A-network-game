@@ -4,7 +4,6 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -19,7 +18,7 @@
 <SplitPane dividerPositions="0.6047094188376754" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
            minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16"
            xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="edu.duke.ece651.risk.client.controller.UpgradeTalentsActionOddPlayersController">
+           fx:controller="edu.duke.ece651.risk.client.controller.UpgradeTalentsActionController">
     <items>
         <VBox prefHeight="200.0" prefWidth="100.0">
             <children>
@@ -31,8 +30,8 @@
                                 <Font size="20.0"/>
                             </font>
                         </Label>
-                        <Label fx:id="territoryGroupName" layoutX="484.0" layoutY="13.0" prefHeight="43.0"
-                               prefWidth="187.0" text="Upgrade Talents" textAlignment="CENTER">
+                        <Label layoutX="484.0" layoutY="13.0" prefHeight="43.0" prefWidth="187.0" text="Cloaking"
+                               textAlignment="CENTER">
                             <font>
                                 <Font size="20.0"/>
                             </font>
@@ -43,9 +42,9 @@
                 </Pane>
                 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="630.0" prefWidth="826.0">
                     <children>
-                        <ImageView fitHeight="662.0" fitWidth="868.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="mapImageView" fitHeight="662.0" fitWidth="868.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../static-images/world-maps/V2MapDesignOdd.jpg"/>
+                                <Image url="@../static-images/world-maps/V2MapDesignEven.jpg"/>
                             </image>
                         </ImageView>
                         <Label fx:id="label0" alignment="CENTER" layoutX="152.0" layoutY="90.0" prefHeight="40.0"
@@ -79,6 +78,8 @@
                                prefWidth="70.0" text="Wilson Gym" textAlignment="CENTER" wrapText="true"/>
                         <Label fx:id="label14" alignment="CENTER" layoutX="156.0" layoutY="276.0" prefHeight="40.0"
                                prefWidth="70.0" text="Cameron&#10;Stadium" textAlignment="CENTER" wrapText="true"/>
+                        <Label fx:id="label15" alignment="CENTER" layoutX="87.0" layoutY="399.0" prefHeight="40.0"
+                               prefWidth="70.0" text="Wallace Stadium" textAlignment="CENTER" wrapText="true"/>
                         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="215.0" layoutY="18.0"
                                prefHeight="39.0" prefWidth="449.0" textAlignment="CENTER" textFill="#fa0707"/>
                     </children>
@@ -98,11 +99,11 @@
                 <RowConstraints maxHeight="75.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES"/>
                 <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES"/>
                 <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES"/>
-                <RowConstraints maxHeight="50.0" minHeight="18.317092895507812" prefHeight="19.535659790039062"
-                                vgrow="SOMETIMES"/>
                 <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES"/>
                 <RowConstraints maxHeight="45.0" minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES"/>
                 <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="50.0" minHeight="18.317092895507812" prefHeight="19.535659790039062"
+                                vgrow="SOMETIMES"/>
                 <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES"/>
                 <RowConstraints maxHeight="45.0" minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES"/>
                 <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES"/>
@@ -111,63 +112,46 @@
                 <RowConstraints maxHeight="214.0" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES"/>
             </rowConstraints>
             <children>
-                <Label alignment="BOTTOM_CENTER" prefHeight="56.0" prefWidth="326.0" text="Upgrade Talents Action"
+                <Label alignment="BOTTOM_CENTER" prefHeight="56.0" prefWidth="326.0" text="Cloaking Action"
                        GridPane.columnSpan="4" GridPane.rowSpan="2">
                     <font>
                         <Font size="25.0"/>
                     </font>
                 </Label>
                 <Label fx:id="allocatePrompt" alignment="CENTER" prefHeight="40.0" prefWidth="317.0"
-                       text="Upgrade available talent units in your territories." textAlignment="CENTER" wrapText="true"
-                       GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                       text="Perform cloaking on your territories to hide its information from adjacent enemy territories."
+                       textAlignment="CENTER" wrapText="true" GridPane.columnSpan="4" GridPane.halignment="CENTER"
+                       GridPane.rowIndex="2">
                     <font>
                         <Font name="System Italic" size="13.0"/>
                     </font>
                 </Label>
 
                 <ChoiceBox fx:id="sourceTerritoryName" onAction="#onSelectSource" prefWidth="150.0"
-                           GridPane.columnIndex="1"
-                           GridPane.columnSpan="3" GridPane.rowIndex="3"/>
-                <Label fx:id="techLevel" alignment="CENTER" text="8" GridPane.columnIndex="1"
-                       GridPane.halignment="CENTER" GridPane.rowIndex="4"/>
-                <ChoiceBox fx:id="sourceTalentName" onAction="#onSelectTalent" prefWidth="150.0"
-                           GridPane.columnIndex="1" GridPane.columnSpan="3"
-                           GridPane.rowIndex="6"/>
-                <ChoiceBox fx:id="destTalentName" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="3"
-                           GridPane.rowIndex="7"/>
-                <TextField fx:id="numTalents" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1"
-                           GridPane.rowIndex="8"/>
-                <Label fx:id="numTalentsAvailable" prefHeight="17.0" prefWidth="41.0" text="8" GridPane.columnIndex="3"
-                       GridPane.rowIndex="8"/>
+                           GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3"/>
 
-                <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Territory:"
-                       GridPane.rowIndex="3"/>
-                <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0"
-                       text="Current Tech Level:" GridPane.rowIndex="4"/>
-                <Label alignment="CENTER" prefHeight="17.0" prefWidth="325.0"
-                       text="Talents to Upgrade:" GridPane.columnSpan="4" GridPane.rowIndex="5"/>
-                <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Upgrade From:"
-                       GridPane.rowIndex="6"/>
-                <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Upgrade To:"
-                       GridPane.rowIndex="7"/>
-                <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0"
-                       text="  Num of Talents:" GridPane.rowIndex="8"/>
-                <Label text="/" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="8"/>
+                <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Territory:" GridPane.rowIndex="3"/>
+                <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Cloaking Turns"
+                       GridPane.rowIndex="4"/>
 
-                <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Total Food Cost: "
-                       GridPane.rowIndex="9"/>
+                <Label alignment="CENTER" prefHeight="17.0" prefWidth="131.0" text="Total Tech Cost: "
+                       GridPane.rowIndex="5"/>
                 <Label fx:id="techCost" text="" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
-                <Label text="/" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="9"/>
+                <Label text="/" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5"/>
                 <Label fx:id="techAvailable" prefHeight="17.0" prefWidth="41.0" text="" GridPane.columnIndex="3"
-                       GridPane.rowIndex="9"/>
+                       GridPane.rowIndex="5"/>
 
                 <Button mnemonicParsing="false" onAction="#onUpgradeTalent" prefHeight="26.0" prefWidth="95.0"
-                        text="Confirm" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="10"/>
+                        text="Confirm" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6"/>
                 <Button mnemonicParsing="false" onAction="#onCancel" prefHeight="26.0" prefWidth="95.0" text="Cancel"
-                        GridPane.columnIndex="1" GridPane.rowIndex="11"/>
+                        GridPane.columnIndex="1" GridPane.rowIndex="7"/>
 
                 <Label fx:id="errorMessage" alignment="CENTER" prefHeight="58.0" prefWidth="323.0" textFill="#fa0707"
                        GridPane.columnSpan="4" GridPane.rowIndex="12"/>
+                <Label fx:id="techAvailable1" alignment="CENTER" prefHeight="17.0" prefWidth="41.0" text=""
+                       GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5"/>
+                <Label fx:id="numTalentsAvailable1" alignment="CENTER" prefHeight="17.0" prefWidth="41.0" text="3"
+                       GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4"/>
             </children>
         </GridPane>
     </items>
@@ -188,6 +172,7 @@
             <fx:reference source="label12"/>
             <fx:reference source="label13"/>
             <fx:reference source="label14"/>
+            <fx:reference source="label15"/>
         </ArrayList>
     </fx:define>
 </SplitPane>

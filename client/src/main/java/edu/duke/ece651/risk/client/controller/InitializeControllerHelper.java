@@ -6,8 +6,6 @@ import edu.duke.ece651.risk.client.view.StyleMapping;
 import edu.duke.ece651.risk.shared.PlayerInfo;
 import edu.duke.ece651.risk.shared.Territory;
 import edu.duke.ece651.risk.shared.WorldMap;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
@@ -109,14 +107,6 @@ public class InitializeControllerHelper {
           map.getPlayerInfo(map.getTerritory(territoryName).getOwnerName()).getPlayerId();
       territoryLabel.getStyleClass().add("territory-group-" + String.valueOf(initGroup));
     }
-  }
-
-  public void initializeTerritoryGroupLabelColor(App model, Label territoryGroupName) {
-    StyleMapping mapping = new StyleMapping();
-    int group = model.getPlayer().getMap().getPlayerInfo(model.getPlayer().getName()).getPlayerId();
-    String groupName = mapping.territoryGroupColor(group);
-    territoryGroupName.getStyleClass().add("territory-group-" + String.valueOf(group));
-    territoryGroupName.setText(groupName);
   }
 
   public void initializeSelectedCharacter(App model, Circle characterButton, Label characterLabel){

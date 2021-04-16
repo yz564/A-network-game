@@ -33,83 +33,62 @@ public class PhaseStorage {
             "/ui/styling/territory-group.css",
             "/ui/styling/territory.css");
     Phase phase5 =
-            makePhase(
+        makePhase(
             "allocateTalents",
             "Duke Risk Game! - Deploy Talents To Your Territories",
             "/ui/views/allocate-talents.fxml",
             "/ui/styling/territory-group.css",
-                    "/ui/styling/territory.css",
-                    "/ui/styling/general-design.css");
-    Phase phase6_1 =
+            "/ui/styling/territory.css",
+            "/ui/styling/general-design.css");
+    Phase phase6 =
         makePhase(
-            "selectActionEvenPlayers",
+            "selectAction",
             "Duke Risk Game! - Select Actions",
-            "/ui/views/select-action-even.fxml",
+            "/ui/views/select-action.fxml",
             "/ui/styling/territory-group.css");
-    Phase phase6_2 =
+    Phase phase7 =
         makePhase(
-            "selectActionOddPlayers",
-            "Duke Risk Game! - Select Actions",
-            "/ui/views/select-action-odd.fxml",
-            "/ui/styling/territory-group.css");
-    Phase phase7_1 =
-        makePhase(
-            "moveActionEvenPlayers",
+            "moveAction",
             "Duke Risk Game! - Move Talents",
-            "/ui/views/move-action-even.fxml",
+            "/ui/views/move-action.fxml",
             "/ui/styling/territory-group.css");
-    Phase phase7_2 =
+    Phase phase8 =
         makePhase(
-            "moveActionOddPlayers",
-            "/ui/views/move-action-odd.fxml",
-            "/ui/styling/territory-group.css",
-            "Duke Risk Game! - Move Talents");
-    Phase phase8_1 =
-        makePhase(
-            "attackActionEvenPlayers",
+            "attackAction",
             "Duke Risk Game! - Attack Enemy Territory",
-            "/ui/views/attack-action-even.fxml",
+            "/ui/views/attack-action.fxml",
             "/ui/styling/territory-group.css");
-    Phase phase8_2 =
+    Phase phase9 =
         makePhase(
-            "attackActionOddPlayers",
-            "Duke Risk Game! - Attack Enemy Territory",
-            "/ui/views/attack-action-odd.fxml",
-            "/ui/styling/territory-group.css");
-    Phase phase9_1 =
-        makePhase(
-            "upgradeTalentsActionEvenPlayers",
+            "upgradeTalentsAction",
             "Duke Risk Game! - Upgrade Your Talents",
-            "/ui/views/upgrade-talents-action-even.fxml",
+            "/ui/views/upgrade-talents-action.fxml",
             "/ui/styling/territory-group.css");
-    Phase phase9_2 =
+    Phase phase10 =
         makePhase(
-            "upgradeTalentsActionOddPlayers",
-            "Duke Risk Game! - Upgrade Your Talents",
-            "/ui/views/upgrade-talents-action-odd.fxml",
-            "/ui/styling/territory-group.css");
-    Phase phase10_1 =
-        makePhase(
-            "upgradeTechActionEvenPlayers",
+            "upgradeTechAction",
             "Duke Risk Game! - Upgrade Your Tech Level",
-            "/ui/views/upgrade-tech-action-even.fxml",
-            "/ui/styling/territory-group.css");
-    Phase phase10_2 =
-        makePhase(
-            "upgradeTechActionOddPlayers",
-            "Duke Risk Game! - Upgrade Your Tech Level",
-            "/ui/views/upgrade-tech-action-odd.fxml",
+            "/ui/views/upgrade-tech-action.fxml",
             "/ui/styling/territory-group.css");
     Phase phase11 =
-        makePhase("gameEnd", "Duke Risk Game! - Game End", "/ui/views/game-end.fxml");
-    Phase phase12 = makePhase("loadSelectTerritoryGroup2P",
+        makePhase(
+            "moveSpyAction",
+            "Duke Risk Game! - Move Your Spy",
+            "/ui/views/move-spy-action.fxml",
+            "/ui/styling/territory-group.css");
+    Phase phase12 =
+        makePhase(
+            "upgradeSpyAction",
+            "Duke Risk Game! - Upgrade Your Spy",
+            "/ui/views/upgrade-spy-action.fxml",
+            "/ui/styling/territory-group.css");
+    Phase phase13 = makePhase("gameEnd", "Duke Risk Game! - Game End", "/ui/views/game-end.fxml");
+    Phase phase14 =
+        makePhase(
+            "loadSelectTerritoryGroup2P",
             "Waiting for Other Players",
             "/ui/views/load-select-territory-group-2p.fxml");
-      Phase moveSpyEven = makePhase("moveSpyActionEvenPlayers", "Duke Risk Game! - Move Your Spy", "/ui/views/move-spy-action-even.fxml", "/ui/styling/territory-group.css");
-      Phase moveSpyOdd = makePhase("moveSpyActionOddPlayers", "Duke Risk Game! - Move Your Spy", "/ui/views/move-spy-action-odd.fxml", "/ui/styling/territory-group.css" );
-      Phase upgradeSpyEven = makePhase("upgradeSpyActionEvenPlayers", "Duke Risk Game! - Upgrade Your Spy", "/ui/views/upgrade-spy-action-even.fxml", "/ui/styling/territory-group.css");
-      Phase upgradeSpyOdd = makePhase("upgradeSpyActionOddPlayers", "Duke Risk Game! - Upgrade Your Spy", "/ui/views/upgrade-spy-action-odd.fxml", "/ui/styling/territory-group.css");
-      Phase phaseTest = makePhase("test", "Duke Risk Game! - Test", "/ui/views/test.fxml");
+    Phase phaseTest = makePhase("test", "Duke Risk Game! - Test", "/ui/views/test.fxml");
     // Add new Phases here
 
     phases.put(phase1.getName(), phase1);
@@ -117,28 +96,22 @@ public class PhaseStorage {
     phases.put(phase3.getName(), phase3);
     phases.put(phase4.getName(), phase4);
     phases.put(phase5.getName(), phase5);
-    phases.put(phase6_1.getName(), phase6_1);
-    phases.put(phase6_2.getName(), phase6_2);
-    phases.put(phase7_1.getName(), phase7_1);
-    phases.put(phase7_2.getName(), phase7_2);
-    phases.put(phase8_1.getName(), phase8_1);
-    phases.put(phase8_2.getName(), phase8_2);
-    phases.put(phase9_1.getName(), phase9_1);
-    phases.put(phase9_2.getName(), phase9_2);
-    phases.put(phase10_1.getName(), phase10_1);
-    phases.put(phase10_2.getName(), phase10_2);
+    phases.put(phase6.getName(), phase6);
+    phases.put(phase7.getName(), phase7);
+    phases.put(phase8.getName(), phase8);
+    phases.put(phase9.getName(), phase9);
+    phases.put(phase10.getName(), phase10);
     phases.put(phase11.getName(), phase11);
     phases.put(phase12.getName(), phase12);
-    phases.put(moveSpyEven.getName(), moveSpyEven);
-    phases.put(moveSpyOdd.getName(), moveSpyOdd);
-    phases.put(upgradeSpyEven.getName(), upgradeSpyEven);
-    phases.put(upgradeSpyOdd.getName(), upgradeSpyOdd);
+    phases.put(phase13.getName(), phase13);
+    phases.put(phase14.getName(), phase14);
     phases.put(phaseTest.getName(), phaseTest);
     // Put new Phases into HashMap here
     return phases;
   }
 
-  private static Phase makePhase(String name, String windowTitle, String xmlPath, String... cssPaths) {
+  private static Phase makePhase(
+      String name, String windowTitle, String xmlPath, String... cssPaths) {
     View view = new View(name, xmlPath, cssPaths);
     Phase window = new Phase(view, windowTitle);
     return window;

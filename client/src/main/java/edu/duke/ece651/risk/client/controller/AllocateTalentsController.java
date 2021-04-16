@@ -20,7 +20,6 @@ import java.util.*;
 
 public class AllocateTalentsController extends Controller implements Initializable, ErrorHandlingController {
     WorldMap map;
-    int numPlayers;
     int numUnitsEntered;
 
     @FXML ImageView mapImageView;
@@ -39,7 +38,7 @@ public class AllocateTalentsController extends Controller implements Initializab
     public AllocateTalentsController(App model) {
         super(model);
         this.numUnitsEntered = 0;
-        //this.next = "selectActionEvenPlayers";
+        this.next = "selectAction";
     }
 
     /**
@@ -51,13 +50,6 @@ public class AllocateTalentsController extends Controller implements Initializab
     public void initialize(URL location, ResourceBundle resources) {
         // get map from client App
         this.map = model.getPlayer().getMap();
-        this.numPlayers = model.getPlayer().getMap().getNumPlayers();
-        if (numPlayers % 2 == 0) {
-            this.next = "selectActionEvenPlayers";
-        }
-        else{
-            this.next = "selectActionOddPlayers";
-        }
         InitializeControllerHelper helper = new InitializeControllerHelper();
         // set map image according to number of players
         helper.initializeMap(map, mapImageView);
@@ -161,7 +153,7 @@ public class AllocateTalentsController extends Controller implements Initializab
         HashMap<String, Integer> territoryUnits = new HashMap<>();
         for (TextField numField : numList){
             int id = numList.indexOf(numField);
-            if (numPlayers % 2 == 1 && id == 15){
+            if (map.getNumPlayers() % 2 == 1 && id == 15){
                 continue;
             }
             StyleMapping mapping = new StyleMapping();

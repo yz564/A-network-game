@@ -37,7 +37,7 @@
         <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="630.0" prefWidth="826.0"
                     GridPane.rowIndex="3">
             <children>
-                <ImageView fitHeight="662.0" fitWidth="868.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="mapImageView" fitHeight="662.0" fitWidth="868.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../static-images/world-maps/V2MapDesignEven.jpg"/>
                     </image>

@@ -19,28 +19,15 @@ public class ControllerFactory {
     controllers.put("joinRoom", new JoinRoomController((App) model));
     controllers.put("selectTerritoryGroup", new SelectTerritoryGroupController((App) model));
     controllers.put("allocateTalents", new AllocateTalentsController((App) model));
-    controllers.put("selectActionEvenPlayers", new SelectActionController((App) model));
-    controllers.put("selectActionOddPlayers", new SelectActionController((App) model));
-    controllers.put("moveActionEvenPlayers", new MoveActionEvenPlayersController((App) model));
-    controllers.put("moveActionOddPlayers", new MoveActionOddPlayersController((App) model));
-    controllers.put("attackActionEvenPlayers", new AttackActionEvenPlayersController((App) model));
-    controllers.put("attackActionOddPlayers", new AttackActionOddPlayersController((App) model));
+    controllers.put("selectAction", new SelectActionController((App) model));
+    controllers.put("moveAction", new MoveActionController((App) model));
+    controllers.put("attackAction", new AttackActionController((App) model));
     controllers.put(
-        "upgradeTalentsActionEvenPlayers",
-        new UpgradeTalentsActionEvenPlayersController((App) model));
-    controllers.put(
-        "upgradeTalentsActionOddPlayers",
-        new UpgradeTalentsActionOddPlayersController((App) model));
-    controllers.put(
-        "upgradeTechActionEvenPlayers", new UpgradeTechActionsEvenPlayersController((App) model));
-    controllers.put(
-        "upgradeTechActionOddPlayers", new UpgradeTechActionsOddPlayersController((App) model));
+        "upgradeTalentsAction", new UpgradeTalentsActionController((App) model));
+    controllers.put("upgradeTechAction", new UpgradeTechActionsController((App) model));
+    controllers.put("moveSpyAction", new MoveSpyActionController((App) model));
+    controllers.put("upgradeSpyAction", new UpgradeSpyActionController((App) model));
     controllers.put("gameEnd", new GameEndController((App) model));
-
-    controllers.put("moveSpyActionEvenPlayers", new MoveSpyActionEvenPlayersController((App) model));
-    controllers.put("moveSpyActionOddPlayers", new MoveSpyActionOddPlayersController((App) model));
-    controllers.put("upgradeSpyActionEvenPlayers", new UpgradeSpyActionEvenPlayersController((App) model));
-    //controllers.put("upgradeSpyActionOddPlayers", new UpgradeSpyActionOdd((App) model));
 
     // Add new controllers here
     controllers.put("test", new ServerConnectController(model));

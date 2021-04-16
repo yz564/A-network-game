@@ -3,10 +3,7 @@ package edu.duke.ece651.risk.client.controller;
 import edu.duke.ece651.risk.client.App;
 import edu.duke.ece651.risk.client.view.PhaseChanger;
 import edu.duke.ece651.risk.client.view.StyleMapping;
-import edu.duke.ece651.risk.shared.ActionCostCalculator;
-import edu.duke.ece651.risk.shared.ActionInfo;
-import edu.duke.ece651.risk.shared.ActionInfoFactory;
-import edu.duke.ece651.risk.shared.Territory;
+import edu.duke.ece651.risk.shared.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -28,12 +26,15 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 
-public class UpgradeTalentsActionEvenPlayersController extends Controller implements Initializable, ErrorHandlingController {
+public class UpgradeTalentsActionController extends Controller implements Initializable, ErrorHandlingController {
   ObservableList territoryNames;
   ObservableList talentNamesFrom;
   ObservableList talentNamesTo;
   HashMap<String, String> talents;
   HashSet<KeyCode> keysDynamicNumTalent;
+  WorldMap map;
+
+  @FXML ImageView mapImageView;
 
   @FXML ChoiceBox sourceTerritoryName;
 
@@ -61,9 +62,9 @@ public class UpgradeTalentsActionEvenPlayersController extends Controller implem
    * Constructor that initializes the model.
    * @param model is the backend of the game.
    */
-  public UpgradeTalentsActionEvenPlayersController(App model) {
+  public UpgradeTalentsActionController(App model) {
     super(model);
-    this.next = "selectActionEvenPlayers";
+    this.next = "selectAction";
 
     territoryNames = FXCollections.observableArrayList();
     talentNamesFrom = FXCollections.observableArrayList();
@@ -100,8 +101,11 @@ public class UpgradeTalentsActionEvenPlayersController extends Controller implem
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    // get map from client App
+    this.map = model.getPlayer().getMap();
     InitializeControllerHelper helper = new InitializeControllerHelper();
-    // set coloring for each territory label
+    // set map image according to number of players
+    helper.initializeMap(map, mapImageView);// set coloring for each territory label
     helper.initializeTerritoryLabelByOwner(model.getPlayer().getMap(), labelList);
     // set tooltip for each territory label
     helper.initializeTerritoryTooltips(model.getPlayer().getMap(), labelList);

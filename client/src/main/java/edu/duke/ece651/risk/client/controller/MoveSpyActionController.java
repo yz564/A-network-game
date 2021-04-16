@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -23,15 +24,19 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 
-public class UpgradeSpyActionOddPlayersController extends Controller implements Initializable, ErrorHandlingController {
+public class MoveSpyActionController extends Controller implements Initializable, ErrorHandlingController {
     ObservableList sourceTerritoryNames = FXCollections.observableArrayList();
+    ObservableList destTerritoryNames = FXCollections.observableArrayList();
+    WorldMap map;
+    @FXML ImageView mapImageView;
     @FXML ArrayList<Label> labelList;
     @FXML ChoiceBox sourceTerritoryName;
+    @FXML ChoiceBox destTerritoryName;
     @FXML Label playerInfo;
-    @FXML TextField numUnits;
-    @FXML Label numUnitsAvailable;
-    @FXML Label techCost;
-    @FXML Label techAvailable;
+    @FXML TextField numSpies;
+    @FXML Label numSpiesAvailable;
+    @FXML Label foodCost;
+    @FXML Label foodAvailable;
     @FXML Label errorMessage;
 
     HashSet<KeyCode> numKeys;
@@ -40,9 +45,9 @@ public class UpgradeSpyActionOddPlayersController extends Controller implements 
      * Constructor that initializes the model.
      * @param model is the backend of the game.
      */
-    public UpgradeSpyActionOddPlayersController(App model) {
+    public MoveSpyActionController(App model) {
         super(model);
-        this.next = "selectActionOddPlayers";
+        this.next = "selectAction";
 
         // keys that trigger dynamic cost calculation for the move order
         this.numKeys = new HashSet<>();
@@ -66,7 +71,11 @@ public class UpgradeSpyActionOddPlayersController extends Controller implements 
      * @param resources used to initialize the root object of the view.
      */
     public void initialize(URL location, ResourceBundle resources) {
+        // get map from client App
+        this.map = model.getPlayer().getMap();
         InitializeControllerHelper helper = new InitializeControllerHelper();
+        // set map image according to number of players
+        helper.initializeMap(map, mapImageView);
         // set coloring for each territory label
         helper.initializeTerritoryLabelByOwner(model.getPlayer().getMap(), labelList);
         // set tooltip for each territory label
@@ -80,21 +89,21 @@ public class UpgradeSpyActionOddPlayersController extends Controller implements 
         // set source territory names in the choice box
         setSourceTerritoryNames();
 
-        // set available tech amount
+        // set available food amount
         String playerName = model.getPlayer().getName();
-        techAvailable.setText(String.valueOf(model.getPlayer().getMap().getPlayerInfo(playerName).getResTotals().get("tech")));
+        foodAvailable.setText(String.valueOf(model.getPlayer().getMap().getPlayerInfo(playerName).getResTotals().get("food")));
     }
 
     /**
-     * Fills the source territory choice box with all the territories that a player owns.
+     * Fills the source territory choice box with a list of territories that has a player spy.
      */
     private void setSourceTerritoryNames() {
         sourceTerritoryNames.removeAll(sourceTerritoryNames);
+        WorldMap worldMap = model.getPlayer().getMap();
         String playerName = model.getPlayer().getName();
-        HashMap<String, Territory> playerTerritories =
-                model.getPlayer().getMap().getPlayerTerritories(playerName);
-        for (String territoryName : playerTerritories.keySet()) {
-            if (model.getPlayer().getMap().getTerritory(territoryName).getTroopNumUnits("level0") > 0) {
+        ArrayList<String> allTerritories = worldMap.getMyTerritories();
+        for (String territoryName: allTerritories) {
+            if (worldMap.getTerritory(territoryName).getSpyTroopNumUnits(playerName) > 0) {
                 sourceTerritoryNames.add(territoryName);
             }
         }
@@ -102,7 +111,7 @@ public class UpgradeSpyActionOddPlayersController extends Controller implements 
     }
 
     /**
-     * Sets the number of available undergrad untis available in the selected territory.
+     * Sets the choice box for destination territories where spy could move from the source territory.
      * @param ae is the action event that triggers this function.
      */
     @FXML
@@ -110,10 +119,44 @@ public class UpgradeSpyActionOddPlayersController extends Controller implements 
         Object source = ae.getSource();
         if (source instanceof ChoiceBox) {
             clearErrorMessage();
+            destTerritoryNames.removeAll(destTerritoryNames);
+            String srcTerritoryName = (String) sourceTerritoryName.getValue();
+            Territory srcTerritory = model.getPlayer().getMap().getTerritory(srcTerritoryName);
+            HashMap<String, Territory> neighbors = srcTerritory.getMyNeighbors();
+            destTerritoryNames.addAll(neighbors.keySet());
+            destTerritoryName.getItems().addAll(destTerritoryNames);
+
+            // show the available spies in selected source territory
             WorldMap worldMap = model.getPlayer().getMap();
-            numUnitsAvailable.setText(String.valueOf(worldMap.getTerritory((String) sourceTerritoryName.getValue()).getTroopNumUnits("level0")));
+            String playerName = model.getPlayer().getName();
+            numSpiesAvailable.setText(String.valueOf(worldMap.getTerritory((String) sourceTerritoryName.getValue()).getSpyTroopNumUnits(playerName)));
         }
         else {
+            throw new IllegalArgumentException("Invalid ActionEvent source " + source);
+        }
+    }
+
+    /**
+     * Triggered when player confirms their move action by clicking on Confirm button.
+     */
+    @FXML
+    public void onMove(ActionEvent ae) throws IOException {
+        Object source = ae.getSource();
+        if (source instanceof Button) {
+            clearErrorMessage();
+            String isValidInput = checkInput(); // make sure all the inputs are valid for the move spy order.
+            if (isValidInput == null) {
+                ActionInfo info = getMoveSpyActionInfo();
+                String success = model.getPlayer().tryIssueMoveSpyOrder(info);
+                if (success != null) {
+                    setErrorMessage(success);
+                } else {
+                    loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
+                }
+            } else {
+                setErrorMessage(isValidInput);
+            }
+        } else {
             throw new IllegalArgumentException("Invalid ActionEvent source " + source);
         }
     }
@@ -133,7 +176,7 @@ public class UpgradeSpyActionOddPlayersController extends Controller implements 
     }
 
     /**
-     * Displays the cost of upgrade spy action dynamically when user types in the number of spies that they wish to upgrade.
+     * Displays the cost of move spy action dynamically when user types in the number of spies that they wish to move.
      */
     @FXML
     public void onTypingNumUnits(KeyEvent ke) {
@@ -142,53 +185,29 @@ public class UpgradeSpyActionOddPlayersController extends Controller implements 
             clearErrorMessage();
             String isValidInput = checkInput();
             if (isValidInput == null) {
-                ActionInfo moveSpyInfo = getUpgradeSpyActionInfo();
+                ActionInfo moveSpyInfo = getMoveSpyActionInfo();
                 ActionCostCalculator calc = new ActionCostCalculator();
-                int cost = calc.calculateCost(moveSpyInfo, model.getPlayer().getMap()).get("tech");
-                techCost.setText(String.valueOf(cost));
+                int cost = calc.calculateCost(moveSpyInfo, model.getPlayer().getMap()).get("food");
+                foodCost.setText(String.valueOf(cost));
             }
             else {
                 setErrorMessage(isValidInput);
-                techCost.setText("0");
+                foodCost.setText("0");
             }
-        }
-    }
-
-    /**
-     * Triggered when player confirms their move action by clicking on Confirm button.
-     */
-    @FXML
-    public void onUpgradeToSpy(ActionEvent ae) throws IOException {
-        Object source = ae.getSource();
-        if (source instanceof Button) {
-            clearErrorMessage();
-            String isValidInput = checkInput(); // make sure all the inputs are valid for the move spy order.
-            if (isValidInput == null) {
-                ActionInfo info = getUpgradeSpyActionInfo();
-                String success = model.getPlayer().tryIssueUpgradeSpyUnitOrder(info);
-                if (success != null) {
-                    setErrorMessage(success);
-                } else {
-                    loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
-                }
-            } else {
-                setErrorMessage(isValidInput);
-            }
-        } else {
-            throw new IllegalArgumentException("Invalid ActionEvent source " + source);
         }
     }
 
     /**
      * Returns a move spy ActionInfo object based on fields entered by the user in the view.
      */
-    private ActionInfo getUpgradeSpyActionInfo() throws IllegalArgumentException, NullPointerException {
+    private ActionInfo getMoveSpyActionInfo() throws IllegalArgumentException, NullPointerException {
         ActionInfoFactory af = new ActionInfoFactory();
         ActionInfo info =
-                af.createUpgradeSpyUnitActionInfo(
+                af.createMoveSpyActionInfo(
                         model.getPlayer().getName(),
                         (String) sourceTerritoryName.getValue(),
-                        parseIntFromTextField(numUnits.getText(), 1));
+                        (String) destTerritoryName.getValue(),
+                        parseIntFromTextField(numSpies.getText(), 1));
         return info;
     }
 
@@ -198,11 +217,14 @@ public class UpgradeSpyActionOddPlayersController extends Controller implements 
      */
     private String checkInput() {
         try {
-            if (parseIntFromTextField(numUnits.getText(), 1) < 0) {
+            if (parseIntFromTextField(numSpies.getText(), 1) < 0) {
                 throw new IllegalArgumentException("Please enter a non-negative number for moving spies.");
             }
             if ((String) sourceTerritoryName.getValue() == null) {
                 throw new NullPointerException("Source territory is empty.");
+            }
+            else if ((String) destTerritoryName.getValue() == null) {
+                throw new NullPointerException("Destination territory is empty.");
             }
         } catch (IllegalArgumentException iae) {
             return iae.getMessage();

@@ -2,10 +2,7 @@ package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
 import edu.duke.ece651.risk.client.view.PhaseChanger;
-import edu.duke.ece651.risk.shared.ActionCostCalculator;
-import edu.duke.ece651.risk.shared.ActionInfo;
-import edu.duke.ece651.risk.shared.ActionInfoFactory;
-import edu.duke.ece651.risk.shared.Territory;
+import edu.duke.ece651.risk.shared.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,20 +13,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.ResourceBundle;
+import java.util.*;
 
-public class MoveActionOddPlayersController extends Controller implements Initializable, ErrorHandlingController {
+public class AttackActionController extends Controller implements Initializable, ErrorHandlingController {
   ObservableList territoryNames = FXCollections.observableArrayList();
-  HashSet<KeyCode> numKeys;
+  WorldMap map;
+  @FXML ImageView mapImageView;
 
   @FXML ChoiceBox sourceTerritoryName;
 
@@ -53,12 +49,86 @@ public class MoveActionOddPlayersController extends Controller implements Initia
    * Constructor that initializes the model.
    * @param model is the backend of the game.
    */
-  public MoveActionOddPlayersController(App model) {
+  public AttackActionController(App model) {
     super(model);
-    this.next = "selectActionOddPlayers";
+    this.next = "selectAction";
+    HashSet<KeyCode> numKeys;
+  }
 
-    // keys that trigger dynamic cost calculation for the move order
-    numKeys = new HashSet<>();
+  /**
+   * Sets various elements in the view to default values.
+   * @param location is the location of the FXML resource.
+   * @param resources used to initialize the root object of the view.
+   */
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+    // get map from client App
+    this.map = model.getPlayer().getMap();
+    InitializeControllerHelper helper = new InitializeControllerHelper();
+    // set map image according to number of players
+    helper.initializeMap(map, mapImageView);
+    // set coloring for each territory label
+    helper.initializeTerritoryLabelByOwner(model.getPlayer().getMap(), labelList);
+    // set tooltip for each territory label
+    helper.initializeTerritoryTooltips(model.getPlayer().getMap(), labelList);
+    // set tooltip for player info
+    helper.initializePlayerInfoTooltip(
+        model.getPlayer().getMap(), model.getPlayer().getName(), playerInfo);
+    // set coloring for player info
+    helper.initializeTerritoryPlayerInfoColor(model, playerInfo);
+
+    setSourceTerritoryNames();
+    setDestinationTerritoryNames();
+
+    // set available food amount
+    String playerName = model.getPlayer().getName();
+    foodAvailable.setText(String.valueOf(model.getPlayer().getMap().getPlayerInfo(playerName).getResTotals().get("food")));
+  }
+
+  /**
+   * Fills the choice boxes with a list of territories that a player owns.
+   * After the choice boxes are filled, the player is able to select the source
+   * territory for attacking.
+   */
+  private void setSourceTerritoryNames() {
+    territoryNames.removeAll(territoryNames);
+    String playerName = model.getPlayer().getName();
+    HashMap<String, Territory> playerTerritories =
+        model.getPlayer().getMap().getPlayerTerritories(playerName);
+    for (String territoryName : playerTerritories.keySet()) {
+      territoryNames.add(territoryName);
+    }
+    sourceTerritoryName.getItems().addAll(territoryNames);
+  }
+
+  /**
+   * Fills the choice boxes with a list of all the territories present on the map.
+   * After the choice boxes are filled, the player is able to select the destination
+   * territory for attacking.
+   */
+  private void setDestinationTerritoryNames() {
+    territoryNames.removeAll(territoryNames);
+    String playerName = model.getPlayer().getName();
+    HashMap<String, Territory> playerTerritories =
+            model.getPlayer().getMap().getPlayerTerritories(playerName);
+    ArrayList<String> allTerritories = model.getPlayer().getMap().getMyTerritories();
+    for (String territoryName : allTerritories) {
+      // only add a territory to destination if it is not a player territory
+      if (!playerTerritories.keySet().contains(territoryName)) {
+        territoryNames.add(territoryName);
+      }
+    }
+    destTerritoryName.getItems().addAll(territoryNames);
+  }
+
+  /**
+   * Displays the cost of attack action dynamically when user types in the number of units that they wish to attack with.
+   */
+  @FXML
+  public void onTypingNumUnits(KeyEvent ke) throws Exception {
+    clearErrorMessage();
+    Object source = ke.getCode();
+    HashSet<KeyCode> numKeys = new HashSet<>();
     numKeys.add(KeyCode.DIGIT0);
     numKeys.add(KeyCode.DIGIT1);
     numKeys.add(KeyCode.DIGIT2);
@@ -71,61 +141,10 @@ public class MoveActionOddPlayersController extends Controller implements Initia
     numKeys.add(KeyCode.DIGIT9);
     numKeys.add(KeyCode.BACK_SPACE);
     numKeys.add(KeyCode.TAB);
-  }
-
-  /**
-   * Sets various elements in the view to default values.
-   * @param location is the location of the FXML resource.
-   * @param resources used to initialize the root object of the view.
-   */
-  @Override
-  public void initialize(URL location, ResourceBundle resources) {
-    InitializeControllerHelper helper = new InitializeControllerHelper();
-    // set coloring for each territory label
-    helper.initializeTerritoryLabelByOwner(model.getPlayer().getMap(), labelList);
-    // set tooltip for each territory label
-    helper.initializeTerritoryTooltips(model.getPlayer().getMap(), labelList);
-    // set tooltip for player info
-    helper.initializePlayerInfoTooltip(
-        model.getPlayer().getMap(), model.getPlayer().getName(), playerInfo);
-    // set coloring for player info
-    helper.initializeTerritoryPlayerInfoColor(model, playerInfo);
-
-    setTerritoryNames();
-
-    // set available food amount
-    String playerName = model.getPlayer().getName();
-    foodAvailable.setText(String.valueOf(model.getPlayer().getMap().getPlayerInfo(playerName).getResTotals().get("food")));
-  }
-
-  /**
-   * Fills the choice boxes with a list of territories that a player owns.
-   * After the choice boxes are filled, the player is able to select the source and destination
-   * territories for moving talents.
-   */
-  private void setTerritoryNames() {
-    territoryNames.removeAll(territoryNames);
-    String playerName = model.getPlayer().getName();
-    HashMap<String, Territory> playerTerritories =
-        model.getPlayer().getMap().getPlayerTerritories(playerName);
-    for (String territoryName : playerTerritories.keySet()) {
-      territoryNames.add(territoryName);
-    }
-    sourceTerritoryName.getItems().addAll(territoryNames);
-    destTerritoryName.getItems().addAll(territoryNames);
-  }
-
-  /**
-   * Displays the cost of move action dynamically when user types in the number of units that they wish to move.
-   */
-  @FXML
-  public void onTypingNumUnits(KeyEvent ke) throws Exception {
-    Object source = ke.getCode();
     if (numKeys.contains(source)) {
-      clearErrorMessage();
-      ActionInfo moveInfo = getMoveActionInfo();
+      ActionInfo attackInfo = getAttackActionInfo();
       ActionCostCalculator calc = new ActionCostCalculator();
-      int cost = calc.calculateCost(moveInfo, model.getPlayer().getMap()).get("food");
+      int cost = calc.calculateCost(attackInfo, model.getPlayer().getMap()).get("food");
       String isValid = checkInput();
       if (isValid != null) {
         setErrorMessage(isValid);
@@ -157,17 +176,17 @@ public class MoveActionOddPlayersController extends Controller implements Initia
   }
 
   /**
-   * Triggered when player confirms their move action by clicking on Confirm button.
+   * Triggered when player confirms their attack action by clicking on the Confirm button.
    */
   @FXML
-  public void onMove(ActionEvent ae) throws Exception {
+  public void onAttack(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
     if (source instanceof Button) {
       clearErrorMessage();
       String isValidInput = checkInput(); // make sure all the inputs are valid for the move order.
       if (isValidInput == null) {
-        ActionInfo info = getMoveActionInfo();
-        String success = model.getPlayer().tryIssueMoveOrder(info);
+        ActionInfo info = getAttackActionInfo();
+        String success = model.getPlayer().tryIssueAttackOrder(info);
         if (success != null) {
           setErrorMessage(success);
         } else {
@@ -197,19 +216,20 @@ public class MoveActionOddPlayersController extends Controller implements Initia
   }
 
   /**
-   * Returns a move ActionInfo object based on fields entered by the user in the view.
+   * Returns a attack ActionInfo object based on fields entered by the user in the view.
    */
-  private ActionInfo getMoveActionInfo() {
+  private ActionInfo getAttackActionInfo() {
     ActionInfoFactory af = new ActionInfoFactory();
     HashMap<String, Integer> numUnits = getNumUnits();
     ActionInfo info =
-            af.createMoveActionInfo(
+            af.createAttackActionInfo(
                     model.getPlayer().getName(),
                     (String) sourceTerritoryName.getValue(),
                     (String) destTerritoryName.getValue(),
                     numUnits);
     return info;
   }
+
   /**
    * Ensures all the inputs required to make a valid move are valid and returns a null string.
    * Returns a string with a descriptive error if check fails.
@@ -221,8 +241,8 @@ public class MoveActionOddPlayersController extends Controller implements Initia
           throw new IllegalArgumentException("Please enter a non-negative number in box " + numTalentList.indexOf(numTalent) + 1);
         }
       }
-      sourceTerritoryName.getValue();
-      destTerritoryName.getValue();
+      String srcName = (String) sourceTerritoryName.getValue();
+      String dstName = (String) destTerritoryName.getValue();
     } catch (IllegalArgumentException iae) {
       return iae.getMessage();
     } catch (NullPointerException npe) {
