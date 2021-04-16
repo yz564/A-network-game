@@ -1,23 +1,25 @@
 package edu.duke.ece651.risk.client.view;
 
-import edu.duke.ece651.risk.client.controller.ServerConnectController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class View {
     private final String name;
     private final String xmlPath;
-    private final String cssPath;
+    private ArrayList<String> cssPathList = new ArrayList<>();
 
-    public View (String name, String xmlPath, String cssPath) {
+    public View (String name, String xmlPath, String... cssPaths) {
         this.name = name;
         this.xmlPath = xmlPath;
-        this.cssPath = cssPath;
+        if (cssPaths != null) {
+            for (String cssPath : cssPaths) {
+                cssPathList.add(cssPath);
+            }
+        }
     }
 
     public View(String name, String xmlPath) {
@@ -32,8 +34,8 @@ public class View {
         return this.xmlPath;
     }
 
-    public String getCSSPath() {
-        return this.cssPath;
+    public ArrayList<String> getCSSPath() {
+        return this.cssPathList;
     }
 
     public String toString() {
@@ -50,9 +52,11 @@ public class View {
         loader.setControllerFactory((c) ->{return controller;});
         //Pane p = loader.load();
         Scene scene = new Scene(loader.load());
-        if (cssPath != null) {
-            URL cssResource = getClass().getResource(cssPath);
-            scene.getStylesheets().add(cssResource.toString());
+        if (!cssPathList.isEmpty()) {
+            for (String cssPath : cssPathList) {
+                URL cssResource = getClass().getResource(cssPath);
+                scene.getStylesheets().add(cssResource.toString());
+            }
         }
         return scene;
     }

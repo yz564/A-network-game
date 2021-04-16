@@ -31,8 +31,8 @@ public class StyleMapping {
     return labels;
   }
 
-  public String getTerritoryLabelId(String territoryName) {
-    return territoryLabels.get(territoryName);
+  public String getTerritoryName(String labelName) {
+    return territoryLabels.get(labelName);
   }
 
   private static HashMap<Integer, String> makeColors() {

@@ -18,10 +18,7 @@ public class ControllerFactory {
     controllers.put("userLogin", new UserLoginController((App) model));
     controllers.put("joinRoom", new JoinRoomController((App) model));
     controllers.put("selectTerritoryGroup", new SelectTerritoryGroupController((App) model));
-    controllers.put("allocateTalents2p", new AllocateTalents2PController((App) model));
-    controllers.put("allocateTalents3p", new AllocateTalents3PController((App) model));
-    controllers.put("allocateTalents4p", new AllocateTalents4PController((App) model));
-    controllers.put("allocateTalents5p", new AllocateTalents5PController((App) model));
+    controllers.put("allocateTalents", new AllocateTalentsController((App) model));
     controllers.put("selectActionEvenPlayers", new SelectActionController((App) model));
     controllers.put("selectActionOddPlayers", new SelectActionController((App) model));
     controllers.put("moveActionEvenPlayers", new MoveActionEvenPlayersController((App) model));

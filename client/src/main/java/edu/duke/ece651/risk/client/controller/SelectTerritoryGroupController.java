@@ -19,7 +19,6 @@ import java.util.ResourceBundle;
  */
 public class SelectTerritoryGroupController extends Controller implements Initializable, ErrorHandlingController {
     WorldMap map;
-    int numPlayers;
 
     @FXML ImageView mapImageView;
     @FXML Label errorMessage;
@@ -33,6 +32,7 @@ public class SelectTerritoryGroupController extends Controller implements Initia
      */
     public SelectTerritoryGroupController(App model) {
         super(model);
+        this.next = "allocateTalents";
     }
 
     /**
@@ -42,10 +42,8 @@ public class SelectTerritoryGroupController extends Controller implements Initia
      */
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
-        // get number of players from client App
+        // get map from client App
         this.map = model.getPlayer().getMap();
-        this.numPlayers = model.getPlayer().getMap().getNumPlayers();
-        this.next = "allocateTalents" + String.valueOf(numPlayers) + "p";
         InitializeControllerHelper helper = new InitializeControllerHelper();
         // set map image according to number of players
         helper.initializeMap(map, mapImageView);

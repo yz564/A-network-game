@@ -19,7 +19,7 @@
                 <Rectangle2D />
             </viewport>
         </ImageView>
-        <Label alignment="CENTER" layoutX="354.0" layoutY="45.0" text="Welcome to Duke Risk Game!" textAlignment="CENTER" textFill="#012169">
+        <Label alignment="CENTER" layoutX="354.0" layoutY="45.0" text="Welcome to Duke Risk Game!" textAlignment="CENTER" textFill="#012169" styleClass="title">
             <font>
                 <Font name="EB Garamond Regular" size="50.0" />
             </font>

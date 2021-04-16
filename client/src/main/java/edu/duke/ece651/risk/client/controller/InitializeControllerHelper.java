@@ -6,7 +6,10 @@ import edu.duke.ece651.risk.client.view.StyleMapping;
 import edu.duke.ece651.risk.shared.PlayerInfo;
 import edu.duke.ece651.risk.shared.Territory;
 import edu.duke.ece651.risk.shared.WorldMap;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,7 +34,7 @@ public class InitializeControllerHelper {
         territoryLabel.setText("");
         continue;
       }
-      String territoryName = mapping.getTerritoryLabelId(territoryLabel.getId());
+      String territoryName = mapping.getTerritoryName(territoryLabel.getId());
       Tooltip tt = new Tooltip();
       tt.setText(getTerritoryTextInfo(map, territoryName));
       tt.getStyleClass().add("tooltip-territory");
@@ -53,21 +56,6 @@ public class InitializeControllerHelper {
     playerInfoLabel.setTooltip(tt);
   }
 
-  public void initializeCharacter(WorldMap map, ArrayList<Circle> characterButtonList, ArrayList<Label> characterLabelList){
-    int numPlayers = map.getNumPlayers();
-    StyleMapping mapping = new StyleMapping();
-    for (int i = 0; i < characterButtonList.size(); i++){
-      if (i >= numPlayers){
-        characterButtonList.get(i).setDisable(true);
-        characterLabelList.get(i).setDisable(true);
-        continue;
-      }
-      LeaderCharacter leader = new LeaderCharacter(characterButtonList.get(i), characterLabelList.get(i), mapping);
-      leader.setImage();
-      leader.setLabel();
-    }
-  }
-
   public void initializeMap(WorldMap map, ImageView mapImageView){
     int numPlayers = map.getNumPlayers();
     if (numPlayers % 2 == 0){
@@ -76,6 +64,12 @@ public class InitializeControllerHelper {
     else{
       mapImageView.setImage(new Image("ui/static-images/world-maps/new-map-odd.png"));
     }
+  }
+
+  public void initializeTerritoryPlayerInfoColor(App model, Label playerInfo) {
+    int playerId =
+            model.getPlayer().getMap().getPlayerInfo(model.getPlayer().getName()).getPlayerId();
+    playerInfo.getStyleClass().add("territory-group-" + String.valueOf(playerId));
   }
 
   /**
@@ -94,7 +88,7 @@ public class InitializeControllerHelper {
         territoryLabel.setDisable(true);
         continue;
       }
-      String territoryName = mapping.getTerritoryLabelId(territoryLabel.getId());
+      String territoryName = mapping.getTerritoryName(territoryLabel.getId());
       int initGroup = map.inWhichInitGroup(territoryName);
       territoryLabel.getStyleClass().add("territory-group-" + String.valueOf(initGroup));
     }
@@ -110,7 +104,7 @@ public class InitializeControllerHelper {
         territoryLabel.setDisable(true);
         continue;
       }
-      String territoryName = mapping.getTerritoryLabelId(territoryLabel.getId());
+      String territoryName = mapping.getTerritoryName(territoryLabel.getId());
       int initGroup =
           map.getPlayerInfo(map.getTerritory(territoryName).getOwnerName()).getPlayerId();
       territoryLabel.getStyleClass().add("territory-group-" + String.valueOf(initGroup));
@@ -125,10 +119,40 @@ public class InitializeControllerHelper {
     territoryGroupName.setText(groupName);
   }
 
-  public void initializeTerritoryPlayerInfoColor(App model, Label playerInfo) {
-    int playerId =
-        model.getPlayer().getMap().getPlayerInfo(model.getPlayer().getName()).getPlayerId();
-    playerInfo.getStyleClass().add("territory-group-" + String.valueOf(playerId));
+  public void initializeSelectedCharacter(App model, Circle characterButton, Label characterLabel){
+    int playerId = model.getPlayer().getMap().getPlayerInfo(model.getPlayer().getName()).getPlayerId();
+    StyleMapping mapping = new StyleMapping();
+    LeaderCharacter leader = new LeaderCharacter(characterButton, characterLabel, mapping, playerId);
+    leader.setImage();
+    leader.setLabel();
+  }
+
+  public void initializeCharacter(WorldMap map, ArrayList<Circle> characterButtonList, ArrayList<Label> characterLabelList){
+    int numPlayers = map.getNumPlayers();
+    StyleMapping mapping = new StyleMapping();
+    for (int i = 0; i < characterButtonList.size(); i++){
+      if (i >= numPlayers){
+        characterButtonList.get(i).setDisable(true);
+        characterLabelList.get(i).setDisable(true);
+        continue;
+      }
+      LeaderCharacter leader = new LeaderCharacter(characterButtonList.get(i), characterLabelList.get(i), mapping);
+      leader.setImage();
+      leader.setLabel();
+    }
+  }
+
+  public void initializeNumUnitsFields(App model, ArrayList<Label> territoryLabelList, ArrayList<TextField> numUnitsList){
+    int playerId = model.getPlayer().getMap().getPlayerInfo(model.getPlayer().getName()).getPlayerId();
+    ArrayList<String> playerTerritories = model.getPlayer().getMap().getInitGroup(playerId);
+    StyleMapping mapping = new StyleMapping();
+    for (int i = 0; i < territoryLabelList.size(); i++){
+      String labelName = territoryLabelList.get(i).getId();
+      String territoryName = mapping.getTerritoryName(labelName);
+      if (!playerTerritories.contains(territoryName)){
+        numUnitsList.get(i).setVisible(false);
+      }
+    }
   }
 
   /**

@@ -21,6 +21,14 @@ public class LeaderCharacter {
         this.imagePath = "ui/static-images/figures/" + name.toLowerCase().replace(" ", "-") + ".jpg";
     }
 
+    public LeaderCharacter (Circle circleButton, Label label, StyleMapping mapping, int id){
+        this.circleButton = circleButton;
+        this.label = label;
+        this.id = id;
+        this.name = mapping.getCharacterNames(id-1);
+        this.imagePath = "ui/static-images/figures/" + name.toLowerCase().replace(" ", "-") + ".jpg";
+    }
+
     public void setImage(){
         //Image image = new Image(getClass().getClassLoader().getResource(imagePath).toString());
         Image image = new Image(imagePath);
