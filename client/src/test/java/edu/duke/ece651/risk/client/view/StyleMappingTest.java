@@ -9,6 +9,6 @@ public class StyleMappingTest {
     public void test_style_mapping() {
         StyleMapping sm = new StyleMapping();
         assertEquals("Pink", sm.territoryGroupColor(1));
-        assertEquals("Fuqua", sm.getTerritoryLabelId("label0"));
+        assertEquals("Fuqua", sm.getTerritoryName("label0"));
     }
 }
