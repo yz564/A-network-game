@@ -81,6 +81,7 @@ public class AllocateTalentsController extends Controller
                     .addListener(
                             (observable, oldValue, newValue) -> {
                                 try {
+                                    clearErrorMessage();
                                     updateTotalUnitsAllocated();
                                 } catch (IllegalArgumentException e) {
                                     setErrorMessage(e.getMessage());
@@ -120,7 +121,6 @@ public class AllocateTalentsController extends Controller
     }
 
     private int calculateTotalUnitsAllocated() throws IllegalArgumentException {
-        clearErrorMessage();
         int totalUnits = 0;
         for (TextField numField : numList) {
             int id = numList.indexOf(numField);
@@ -141,6 +141,7 @@ public class AllocateTalentsController extends Controller
         Object source = ae.getSource();
         if (source instanceof Button) {
             try {
+                clearErrorMessage();
                 updateTotalUnitsAllocated();
                 String allocate = model.getPlayer().tryAllocation(this.getTerritoryUnits());
                 if (allocate != null) {
