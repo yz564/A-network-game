@@ -99,7 +99,7 @@
                     </font>
                 </Label>
 
-                <ChoiceBox fx:id="sourceTerritoryName" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3" />
+                <ChoiceBox fx:id="sourceTerritoryName" onAction="#onSelectSource" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3" />
                 <TextField fx:id="numUnits" onKeyReleased="#onTypingNumUnits" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                 <Label fx:id="numUnitsAvailable" prefHeight="17.0" prefWidth="41.0" text="8" GridPane.columnIndex="3" GridPane.rowIndex="4" />
 

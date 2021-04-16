@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 
-public class UpgradeSpyActionEvenPlayersController extends Controller implements Initializable, ErrorHandlingController {
+public class UpgradeSpyActionOddPlayersController extends Controller implements Initializable, ErrorHandlingController {
     ObservableList sourceTerritoryNames = FXCollections.observableArrayList();
     @FXML ArrayList<Label> labelList;
     @FXML ChoiceBox sourceTerritoryName;
@@ -40,9 +40,9 @@ public class UpgradeSpyActionEvenPlayersController extends Controller implements
      * Constructor that initializes the model.
      * @param model is the backend of the game.
      */
-    public UpgradeSpyActionEvenPlayersController(App model) {
+    public UpgradeSpyActionOddPlayersController(App model) {
         super(model);
-        this.next = "selectActionEvenPlayers";
+        this.next = "selectActionOddPlayers";
 
         // keys that trigger dynamic cost calculation for the move order
         this.numKeys = new HashSet<>();
