@@ -18,7 +18,8 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.*;
 
-public class AllocateTalentsController extends Controller implements Initializable, ErrorHandlingController {
+public class AllocateTalentsController extends Controller
+        implements Initializable, ErrorHandlingController {
     WorldMap map;
     int numUnitsEntered;
 
@@ -33,6 +34,7 @@ public class AllocateTalentsController extends Controller implements Initializab
 
     /**
      * Constructor that initializes the model.
+     *
      * @param model is the backend of the game.
      */
     public AllocateTalentsController(App model) {
@@ -43,6 +45,7 @@ public class AllocateTalentsController extends Controller implements Initializab
 
     /**
      * Sets various elements in the view to default values.
+     *
      * @param location is the location of the FXML resource.
      * @param resources used to initialize the root object of the view.
      */
@@ -72,94 +75,101 @@ public class AllocateTalentsController extends Controller implements Initializab
         }
     }
 
-    private void addNumUnitsChangeListeners(){
-        for (TextField numField: numList){
-            numField.textProperty().addListener((observable, oldValue, newValue) -> {
-                updateTotalUnitsAllocated();
-            });
+    private void addNumUnitsChangeListeners() {
+        for (TextField numField : numList) {
+            numField.textProperty()
+                    .addListener(
+                            (observable, oldValue, newValue) -> {
+                                try {
+                                    updateTotalUnitsAllocated();
+                                } catch (IllegalArgumentException e) {
+                                    setErrorMessage(e.getMessage());
+                                }
+                            });
         }
     }
 
     /**
      * Returns an integer from text.
+     *
      * @param text is the string from which integer is parsed.
      */
-    private int parsePosIntFromTextField(String text) throws NumberFormatException {
+    private int parsePosIntFromTextField(String text) throws IllegalArgumentException {
         int parsedInt = 0;
-        parsedInt = Integer.parseInt(text);
-        if (parsedInt < 0){
-            throw new NumberFormatException();
+        try {
+            parsedInt = Integer.parseInt(text);
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("Number of talents deployed must be an integer.");
+        }
+        if (parsedInt < 0) {
+            throw new IllegalArgumentException("Number of talents deployed cannot be negative.");
         }
         return parsedInt;
     }
 
-    private void updateTotalUnitsAllocated(){
-        int TotalUnits = returnTotalUnitsAllocated();
-        if (TotalUnits > Integer.valueOf(numAllowed.getText())){
+    private void updateTotalUnitsAllocated() throws IllegalArgumentException {
+        int TotalUnits = calculateTotalUnitsAllocated();
+        numAllocated.setText(String.valueOf(TotalUnits));
+        if (TotalUnits > Integer.valueOf(numAllowed.getText())) {
             numAllocated.setTextFill(Color.HOTPINK);
-            setErrorMessage("Invalid input: Total number of talents deployed is more than maximum allowed. Please reduce number deployed in one or more territory.");
-        }
-        else{
+            throw new IllegalArgumentException(
+                    "Invalid input: Total number of talents deployed is more than maximum allowed.");
+        } else {
             numAllocated.setTextFill(Color.WHITE);
         }
-        numAllocated.setText(String.valueOf(TotalUnits));
     }
 
-    /**
-     * Returns the total number of units requested by the player in the view.
-     */
-    private int returnTotalUnitsAllocated() {
+    private int calculateTotalUnitsAllocated() throws IllegalArgumentException {
         clearErrorMessage();
         int totalUnits = 0;
-        for (TextField numField: numList) {
+        for (TextField numField : numList) {
             int id = numList.indexOf(numField);
             StyleMapping mapping = new StyleMapping();
             String territoryName = mapping.getTerritoryName(labelList.get(id).getId());
             try {
                 totalUnits += parsePosIntFromTextField(numField.getText());
-            }
-            catch (Exception e){
-                setErrorMessage("Invalid input: Please enter a positive integer number of talents in " + territoryName);
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException(
+                        "Invalid input in " + territoryName + " : " + e.getMessage());
             }
         }
         return totalUnits;
     }
 
-    /**
-     * Asks the server to allocate the specified number of units from the view.
-     */
+    /** Asks the server to allocate the specified number of units from the view. */
     public void onAllocate(ActionEvent ae) throws Exception {
         Object source = ae.getSource();
         if (source instanceof Button) {
-            updateTotalUnitsAllocated();
-            String allocate = model.getPlayer().tryAllocation(this.getTerritoryUnits());
-            if (allocate != null) {
-                setErrorMessage(allocate);
+            try {
+                updateTotalUnitsAllocated();
+                String allocate = model.getPlayer().tryAllocation(this.getTerritoryUnits());
+                if (allocate != null) {
+                    setErrorMessage(allocate);
+                } else {
+                    loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
+                }
+            } catch (IllegalArgumentException e) {
+                setErrorMessage(e.getMessage());
             }
-            else {
-                loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
-            }
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Invalid source " + source + " for ActionEvent");
         }
     }
 
-
     /**
-     * Returns a map of territory names to the number of units requested to deploy in the territory names.
+     * Returns a map of territory names to the number of units requested to deploy in the territory
+     * names.
      */
     HashMap<String, Integer> getTerritoryUnits() {
         HashMap<String, Integer> territoryUnits = new HashMap<>();
-        for (TextField numField : numList){
+        for (TextField numField : numList) {
             int id = numList.indexOf(numField);
-            if (map.getNumPlayers() % 2 == 1 && id == 15){
+            if (map.getNumPlayers() % 2 == 1 && id == 15) {
                 continue;
             }
             StyleMapping mapping = new StyleMapping();
             String territoryName = mapping.getTerritoryName(labelList.get(id).getId());
-            territoryUnits.put(territoryName,
-                    parsePosIntFromTextField(numField.getText()));
+            territoryUnits.put(territoryName, parsePosIntFromTextField(numField.getText()));
         }
         return territoryUnits;
     }
@@ -173,6 +183,4 @@ public class AllocateTalentsController extends Controller implements Initializab
     public void clearErrorMessage() {
         setErrorMessage(null);
     }
-
 }
-
