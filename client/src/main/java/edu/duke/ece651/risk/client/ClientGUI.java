@@ -16,6 +16,7 @@ public class ClientGUI extends Application {
         model = new App();
         Object controller = new ControllerFactory().getController(next, model);
         window = PhaseChanger.switchTo(window, controller, next);
+        window.getScene().getStylesheets().add(getClass().getResource("/ui/styling/fonts.css").toString());
         window.show();
     }
 }

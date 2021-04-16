@@ -19,7 +19,7 @@
                 <Rectangle2D />
             </viewport>
         </ImageView>
-        <Label alignment="CENTER" layoutX="354.0" layoutY="45.0" text="Welcome to Duke Risk Game!" textAlignment="CENTER" textFill="#012169">
+        <Label alignment="CENTER" layoutX="354.0" layoutY="45.0" text="Welcome to Duke Risk Game!" textAlignment="CENTER" textFill="#012169" styleClass="title">
             <font>
                 <Font name="EB Garamond Regular" size="50.0" />
             </font>
@@ -34,6 +34,9 @@
                 <Font name="Open Sans Regular" size="13.0" />
             </font>
         </TextField>
-        <Label fx:id="errorMessage" alignment="CENTER" layoutX="521.0" layoutY="187.0" prefHeight="17.0" prefWidth="238.0" text="" textAlignment="CENTER" textFill="HOTPINK" />
+        <Label fx:id="errorMessage" alignment="CENTER" layoutX="521.0" layoutY="187.0" prefHeight="17.0" prefWidth="238.0" text="" textAlignment="CENTER" textFill="HOTPINK">
+         <font>
+            <Font name="Open Sans Regular" size="13.0" />
+         </font></Label>
     </children>
 </Pane>

@@ -11,15 +11,16 @@ import javafx.stage.Stage;
 
 /* Controller for the screen that asks user to join a room.
  */
-public class JoinRoomController extends Controller implements Initializable, ErrorHandlingController {
+public class JoinRoomController extends Controller
+        implements Initializable, ErrorHandlingController {
     String newPlayerNextView;
     String existingPlayerNextView;
 
-    @FXML
-    Label errorMessage;
+    @FXML Label errorMessage;
 
     /**
      * Simple constructor which sets the model.
+     *
      * @param model is the model for the RISK game.
      */
     public JoinRoomController(App model) {
@@ -28,24 +29,27 @@ public class JoinRoomController extends Controller implements Initializable, Err
 
     /**
      * Lets user join a given room.
+     *
      * @param ae is used to determine if button for joining this room was clicked on.
-     * @param roomId is the room number you want to join. Currently supports joining room 1, 2, 3, and 4.
+     * @param roomId is the room number you want to join. Currently supports joining room 1, 2, 3,
+     *     and 4.
      */
-    private void joinRoom(ActionEvent ae, int roomId, String newPlayerNextView, String existingPlayerNextView) throws Exception {
+    private void joinRoom(
+            ActionEvent ae, int roomId, String newPlayerNextView, String existingPlayerNextView)
+            throws Exception {
         Object source = ae.getSource();
         if (source instanceof Button) {
             clearErrorMessage();
             Boolean joinRoomSuccess = model.tryJoinRoom(roomId);
-            if (!joinRoomSuccess){
+            if (!joinRoomSuccess) {
                 errorMessage.setText("The room is full! Try another room.");
-            }
-            else {
+            } else {
                 Boolean checkInSuccess = model.checkIn();
                 if (checkInSuccess) {
                     model.getPlayer().waitOtherPlayers();
+                    model.getPlayer().startInitialization();
                     this.next = newPlayerNextView;
-                }
-                else {
+                } else {
                     this.next = existingPlayerNextView;
                 }
                 loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
@@ -57,46 +61,49 @@ public class JoinRoomController extends Controller implements Initializable, Err
 
     /**
      * Lets user join room one.
+     *
      * @param ae is used to determine if button for joining this room was clicked on.
      */
     @FXML
     public void onJoinRoomOne(ActionEvent ae) throws Exception {
-        this.newPlayerNextView = "selectTerritoryGroupEven";
-        this.existingPlayerNextView = "selectActionEvenPlayers";
+        this.newPlayerNextView = "selectTerritoryGroup";
+        this.existingPlayerNextView = "selectAction";
         joinRoom(ae, 1, newPlayerNextView, existingPlayerNextView);
     }
 
     /**
      * Lets user join room two.
+     *
      * @param ae is used to determine if button for joining this room was clicked on.
      */
     @FXML
     public void onJoinRoomTwo(ActionEvent ae) throws Exception {
-        this.newPlayerNextView = "selectTerritoryGroupOdd";
-        this.existingPlayerNextView = "selectActionOddPlayers";
+        this.newPlayerNextView = "selectTerritoryGroup";
+        this.existingPlayerNextView = "selectAction";
         joinRoom(ae, 2, newPlayerNextView, existingPlayerNextView);
-
     }
 
     /**
      * Lets user join room three.
+     *
      * @param ae is used to determine if button for joining this room was clicked on.
      */
     @FXML
     public void onJoinRoomThree(ActionEvent ae) throws Exception {
-        this.newPlayerNextView = "selectTerritoryGroupEven";
-        this.existingPlayerNextView = "selectActionEvenPlayers";
+        this.newPlayerNextView = "selectTerritoryGroup";
+        this.existingPlayerNextView = "selectAction";
         joinRoom(ae, 3, newPlayerNextView, existingPlayerNextView);
     }
 
     /**
      * Lets user join room four.
+     *
      * @param ae is used to determine if button for joining this room was clicked on.
      */
     @FXML
     public void onJoinRoomFour(ActionEvent ae) throws Exception {
-        this.newPlayerNextView = "selectTerritoryGroupOdd";
-        this.existingPlayerNextView = "selectActionOddPlayers";
+        this.newPlayerNextView = "selectTerritoryGroup";
+        this.existingPlayerNextView = "selectAction";
         joinRoom(ae, 4, newPlayerNextView, existingPlayerNextView);
     }
 

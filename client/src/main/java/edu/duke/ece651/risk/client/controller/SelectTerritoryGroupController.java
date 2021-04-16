@@ -2,15 +2,12 @@ package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
 import edu.duke.ece651.risk.shared.WorldMap;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
@@ -20,11 +17,11 @@ import java.util.ResourceBundle;
 
 /* Class responsible for registering territory group for a player.
  */
-public class SelectTerritoryGroupController extends Controller implements Initializable {
+public class SelectTerritoryGroupController extends Controller implements Initializable, ErrorHandlingController {
     WorldMap map;
-    int numPlayers;
 
-    @FXML Label error;
+    @FXML ImageView mapImageView;
+    @FXML Label errorMessage;
     @FXML ArrayList<Label> labelList;
     @FXML ArrayList<Circle> charList;
     @FXML ArrayList<Label> nameList;
@@ -35,6 +32,7 @@ public class SelectTerritoryGroupController extends Controller implements Initia
      */
     public SelectTerritoryGroupController(App model) {
         super(model);
+        this.next = "allocateTalents";
     }
 
     /**
@@ -44,15 +42,17 @@ public class SelectTerritoryGroupController extends Controller implements Initia
      */
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
+        // get map from client App
+        this.map = model.getPlayer().getMap();
         InitializeControllerHelper helper = new InitializeControllerHelper();
+        // set map image according to number of players
+        helper.initializeMap(map, mapImageView);
         // set coloring for each territory label
-        helper.initializeTerritoryLabelByGroup(model.getPlayer().getMap(), labelList);
+        helper.initializeTerritoryLabelByGroup(map, labelList);
         // set tooltip for each territory label
-        helper.initializeTerritoryTooltips(model.getPlayer().getMap(), labelList);
+        helper.initializeTerritoryTooltips(map, labelList);
         // set image and label for each character
-        this.numPlayers = model.getPlayer().getNumPlayers();
-        helper.initializeCharacter(charList, nameList, numPlayers);
-        this.next = "allocateTalents" + String.valueOf(numPlayers) + "p";
+        helper.initializeCharacter(map, charList, nameList);
     }
 
     /**
@@ -72,15 +72,25 @@ public class SelectTerritoryGroupController extends Controller implements Initia
     private void assignTerritoryToPlayer(MouseEvent ae, int territoryGroup) throws Exception {
         Object source = ae.getSource();
         if (source instanceof Node) {
+            clearErrorMessage();
             Boolean success = model.getPlayer().tryInitialization(String.valueOf(territoryGroup));
             if (!success) {
-                error.setText(
-                        "Character has already been taken by another player. Try choosing a different character.");
+                errorMessage.setText("Character has already been taken by another player. Try choosing a different character.");
             } else {
                 loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
             }
         } else {
             throw new IllegalArgumentException("Invalid source " + source + " for ActionEvent");
         }
+    }
+
+    @Override
+    public void setErrorMessage(String error) {
+        errorMessage.setText(error);
+    }
+
+    @Override
+    public void clearErrorMessage() {
+        setErrorMessage(null);
     }
 }

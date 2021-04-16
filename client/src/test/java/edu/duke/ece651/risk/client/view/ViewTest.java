@@ -7,6 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.framework.junit5.ApplicationExtension;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -18,7 +19,9 @@ public class ViewTest {
         View v1 = new View("a", "b", "c");
         assertEquals("a", v1.getName());
         assertEquals("b", v1.getXMLPath());
-        assertEquals("c", v1.getCSSPath());
+        ArrayList<String> expected = new ArrayList<>();
+        expected.add("c");
+        assertEquals(expected, v1.getCSSPathList());
         assertEquals("aview.\n" + "XML Path: `b`\n", v1.toString());
         assertEquals(-1122958654, v1.hashCode());
         View v2 = new View("serverConnect", "/ui/views/server-connect.fxml");
@@ -26,7 +29,7 @@ public class ViewTest {
         View v3 =
                 new View(
                         "selectTerritoryGroupEven",
-                        "/ui/views/select-territory-even.fxml",
+                        "/ui/views/select-territory.fxml",
                         "/ui/styling/territory-group.css");
         v3.makeScene(mock(SelectTerritoryGroupController.class));
     }

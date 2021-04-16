@@ -2,6 +2,7 @@ package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
 import edu.duke.ece651.risk.client.view.PhaseChanger;
+import edu.duke.ece651.risk.shared.WorldMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class SelectActionController extends Controller implements Initializable {
+  WorldMap map;
   String nextOnCompleteTurn;
   String nextOnLeave;
   String nextOnMoveAction;
@@ -28,10 +31,9 @@ public class SelectActionController extends Controller implements Initializable 
   String nextOnUpgradeSpy;
   String nextOnGameEnd;
 
+  @FXML ImageView mapImageView;
   @FXML Label playerInfo;
-
   @FXML SplitMenuButton actionMenu;
-
   @FXML ArrayList<Label> labelList;
 
   /**
@@ -49,7 +51,11 @@ public class SelectActionController extends Controller implements Initializable 
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    // get map from client App
+    this.map = model.getPlayer().getMap();
     InitializeControllerHelper helper = new InitializeControllerHelper();
+    // set map image according to number of players
+    helper.initializeMap(map, mapImageView);
     // set coloring for each territory label
     helper.initializeTerritoryLabelByOwner(model.getPlayer().getMap(), labelList);
     // set tooltip for each territory label
@@ -60,23 +66,13 @@ public class SelectActionController extends Controller implements Initializable 
     // set coloring for player info
     helper.initializeTerritoryPlayerInfoColor(model, playerInfo);
 
-    if (model.getPlayer().getMap().getNumPlayers() % 2 == 0) {
-      this.nextOnCompleteTurn = "selectActionEvenPlayers";
-      this.nextOnMoveAction = "moveActionEvenPlayers";
-      this.nextOnAttackAction = "attackActionEvenPlayers";
-      this.nextOnUpgradeTalentsAction = "upgradeTalentsActionEvenPlayers";
-      this.nextOnUpgradeTechAction = "upgradeTechActionEvenPlayers";
-      this.nextOnMoveSpy = "moveSpyActionEvenPlayers";
-      this.nextOnUpgradeSpy = "upgradeSpyActionEvenPlayers";
-    } else {
-      this.nextOnCompleteTurn = "selectActionOddPlayers";
-      this.nextOnMoveAction = "moveActionOddPlayers";
-      this.nextOnAttackAction = "attackActionOddPlayers";
-      this.nextOnUpgradeTalentsAction = "upgradeTalentsActionOddPlayers";
-      this.nextOnUpgradeTechAction = "upgradeTechActionOddPlayers";
-      this.nextOnMoveSpy = "moveSpyActionOddPlayers";
-      this.nextOnUpgradeSpy = "upgradeSpyActionOddPlayers";
-    }
+    this.nextOnCompleteTurn = "selectAction";
+    this.nextOnMoveAction = "moveAction";
+    this.nextOnAttackAction = "attackAction";
+    this.nextOnUpgradeTalentsAction = "upgradeTalentsAction";
+    this.nextOnUpgradeTechAction = "upgradeTechAction";
+    this.nextOnMoveSpy = "moveSpyAction";
+    this.nextOnUpgradeSpy = "upgradeSpyAction";
     this.nextOnLeave = "joinRoom";
     this.nextOnGameEnd = "gameEnd";
   }
