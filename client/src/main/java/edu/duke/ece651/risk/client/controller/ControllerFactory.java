@@ -37,6 +37,11 @@ public class ControllerFactory {
         "upgradeTechActionOddPlayers", new UpgradeTechActionsOddPlayersController((App) model));
     controllers.put("gameEnd", new GameEndController((App) model));
 
+    controllers.put("moveSpyActionEvenPlayers", new MoveSpyActionEvenPlayersController((App) model));
+    controllers.put("moveSpyActionOddPlayers", new MoveSpyActionOddPlayersController((App) model));
+    controllers.put("upgradeSpyActionEvenPlayers", new UpgradeSpyActionEvenPlayersController((App) model));
+    //controllers.put("upgradeSpyActionOddPlayers", new UpgradeSpyActionOdd((App) model));
+
     // Add new controllers here
     controllers.put("test", new ServerConnectController(model));
     return controllers;
