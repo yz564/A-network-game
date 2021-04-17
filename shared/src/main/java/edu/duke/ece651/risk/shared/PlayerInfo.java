@@ -6,6 +6,7 @@ public class PlayerInfo implements java.io.Serializable {
 
   private final String playerName;
   private int playerId;
+  private PlayerCharacter playerCharacter;
   private int techLevel;
   private Boolean isCloakingResearched;
   private HashMap<String, Integer> resTotals;
@@ -97,6 +98,18 @@ public class PlayerInfo implements java.io.Serializable {
   public String getPlayerName() {
     return this.playerName;
   }
+
+  /** Gets the name of the character that a player is playing as.
+   *
+   * @return name of the player's character.
+   */
+  public String getCharacterName() { return this.playerCharacter.getName(); }
+
+  /** Gets player's character's research domain name.
+   *
+   * @return the domain of the player's character.
+   */
+  public String getResearchDomain() { return this.playerCharacter.getResearchDomain(); }
 
   /**
    * Gets the current maximum technology level of the player.
