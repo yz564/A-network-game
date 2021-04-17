@@ -1,19 +1,20 @@
 package edu.duke.ece651.risk.client.view;
 
 import edu.duke.ece651.risk.client.view.StyleMapping;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
-public class LeaderCharacter {
+public class CharacterButton {
     private final String name;
     private final int id;
     private final String imagePath;
     private final Circle circleButton;
     private final Label label;
 
-    public LeaderCharacter (Circle circleButton, Label label, StyleMapping mapping){
+    public CharacterButton(Circle circleButton, Label label, StyleMapping mapping){
         this.circleButton = circleButton;
         this.label = label;
         this.id = Integer.parseInt(circleButton.getId().substring(4));
@@ -21,7 +22,7 @@ public class LeaderCharacter {
         this.imagePath = "ui/static-images/figures/" + name.toLowerCase().replace(" ", "-") + ".jpg";
     }
 
-    public LeaderCharacter (Circle circleButton, Label label, StyleMapping mapping, int id){
+    public CharacterButton(Circle circleButton, Label label, StyleMapping mapping, int id){
         this.circleButton = circleButton;
         this.label = label;
         this.id = id;

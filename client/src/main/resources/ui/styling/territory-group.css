@@ -144,3 +144,7 @@
     -fx-stroke: SLATEBLUE;
     -fx-stroke-width: 3;
 }
+
+.circle-label {
+    -fx-graphic: new Circle(45);
+}

@@ -1,0 +1,67 @@
+.action-button, .action-button:hover, .action-button:pressed {
+    -fx-background-radius: 15;
+    -fx-background-insets: 1;
+    -fx-border-color: BLACK;
+    -fx-border-radius: 15;
+    -fx-padding:0;
+}
+
+.action-1 {
+    -fx-background-color: HOTPINK;
+}
+
+.action-1:hover {
+    -fx-background-color: PINK;
+}
+
+.action-1:pressed {
+    -fx-background-color: DEEPPINK;
+}
+
+.action-2 {
+    -fx-fill: CORNFLOWERBLUE;
+}
+
+.action-2:hover {
+    -fx-fill: LIGHTBLUE;
+}
+
+.action-2:pressed {
+    -fx-fill: DODGERBLUE;
+}
+
+.action-3 {
+    -fx-fill: ORANGE;
+}
+
+.action-3:hover {
+    -fx-fill: GOLD;
+}
+
+.action-3:pressed {
+    -fx-fill: TOMATO;
+}
+
+.action-4 {
+    -fx-fill: LIGHTSEAGREEN;
+}
+
+.action-4:hover {
+    -fx-fill: LIGHTGREEN;
+}
+
+.action-4:pressed {
+    -fx-fill: FORESTGREEN;
+}
+
+.action-5 {
+    -fx-fill: MEDIUMPURPLE;
+}
+
+.action-5:hover {
+    -fx-fill: PLUM;
+}
+
+.action-5:pressed {
+    -fx-fill: SLATEBLUE;
+}

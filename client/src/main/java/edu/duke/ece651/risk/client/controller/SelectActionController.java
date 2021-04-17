@@ -11,7 +11,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -32,9 +36,10 @@ public class SelectActionController extends Controller implements Initializable 
   String nextOnGameEnd;
 
   @FXML ImageView mapImageView;
-  @FXML Label playerInfo;
-  @FXML SplitMenuButton actionMenu;
+  //@FXML Label playerInfo;
+  //@FXML SplitMenuButton actionMenu;
   @FXML ArrayList<Label> labelList;
+  @FXML GridPane action;
 
   /**
    * Constructor that initializes the model.
@@ -61,10 +66,19 @@ public class SelectActionController extends Controller implements Initializable 
     // set tooltip for each territory label
     helper.initializeTerritoryTooltips(model.getPlayer().getMap(), labelList);
     // set tooltip for player info
-    helper.initializePlayerInfoTooltip(
-        model.getPlayer().getMap(), model.getPlayer().getName(), playerInfo);
+    //helper.initializePlayerInfoTooltip(
+        //model.getPlayer().getMap(), model.getPlayer().getName(), playerInfo);
     // set coloring for player info
-    helper.initializeTerritoryPlayerInfoColor(model, playerInfo);
+    //helper.initializeTerritoryPlayerInfoColor(model, playerInfo);
+
+    /*for (Node child : action.getChildren()){
+      if (child instanceof Circle){
+        Circle actionButton = (Circle) child;
+        Image image = new Image("ui/icons/attack.png");
+        actionButton.setFill(new ImagePattern(image));
+        //actionButton.getStyleClass().add("action-"+String.valueOf(1));
+      }
+    }*/
 
     this.nextOnCompleteTurn = "selectAction";
     this.nextOnMoveAction = "moveAction";
@@ -79,7 +93,7 @@ public class SelectActionController extends Controller implements Initializable 
 
   /**
    * Opens a new view that asks user to move their talents within their territories.
-   */
+   *//*
   public void onSelectMove(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
     if (source instanceof MenuItem) {
@@ -90,9 +104,9 @@ public class SelectActionController extends Controller implements Initializable 
     }
   }
 
-  /**
+  *//**
    * Opens a new view that asks user to attack enemy territory.
-   */
+   *//*
   public void onSelectAttack(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
     if (source instanceof MenuItem) {
@@ -103,9 +117,9 @@ public class SelectActionController extends Controller implements Initializable 
     }
   }
 
-  /**
+  *//**
    * Opens a new view that asks user to upgrade their talents.
-   */
+   *//*
   public void onSelectUpgradeTalents(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
     if (source instanceof MenuItem) {
@@ -116,9 +130,9 @@ public class SelectActionController extends Controller implements Initializable 
     }
   }
 
-  /**
+  *//**
    * Opens a new view that asks user to upgrade their technology level.
-   */
+   *//*
   public void onSelectUpgradeTech(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
     if (source instanceof MenuItem) {
@@ -129,10 +143,10 @@ public class SelectActionController extends Controller implements Initializable 
     }
   }
 
-  /**
+  *//**
    * Opens a new view that asks user to move their spies.
    * @param ae is the action event that triggers this function.
-   */
+   *//*
   public void onSelectMoveSpy(ActionEvent ae) throws IOException {
     Object source = ae.getSource();
     if (source instanceof MenuItem) {
@@ -144,10 +158,10 @@ public class SelectActionController extends Controller implements Initializable 
     }
   }
 
-  /**
+  *//**
    * Opens a new view that asks user to upgrade their spies.
    * @param ae is the action event that triggers this function.
-   */
+   *//*
   @FXML
   public void onSelectUpgradeSpy(ActionEvent ae) throws IOException {
     Object source = ae.getSource();
@@ -166,9 +180,9 @@ public class SelectActionController extends Controller implements Initializable 
   @FXML
   public void onSelectCloaking(ActionEvent ae) {}
 
-  /**
+  *//**
    * Switches to the view that asks player join a  room.
-   */
+   *//*
   @FXML
   public void onLeavingGame(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
@@ -182,9 +196,9 @@ public class SelectActionController extends Controller implements Initializable 
     }
   }
 
-  /**
+  *//**
    * Takes the user to a view that asks them to wait for other players to finish their turn.
-   */
+   *//*
   @FXML
   public void onCompletingTurn(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
@@ -200,5 +214,5 @@ public class SelectActionController extends Controller implements Initializable 
       throw new IllegalArgumentException(
           "Action event " + ae.getSource() + " is invalid for onAction().");
     }
-  }
+  }*/
 }
