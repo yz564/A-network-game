@@ -1,5 +1,7 @@
 package edu.duke.ece651.risk.client;
 
+import java.io.IOException;
+
 public class ClientEventMessenger {
     ClientEventListener listener;
     String literalMessage;
@@ -15,23 +17,13 @@ public class ClientEventMessenger {
         this.listener = listener;
     }
 
-    public void setLiteralMessage(String literalMessage) {
+    public void setLiteralMessage(String literalMessage) throws IOException {
         this.literalMessage = literalMessage;
         listener.onUpdateEvent(new ClientEvent(this, literalMessage));
     }
 
-  public void setStatusBoolean(Boolean statusBoolean) {
-    //this.statusBoolean = literalMessage;
+    public void setStatusBoolean(Boolean statusBoolean) throws IOException {
+        // this.statusBoolean = literalMessage;
         listener.onUpdateEvent(new ClientEvent(this, statusBoolean));
     }
-
 }
-
-
-
-
-
-
-
-
-

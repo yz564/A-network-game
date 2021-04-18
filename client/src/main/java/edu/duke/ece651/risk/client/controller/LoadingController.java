@@ -1,6 +1,8 @@
 package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
+import edu.duke.ece651.risk.client.ClientEvent;
+import edu.duke.ece651.risk.client.ClientEventListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -8,10 +10,11 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LoadSelectTerritoryGroup2P extends Controller implements Initializable {
+public class LoadingController extends Controller implements Initializable, ClientEventListener {
 
     @FXML Label loadingMessage;
 
@@ -20,30 +23,27 @@ public class LoadSelectTerritoryGroup2P extends Controller implements Initializa
      *
      * @param model is the model of the RISK game.
      */
-    public LoadSelectTerritoryGroup2P(App model) {
+    public LoadingController(App model) {
         super(model);
     }
 
     /**
      * Sets various elements in the view to default values.
+     *
      * @param location is the location of the FXML resource.
      * @param resources used to initialize the root object of the view.
      */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-      
-    }
+    public void initialize(URL location, ResourceBundle resources) {}
 
-    @FXML
-    public void onLoadSelectTerritoryGroups(MouseEvent me) {
-        try {
-            this.next = "selectTerritoryGroup2P";
-            model.getPlayer().startInitialization();
-            //loadNextPhase((Stage) loadingMessage.getScene().getWindow()); //if inside initialize
-            loadNextPhase((Stage) (((Node) me.getSource()).getScene().getWindow())); // if inside move mouse
+    @Override
+    public void onUpdateEvent(ClientEvent ce) throws IOException {
+        Boolean checkInSuccess = ce.getStatusBoolean();
+        if (checkInSuccess) {
+            this.next = "selectTerritoryGroup";
+        } else {
+            this.next = "selectAction";
         }
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        loadNextPhase((Stage) loadingMessage.getScene().getWindow());
     }
 }

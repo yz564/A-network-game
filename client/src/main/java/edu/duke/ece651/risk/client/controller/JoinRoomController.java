@@ -1,6 +1,9 @@
 package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
+import edu.duke.ece651.risk.client.ClientEvent;
+import edu.duke.ece651.risk.client.ClientEventListener;
+import edu.duke.ece651.risk.client.GUIEventMessenger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,14 +12,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 /* Controller for the screen that asks user to join a room.
  */
 public class JoinRoomController extends Controller
-        implements Initializable, ErrorHandlingController {
-    String newPlayerNextView;
-    String existingPlayerNextView;
+        implements Initializable, ErrorHandlingController, ClientEventListener {
+    String newPlayerNextView = "selectTerritoryGroup";
+    String existingPlayerNextView = "selectAction";
 
     @FXML Label errorMessage;
+    GUIEventMessenger messenger;
 
     /**
      * Simple constructor which sets the model.
@@ -25,35 +31,51 @@ public class JoinRoomController extends Controller
      */
     public JoinRoomController(App model) {
         super(model);
+        this.messenger = new GUIEventMessenger();
+        messenger.setGUIEventListener(model);
+    }
+
+    /*
+    private void joinRoom(Boolean joinRoomSuccess) throws Exception {
+        if (!joinRoomSuccess) {
+            errorMessage.setText("The room is full! Try another room.");
+        } else {
+            // TODO
+            Boolean checkInSuccess = model.checkIn();
+            if (checkInSuccess) {
+                model.getPlayer().waitOtherPlayers();
+                model.getPlayer().startInitialization();
+                this.next = this.newPlayerNextView;
+            } else {
+                this.next = this.existingPlayerNextView;
+            }
+            loadNextPhase((Stage) errorMessage.getScene().getWindow());
+        }
+    }
+     */
+
+    @Override
+    public void onUpdateEvent(ClientEvent ce) throws IOException {
+        Boolean joinRoomSuccess = ce.getStatusBoolean();
+        if (!joinRoomSuccess) {
+            errorMessage.setText("The room is full! Try another room.");
+        } else {
+            this.next = "loading";
+            loadNextPhase((Stage) errorMessage.getScene().getWindow());
+        }
     }
 
     /**
-     * Lets user join a given room.
-     *
      * @param ae is used to determine if button for joining this room was clicked on.
      * @param roomId is the room number you want to join. Currently supports joining room 1, 2, 3,
      *     and 4.
+     * @throws Exception if the event source is not a button.
      */
-    private void joinRoom(
-            ActionEvent ae, int roomId, String newPlayerNextView, String existingPlayerNextView)
-            throws Exception {
+    private void onRoomID(ActionEvent ae, int roomId) throws Exception {
         Object source = ae.getSource();
         if (source instanceof Button) {
             clearErrorMessage();
-            Boolean joinRoomSuccess = model.tryJoinRoom(roomId);
-            if (!joinRoomSuccess) {
-                errorMessage.setText("The room is full! Try another room.");
-            } else {
-                Boolean checkInSuccess = model.checkIn();
-                if (checkInSuccess) {
-                    model.getPlayer().waitOtherPlayers();
-                    model.getPlayer().startInitialization();
-                    this.next = newPlayerNextView;
-                } else {
-                    this.next = existingPlayerNextView;
-                }
-                loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
-            }
+            messenger.setRoomId(roomId);
         } else {
             throw new IllegalArgumentException("Invalid source " + source + " for ActionEvent");
         }
@@ -66,9 +88,7 @@ public class JoinRoomController extends Controller
      */
     @FXML
     public void onJoinRoomOne(ActionEvent ae) throws Exception {
-        this.newPlayerNextView = "selectTerritoryGroup";
-        this.existingPlayerNextView = "selectAction";
-        joinRoom(ae, 1, newPlayerNextView, existingPlayerNextView);
+        onRoomID(ae, 1);
     }
 
     /**
@@ -78,9 +98,7 @@ public class JoinRoomController extends Controller
      */
     @FXML
     public void onJoinRoomTwo(ActionEvent ae) throws Exception {
-        this.newPlayerNextView = "selectTerritoryGroup";
-        this.existingPlayerNextView = "selectAction";
-        joinRoom(ae, 2, newPlayerNextView, existingPlayerNextView);
+        onRoomID(ae, 2);
     }
 
     /**
@@ -90,9 +108,7 @@ public class JoinRoomController extends Controller
      */
     @FXML
     public void onJoinRoomThree(ActionEvent ae) throws Exception {
-        this.newPlayerNextView = "selectTerritoryGroup";
-        this.existingPlayerNextView = "selectAction";
-        joinRoom(ae, 3, newPlayerNextView, existingPlayerNextView);
+        onRoomID(ae, 3);
     }
 
     /**
@@ -102,9 +118,7 @@ public class JoinRoomController extends Controller
      */
     @FXML
     public void onJoinRoomFour(ActionEvent ae) throws Exception {
-        this.newPlayerNextView = "selectTerritoryGroup";
-        this.existingPlayerNextView = "selectAction";
-        joinRoom(ae, 4, newPlayerNextView, existingPlayerNextView);
+        onRoomID(ae, 4);
     }
 
     @Override
