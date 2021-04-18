@@ -63,8 +63,6 @@ public class JoinRoomController extends Controller
         } else {
             boolean checkInSuccess = model.checkIn();
             if (checkInSuccess) {
-                // TODO, change this to set GUIEvent
-                model.getPlayer().waitOtherPlayers();
                 this.next = "loading";
             } else {
                 this.next = "selectAction";

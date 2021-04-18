@@ -3,6 +3,7 @@ package edu.duke.ece651.risk.client.controller;
 import edu.duke.ece651.risk.client.App;
 import edu.duke.ece651.risk.client.ClientEvent;
 import edu.duke.ece651.risk.client.ClientEventListener;
+import edu.duke.ece651.risk.client.GUIEventMessenger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -18,6 +19,8 @@ public class LoadingController extends Controller implements Initializable, Clie
 
     @FXML Label loadingMessage;
 
+    GUIEventMessenger messenger;
+
     /**
      * Defines the model and the next phase to load.
      *
@@ -25,6 +28,8 @@ public class LoadingController extends Controller implements Initializable, Clie
      */
     public LoadingController(App model) {
         super(model);
+        this.messenger = new GUIEventMessenger();
+        messenger.setGUIEventListener(model);
     }
 
     /**
@@ -34,7 +39,10 @@ public class LoadingController extends Controller implements Initializable, Clie
      * @param resources used to initialize the root object of the view.
      */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {}
+    public void initialize(URL location, ResourceBundle resources) {
+        // model.getPlayer().waitOtherPlayers();
+        messenger.setLiteralMessage("wait others");
+    }
 
     @Override
     public void onUpdateEvent(ClientEvent ce) throws Exception {
