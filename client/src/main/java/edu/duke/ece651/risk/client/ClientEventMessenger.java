@@ -34,4 +34,7 @@ public class ClientEventMessenger {
         this.map = map;
         listener.onUpdateEvent(new ClientEvent(this, map));
     }
+  public Boolean getStatus(){
+    return statusBoolean;
+  }
 }

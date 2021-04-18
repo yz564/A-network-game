@@ -14,6 +14,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import edu.duke.ece651.risk.client.controller.ControllerFactory;
 import edu.duke.ece651.risk.shared.ObjectIO;
 
 /**
@@ -33,6 +34,8 @@ public class App implements Runnable, GUIEventListener{
   private GUIEvent theGUIEvent;
   private Boolean isGUIUpdated;
   private ClientEventMessenger messenger;
+  private ControllerFactory myFactory;
+  
 
   // private String serverAdd;
 
@@ -48,6 +51,7 @@ public class App implements Runnable, GUIEventListener{
     this.theGUIEvent = null;
     this.isGUIUpdated = false;
     this.messenger = new ClientEventMessenger();
+    this.myFactory = new ControllerFactory();
   }
 
   public void deleteJoinedRoomId(int id) {
@@ -143,13 +147,21 @@ public class App implements Runnable, GUIEventListener{
   }
 
   public ObjectIO receiveMessage() throws Exception {
+    try{
     return (ObjectIO) in.readObject();
+    }catch(Exception e){
+      throw new Exception("app receiveMessage exception");
+    }
   }
 
   public void sendMessage(ObjectIO info) throws Exception {
+    try{
     out.writeObject(info);
     out.flush();
     out.reset();
+    }catch(Exception e){
+      throw new Exception("app sendMessage exception");
+    }
   }
 
   public Boolean tryLogin(String userName, String password) throws Exception {
@@ -173,28 +185,47 @@ public class App implements Runnable, GUIEventListener{
   @Override
   public void run() {
     while (true) {
-      try{
-      while (!isGUIUpdated) {
-      }
-      isGUIUpdated = false;
-      receiveMessage();
-      int roomId=theGUIEvent.getRoomId();
-      currentRoomId = roomId - 1;
-      sendMessage(new ObjectIO("", roomId));
-      tmp = receiveMessage();
-      //messenger.setClientEventListener(JoinRoomController);
-      messenger.setStatusBoolean(tmp.id==0);
-    }
-    catch (Exception e) {
-      System.out.println(e.getMessage());
-    }
     }
   }
 
   @Override
-  public void onUpdateEvent(GUIEvent ge){
-    this.theGUIEvent = ge;
-    this.isGUIUpdated = true;
+  public void onUpdateJoinRoom(GUIEvent ge){
+    try{
+    receiveMessage();
+      int roomId=ge.getRoomId();
+      currentRoomId = roomId - 1;
+      sendMessage(new ObjectIO("", roomId));
+      tmp = receiveMessage();
+      messenger.setClientEventListener((ClientEventListener)myFactory.getController("joinRoom",this));
+      messenger.setStatusBoolean(tmp.id==0);
+      System.out.println("messenger status");
+      /*
+      sendMessage(new ObjectIO("wait others", 0));
+    tmp = receiveMessage();
+
+    System.out.println(tmp.message);
+    getPlayer().receiveMessage();
+    messenger.setClientEventListener((ClientEventListener)myFactory.getController("loading",this));
+    messenger.setMap(getPlayer().getMap());*/
+    }
+    catch (Exception e) {
+      System.out.println("Exception catched 1: "+e.getMessage());
+    }
+  }
+
+  @Override
+  public void onUpdateWaitOthers(GUIEvent ge){
+    try{
+    sendMessage(new ObjectIO("wait others", 0));
+    tmp = receiveMessage();
+    System.out.println(tmp.message);
+    getPlayer().receiveMessage();
+    messenger.setClientEventListener((ClientEventListener)myFactory.getController("loading",this));
+    messenger.setMap(getPlayer().getMap());
+    
+  } catch (Exception e) {
+      System.out.println("Exception catched 2: "+e.getMessage());
+    }
   }
 
   /**

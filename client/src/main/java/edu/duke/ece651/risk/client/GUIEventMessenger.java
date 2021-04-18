@@ -15,13 +15,25 @@ public class GUIEventMessenger {
         this.listener = listener;
     }
 
-    public void setLiteralMessage(String literalMessage) {
+    public void setWaitOthers(String literalMessage) {
         this.literalMessage = literalMessage;
-        listener.onUpdateEvent(new GUIEvent(this, literalMessage));
+        listener.onUpdateWaitOthers(new GUIEvent(this, literalMessage));
     }
 
     public void setRoomId(int roomId) {
         this.roomId = roomId;
-        listener.onUpdateEvent(new GUIEvent(this, roomId));
+        listener.onUpdateJoinRoom(new GUIEvent(this, roomId));
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
