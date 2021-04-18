@@ -37,13 +37,15 @@ public class RoomTest {
       Thread tt=new Thread(room);
       tt.start();
     }
-    User p1=new User(s,accounts,rooms);
-    User p2=new User(s2,accounts,rooms);
+    var listener = new ServerSocket(5555);
+    Server server=new Server(5555, listener);
+    User p1=new User(s,accounts,rooms,server);
+    User p2=new User(s2,accounts,rooms,server);
     Thread tt1 = new Thread(p1);
     Thread tt2 = new Thread(p2);
     tt1.start();
     tt2.start();
-    Thread.sleep(2000);
+    Thread.sleep(1000);
       }catch(Exception e){}
   }
 
@@ -75,18 +77,32 @@ public class RoomTest {
       out.flush();
       out.reset();
       tempObj = (ObjectIO) in.readObject();
+      out.writeObject(new ObjectIO());
+      out.flush();
+      out.reset();
+      tempObj = (ObjectIO) in.readObject();
+      tempObj = (ObjectIO) in.readObject();
       out.writeObject(new ObjectIO("1",1));
       out.flush();
       out.reset();
       tempObj = (ObjectIO) in.readObject();
       tempObj = (ObjectIO) in.readObject();
       tempObj = (ObjectIO) in.readObject();
-      /*
-      out.writeObject(new ObjectIO("2",2));
+      HashMap<String, Integer> po = new HashMap<String, Integer>();
+      po.put("Fuqua", 1);
+      po.put("Gross Hall", 2);
+      po.put("FFRC", 0);
+      po.put("Pratt", 0);
+      po.put("Perkins Library",10);
+      po.put("Wilson Gym", 3);
+      po.put("Cameron Stadium", 5);
+      po.put("Wallace Stadium", 1);
+      ObjectIO myIO=new ObjectIO(); 
+      myIO.placeOrders=po;
+      out.writeObject(myIO);
       out.flush();
       out.reset();
       tempObj = (ObjectIO) in.readObject();
-      */
       }catch(Exception e){}
     }
 }
@@ -98,7 +114,7 @@ public class RoomTest {
     @Override
     public void run(){
       try{
-      Thread.sleep(100);
+      Thread.sleep(300);
       while (true) {
         this.socket = new Socket("localhost", 8888);
         this.out= new ObjectOutputStream(socket.getOutputStream());
@@ -106,14 +122,24 @@ public class RoomTest {
         break;
       }
       tempObj = (ObjectIO) in.readObject();
-      out.writeObject(new ObjectIO("Yang"));
+      out.writeObject(new ObjectIO("JY"));
       out.flush();
       out.reset();
       tempObj = (ObjectIO) in.readObject();
-      out.writeObject(new ObjectIO("y"));
+      out.writeObject(new ObjectIO("jy"));
       out.flush();
       out.reset();
       tempObj = (ObjectIO) in.readObject();
+      out.writeObject(new ObjectIO("1",1));
+      out.flush();
+      out.reset();
+      tempObj = (ObjectIO) in.readObject();
+      out.writeObject(new ObjectIO());
+      out.flush();
+      out.reset();
+      tempObj = (ObjectIO) in.readObject();
+      tempObj = (ObjectIO) in.readObject();
+      Thread.sleep(400);
       out.writeObject(new ObjectIO("1",1));
       out.flush();
       out.reset();
@@ -124,18 +150,25 @@ public class RoomTest {
       tempObj = (ObjectIO) in.readObject();
       tempObj = (ObjectIO) in.readObject();
       tempObj = (ObjectIO) in.readObject();
-      //Thread.sleep(100);
-      /*
-      out.writeObject(new ObjectIO("1",1));
+      HashMap<String, Integer> po = new HashMap<String, Integer>();
+      po.put("Law", 1);
+      po.put("LSRC", 2);
+      po.put("Bryan Center", 0);
+      po.put("Duke Clinics", 0);
+      po.put("Duke Hospital",10);
+      po.put("Duke Garden", 3);
+      po.put("Duke Chapel", 5);
+      po.put("Student Housing", 1);
+      ObjectIO myIO=new ObjectIO(); 
+      myIO.placeOrders=po;
+      out.writeObject(myIO);
       out.flush();
       out.reset();
       tempObj = (ObjectIO) in.readObject();
-      */
       }catch(Exception e){}
 }
   }
 }
-
 
 
 
