@@ -56,6 +56,7 @@ public class JoinRoomController extends Controller
 
     @Override
     public void onUpdateEvent(ClientEvent ce) throws Exception {
+        // gets the joinRoomStatus Boolean from client
         Boolean joinRoomSuccess = ce.getStatusBoolean();
         if (!joinRoomSuccess) {
             errorMessage.setText("The room is full! Try another room.");
@@ -82,6 +83,7 @@ public class JoinRoomController extends Controller
         Object source = ae.getSource();
         if (source instanceof Button) {
             clearErrorMessage();
+            // sends roomId to client
             messenger.setRoomId(roomId);
         } else {
             throw new IllegalArgumentException("Invalid source " + source + " for ActionEvent");
