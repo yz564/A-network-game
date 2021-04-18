@@ -139,6 +139,8 @@ public interface Territory extends java.io.Serializable {
    */
   public HashMap<String, Integer> getAllNumUnits();
 
+  public int getTotalNumUnits();
+
   /**
    * Gets the size (food cost to move through) this territory.
    *

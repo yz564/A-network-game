@@ -6,62 +6,62 @@
     -fx-padding:0;
 }
 
-.action-1 {
+.action-attack {
     -fx-background-color: HOTPINK;
 }
 
-.action-1:hover {
+.action-attack:hover {
     -fx-background-color: PINK;
 }
 
-.action-1:pressed {
+.action-attack:pressed {
     -fx-background-color: DEEPPINK;
 }
 
-.action-2 {
+.action-move {
     -fx-fill: CORNFLOWERBLUE;
 }
 
-.action-2:hover {
+.action-move:hover {
     -fx-fill: LIGHTBLUE;
 }
 
-.action-2:pressed {
+.action-move:pressed {
     -fx-fill: DODGERBLUE;
 }
 
-.action-3 {
+.action-upgrade {
     -fx-fill: ORANGE;
 }
 
-.action-3:hover {
+.action-upgrade:hover {
     -fx-fill: GOLD;
 }
 
-.action-3:pressed {
+.action-upgrade:pressed {
     -fx-fill: TOMATO;
 }
 
-.action-4 {
+.action-spy {
     -fx-fill: LIGHTSEAGREEN;
 }
 
-.action-4:hover {
+.action-spy:hover {
     -fx-fill: LIGHTGREEN;
 }
 
-.action-4:pressed {
+.action-spy:pressed {
     -fx-fill: FORESTGREEN;
 }
 
-.action-5 {
+.action-cloak {
     -fx-fill: MEDIUMPURPLE;
 }
 
-.action-5:hover {
+.action-cloak:hover {
     -fx-fill: PLUM;
 }
 
-.action-5:pressed {
+.action-cloak:pressed {
     -fx-fill: SLATEBLUE;
 }

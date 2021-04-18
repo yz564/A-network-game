@@ -39,7 +39,8 @@ public class SelectActionController extends Controller implements Initializable 
   //@FXML Label playerInfo;
   //@FXML SplitMenuButton actionMenu;
   @FXML ArrayList<Label> labelList;
-  @FXML GridPane action;
+  @FXML ArrayList<Label> numList;
+  @FXML ArrayList<GridPane> actionList;
 
   /**
    * Constructor that initializes the model.
@@ -62,14 +63,16 @@ public class SelectActionController extends Controller implements Initializable 
     // set map image according to number of players
     helper.initializeMap(map, mapImageView);
     // set coloring for each territory label
-    helper.initializeTerritoryLabelByOwner(model.getPlayer().getMap(), labelList);
+    helper.initializeTerritoryLabelByOwner(map, labelList);
     // set tooltip for each territory label
-    helper.initializeTerritoryTooltips(model.getPlayer().getMap(), labelList);
+    helper.initializeTerritoryTooltips(map, labelList);
     // set tooltip for player info
     //helper.initializePlayerInfoTooltip(
         //model.getPlayer().getMap(), model.getPlayer().getName(), playerInfo);
     // set coloring for player info
     //helper.initializeTerritoryPlayerInfoColor(model, playerInfo);
+    // set total number of units for each territory
+    helper.initializeTerritoryTotalNumUnitsLabels(map, labelList, numList);
 
     /*for (Node child : action.getChildren()){
       if (child instanceof Circle){

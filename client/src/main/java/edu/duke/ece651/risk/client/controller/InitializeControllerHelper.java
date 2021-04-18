@@ -158,6 +158,16 @@ public class InitializeControllerHelper {
         }
     }
 
+    public void initializeTerritoryTotalNumUnitsLabels(
+            WorldMap map, ArrayList<Label> territoryLabelList, ArrayList<Label> numLabelList){
+        StyleMapping mapping = new StyleMapping();
+        for (int i = 0; i < territoryLabelList.size(); i++){
+            String labelName = territoryLabelList.get(i).getId();
+            String territoryName = mapping.getTerritoryName(labelName);
+            numLabelList.get(i).setText(String.valueOf(map.getTerritory(territoryName).getTotalNumUnits()));
+        }
+    }
+
     /**
      * Returns a String that has text information of the given player.
      *
