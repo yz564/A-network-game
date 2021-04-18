@@ -1,5 +1,6 @@
 package edu.duke.ece651.risk.shared;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /** Information used in a move or an attack action. */
@@ -25,6 +26,9 @@ public class ActionInfo implements java.io.Serializable {
 
     /** The detailed cloaking action info. */
     private CloakingActionInfo cloakingActionInfo;
+
+    /** The detailed research patent action info. */
+    private ResearchPatentActionInfo researchPatentActionInfo;
 
     /**
      * Default constructor of ActionInfo.
@@ -80,6 +84,23 @@ public class ActionInfo implements java.io.Serializable {
         this.srcOwnerName = srcOwnerName;
         this.actionType = actionType;
         this.upgradeUnitActionInfo = upgradeUnitActionInfo;
+    }
+
+    /**
+     * Constructs an ActionInfo with given ResearchPatentActionInfo.
+     *
+     * @param srcOwnerName is the owner's name of the source Territory.
+     * @param actionType is a String represents the action type of the action.
+     * @param researchPatentActionInfo is a researchPatentActionInfo that contains detailed
+     *     information of research patent action.
+     */
+    public ActionInfo(
+            String srcOwnerName,
+            String actionType,
+            ResearchPatentActionInfo researchPatentActionInfo) {
+        this.srcOwnerName = srcOwnerName;
+        this.actionType = actionType;
+        this.researchPatentActionInfo = researchPatentActionInfo;
     }
 
     /**
@@ -144,9 +165,19 @@ public class ActionInfo implements java.io.Serializable {
     }
 
     /**
+     * Getter of researchPatentActionInfo.
+     *
+     * @return a ResearchPatentActionInfo that contains detailed information of research patent
+     *     action.
+     */
+    public ResearchPatentActionInfo getResearchPatentActionInfo() {
+        return researchPatentActionInfo;
+    }
+
+    /**
      * Getter of cloakingActionInfo field.
      *
-     * @return a CloakingActionInfo that contains detailed information of * cloaking action.
+     * @return a CloakingActionInfo that contains detailed information of cloaking action.
      */
     public CloakingActionInfo getCloakingActionInfo() {
         return cloakingActionInfo;
@@ -200,7 +231,7 @@ public class ActionInfo implements java.io.Serializable {
             numUnits.put(
                     upgradeUnitActionInfo.getOldUnitLevel(),
                     upgradeUnitActionInfo.getNumToUpgrade());
-            if (!upgradeUnitActionInfo.getNewUnitLevel().equals("spy")){
+            if (!upgradeUnitActionInfo.getNewUnitLevel().equals("spy")) {
                 numUnits.put(upgradeUnitActionInfo.getNewUnitLevel(), 0);
             }
             return numUnits;
@@ -208,25 +239,22 @@ public class ActionInfo implements java.io.Serializable {
         return null;
     }
 
-    /**
-     *
-     */    
     public int getNumSpyUnits() {
-          if (territoryActionInfo != null) {
-              return territoryActionInfo.getSpyUnitNum();
-          }
-          if (upgradeUnitActionInfo != null) {
-              return upgradeUnitActionInfo.getNumToUpgrade();
-          }
-          return 0;
-      }
-    
-      /**
-       * Getter of oldUnitLevel field in UpgradeUnitActionInfo objects.
-       *
-       * @return a String that represents the old level troop name to upgrade units from, null for
-       *     other action types.
-       */
+        if (territoryActionInfo != null) {
+            return territoryActionInfo.getSpyUnitNum();
+        }
+        if (upgradeUnitActionInfo != null) {
+            return upgradeUnitActionInfo.getNumToUpgrade();
+        }
+        return 0;
+    }
+
+    /**
+     * Getter of oldUnitLevel field in UpgradeUnitActionInfo objects.
+     *
+     * @return a String that represents the old level troop name to upgrade units from, null for
+     *     other action types.
+     */
     public String getOldUnitLevel() {
         if (upgradeUnitActionInfo != null) {
             return upgradeUnitActionInfo.getOldUnitLevel();
@@ -267,5 +295,18 @@ public class ActionInfo implements java.io.Serializable {
             }
         }
         return total;
+    }
+
+    /**
+     * Getter of target territory names in research patent action info.
+     *
+     * @return a list of territories that player required to implement research patent.
+     */
+    public ArrayList<String> getTargetTerritoryNames() {
+        if (researchPatentActionInfo != null) {
+            return researchPatentActionInfo.getTargetTerritoryNames();
+        } else {
+            return null;
+        }
     }
 }
