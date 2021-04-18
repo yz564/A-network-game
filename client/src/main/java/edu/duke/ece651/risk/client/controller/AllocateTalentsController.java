@@ -170,7 +170,9 @@ public class AllocateTalentsController extends Controller
             }
             StyleMapping mapping = new StyleMapping();
             String territoryName = mapping.getTerritoryName(labelList.get(id).getId());
-            territoryUnits.put(territoryName, parsePosIntFromTextField(numField.getText()));
+            if (map.getTerritory(territoryName).isBelongTo(model.getPlayer().getName())) {
+                territoryUnits.put(territoryName, parsePosIntFromTextField(numField.getText()));
+            }
         }
         return territoryUnits;
     }
