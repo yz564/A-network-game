@@ -8,5 +8,5 @@ public interface GUIEventListener extends EventListener {
      *
      * @param ge GUIEvent object
      */
-    public void onGUIEvent(GUIEvent ge);
+    public void onUpdateEvent(GUIEvent ge);
 }
