@@ -20,7 +20,7 @@ import edu.duke.ece651.risk.shared.ObjectIO;
  * in and out are objectIOStream tmp stores the most recent ObjectIO read by the client (sent from
  * the server)
  */
-public class App {
+public class App implements Runnable, GUIEventListener{
   private Socket server;
   private ObjectInputStream in;
   private ObjectOutputStream out;
@@ -30,6 +30,9 @@ public class App {
   private int currentRoomId;
   private HashSet<Integer> joinedRoomId;
   private String name;
+  private GUIEvent theGUIEvent;
+  private Boolean isGUIUpdated;
+  private ClientEventMessenger messenger;
 
   // private String serverAdd;
 
@@ -41,6 +44,10 @@ public class App {
     this.stdIn = null;
     this.players = null;
     this.joinedRoomId = null;
+    this.name = null;
+    this.theGUIEvent = null;
+    this.isGUIUpdated = false;
+    this.messenger = new ClientEventMessenger();
   }
 
   public void deleteJoinedRoomId(int id) {
@@ -162,18 +169,33 @@ public class App {
     tmp = receiveMessage();
     return tmp.id == 0;
   }
-  /*
+  
   @Override
   public void run() {
-    try (var socket = new Socket(serverAdd, 3333)){
-            this.server = socket;
-            this.out = new ObjectOutputStream(socket.getOutputStream());
-            this.in = new ObjectInputStream(socket.getInputStream());
-          } catch (Exception e) {
-    }
     while (true) {
+      try{
+      while (!isGUIUpdated) {
+      }
+      isGUIUpdated = false;
+      receiveMessage();
+      int roomId=theGUIEvent.getRoomId();
+      currentRoomId = roomId - 1;
+      sendMessage(new ObjectIO("", roomId));
+      tmp = receiveMessage();
+      //messenger.setClientEventListener(JoinRoomController);
+      messenger.setStatusBoolean(tmp.id==0);
     }
-  }*/
+    catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+    }
+  }
+
+  @Override
+  public void onUpdateEvent(GUIEvent ge){
+    this.theGUIEvent = ge;
+    this.isGUIUpdated = true;
+  }
 
   /**
    * the enter point of the client. after connecting with the server, new App, and call its method
