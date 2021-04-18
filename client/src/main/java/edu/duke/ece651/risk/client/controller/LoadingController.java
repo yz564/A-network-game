@@ -37,13 +37,9 @@ public class LoadingController extends Controller implements Initializable, Clie
     public void initialize(URL location, ResourceBundle resources) {}
 
     @Override
-    public void onUpdateEvent(ClientEvent ce) throws IOException {
-        Boolean checkInSuccess = ce.getStatusBoolean();
-        if (checkInSuccess) {
-            this.next = "selectTerritoryGroup";
-        } else {
-            this.next = "selectAction";
-        }
+    public void onUpdateEvent(ClientEvent ce) throws Exception {
+        // gets new map from initialization.
+        this.next = "selectTerritoryGroup";
         loadNextPhase((Stage) loadingMessage.getScene().getWindow());
     }
 }

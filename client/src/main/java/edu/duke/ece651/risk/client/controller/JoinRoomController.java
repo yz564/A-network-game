@@ -55,12 +55,19 @@ public class JoinRoomController extends Controller
      */
 
     @Override
-    public void onUpdateEvent(ClientEvent ce) throws IOException {
+    public void onUpdateEvent(ClientEvent ce) throws Exception {
         Boolean joinRoomSuccess = ce.getStatusBoolean();
         if (!joinRoomSuccess) {
             errorMessage.setText("The room is full! Try another room.");
         } else {
-            this.next = "loading";
+            boolean checkInSuccess = model.checkIn();
+            if (checkInSuccess) {
+                // TODO, change this to set GUIEvent
+                model.getPlayer().waitOtherPlayers();
+                this.next = "loading";
+            } else {
+                this.next = "selectAction";
+            }
             loadNextPhase((Stage) errorMessage.getScene().getWindow());
         }
     }

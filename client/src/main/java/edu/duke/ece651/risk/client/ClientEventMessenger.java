@@ -20,17 +20,17 @@ public class ClientEventMessenger {
         this.listener = listener;
     }
 
-    public void setLiteralMessage(String literalMessage) throws IOException {
+    public void setLiteralMessage(String literalMessage) throws Exception {
         this.literalMessage = literalMessage;
         listener.onUpdateEvent(new ClientEvent(this, literalMessage));
     }
 
-    public void setStatusBoolean(Boolean statusBoolean) throws IOException {
+    public void setStatusBoolean(Boolean statusBoolean) throws Exception {
         this.statusBoolean = statusBoolean;
         listener.onUpdateEvent(new ClientEvent(this, statusBoolean));
     }
 
-    public void setMap(WorldMap map) throws IOException {
+    public void setMap(WorldMap map) throws Exception {
         this.map = map;
         listener.onUpdateEvent(new ClientEvent(this, map));
     }
