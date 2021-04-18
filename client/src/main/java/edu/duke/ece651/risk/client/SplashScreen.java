@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class SplashScreen extends Preloader {
     private Stage preloadStage;
@@ -31,6 +32,7 @@ public class SplashScreen extends Preloader {
     public void start(Stage stage) {
         preloadStage = stage;
         preloadStage.setScene(preloadScene);
+        preloadStage.initStyle(StageStyle.UNDECORATED);
         preloadStage.show();
     }
 
