@@ -3,7 +3,7 @@ package edu.duke.ece651.risk.shared;
 /**
  * Represents the player's chosen character in the Duke RISK game.
  */
-public class PlayerCharacter {
+public class PlayerCharacter implements java.io.Serializable {
     private final String name;
     private final String researchDomain;
 

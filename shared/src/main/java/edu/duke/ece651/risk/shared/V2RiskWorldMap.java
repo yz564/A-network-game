@@ -13,9 +13,9 @@ public class V2RiskWorldMap extends RiskWorldMap {
    *                  each territory
    * @param size      is an array of integers which is the territory sizes
    */
-  public V2RiskWorldMap(String[] names, int[][] adjacency, int[] groups, int[] size) {
+  public V2RiskWorldMap(String[] names, int[][] adjacency, int[][] patentRates, int[] groups, int[] size) {
     super(names, groups);
-    makeTerritories(names, adjacency, size);
+    makeTerritories(names, adjacency, patentRates, size);
   }
 
   public V2RiskWorldMap(){
@@ -29,9 +29,17 @@ public class V2RiskWorldMap extends RiskWorldMap {
    *                  territory names
    * @param size      is the array of territory sizes
    */
-  protected void makeTerritories(String[] names, int[][] adjacency, int[] size) {
+  protected void makeTerritories(String[] names, int[][] adjacency, int[][] patentRates, int[] size) {
     for (int i = 0; i < names.length; i++) {
-      Territory t = new V2Territory(names[i], size[i] * 5, size[i] * 2, size[i]);
+      Territory t = new V2Territory(names[i],
+              size[i] * 5,
+              size[i] * 2,
+              patentRates[i][0],
+              patentRates[i][1],
+              patentRates[i][2],
+              patentRates[i][3],
+              patentRates[i][4],
+              size[i]);
       this.tryAddTerritory(t);
     }
     for (int i = 0; i < names.length; i++) {

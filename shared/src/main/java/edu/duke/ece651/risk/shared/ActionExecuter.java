@@ -258,7 +258,7 @@ public class ActionExecuter {
     public String findHighestLevelTroop(HashMap<String, Integer> units) {
         Integer highestLevel = -1;
         String highestTroopName = null;
-        HashMap<String, Troop> troopInfo = (new V2Territory("", 0, 0, 0)).getMyTroops();
+        HashMap<String, Troop> troopInfo = (new V2Territory("", 0, 0, 0, 0, 0, 0, 0, 0)).getMyTroops();
         for (String troopName : units.keySet()) {
             if (units.get(troopName) > 0
                     && troopInfo.get(troopName).getTechLevelReq() > highestLevel) {
@@ -279,7 +279,7 @@ public class ActionExecuter {
     public String findLowestLevelTroop(HashMap<String, Integer> units) {
         Integer lowestLevel = 7;
         String lowestTroopName = null;
-        HashMap<String, Troop> troopInfo = (new V2Territory("", 0, 0, 0)).getMyTroops();
+        HashMap<String, Troop> troopInfo = (new V2Territory("", 0, 0, 0, 0, 0, 0, 0, 0)).getMyTroops();
         for (String troopName : units.keySet()) {
             if (units.get(troopName) > 0
                     && troopInfo.get(troopName).getTechLevelReq() < lowestLevel) {
@@ -321,7 +321,7 @@ public class ActionExecuter {
      * @return true if the attacker wins the fight, false otherwise.
      */
     private boolean isAttackerWinFight(String attacker, String defender) {
-        HashMap<String, Troop> troopInfo = (new V2Territory("", 0, 0, 0)).getMyTroops();
+        HashMap<String, Troop> troopInfo = (new V2Territory("", 0, 0, 0, 0, 0, 0, 0, 0)).getMyTroops();
         int attackerBonus = troopInfo.get(attacker).getBonus();
         int defenderBonus = troopInfo.get(defender).getBonus();
         return rollOneDice() + attackerBonus > rollOneDice() + defenderBonus;

@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 public class V2TerritoryTest {
   @Test
   public void test_getters() {
-    V2Territory t1 = new V2Territory("ABC", new HashMap<String, Integer>(), 10);
+    V2Territory t1 = new V2Territory("ABC", new HashMap<String, Integer>(), new HashMap<String, Integer>(), 10);
     // getMyTroops
     HashMap<String, Troop> myTroops = t1.getMyTroops();
     assertEquals("level1", myTroops.get("level1").getName());
@@ -26,14 +26,14 @@ public class V2TerritoryTest {
 
   @Test
   public void test_get_all_num_units() {
-    V2Territory t1 = new V2Territory("ABC", new HashMap<String, Integer>(), 0);
+    V2Territory t1 = new V2Territory("ABC", new HashMap<String, Integer>(), new HashMap<String, Integer>(), 0);
     HashMap<String, Integer> numUnits = t1.getAllNumUnits();
     assertEquals(0, numUnits.get("level1"));
   }
 
   @Test
   public void test_add_units() {
-    V2Territory t1 = new V2Territory("ABC", new HashMap<String, Integer>(), 0);
+    V2Territory t1 = new V2Territory("ABC", new HashMap<String, Integer>(), new HashMap<String, Integer>(), 0);
     HashMap<String, Troop> myTroops = t1.getMyTroops();
     assertEquals(0, myTroops.get("level1").getNumUnits());
     t1.tryAddTroopUnits("level1", 3);
@@ -42,7 +42,7 @@ public class V2TerritoryTest {
 
   @Test
   public void test_remove_units() {
-    V2Territory t1 = new V2Territory("ABC", new HashMap<String, Integer>(), 0);
+    V2Territory t1 = new V2Territory("ABC", new HashMap<String, Integer>(), new HashMap<String, Integer>(), 0);
     HashMap<String, Troop> myTroops = t1.getMyTroops();
     t1.tryAddTroopUnits("level1", 3);
     assertEquals(3, myTroops.get("level1").getNumUnits());
@@ -52,7 +52,7 @@ public class V2TerritoryTest {
 
   @Test
   public void test_set_units() {
-    V2Territory t1 = new V2Territory("ABC", new HashMap<String, Integer>(), 0);
+    V2Territory t1 = new V2Territory("ABC", new HashMap<String, Integer>(), new HashMap<String, Integer>(), 0);
     HashMap<String, Troop> myTroops = t1.getMyTroops();
     t1.tryAddTroopUnits("level1", 3);
     assertEquals(3, myTroops.get("level1").getNumUnits());
@@ -62,7 +62,7 @@ public class V2TerritoryTest {
 
   @Test
   public void test_set_all_untis() {
-    V2Territory t1 = new V2Territory("ABC", new HashMap<String, Integer>(), 0);
+    V2Territory t1 = new V2Territory("ABC", new HashMap<String, Integer>(), new HashMap<String, Integer>(), 0);
     HashMap<String, Integer> toSet = new HashMap<String, Integer>();
     toSet.put("level0", 5);
     toSet.put("level5", 7);
@@ -78,7 +78,7 @@ public class V2TerritoryTest {
 
   @Test
   public void test_get_troop_num_units() {
-    V2Territory t1 = new V2Territory("ABC", new HashMap<String, Integer>(), 0);
+    V2Territory t1 = new V2Territory("ABC", new HashMap<String, Integer>(), new HashMap<String, Integer>(), 0);
     t1.tryAddTroopUnits("level1", 3);
     assertEquals(3, t1.getTroopNumUnits("level1"));
     t1.trySetTroopUnits("level1", 2);
@@ -87,9 +87,19 @@ public class V2TerritoryTest {
 
   @Test
   public void test_res_production() {
-    V2Territory t1 = new V2Territory("ABC", 1, 2, 0);
+    V2Territory t1 = new V2Territory("ABC", 1, 2, 0,0,0,0,0,0);
     assertEquals(1, t1.getResProduction().get("food"));
     assertEquals(2, t1.getResProduction().get("tech"));
+  }
+
+  @Test
+  public void test_patent_rate() {
+    V2Territory t1 = new V2Territory("ABC", 0, 0, 1,2,3,4,5,0);
+    assertEquals(1, t1.getPatentResearchRate().get("arts"));
+    assertEquals(2, t1.getPatentResearchRate().get("business"));
+    assertEquals(3, t1.getPatentResearchRate().get("engineering"));
+    assertEquals(4, t1.getPatentResearchRate().get("medicine"));
+    assertEquals(5, t1.getPatentResearchRate().get("sports"));
   }
 
   @Test
@@ -184,7 +194,7 @@ public class V2TerritoryTest {
 
   @Test
   public void test_spyTroop(){
-    Territory t1 = new V2Territory("ABC", new HashMap<String, Integer>(), 0);
+    Territory t1 = new V2Territory("ABC", new HashMap<String, Integer>(), new HashMap<String, Integer>(), 0);
     assertEquals(null,t1.getSpyTroop("ABC"));
     assertTrue(t1.tryAddSpyTroopUnits("ABCD", 2));
     assertEquals(0, t1.getSpyTroopNumUnits("ABC"));
