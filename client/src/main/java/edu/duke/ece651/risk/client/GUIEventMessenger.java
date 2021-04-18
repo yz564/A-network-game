@@ -2,14 +2,19 @@ package edu.duke.ece651.risk.client;
 
 public class GUIEventMessenger {
     GUIEventListener listener;
-    int message = 0;
+    String literalMessage;
 
-    public void addSGUIEventListener(GUIEventListener listener) {
+    public GUIEventMessenger() {
+        this.listener = null;
+        this.literalMessage = null;
+    }
+
+    public void setGUIEventListener(GUIEventListener listener) {
         this.listener = listener;
     }
 
-    public void setMessage(int message) {
-        this.message = message;
-        listener.onUpdateEvent(new GUIEvent(this, message));
+    public void setLiteralMessage(String literalMessage) {
+        this.literalMessage = literalMessage;
+        listener.onUpdateEvent(new GUIEvent(this, literalMessage));
     }
 }
