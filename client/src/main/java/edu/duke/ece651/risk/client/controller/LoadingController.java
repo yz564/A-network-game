@@ -5,6 +5,8 @@ import edu.duke.ece651.risk.client.ClientEvent;
 import edu.duke.ece651.risk.client.ClientEventListener;
 import edu.duke.ece651.risk.client.GUIEventMessenger;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -22,7 +24,19 @@ public class LoadingController extends Controller implements Initializable, Clie
 
     GUIEventMessenger messenger;
 
-    Boolean isUpdated = false;
+    BooleanProperty isUpdated = new SimpleBooleanProperty(false);
+
+    public BooleanProperty getIsUpdated() {
+        return isUpdated;
+    }
+
+    public void setIsUpdated(Boolean isUpdatedBoolean) {
+        this.isUpdated.setValue(isUpdatedBoolean);
+    }
+
+    public boolean getIsUpdatedBoolean() {
+        return this.isUpdated.getValue();
+    }
 
     /**
      * Defines the model and the next phase to load.
@@ -31,6 +45,7 @@ public class LoadingController extends Controller implements Initializable, Clie
      */
     public LoadingController(App model) {
         super(model);
+        this.next = "selectTerritoryGroup";
         this.messenger = new GUIEventMessenger();
         messenger.setGUIEventListener(model);
     }
@@ -52,19 +67,23 @@ public class LoadingController extends Controller implements Initializable, Clie
 
         loadingMessage.textProperty().bind(Bindings.createStringBinding(()->{
             String s = " ";
-            if (isUpdated){
+            if (getIsUpdatedBoolean()){
                 s = "All players ready!!";
             }
             else{
-                s = " Wait for other players";
+                s = "Still Waiting";
             }
             return s;
-        }));
-        loadingMessage.textProperty()
+        }, isUpdated));
+
+        loadingMessage
+                .textProperty()
                 .addListener(
                         (observable, oldValue, newValue) -> {
                             try {
-                                loadNextPhase((Stage) loadingMessage.getScene().getWindow());
+                                if (newValue.equals("All players ready!!")) {
+                                    loadNextPhase((Stage) loadingMessage.getScene().getWindow());
+                                }
                             } catch (IOException e) {
                                 loadingMessage.setText(e.getMessage());
                             }
@@ -75,8 +94,7 @@ public class LoadingController extends Controller implements Initializable, Clie
     @FXML
     public void onUpdateEvent(ClientEvent ce) throws Exception {
         // gets new map from initialization.
-        this.next = "selectTerritoryGroup";
-        isUpdated = true;
+        setIsUpdated(true);
         //loadNextPhase((Stage) loadingMessage.getScene().getWindow());
     }
 
