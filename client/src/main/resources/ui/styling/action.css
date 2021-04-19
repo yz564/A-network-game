@@ -4,6 +4,16 @@
     -fx-border-color: BLACK;
     -fx-border-radius: 15;
     -fx-padding:0;
+    -fx-alignment: CENTER;
+}
+
+.action-player, .action-player:hover, .action-player:pressed {
+    -fx-background-radius: 20;
+    -fx-background-insets: 1;
+    -fx-border-color: BLACK;
+    -fx-border-radius: 20;
+    -fx-padding:0;
+    -fx-alignment: CENTER;
 }
 
 .action-attack {
@@ -19,49 +29,85 @@
 }
 
 .action-move {
-    -fx-fill: CORNFLOWERBLUE;
+    -fx-background-color: CORNFLOWERBLUE;
 }
 
 .action-move:hover {
-    -fx-fill: LIGHTBLUE;
+    -fx-background-color: LIGHTBLUE;
 }
 
 .action-move:pressed {
-    -fx-fill: DODGERBLUE;
+    -fx-background-color: DODGERBLUE;
 }
 
-.action-upgrade {
-    -fx-fill: ORANGE;
+.action-upgradeTalents {
+    -fx-background-color: ORANGE;
 }
 
-.action-upgrade:hover {
-    -fx-fill: GOLD;
+.action-upgradeTalents:hover {
+    -fx-background-color: GOLD;
 }
 
-.action-upgrade:pressed {
-    -fx-fill: TOMATO;
+.action-upgradeTalents:pressed {
+    -fx-background-color: TOMATO;
 }
 
-.action-spy {
-    -fx-fill: LIGHTSEAGREEN;
+.action-moveSpy {
+    -fx-background-color: LIGHTSEAGREEN;
 }
 
-.action-spy:hover {
-    -fx-fill: LIGHTGREEN;
+.action-moveSpy:hover {
+    -fx-background-color: LIGHTGREEN;
 }
 
-.action-spy:pressed {
-    -fx-fill: FORESTGREEN;
+.action-moveSpy:pressed {
+    -fx-background-color: FORESTGREEN;
 }
 
-.action-cloak {
-    -fx-fill: MEDIUMPURPLE;
+.action-cloaking {
+    -fx-background-color: MEDIUMPURPLE;
 }
 
-.action-cloak:hover {
-    -fx-fill: PLUM;
+.action-cloaking:hover {
+    -fx-background-color: PLUM;
 }
 
-.action-cloak:pressed {
-    -fx-fill: SLATEBLUE;
+.action-cloaking:pressed {
+    -fx-background-color: SLATEBLUE;
+}
+
+.action-upgradeTech {
+    -fx-background-color: ORANGE;
+}
+
+.action-upgradeTech:hover {
+    -fx-background-color: GOLD;
+}
+
+.action-upgradeTech:pressed {
+    -fx-background-color: TOMATO;
+}
+
+.action-researchCloaking {
+    -fx-background-color: MEDIUMPURPLE;
+}
+
+.action-researchCloaking:hover {
+    -fx-background-color: PLUM;
+}
+
+.action-researchCloaking:pressed {
+    -fx-background-color: SLATEBLUE;
+}
+
+.action-researchPatent {
+    -fx-background-color: HOTPINK;
+}
+
+.action-researchPatent:hover {
+    -fx-background-color: PINK;
+}
+
+.action-researchPatent:pressed {
+    -fx-background-color: DEEPPINK;
 }

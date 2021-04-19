@@ -44,7 +44,7 @@ public class PhaseStorage {
         makePhase(
             "selectAction",
             "Duke Risk Game! - Select Actions",
-            "/ui/views/select-action-new.fxml",
+                "/ui/views/select-action.fxml",
             "/ui/styling/territory-group.css",
                 "/ui/styling/territory.css",
                 "/ui/styling/general-design.css",

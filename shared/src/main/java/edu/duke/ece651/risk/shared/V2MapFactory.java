@@ -15,7 +15,7 @@ public class V2MapFactory implements WorldMapFactory {
         "Duke Hospital", "Duke Clinics", "Duke Garden", "Duke Chapel", "Student Housing", "Wilson Gym",
         "Cameron Stadium", "Wallace Stadium" };
     int[][] adjacency = { { 1, 2, 14 }, { 0, 2, 4, 14 }, { 0, 1, 3, 4, 5 }, { 2, 4, 5, 6 }, { 1, 2, 3, 6, 11, 12, 14 },
-        { 2, 3, 6, 8 }, { 3, 4, 5, 7, 8, 9, 10, 11 }, { 6, 9, 10, 11 }, { 5, 6, 9 }, { 6, 7, 8, 10 }, { 7, 9, 10, 11 },
+        { 2, 3, 6, 8 }, { 3, 4, 5, 7, 8, 9, 11 }, { 6, 9, 10, 11 }, { 5, 6, 9 }, { 6, 7, 8, 10 }, { 7, 9, 11, 12 },
         { 4, 6, 7, 10, 12 }, { 4, 10, 11, 13, 14 }, { 12, 14, 15 }, { 0, 1, 4, 12, 13, 15 }, { 14, 15 } };
     int[] sizes = { 1, 2, 3, 1, 3, 2, 3, 2, 1, 1, 2, 3, 2, 2, 3, 1};
     if (numPlayers == 4) {
@@ -40,7 +40,7 @@ public class V2MapFactory implements WorldMapFactory {
         "Duke Hospital", "Duke Clinics", "Duke Garden", "Duke Chapel", "Student Housing", "Wilson Gym",
         "Cameron Stadium" };
     int[][] adjacency = { { 1, 2, 14 }, { 0, 2, 4, 14 }, { 0, 1, 3, 4, 5 }, { 2, 4, 5, 6 }, { 1, 2, 3, 6, 11, 12, 14 },
-        { 2, 3, 6, 8 }, { 3, 4, 5, 7, 8, 9, 10, 11 }, { 6, 9, 10, 11 }, { 5, 6, 9 }, { 6, 7, 8, 10 }, { 7, 9, 10, 11 },
+        { 2, 3, 6, 8 }, { 3, 4, 5, 7, 8, 9, 11 }, { 6, 9, 10, 11 }, { 5, 6, 9 }, { 6, 7, 8, 10 }, { 7, 9, 11, 12 },
         { 4, 6, 7, 10, 12 }, { 4, 10, 11, 13, 14 }, { 12, 14 }, { 0, 1, 4, 12, 13 } };
     int[] sizes = { 1, 2, 3, 1, 3, 2, 3, 2, 1, 1, 2, 3, 2, 1, 3 };
     if (numPlayers == 5) {

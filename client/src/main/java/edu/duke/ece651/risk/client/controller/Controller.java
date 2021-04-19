@@ -3,8 +3,10 @@ package edu.duke.ece651.risk.client.controller;
 import edu.duke.ece651.risk.client.App;
 import edu.duke.ece651.risk.client.view.PhaseChanger;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -14,9 +16,10 @@ import java.util.ResourceBundle;
 /**
  * Provides functionality to initialize contents of the view and load the next phase.
  */
-public abstract class Controller implements Initializable {
+public abstract class Controller implements Initializable, ErrorHandlingController {
     App model;
     String next;
+    @FXML Label errorMessage;
 
     /**
      * Defines the model and the next phase to load.
@@ -45,5 +48,15 @@ public abstract class Controller implements Initializable {
         Object controller = new ControllerFactory().getController(next, model);
         Stage newWindow = PhaseChanger.switchTo(window, controller, next);
         newWindow.show();
+    }
+
+    @Override
+    public void setErrorMessage(String error) {
+        errorMessage.setText(error);
+    }
+
+    @Override
+    public void clearErrorMessage() {
+        setErrorMessage(null);
     }
 }

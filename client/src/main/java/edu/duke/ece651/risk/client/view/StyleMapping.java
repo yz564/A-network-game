@@ -35,6 +35,15 @@ public class StyleMapping {
     return territoryLabels.get(labelName);
   }
 
+  public int getLabelId(String TerritoryName){
+    for (String labelName : territoryLabels.keySet()){
+      if (territoryLabels.get(labelName).equals(TerritoryName)){
+        return Integer.valueOf(labelName.substring(5));
+      }
+    }
+    return -1;
+  }
+
   private static HashMap<Integer, String> makeColors() {
     HashMap<Integer, String> colors = new HashMap<>();
     colors.put(1, "Pink");
