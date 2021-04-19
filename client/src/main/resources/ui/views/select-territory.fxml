@@ -33,7 +33,7 @@
                         <Image url="@../static-images/world-maps/new-map-even.png" />
                     </image>
                 </ImageView>
-                <ToggleButton fx:id="label0" alignment="CENTER" contentDisplay="CENTER" layoutX="146.0" layoutY="28.0" mnemonicParsing="false" opacity="1" pickOnBounds="false" prefHeight="189.0" prefWidth="187.0" styleClass="territory-0" text="Fuqua" textAlignment="CENTER" wrapText="true">
+                <ToggleButton fx:id="label0" alignment="CENTER" contentDisplay="CENTER" layoutX="146.0" layoutY="28.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="1" pickOnBounds="false" prefHeight="189.0" prefWidth="187.0" styleClass="territory-0" text="Fuqua" textAlignment="CENTER" wrapText="true">
                     <font>
                         <Font name="Open Sans Regular" size="13.0" />
                     </font>
@@ -41,15 +41,15 @@
                         <Insets right="45.0" top="10.0" />
                     </padding>
                 </ToggleButton>
-                <ToggleButton fx:id="label1" alignment="CENTER" contentDisplay="CENTER" layoutX="257.0" layoutY="141.0" mnemonicParsing="false" opacity="1" pickOnBounds="false" prefHeight="171.0" prefWidth="90.0" styleClass="territory-1" text="Law" textAlignment="CENTER" wrapText="true">
+                <ToggleButton fx:id="label1" alignment="CENTER" contentDisplay="CENTER" layoutX="257.0" layoutY="141.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="1" pickOnBounds="false" prefHeight="171.0" prefWidth="90.0" styleClass="territory-1" text="Law" textAlignment="CENTER" wrapText="true">
                     <font>
                         <Font name="Open Sans Regular" size="13.0" />
                     </font>
                     <padding>
-                        <Insets top="-100.0" />
+                        <Insets bottom="100.0" left="5.0" />
                     </padding>
                 </ToggleButton>
-                <ToggleButton fx:id="label2" alignment="CENTER" contentDisplay="CENTER" layoutX="338.0" layoutY="66.0" mnemonicParsing="false" opacity="1" pickOnBounds="false" prefHeight="158.0" prefWidth="195.0" styleClass="territory-2" text="Gross&#10;Hall" textAlignment="CENTER" wrapText="true">
+                <ToggleButton fx:id="label2" alignment="CENTER" contentDisplay="CENTER" layoutX="338.0" layoutY="66.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="1" pickOnBounds="false" prefHeight="158.0" prefWidth="195.0" styleClass="territory-2" text="Gross&#10;Hall" textAlignment="CENTER" wrapText="true">
                     <font>
                         <Font name="Open Sans Regular" size="13.0" />
                     </font>
@@ -57,15 +57,15 @@
                         <Insets right="110.0" top="35.0" />
                     </padding>
                 </ToggleButton>
-                <ToggleButton fx:id="label3" alignment="CENTER" contentDisplay="CENTER" layoutX="421.0" layoutY="121.0" mnemonicParsing="false" opacity="1" pickOnBounds="false" prefHeight="103.0" prefWidth="128.0" styleClass="territory-3" text="FFRC" textAlignment="CENTER" wrapText="true">
+                <ToggleButton fx:id="label3" alignment="CENTER" contentDisplay="CENTER" layoutX="421.0" layoutY="121.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="1" pickOnBounds="false" prefHeight="103.0" prefWidth="128.0" styleClass="territory-3" text="FFRC" textAlignment="CENTER" wrapText="true">
                     <font>
                         <Font name="Open Sans Regular" size="13.0" />
                     </font>
                     <padding>
-                        <Insets bottom="-20.0" right="5.0" />
+                        <Insets right="10.0" top="15.0" />
                     </padding>
                 </ToggleButton>
-                <ToggleButton fx:id="label4" alignment="CENTER" contentDisplay="CENTER" layoutX="338.0" layoutY="223.0" mnemonicParsing="false" opacity="1" pickOnBounds="false" prefHeight="133.0" prefWidth="186.0" styleClass="territory-4" text="Bryan&#10;Center" textAlignment="CENTER" wrapText="true">
+                <ToggleButton fx:id="label4" alignment="CENTER" contentDisplay="CENTER" layoutX="338.0" layoutY="223.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="1" pickOnBounds="false" prefHeight="133.0" prefWidth="186.0" styleClass="territory-4" text="Bryan&#10;Center" textAlignment="CENTER" wrapText="true">
                     <font>
                         <Font name="Open Sans Regular" size="13.0" />
                     </font>
@@ -73,7 +73,7 @@
                         <Insets left="40.0" top="30.0" />
                     </padding>
                 </ToggleButton>
-                <ToggleButton fx:id="label5" alignment="CENTER" contentDisplay="CENTER" layoutX="528.0" layoutY="83.0" mnemonicParsing="false" opacity="1" pickOnBounds="false" prefHeight="162.0" prefWidth="157.0" styleClass="territory-5" text="LSRC" textAlignment="CENTER" wrapText="true">
+                <ToggleButton fx:id="label5" alignment="CENTER" contentDisplay="CENTER" layoutX="528.0" layoutY="83.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="1" pickOnBounds="false" prefHeight="162.0" prefWidth="157.0" styleClass="territory-5" text="LSRC" textAlignment="CENTER" wrapText="true">
                     <padding>
                         <Insets right="20.0" top="50.0" />
                     </padding>
@@ -94,10 +94,10 @@
                         <Font name="Open Sans Regular" size="13.0" />
                     </font>
                     <padding>
-                        <Insets right="20.0" top="-35.0" />
+                        <Insets bottom="35.0" right="20.0" />
                     </padding>
                 </ToggleButton>
-                <ToggleButton fx:id="label8" alignment="CENTER" contentDisplay="CENTER" layoutX="640.0" layoutY="121.0" mnemonicParsing="false" opacity="1" pickOnBounds="false" prefHeight="245.0" prefWidth="263.0" styleClass="territory-8" text="Duke&#10;Hospital" textAlignment="CENTER" wrapText="true">
+                <ToggleButton fx:id="label8" alignment="CENTER" contentDisplay="CENTER" layoutX="640.0" layoutY="121.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="1" pickOnBounds="false" prefHeight="245.0" prefWidth="263.0" styleClass="territory-8" text="Duke&#10;Hospital" textAlignment="CENTER" wrapText="true">
                     <padding>
                         <Insets left="70.0" top="90.0" />
                     </padding>
@@ -105,15 +105,15 @@
                         <Font name="Open Sans Regular" size="13.0" />
                     </font>
                 </ToggleButton>
-                <ToggleButton fx:id="label9" alignment="CENTER" contentDisplay="CENTER" layoutX="623.0" layoutY="281.0" mnemonicParsing="false" opacity="1" pickOnBounds="false" prefHeight="197.0" prefWidth="177.0" styleClass="territory-9" text="Duke&#10;Clinics" textAlignment="CENTER" wrapText="true">
+                <ToggleButton fx:id="label9" alignment="CENTER" contentDisplay="CENTER" layoutX="623.0" layoutY="281.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="1" pickOnBounds="false" prefHeight="197.0" prefWidth="177.0" styleClass="territory-9" text="Duke&#10;Clinics" textAlignment="CENTER" wrapText="true">
                     <font>
                         <Font name="Open Sans Regular" size="13.0" />
                     </font>
                     <padding>
-                        <Insets top="-30.0" />
+                        <Insets bottom="30.0" />
                     </padding>
                 </ToggleButton>
-                <ToggleButton fx:id="label10" alignment="CENTER" contentDisplay="CENTER" layoutX="508.0" layoutY="482.0" mnemonicParsing="false" opacity="1" pickOnBounds="false" prefHeight="139.0" prefWidth="327.0" styleClass="territory-10" text="Duke&#10;Garden" textAlignment="CENTER" wrapText="true">
+                <ToggleButton fx:id="label10" alignment="CENTER" contentDisplay="CENTER" layoutX="508.0" layoutY="482.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="1" pickOnBounds="false" prefHeight="139.0" prefWidth="327.0" styleClass="territory-10" text="Duke&#10;Garden" textAlignment="CENTER" wrapText="true">
                     <font>
                         <Font name="Open Sans Regular" size="13.0" />
                     </font>
@@ -123,36 +123,36 @@
                         <Font name="Open Sans Regular" size="13.0" />
                     </font>
                 </ToggleButton>
-                <ToggleButton fx:id="label12" alignment="CENTER" contentDisplay="CENTER" layoutX="347.0" layoutY="353.0" mnemonicParsing="false" opacity="1" pickOnBounds="false" prefHeight="266.0" prefWidth="157.0" styleClass="territory-12" text="Student&#10;Housing" textAlignment="CENTER" wrapText="true">
+                <ToggleButton fx:id="label12" alignment="CENTER" contentDisplay="CENTER" layoutX="347.0" layoutY="353.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="1" pickOnBounds="false" prefHeight="266.0" prefWidth="157.0" styleClass="territory-12" text="Student&#10;Housing" textAlignment="CENTER" wrapText="true">
                     <font>
                         <Font name="Open Sans Regular" size="13.0" />
                     </font>
                     <padding>
-                        <Insets top="-155.0" />
+                        <Insets bottom="155.0" />
                     </padding>
                 </ToggleButton>
-                <ToggleButton fx:id="label13" alignment="CENTER" contentDisplay="CENTER" layoutX="219.0" layoutY="381.0" mnemonicParsing="false" opacity="1" pickOnBounds="false" prefHeight="149.0" prefWidth="126.0" styleClass="territory-13" text="Wilson&#10;Gym" textAlignment="CENTER" wrapText="true">
+                <ToggleButton fx:id="label13" alignment="CENTER" contentDisplay="CENTER" layoutX="219.0" layoutY="381.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="1" pickOnBounds="false" prefHeight="149.0" prefWidth="126.0" styleClass="territory-13" text="Wilson&#10;Gym" textAlignment="CENTER" wrapText="true">
                     <font>
                         <Font name="Open Sans Regular" size="13.0" />
                     </font>
                     <padding>
-                        <Insets left="-45.0" top="-58.0" />
+                        <Insets bottom="58.0" right="45.0" />
                     </padding>
                 </ToggleButton>
-                <ToggleButton fx:id="label14" alignment="CENTER" contentDisplay="CENTER" layoutX="198.0" layoutY="218.0" mnemonicParsing="false" opacity="1" pickOnBounds="false" prefHeight="165.0" prefWidth="150.0" styleClass="territory-14" text="Cameron&#10;Stadium" textAlignment="CENTER" wrapText="true">
+                <ToggleButton fx:id="label14" alignment="CENTER" contentDisplay="CENTER" layoutX="198.0" layoutY="218.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="1" pickOnBounds="false" prefHeight="165.0" prefWidth="150.0" styleClass="territory-14" text="Cameron&#10;Stadium" textAlignment="CENTER" wrapText="true">
                     <padding>
-                        <Insets left="-60.0" top="-50.0" />
+                        <Insets bottom="50.0" right="60.0" />
                     </padding>
                     <font>
                         <Font name="Open Sans Regular" size="13.0" />
                     </font>
                 </ToggleButton>
-                <ToggleButton fx:id="label15" alignment="CENTER" contentDisplay="CENTER" layoutX="36.0" layoutY="340.0" mnemonicParsing="false" opacity="1" pickOnBounds="false" prefHeight="192.0" prefWidth="189.0" styleClass="territory-15" text="Wallace&#10;Stadium" textAlignment="CENTER" wrapText="true">
+                <ToggleButton fx:id="label15" alignment="CENTER" contentDisplay="CENTER" layoutX="36.0" layoutY="340.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="1" pickOnBounds="false" prefHeight="192.0" prefWidth="189.0" styleClass="territory-15" text="Wallace&#10;Stadium" textAlignment="CENTER" wrapText="true">
                     <font>
                         <Font name="Open Sans Regular" size="13.0" />
                     </font>
                     <padding>
-                        <Insets right="-90.0" top="-10.0" />
+                        <Insets bottom="10.0" left="90.0" />
                     </padding>
                 </ToggleButton>
             </children>
