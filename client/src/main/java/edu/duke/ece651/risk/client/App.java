@@ -185,16 +185,57 @@ public class App implements Runnable, GUIEventListener{
   public ClientEventMessenger getMessenger() {
     return messenger;
   }
+
+  public void setListener(ClientEventListener listener) {
+    messenger.setClientEventListener(listener);
+  }
+  
   @Override
   public void run() {
     while (true) {
+      try{
+        System.out.println("run()");
+        //messenger.setClientEventListener((ClientEventListener)myFactory.getController("joinRoom",this));
+        while (!isGUIUpdated) {
+          Thread.sleep(100);
+        }
+        System.out.println("isGUIUpdated: "+isGUIUpdated);
+        isGUIUpdated=false;
+        receiveMessage();
+        int roomId=theGUIEvent.getRoomId();
+        currentRoomId=roomId-1;
+        System.out.println("roomId: "+roomId);
+        sendMessage(new ObjectIO("", roomId));
+        System.out.println("roomId after sending: "+roomId);
+        tmp = receiveMessage();
+        messenger.setStatusBoolean(tmp.id==0);
+        //messenger.setClientEventListener((ClientEventListener)myFactory.getController("loading",this));
+        while(!isGUIUpdated){Thread.sleep(100);}
+        System.out.println("isGUIUpdated: "+isGUIUpdated);
+        isGUIUpdated=false;
+        sendMessage(new ObjectIO("wait others", 0));
+        tmp = receiveMessage();
+        System.out.println(tmp.message);
+        getPlayer().receiveMessage();
+        messenger.setMap(getPlayer().getMap());
+      }catch (Exception e) {
+      System.out.println("Exception from App run(): "+e.getMessage());
+    }
     }
   }
 
   @Override
+  public void onUpdateEvent(GUIEvent ge) {
+    this.theGUIEvent=ge;
+    this.isGUIUpdated = true;
+    System.out.println("isGUIUpdated: "+isGUIUpdated);
+    System.out.println("App: onUpdateEvent");
+  }
+  
+  @Override
   public void onUpdateJoinRoom(GUIEvent ge){
     try{
-    receiveMessage();
+      receiveMessage();
       int roomId=ge.getRoomId();
       currentRoomId = roomId - 1;
       sendMessage(new ObjectIO("", roomId));

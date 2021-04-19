@@ -13,16 +13,19 @@ public class GUIEventMessenger {
 
     public void setGUIEventListener(GUIEventListener listener) {
         this.listener = listener;
+        System.out.println("setGUIEventListener "+listener);
     }
 
     public void setWaitOthers(String literalMessage) {
         this.literalMessage = literalMessage;
-        listener.onUpdateWaitOthers(new GUIEvent(this, literalMessage));
+        System.out.println("setWaitOthers: "+literalMessage);
+        listener.onUpdateEvent(new GUIEvent(this, literalMessage));
     }
 
     public void setRoomId(int roomId) {
         this.roomId = roomId;
-        listener.onUpdateJoinRoom(new GUIEvent(this, roomId));
+        System.out.println("setRoomId: "+roomId);
+        listener.onUpdateEvent(new GUIEvent(this, roomId));
     }
 }
 
