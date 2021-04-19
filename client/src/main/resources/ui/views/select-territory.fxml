@@ -15,7 +15,7 @@
 
 <?import java.util.ArrayList?>
 <?import javafx.scene.control.ToggleButton?>
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="825.0" prefWidth="990.0" style="-fx-background-color: #00539B#00539B;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.risk.client.controller.SelectTerritoryGroupController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="825.0" prefWidth="990.0" style="-fx-background-color: #00539B#00539B;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="edu.duke.ece651.risk.client.controller.SelectTerritoryGroupController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="417.7982177734375" minWidth="10.0" prefWidth="413.5279846191406" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="611.1713562011719" minWidth="10.0" prefWidth="576.9720153808594" />
