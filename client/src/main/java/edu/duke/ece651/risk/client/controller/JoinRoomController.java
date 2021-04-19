@@ -22,7 +22,7 @@ public class JoinRoomController extends Controller
         implements Initializable, ErrorHandlingController, ClientEventListener {
     String newPlayerNextView = "selectTerritoryGroup";
     String existingPlayerNextView = "selectAction";
-
+    Boolean isUpdated=false;
     @FXML Label errorMessage;
     GUIEventMessenger messenger;
 
@@ -86,11 +86,7 @@ public class JoinRoomController extends Controller
             } else {
                 this.next = "selectAction";
             }
-            try {
-                loadNextPhase((Stage) errorMessage.getScene().getWindow());
-            } catch (Exception e) {
-                throw new Exception("loadNextPhase exception");
-            }
+            isUpdated = true;
         }
     }
 
@@ -106,6 +102,14 @@ public class JoinRoomController extends Controller
             clearErrorMessage();
             // sends roomId to client
             messenger.setRoomId(roomId);
+            while (!isUpdated) {
+              Thread.sleep(100);
+            }
+             try {
+                loadNextPhase((Stage) errorMessage.getScene().getWindow());
+            } catch (Exception e) {
+                throw new Exception("loadNextPhase exception "+ e.getMessage());
+            }
         } else {
             throw new IllegalArgumentException("Invalid source " + source + " for ActionEvent");
         }
