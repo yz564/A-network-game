@@ -51,6 +51,30 @@ public class PlayerInfoTest {
   }
 
   @Test
+  public void test_player_character() {
+    PlayerInfo p1 = new PlayerInfo("Player 1", 1, 50, 30);
+    p1.setPlayerId(1);
+    assertEquals("Melinda Gates", p1.getCharacterName());
+    assertEquals("business", p1.getResearchDomain());
+
+    p1.setPlayerId(2);
+    assertEquals("William Kaelin", p1.getCharacterName());
+    assertEquals("medicine", p1.getResearchDomain());
+
+    p1.setPlayerId(3);
+    assertEquals("Coach K", p1.getCharacterName());
+    assertEquals("sports", p1.getResearchDomain());
+
+    p1.setPlayerId(4);
+    assertEquals("Drew Hilton", p1.getCharacterName());
+    assertEquals("engineering", p1.getResearchDomain());
+
+    p1.setPlayerId(5);
+    assertEquals("Valerie Ashby", p1.getCharacterName());
+    assertEquals("arts", p1.getResearchDomain());
+  }
+
+  @Test
   public void test_cloaking() {
     PlayerInfo p1 = new PlayerInfo("Player 1", 50, 30);
     assertFalse(p1.canCloakingResearched());

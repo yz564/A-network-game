@@ -6,6 +6,7 @@ public class PlayerInfo implements java.io.Serializable {
 
   private final String playerName;
   private int playerId;
+  private PlayerCharacter playerCharacter;
   private int techLevel;
   private Boolean isCloakingResearched;
   private HashMap<String, Integer> resTotals;
@@ -85,8 +86,38 @@ public class PlayerInfo implements java.io.Serializable {
     this(playerName, playerId, 1, makeResTotals(foodInitAmt, techInitAmt));
   }
 
-  public void setPlayerId(int id){
+  /**
+   * Sets player ID when player selects a player to play the game as.
+   * @param id is integer from the set {1, 2, 3, 4, 5} depending on what is the player playing as.
+   */
+  public void setPlayerId(int id) {
     this.playerId=id;
+    createCharacterFromId(id);
+  }
+
+  /**
+   * Initializes the character that the player is playing as.
+   * @param id is an integer representing player id based on which it is decided which
+   *           character is the player is playing as.
+   */
+  private void createCharacterFromId(int id) {
+    switch(id) {
+      case 1:
+        playerCharacter = new PlayerCharacter("Melinda Gates", "business");
+        break;
+      case 2:
+        playerCharacter = new PlayerCharacter("William Kaelin", "medicine");
+        break;
+      case 3:
+        playerCharacter = new PlayerCharacter("Coach K", "sports");
+        break;
+      case 4:
+        playerCharacter = new PlayerCharacter("Drew Hilton", "engineering");
+        break;
+      case 5:
+        playerCharacter = new PlayerCharacter("Valerie Ashby", "arts");
+        break;
+    }
   }
 
   /**
@@ -97,6 +128,18 @@ public class PlayerInfo implements java.io.Serializable {
   public String getPlayerName() {
     return this.playerName;
   }
+
+  /** Gets the name of the character that a player is playing as.
+   *
+   * @return name of the player's character.
+   */
+  public String getCharacterName() { return this.playerCharacter.getName(); }
+
+  /** Gets player's character's research domain name.
+   *
+   * @return the domain of the player's character.
+   */
+  public String getResearchDomain() { return this.playerCharacter.getResearchDomain(); }
 
   /**
    * Gets the current maximum technology level of the player.

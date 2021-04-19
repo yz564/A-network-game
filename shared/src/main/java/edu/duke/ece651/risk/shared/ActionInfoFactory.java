@@ -1,5 +1,6 @@
 package edu.duke.ece651.risk.shared;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ActionInfoFactory {
@@ -19,7 +20,7 @@ public class ActionInfoFactory {
         return new ActionInfo(srcOwnerName, "move", info);
     }
 
-  public ActionInfo createMoveSpyActionInfo(
+    public ActionInfo createMoveSpyActionInfo(
             String srcOwnerName, String srcName, String desName, int spyUnitNum) {
         TerritoryActionInfo info = new TerritoryActionInfo(srcName, desName, spyUnitNum);
         return new ActionInfo(srcOwnerName, "move spy", info);
@@ -74,10 +75,8 @@ public class ActionInfoFactory {
         return new ActionInfo(srcOwnerName, "upgrade unit", info);
     }
 
-  public ActionInfo createUpgradeSpyUnitActionInfo(
-            String srcOwnerName,
-            String srcName,
-            Integer numToUpgrade) {
+    public ActionInfo createUpgradeSpyUnitActionInfo(
+            String srcOwnerName, String srcName, Integer numToUpgrade) {
         UpgradeUnitActionInfo info =
                 new UpgradeUnitActionInfo(srcName, "level0", "spy", numToUpgrade);
         return new ActionInfo(srcOwnerName, "upgrade spy unit", info);
@@ -104,5 +103,19 @@ public class ActionInfoFactory {
     public ActionInfo createCloakingActionInfo(String srcOwnerName, String targetTerritoryName) {
         CloakingActionInfo info = new CloakingActionInfo(targetTerritoryName);
         return new ActionInfo(srcOwnerName, "cloaking", info);
+    }
+
+    /**
+     * Create an adapted ActionInfo for research patent action.
+     *
+     * @param srcOwnerName is the owner's name of this action.
+     * @param targetTerritoryNames is the given list of territories that player required to
+     *     implement research patent.
+     * @return an adapted ActionInfo for research patent action.
+     */
+    public ActionInfo creatResearchPatentActionInfo(
+            String srcOwnerName, ArrayList<String> targetTerritoryNames) {
+        ResearchPatentActionInfo info = new ResearchPatentActionInfo(targetTerritoryNames);
+        return new ActionInfo(srcOwnerName, "research patent", info);
     }
 }

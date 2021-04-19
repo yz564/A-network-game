@@ -6,6 +6,7 @@ import java.util.HashSet;
 public class V2Territory extends AbstractTerritory {
   private static final long serialVersionUID = -8815409601117401416L;
   private final HashMap<String, Integer> resProduction;
+  private final HashMap<String, Integer> patentResearchRate;
   private final int size;
   private int cloakingTurns;
 
@@ -38,9 +39,14 @@ public class V2Territory extends AbstractTerritory {
    * @param size is an integer represents the size of the territory.
    */
   public V2Territory(
-      String name, HashMap<String, Troop> troops, HashMap<String, Integer> resources, int size) {
+      String name,
+      HashMap<String, Troop> troops,
+      HashMap<String, Integer> resources,
+      HashMap<String, Integer> patentResearchRate,
+      int size) {
     super(name, troops);
     this.resProduction = resources;
+    this.patentResearchRate = patentResearchRate;
     this.size = size;
     this.cloakingTurns = 0;
   }
@@ -53,8 +59,8 @@ public class V2Territory extends AbstractTerritory {
    *     resource name, and value is the production rate.
    * @param size is an integer represents the size of the territory.
    */
-  public V2Territory(String name, HashMap<String, Integer> resources, int size) {
-    this(name, makeTroops(), resources, size);
+  public V2Territory(String name, HashMap<String, Integer> resources, HashMap<String, Integer> patentResearchRate, int size) {
+    this(name, makeTroops(), resources, patentResearchRate, size);
   }
 
   /**
@@ -66,10 +72,17 @@ public class V2Territory extends AbstractTerritory {
    * @param techProduction is the int represents the techProduction rate of this territory.
    * @param size is an integer represents the size of the territory.
    */
-  public V2Territory(String name, Integer foodProduction, Integer techProduction, int size) {
-    this(name, new HashMap<>(), size);
+  public V2Territory(String name, Integer foodProduction, Integer techProduction, Integer artsResearchRate,
+                     Integer businessResearchRate, Integer engineeringResearchRate, Integer medicalResearchRate,
+                     Integer sportsResearchRate, int size) {
+    this(name, new HashMap<>(), new HashMap<>(), size);
     resProduction.put("food", foodProduction);
     resProduction.put("tech", techProduction);
+    patentResearchRate.put("arts", artsResearchRate);
+    patentResearchRate.put("business", businessResearchRate);
+    patentResearchRate.put("engineering", engineeringResearchRate);
+    patentResearchRate.put("medicine", medicalResearchRate);
+    patentResearchRate.put("sports", sportsResearchRate);
   }
 
   @Override
@@ -81,6 +94,8 @@ public class V2Territory extends AbstractTerritory {
   public HashMap<String, Integer> getResProduction() {
     return this.resProduction;
   }
+
+  public HashMap<String, Integer> getPatentResearchRate() { return this.patentResearchRate; }
 
   @Override
   public int getMoveCost(Territory neighbor) {
