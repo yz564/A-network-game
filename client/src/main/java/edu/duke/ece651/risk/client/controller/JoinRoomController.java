@@ -4,6 +4,7 @@ import edu.duke.ece651.risk.client.App;
 import edu.duke.ece651.risk.client.ClientEvent;
 import edu.duke.ece651.risk.client.ClientEventListener;
 import edu.duke.ece651.risk.client.GUIEventMessenger;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -86,7 +87,14 @@ public class JoinRoomController extends Controller
             } else {
                 this.next = "selectAction";
             }
-            isUpdated = true;
+            Platform.runLater(
+                    () -> {
+                        try {
+                            loadNextPhase((Stage) errorMessage.getScene().getWindow());
+                        } catch (IOException e) {
+                            errorMessage.setText(e.getMessage());
+                        }
+                    });
         }
     }
 
@@ -102,14 +110,6 @@ public class JoinRoomController extends Controller
             clearErrorMessage();
             // sends roomId to client
             messenger.setRoomId(roomId);
-            while (!isUpdated) {
-              Thread.sleep(100);
-            }
-             try {
-                loadNextPhase((Stage) errorMessage.getScene().getWindow());
-            } catch (Exception e) {
-                throw new Exception("loadNextPhase exception "+ e.getMessage());
-            }
         } else {
             throw new IllegalArgumentException("Invalid source " + source + " for ActionEvent");
         }

@@ -4,6 +4,7 @@ import edu.duke.ece651.risk.client.App;
 import edu.duke.ece651.risk.client.ClientEvent;
 import edu.duke.ece651.risk.client.ClientEventListener;
 import edu.duke.ece651.risk.client.GUIEventMessenger;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -24,20 +25,6 @@ public class LoadingController extends Controller implements Initializable, Clie
 
     GUIEventMessenger messenger;
 
-    BooleanProperty isUpdated = new SimpleBooleanProperty(false);
-
-    public BooleanProperty getIsUpdated() {
-        return isUpdated;
-    }
-
-    public void setIsUpdated(Boolean isUpdatedBoolean) {
-        this.isUpdated.setValue(isUpdatedBoolean);
-    }
-
-    public boolean getIsUpdatedBoolean() {
-        return this.isUpdated.getValue();
-    }
-
     /**
      * Defines the model and the next phase to load.
      *
@@ -45,7 +32,6 @@ public class LoadingController extends Controller implements Initializable, Clie
      */
     public LoadingController(App model) {
         super(model);
-        this.next = "selectTerritoryGroup";
         this.messenger = new GUIEventMessenger();
         messenger.setGUIEventListener(model);
     }
@@ -64,41 +50,19 @@ public class LoadingController extends Controller implements Initializable, Clie
         model.setListener(this);
         messenger.setWaitOthers("wait others");
         System.out.println("loading initialize finished");
-
-        loadingMessage.textProperty().bind(Bindings.createStringBinding(()->{
-            String s = " ";
-            if (getIsUpdatedBoolean()){
-                s = "All players ready!!";
-            }
-            else{
-                s = "Still Waiting";
-            }
-            return s;
-        }, isUpdated));
-
-        loadingMessage
-                .textProperty()
-                .addListener(
-                        (observable, oldValue, newValue) -> {
-                            try {
-                                if (newValue.equals("All players ready!!")) {
-                                    loadNextPhase((Stage) loadingMessage.getScene().getWindow());
-                                }
-                            } catch (IOException e) {
-                                loadingMessage.setText(e.getMessage());
-                            }
-                        });
     }
 
     @Override
     @FXML
-    public void onUpdateEvent(ClientEvent ce) throws Exception {
-        // gets new map from initialization.
-        setIsUpdated(true);
-        //loadNextPhase((Stage) loadingMessage.getScene().getWindow());
-    }
-
-    public void onMouseMoved(MouseEvent mouseEvent) {
-      //messenger.setWaitOthers("wait others");
+    public void onUpdateEvent(ClientEvent ce){
+        this.next = "selectTerritoryGroup";
+        Platform.runLater(
+                () -> {
+                    try {
+                        loadNextPhase((Stage) loadingMessage.getScene().getWindow());
+                    } catch (IOException e) {
+                        loadingMessage.setText(e.getMessage());
+                    }
+                });
     }
 }
