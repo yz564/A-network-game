@@ -40,15 +40,19 @@ public class LoadingController extends Controller implements Initializable, Clie
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-      //model.getPlayer().waitOtherPlayers();
-        messenger.setWaitOthers("wait others");
-        //model.getMessenger().setClientEventListener(this);
+        // model.getPlayer().waitOtherPlayers();
+        model.getMessenger().setClientEventListener(this);
     }
 
     @Override
+    @FXML
     public void onUpdateEvent(ClientEvent ce) throws Exception {
         // gets new map from initialization.
         this.next = "selectTerritoryGroup";
         loadNextPhase((Stage) loadingMessage.getScene().getWindow());
+    }
+
+    public void onMouseMoved(MouseEvent mouseEvent) {
+        messenger.setWaitOthers("wait others");
     }
 }

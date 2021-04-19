@@ -13,6 +13,8 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /* Controller for the screen that asks user to join a room.
  */
@@ -33,7 +35,17 @@ public class JoinRoomController extends Controller
         super(model);
         this.messenger = new GUIEventMessenger();
         messenger.setGUIEventListener(model);
-         model.getMessenger().setClientEventListener(this);
+    }
+
+    /**
+     * Sets various elements in the view to default values.
+     *
+     * @param location is the location of the FXML resource.
+     * @param resources used to initialize the root object of the view.
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        model.getMessenger().setClientEventListener(this);
     }
 
     /*
@@ -58,25 +70,25 @@ public class JoinRoomController extends Controller
     @Override
     public void onUpdateEvent(ClientEvent ce) throws Exception {
         // gets the joinRoomStatus Boolean from client
-      //model.getMessenger().setClientEventListener(this);
+        // model.getMessenger().setClientEventListener(this);
         Boolean joinRoomSuccess = ce.getStatusBoolean();
-        System.out.println("GUI message received "+joinRoomSuccess);
+        System.out.println("GUI message received " + joinRoomSuccess);
         if (!joinRoomSuccess) {
             errorMessage.setText("The room is full! Try another room.");
         } else {
             boolean checkInSuccess = model.checkIn();
-            System.out.println("GUI checkIn "+checkInSuccess);
-         
+            System.out.println("GUI checkIn " + checkInSuccess);
+
             if (checkInSuccess) {
                 this.next = "loading";
             } else {
                 this.next = "selectAction";
             }
-            try{
-            loadNextPhase((Stage) errorMessage.getScene().getWindow());
-          } catch (Exception e) {
-            throw new Exception("loadNextPhase exception");
-          }
+            try {
+                loadNextPhase((Stage) errorMessage.getScene().getWindow());
+            } catch (Exception e) {
+                throw new Exception("loadNextPhase exception");
+            }
         }
     }
 
