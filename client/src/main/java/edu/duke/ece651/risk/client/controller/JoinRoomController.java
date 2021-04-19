@@ -33,6 +33,7 @@ public class JoinRoomController extends Controller
         super(model);
         this.messenger = new GUIEventMessenger();
         messenger.setGUIEventListener(model);
+         model.getMessenger().setClientEventListener(this);
     }
 
     /*
@@ -57,7 +58,7 @@ public class JoinRoomController extends Controller
     @Override
     public void onUpdateEvent(ClientEvent ce) throws Exception {
         // gets the joinRoomStatus Boolean from client
-      
+      //model.getMessenger().setClientEventListener(this);
         Boolean joinRoomSuccess = ce.getStatusBoolean();
         System.out.println("GUI message received "+joinRoomSuccess);
         if (!joinRoomSuccess) {

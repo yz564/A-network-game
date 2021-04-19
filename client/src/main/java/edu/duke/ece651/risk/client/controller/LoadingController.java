@@ -42,6 +42,7 @@ public class LoadingController extends Controller implements Initializable, Clie
     public void initialize(URL location, ResourceBundle resources) {
       //model.getPlayer().waitOtherPlayers();
         messenger.setWaitOthers("wait others");
+        //model.getMessenger().setClientEventListener(this);
     }
 
     @Override

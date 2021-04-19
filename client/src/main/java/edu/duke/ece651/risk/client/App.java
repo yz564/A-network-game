@@ -181,7 +181,10 @@ public class App implements Runnable, GUIEventListener{
     tmp = receiveMessage();
     return tmp.id == 0;
   }
-  
+
+  public ClientEventMessenger getMessenger() {
+    return messenger;
+  }
   @Override
   public void run() {
     while (true) {
@@ -196,7 +199,7 @@ public class App implements Runnable, GUIEventListener{
       currentRoomId = roomId - 1;
       sendMessage(new ObjectIO("", roomId));
       tmp = receiveMessage();
-      messenger.setClientEventListener((ClientEventListener)myFactory.getController("joinRoom",this));
+      // messenger.setClientEventListener((ClientEventListener)myFactory.getController("joinRoom",this));
       messenger.setStatusBoolean(tmp.id==0);
       System.out.println("messenger status");
       /*
@@ -220,7 +223,7 @@ public class App implements Runnable, GUIEventListener{
     tmp = receiveMessage();
     System.out.println(tmp.message);
     getPlayer().receiveMessage();
-    messenger.setClientEventListener((ClientEventListener)myFactory.getController("loading",this));
+    //messenger.setClientEventListener((ClientEventListener)myFactory.getController("loading",this));
     messenger.setMap(getPlayer().getMap());
     
   } catch (Exception e) {
