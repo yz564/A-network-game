@@ -1,0 +1,113 @@
+.action-button, .action-button:hover, .action-button:pressed {
+    -fx-background-radius: 15;
+    -fx-background-insets: 1;
+    -fx-border-color: BLACK;
+    -fx-border-radius: 15;
+    -fx-padding:0;
+    -fx-alignment: CENTER;
+}
+
+.action-player, .action-player:hover, .action-player:pressed {
+    -fx-background-radius: 20;
+    -fx-background-insets: 1;
+    -fx-border-color: BLACK;
+    -fx-border-radius: 20;
+    -fx-padding:0;
+    -fx-alignment: CENTER;
+}
+
+.action-attack {
+    -fx-background-color: HOTPINK;
+}
+
+.action-attack:hover {
+    -fx-background-color: PINK;
+}
+
+.action-attack:pressed {
+    -fx-background-color: DEEPPINK;
+}
+
+.action-move {
+    -fx-background-color: CORNFLOWERBLUE;
+}
+
+.action-move:hover {
+    -fx-background-color: LIGHTBLUE;
+}
+
+.action-move:pressed {
+    -fx-background-color: DODGERBLUE;
+}
+
+.action-upgradeTalents {
+    -fx-background-color: ORANGE;
+}
+
+.action-upgradeTalents:hover {
+    -fx-background-color: GOLD;
+}
+
+.action-upgradeTalents:pressed {
+    -fx-background-color: TOMATO;
+}
+
+.action-moveSpy {
+    -fx-background-color: LIGHTSEAGREEN;
+}
+
+.action-moveSpy:hover {
+    -fx-background-color: LIGHTGREEN;
+}
+
+.action-moveSpy:pressed {
+    -fx-background-color: FORESTGREEN;
+}
+
+.action-cloaking {
+    -fx-background-color: MEDIUMPURPLE;
+}
+
+.action-cloaking:hover {
+    -fx-background-color: PLUM;
+}
+
+.action-cloaking:pressed {
+    -fx-background-color: SLATEBLUE;
+}
+
+.action-upgradeTech {
+    -fx-background-color: ORANGE;
+}
+
+.action-upgradeTech:hover {
+    -fx-background-color: GOLD;
+}
+
+.action-upgradeTech:pressed {
+    -fx-background-color: TOMATO;
+}
+
+.action-researchCloaking {
+    -fx-background-color: MEDIUMPURPLE;
+}
+
+.action-researchCloaking:hover {
+    -fx-background-color: PLUM;
+}
+
+.action-researchCloaking:pressed {
+    -fx-background-color: SLATEBLUE;
+}
+
+.action-researchPatent {
+    -fx-background-color: HOTPINK;
+}
+
+.action-researchPatent:hover {
+    -fx-background-color: PINK;
+}
+
+.action-researchPatent:pressed {
+    -fx-background-color: DEEPPINK;
+}

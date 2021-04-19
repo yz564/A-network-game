@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
@@ -22,7 +23,7 @@ public class SelectTerritoryGroupController extends Controller implements Initia
 
     @FXML ImageView mapImageView;
     @FXML Label errorMessage;
-    @FXML ArrayList<Label> labelList;
+    @FXML ArrayList<ToggleButton> labelList;
     @FXML ArrayList<Circle> charList;
     @FXML ArrayList<Label> nameList;
 

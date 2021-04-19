@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -29,7 +30,7 @@ public class AllocateTalentsController extends Controller
     @FXML Label numAllocated;
     @FXML Label numAllowed;
     @FXML Label errorMessage;
-    @FXML ArrayList<Label> labelList;
+    @FXML ArrayList<ToggleButton> labelList;
     @FXML ArrayList<TextField> numList;
 
     /**
