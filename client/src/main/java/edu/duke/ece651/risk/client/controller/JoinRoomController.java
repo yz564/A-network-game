@@ -45,7 +45,9 @@ public class JoinRoomController extends Controller
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        model.getMessenger().setClientEventListener(this);
+      //model.getMessenger().setClientEventListener(this);
+        model.setListener(this);
+        System.out.println("join Room initialize finished");
     }
 
     /*

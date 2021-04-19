@@ -40,8 +40,12 @@ public class LoadingController extends Controller implements Initializable, Clie
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // model.getPlayer().waitOtherPlayers();
-        model.getMessenger().setClientEventListener(this);
+      //model.getPlayer().waitOtherPlayers();
+      //model.getMessenger().setClientEventListener(this);
+      //messenger.setWaitOthers("wait others");
+      model.setListener(this);
+      messenger.setWaitOthers("wait others");
+      System.out.println("loading initialize finished");
     }
 
     @Override
@@ -53,6 +57,6 @@ public class LoadingController extends Controller implements Initializable, Clie
     }
 
     public void onMouseMoved(MouseEvent mouseEvent) {
-        messenger.setWaitOthers("wait others");
+      //messenger.setWaitOthers("wait others");
     }
 }

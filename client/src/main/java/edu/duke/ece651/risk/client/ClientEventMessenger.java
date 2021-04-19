@@ -18,6 +18,7 @@ public class ClientEventMessenger {
 
     public void setClientEventListener(ClientEventListener listener) {
         this.listener = listener;
+        System.out.println("setClientEventListener "+listener);
     }
 
     public void setLiteralMessage(String literalMessage) throws Exception {
