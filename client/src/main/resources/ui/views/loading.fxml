@@ -6,8 +6,8 @@
 
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-      prefWidth="600.0" onMouseMoved="#onMouseMoved" xmlns="http://javafx.com/javafx/16"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.risk.client.controller.LoadingController">
+      prefWidth="600.0" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml" fx:controller="edu.duke.ece651.risk.client.controller.LoadingController">
     <children>
         <Label fx:id="loadingMessage" layoutX="139.0" layoutY="162.0" prefHeight="38.0" prefWidth="323.0"
                text="Waiting for other players to join this room.">
