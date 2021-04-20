@@ -79,6 +79,11 @@ public class App implements Runnable, GUIEventListener{
     return null;
   }
 
+  /**
+   * Returns true if tryConnect has been called and is successful connected to a server (any server), else returns false.
+   */
+  public Boolean isConnectedToServer() { return this.server != null; }
+
   public void initializeApp(
       Socket server, ObjectInputStream in, ObjectOutputStream out, ObjectIO tmp) {
     this.server = server;
