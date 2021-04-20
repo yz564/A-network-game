@@ -40,7 +40,7 @@ public class AllocateTalentsController extends Controller
     public AllocateTalentsController(App model) {
         super(model);
         this.numUnitsEntered = 0;
-        this.next = "selectAction";
+        this.next = "loading";
     }
 
     /**
