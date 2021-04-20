@@ -35,14 +35,14 @@ public class UserLoginController implements ErrorHandlingController {
      */
     @FXML
     public void logInButton(ActionEvent ae) throws Exception {
-
         Object source = ae.getSource();
         if (source instanceof Button) {
+            clearErrorMessage();
             String username = userLoginUsernameField.getText();
             String password = userLoginPasswordField.getText();
             boolean success = model.tryLogin(username, password);
             if (!success){
-                errorMessage.setText("Log in failed! Try Again.");
+                setErrorMessage("Log in failed! Try Again.");
             }
             else{
                 Stage window = (Stage) (((Node) ae.getSource()).getScene().getWindow());

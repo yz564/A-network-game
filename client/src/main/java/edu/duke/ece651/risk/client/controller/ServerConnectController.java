@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 public class ServerConnectController extends Controller implements ErrorHandlingController {
     /**
      * Constructor that initializes the model.
+     *
      * @param model is the backend of the game.
      */
     public ServerConnectController(Object model) {
@@ -20,13 +21,10 @@ public class ServerConnectController extends Controller implements ErrorHandling
         this.next = "userLogin";
     }
 
-    @FXML
-    TextField serverConnectAddressField;
-    @FXML
-    Label errorMessage;
+    @FXML TextField serverConnectAddressField;
+    @FXML Label errorMessage;
 
     /**
-     *
      * @param ae
      * @throws Exception
      */
@@ -38,15 +36,20 @@ public class ServerConnectController extends Controller implements ErrorHandling
             clearErrorMessage();
             String serverAdd = serverConnectAddressField.getText();
             String serverMsg = model.tryConnect(serverAdd);
-            if (serverMsg != null){
+            // m = new GUIEventMessenger()
+            // m.setServerAddress(); // controller send address to client
+
+            // serverMsg should be get from ClientEvent, if the message is null, the @Override
+            // onServerMsgUpdate() should load next phase
+            if (serverMsg != null) {
                 setErrorMessage(serverMsg);
+            } else {
+                Stage window = (Stage) (((Node) ae.getSource()).getScene().getWindow());
+                Object controller = new ControllerFactory().getController(next, model);
+                Stage newWindow = PhaseChanger.switchTo(window, controller, next);
+                newWindow.show();
             }
-            else{
-            Stage window = (Stage) (((Node) ae.getSource()).getScene().getWindow());
-            Object controller = new ControllerFactory().getController(next, model);
-            Stage newWindow = PhaseChanger.switchTo(window, controller, next);
-            newWindow.show();
-        }
+            // everything above should be in listener's @Override onServerMsgUpdate()
         } else {
             throw new IllegalArgumentException("Invalid source " + source + " for ActionEvent");
         }

@@ -18,7 +18,8 @@ import java.util.ResourceBundle;
 
 /* Class responsible for registering territory group for a player.
  */
-public class SelectTerritoryGroupController extends Controller implements Initializable, ErrorHandlingController {
+public class SelectTerritoryGroupController extends Controller
+        implements Initializable, ErrorHandlingController {
     WorldMap map;
 
     @FXML ImageView mapImageView;
@@ -29,15 +30,17 @@ public class SelectTerritoryGroupController extends Controller implements Initia
 
     /**
      * Constructor that initializes the model.
+     *
      * @param model is the backend of the game.
      */
     public SelectTerritoryGroupController(App model) {
         super(model);
-        this.next = "allocateTalents";
+        this.next = "loading";
     }
 
     /**
      * Sets various elements in the view to default values.
+     *
      * @param location is the location of the FXML resource.
      * @param resources used to initialize the root object of the view.
      */
@@ -56,9 +59,7 @@ public class SelectTerritoryGroupController extends Controller implements Initia
         helper.initializeCharacter(map, charList, nameList);
     }
 
-    /**
-     * Registers group one with the player.
-     */
+    /** Registers group one with the player. */
     @FXML
     public void onSelectingGroup(MouseEvent ae) throws Exception {
         int groupId = Integer.parseInt(((Node) ae.getSource()).getId().substring(4));
@@ -66,8 +67,9 @@ public class SelectTerritoryGroupController extends Controller implements Initia
     }
 
     /**
-     * Assigns a territory to a player. Or shows an error message on the
-     * screen if the group is already assigned to a different player.
+     * Assigns a territory to a player. Or shows an error message on the screen if the group is
+     * already assigned to a different player.
+     *
      * @param ae is the action event that triggers this function.
      */
     private void assignTerritoryToPlayer(MouseEvent ae, int territoryGroup) throws Exception {
@@ -76,7 +78,8 @@ public class SelectTerritoryGroupController extends Controller implements Initia
             clearErrorMessage();
             Boolean success = model.getPlayer().tryInitialization(String.valueOf(territoryGroup));
             if (!success) {
-                errorMessage.setText("Character has already been taken by another player. Try choosing a different character.");
+                errorMessage.setText(
+                        "Character has already been taken by another player. Try choosing a different character.");
             } else {
                 loadNextPhase((Stage) (((Node) ae.getSource()).getScene().getWindow()));
             }

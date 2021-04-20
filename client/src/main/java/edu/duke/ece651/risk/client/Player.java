@@ -114,7 +114,7 @@ public class Player implements Runnable {
             sendMessage(new ObjectIO(info, Integer.parseInt(info)));
             receiveMessage();
             if (tmp.id == 0) {
-                receiveMessage();
+              //receiveMessage();
                 // this.territoryGroupSelected = info;
                 // System.out.println(theMap.getPlayerTerritories(name));
                 return true;
@@ -185,6 +185,7 @@ public class Player implements Runnable {
     */
     public void startAllocation() throws Exception {
         receiveMessage();
+        receiveMessage();
         this.maxUnitsToPlace = tmp.id;
     }
     /**
@@ -207,7 +208,7 @@ public class Player implements Runnable {
             sendMessage(orders);
             // read in a map for action phase.
             // TODO: abstract this out with askLeave()?
-            receiveMessage();
+            //receiveMessage();
             return null;
         } else {
             return "Invalid placement: Total number of units exceeds maximum.";
@@ -342,7 +343,8 @@ public class Player implements Runnable {
         // send the orders to server
         sendMessage(toSend);
         // read in the new map for next action phase.
-        return checkStatus();
+        //return checkStatus();
+        return null;
     }
 
     public String checkStatus() throws Exception {

@@ -158,14 +158,14 @@ public class SelectActionController extends Controller implements Initializable 
     }
 
     @FXML
-    public void setPlayerActionButtons(GridPane actionPane, String... actions){
+    public void setPlayerActionButtons(GridPane actionPane, String... actions) {
         ObservableList<Node> childrenList = actionPane.getChildren();
         for (Node child : childrenList) {
             int id = childrenList.indexOf(child);
             Button actionButton = (Button) child;
             actionButton.setOnAction(ae -> onSelectAction(ae, actions[id]));
-            //TODO: add checking for actions completed for turn
-            }
+            // TODO: add checking for actions completed for turn
+        }
     }
 
     public void onSelectAction(ActionEvent ae, String action) {
@@ -184,23 +184,21 @@ public class SelectActionController extends Controller implements Initializable 
     }
 
     /** Switches to the view that asks player join a room. */
-
     @FXML
     public void onLeaveGame(ActionEvent ae) throws Exception {
-      Object source = ae.getSource();
-      if (source instanceof Button) { // go to join room
-        model.requestLeave();
-        next = nextOnLeave;
-        loadNextPhase((Stage) mapImageView.getScene().getWindow());
-      } else {
-        throw new IllegalArgumentException(
-            "Action event " + ae.getSource() + " is invalid for onAction().");
-      }
+        Object source = ae.getSource();
+        if (source instanceof Button) { // go to join room
+            model.requestLeave();
+            next = nextOnLeave;
+            loadNextPhase((Stage) mapImageView.getScene().getWindow());
+        } else {
+            throw new IllegalArgumentException(
+                    "Action event " + ae.getSource() + " is invalid for onAction().");
+        }
     }
 
-
     /** Takes the user to a view that asks them to wait for other players to finish their turn. */
-
+    /*
     @FXML
     public void onCompleteTurn(ActionEvent ae) throws Exception {
       Object source = ae.getSource();
@@ -216,5 +214,19 @@ public class SelectActionController extends Controller implements Initializable 
         throw new IllegalArgumentException(
             "Action event " + ae.getSource() + " is invalid for onAction().");
       }
+    }
+    */
+
+    @FXML
+    public void onCompleteTurn(ActionEvent ae) throws Exception {
+        Object source = ae.getSource();
+        if (source instanceof Button) {
+            model.getPlayer().doneIssueOrders();
+            this.next = "loading";
+            loadNextPhase((Stage) mapImageView.getScene().getWindow());
+        } else {
+            throw new IllegalArgumentException(
+                    "Action event " + ae.getSource() + " is invalid for onAction().");
+        }
     }
 }
