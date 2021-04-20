@@ -208,7 +208,7 @@ public class Player implements Runnable {
             sendMessage(orders);
             // read in a map for action phase.
             // TODO: abstract this out with askLeave()?
-            receiveMessage();
+            //receiveMessage();
             return null;
         } else {
             return "Invalid placement: Total number of units exceeds maximum.";

@@ -217,15 +217,23 @@ public class App implements Runnable, GUIEventListener{
         System.out.println(tmp.message);
         getPlayer().receiveMessage();
         messenger.setMap(getPlayer().getMap(),"selectTerritoryGroup");
-
+        //messenger.setStatusBoolean(true,"selectTerritoryGroup");
        
-          while (!isGUIUpdated) {
-            Thread.sleep(100);
-          }
-          isGUIUpdated = false;
-          getPlayer().startAllocation();
-          messenger.setMap(getPlayer().getMap(),"allocateTalents");
+        while (!isGUIUpdated) {
+          Thread.sleep(100);
+        }
+        isGUIUpdated = false;
+        getPlayer().startAllocation();
+        messenger.setMap(getPlayer().getMap(),"allocateTalents");
+        //messenger.setStatusBoolean(true,"allocateTalents");
         
+        while (!isGUIUpdated) {
+          Thread.sleep(100);
+        }
+        isGUIUpdated = false;
+        getPlayer().receiveMessage();
+        messenger.setMap(getPlayer().getMap(),"selectAction");  
+        //messenger.setStatusBoolean(true,"selectAction");
       }catch (Exception e) {
       System.out.println("Exception from App run(): "+e.getMessage());
     }
