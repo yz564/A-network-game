@@ -114,7 +114,7 @@ public class Player implements Runnable {
             sendMessage(new ObjectIO(info, Integer.parseInt(info)));
             receiveMessage();
             if (tmp.id == 0) {
-                receiveMessage();
+              //receiveMessage();
                 // this.territoryGroupSelected = info;
                 // System.out.println(theMap.getPlayerTerritories(name));
                 return true;
@@ -184,6 +184,7 @@ public class Player implements Runnable {
       }
     */
     public void startAllocation() throws Exception {
+        receiveMessage();
         receiveMessage();
         this.maxUnitsToPlace = tmp.id;
     }
