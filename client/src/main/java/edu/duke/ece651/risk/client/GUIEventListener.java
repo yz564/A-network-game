@@ -9,8 +9,6 @@ public interface GUIEventListener extends EventListener {
      * @param ge GUIEvent object
      */
   public void onUpdateEvent(GUIEvent ge);
-  public void onUpdateJoinRoom(GUIEvent ge);
-  public void onUpdateWaitOthers(GUIEvent ge);
 }
 
 

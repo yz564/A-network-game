@@ -195,11 +195,11 @@ public class App implements Runnable, GUIEventListener{
     while (true) {
       try{
         System.out.println("run()");
-        //messenger.setClientEventListener((ClientEventListener)myFactory.getController("joinRoom",this));
+        
         while (!isGUIUpdated) {
           Thread.sleep(100);
         }
-        System.out.println("isGUIUpdated: "+isGUIUpdated);
+        //System.out.println("isGUIUpdated: "+isGUIUpdated);
         isGUIUpdated=false;
         receiveMessage();
         int roomId=theGUIEvent.getRoomId();
@@ -208,22 +208,30 @@ public class App implements Runnable, GUIEventListener{
         sendMessage(new ObjectIO("", roomId));
         System.out.println("roomId after sending: "+roomId);
         tmp = receiveMessage();
-        messenger.setStatusBoolean(tmp.id==0);
-        //messenger.setClientEventListener((ClientEventListener)myFactory.getController("loading",this));
+        messenger.setStatusBoolean(tmp.id==0,"loading");
+        
         while(!isGUIUpdated){Thread.sleep(100);}
-        System.out.println("isGUIUpdated: "+isGUIUpdated);
         isGUIUpdated=false;
         sendMessage(new ObjectIO("wait others", 0));
         tmp = receiveMessage();
         System.out.println(tmp.message);
         getPlayer().receiveMessage();
-        messenger.setMap(getPlayer().getMap());
+        messenger.setMap(getPlayer().getMap(),"selectTerritoryGroup");
+
+       
+          while (!isGUIUpdated) {
+            Thread.sleep(100);
+          }
+          isGUIUpdated = false;
+          getPlayer().startAllocation();
+          messenger.setMap(getPlayer().getMap(),"allocateTalents");
+        
       }catch (Exception e) {
       System.out.println("Exception from App run(): "+e.getMessage());
     }
     }
   }
-
+  
   @Override
   public void onUpdateEvent(GUIEvent ge) {
     this.theGUIEvent=ge;
@@ -231,7 +239,7 @@ public class App implements Runnable, GUIEventListener{
     System.out.println("isGUIUpdated: "+isGUIUpdated);
     System.out.println("App: onUpdateEvent");
   }
-  
+  /*
   @Override
   public void onUpdateJoinRoom(GUIEvent ge){
     try{
@@ -250,7 +258,7 @@ public class App implements Runnable, GUIEventListener{
     System.out.println(tmp.message);
     getPlayer().receiveMessage();
     messenger.setClientEventListener((ClientEventListener)myFactory.getController("loading",this));
-    messenger.setMap(getPlayer().getMap());*/
+    messenger.setMap(getPlayer().getMap());
     }
     catch (Exception e) {
       System.out.println("Exception catched 1: "+e.getMessage());
@@ -271,7 +279,7 @@ public class App implements Runnable, GUIEventListener{
       System.out.println("Exception catched 2: "+e.getMessage());
     }
   }
-
+*/
   /**
    * the enter point of the client. after connecting with the server, new App, and call its method
    * to communicate with the server(game).
