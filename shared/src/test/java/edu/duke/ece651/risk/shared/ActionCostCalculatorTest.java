@@ -90,11 +90,11 @@ public class ActionCostCalculatorTest {
         ActionCostCalculator cal = new ActionCostCalculator();
         WorldMap worldmap = makeTestMap();
         ActionInfoFactory af = new ActionInfoFactory();
-        ActionInfo info1 = af.creatResearchPatentActionInfo("Player 1", new ArrayList<String>());
+        ActionInfo info1 = af.createResearchPatentActionInfo("Player 1", new ArrayList<String>());
         ArrayList<String> territoryNames = new ArrayList<>();
         territoryNames.add("Pratt");
         territoryNames.add("LSRC");
-        ActionInfo info2 = af.creatResearchPatentActionInfo("Player 2", territoryNames);
+        ActionInfo info2 = af.createResearchPatentActionInfo("Player 2", territoryNames);
         ActionInfo info3 = new ActionInfo("Player 1", "test");
         assertEquals(0, cal.calculateResearchPatentCost(info1, worldmap).get("tech"));
         assertEquals(6, cal.calculateResearchPatentCost(info2, worldmap).get("tech"));
