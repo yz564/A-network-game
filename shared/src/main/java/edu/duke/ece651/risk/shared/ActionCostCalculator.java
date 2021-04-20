@@ -184,6 +184,9 @@ public class ActionCostCalculator {
         if (action.getActionType().equals("cloaking")) {
             return calculateCloakingCost(action, worldmap);
         }
+        if (action.getActionType().equals("research patent")) {
+            return calculateResearchPatentCost(action, worldmap);
+        }
         return null;
     }
 }

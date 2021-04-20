@@ -215,6 +215,13 @@ public class V2TerritoryTest {
     assertEquals(null,t1.getSpyTroop("ABC"));
     t1.getSpyTroop("ABCD");
   }
+
+  @Test
+  public void test_getTotalNumUnits(){
+    Territory t1 = new V2Territory("ABC", new HashMap<String, Integer>(), new HashMap<String, Integer>(), 0);
+    t1.tryAddTroopUnits("level0", 30);
+    assertEquals(30, t1.getTotalNumUnits());
+  }
 }
 
 

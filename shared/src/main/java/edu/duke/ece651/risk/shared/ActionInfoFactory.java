@@ -113,7 +113,7 @@ public class ActionInfoFactory {
      *     implement research patent.
      * @return an adapted ActionInfo for research patent action.
      */
-    public ActionInfo creatResearchPatentActionInfo(
+    public ActionInfo createResearchPatentActionInfo(
             String srcOwnerName, ArrayList<String> targetTerritoryNames) {
         ResearchPatentActionInfo info = new ResearchPatentActionInfo(targetTerritoryNames);
         return new ActionInfo(srcOwnerName, "research patent", info);

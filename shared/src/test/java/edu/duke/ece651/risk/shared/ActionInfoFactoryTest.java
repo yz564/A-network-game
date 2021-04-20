@@ -94,7 +94,7 @@ class ActionInfoFactoryTest {
     @Test
     public void test_research_patent() {
         ActionInfoFactory af = new ActionInfoFactory();
-        ActionInfo info1 = af.creatResearchPatentActionInfo("Player 1", new ArrayList<>());
+        ActionInfo info1 = af.createResearchPatentActionInfo("Player 1", new ArrayList<>());
         assertEquals("Player 1", info1.getSrcOwnerName());
         assertEquals("research patent", info1.getActionType());
         assertEquals(new ArrayList<>(), info1.getTargetTerritoryNames());

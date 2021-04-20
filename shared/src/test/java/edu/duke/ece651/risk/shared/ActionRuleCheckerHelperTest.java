@@ -1,5 +1,7 @@
 package edu.duke.ece651.risk.shared;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.junit.jupiter.api.Disabled;
@@ -112,6 +114,29 @@ public class ActionRuleCheckerHelperTest {
     assertNull(rc.checkRuleForUpgradeSpy(a1, worldmap));
     assertNull(rc.checkRuleForMoveSpy(a2, worldmap));
     assertNull(rc.checkRuleForResearchCloaking(a3, worldmap));
+    p1.setTechLevel(3);
+    p1.setIsCloakingResearched(true);
     assertNull(rc.checkRuleForCloaking(a4, worldmap));
   }
+
+  @Test
+  public void test_actionrulecheckerhelper_patent() {
+    WorldMapFactory factory = new V2MapFactory();
+    WorldMap worldmap = factory.makeTestWorldMap();
+    worldmap.tryAssignInitOwner(1, "Player 1");
+    worldmap.tryAssignInitOwner(2, "Player 2");
+    worldmap.tryAssignInitOwner(3, "Player 3");
+    PlayerInfo p1 = new PlayerInfo("Player 1", 100, 100);
+    p1.setTechLevel(3);
+    worldmap.tryAddPlayerInfo(p1);
+    Territory t1 = worldmap.getTerritory("Narnia");
+    t1.tryAddTroopUnits("level0", 10);
+    t1.tryAddSpyTroopUnits("Player 1", 1);
+    ActionInfoFactory af = new ActionInfoFactory();
+    ArrayList<String> territories = new ArrayList<>();
+    territories.add("Narnia");
+    ActionInfo a1 = af.createResearchPatentActionInfo("Player 1", territories);
+    ActionRuleCheckerHelper rc = new ActionRuleCheckerHelper();
+    assertNull(rc.checkRuleForResearchPatent(a1, worldmap));
+    }
 }
