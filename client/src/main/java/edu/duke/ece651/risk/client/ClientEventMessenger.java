@@ -18,24 +18,25 @@ public class ClientEventMessenger {
 
     public void setClientEventListener(ClientEventListener listener) {
         this.listener = listener;
-        System.out.println("setClientEventListener "+listener);
+        System.out.println("setClientEventListener " + listener);
     }
 
-    public void setLiteralMessage(String literalMessage) throws Exception {
+    public void setLiteralMessage(String literalMessage, String nextViewName) throws Exception {
         this.literalMessage = literalMessage;
-        listener.onUpdateEvent(new ClientEvent(this, literalMessage));
+        listener.onUpdateEvent(new ClientEvent(this, nextViewName, literalMessage));
     }
 
-    public void setStatusBoolean(Boolean statusBoolean) throws Exception {
+    public void setStatusBoolean(Boolean statusBoolean, String nextViewName) throws Exception {
         this.statusBoolean = statusBoolean;
-        listener.onUpdateEvent(new ClientEvent(this, statusBoolean));
+        listener.onUpdateEvent(new ClientEvent(this, nextViewName, statusBoolean));
     }
 
-    public void setMap(WorldMap map) throws Exception {
+    public void setMap(WorldMap map, String nextViewName) throws Exception {
         this.map = map;
-        listener.onUpdateEvent(new ClientEvent(this, map));
+        listener.onUpdateEvent(new ClientEvent(this, nextViewName, map));
     }
-  public Boolean getStatus(){
-    return statusBoolean;
-  }
+
+    public Boolean getStatus() {
+        return statusBoolean;
+    }
 }
