@@ -343,7 +343,8 @@ public class Player implements Runnable {
         // send the orders to server
         sendMessage(toSend);
         // read in the new map for next action phase.
-        return checkStatus();
+        //return checkStatus();
+        return null;
     }
 
     public String checkStatus() throws Exception {

@@ -108,6 +108,11 @@ public class App implements Runnable, GUIEventListener{
       joinedRoomId.add(currentRoomId);
       return true;
     }
+    try{
+    sendMessage(new ObjectIO("wait"));
+    receiveMessage();
+  } catch (Exception e) {
+  }
     return false;
   }
 
@@ -232,7 +237,23 @@ public class App implements Runnable, GUIEventListener{
         }
         isGUIUpdated = false;
         getPlayer().receiveMessage();
-        messenger.setMap(getPlayer().getMap(),"selectAction");  
+        messenger.setMap(getPlayer().getMap(),"selectAction");
+
+        while(true){
+        while (!isGUIUpdated) {
+          Thread.sleep(100);
+        }
+        isGUIUpdated = false;
+        String result=getPlayer().checkStatus();
+        if (result == null) {
+          messenger.setMap(getPlayer().getMap(), "selectAction");
+        }
+        else {
+          messenger.setMap(getPlayer().getMap(), "gameEnd");
+          break;
+        }
+        }
+        
         //messenger.setStatusBoolean(true,"selectAction");
       }catch (Exception e) {
       System.out.println("Exception from App run(): "+e.getMessage());
