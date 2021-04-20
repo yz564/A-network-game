@@ -21,9 +21,6 @@ import java.util.ResourceBundle;
  */
 public class JoinRoomController extends Controller
         implements Initializable, ErrorHandlingController, ClientEventListener {
-    String newPlayerNextView = "selectTerritoryGroup";
-    String existingPlayerNextView = "selectAction";
-    Boolean isUpdated=false;
     @FXML Label errorMessage;
     GUIEventMessenger messenger;
 
@@ -46,42 +43,19 @@ public class JoinRoomController extends Controller
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-      //model.getMessenger().setClientEventListener(this);
         model.setListener(this);
         System.out.println("join Room initialize finished");
     }
 
-    /*
-    private void joinRoom(Boolean joinRoomSuccess) throws Exception {
-        if (!joinRoomSuccess) {
-            errorMessage.setText("The room is full! Try another room.");
-        } else {
-            // TODO
-            Boolean checkInSuccess = model.checkIn();
-            if (checkInSuccess) {
-                model.getPlayer().waitOtherPlayers();
-                model.getPlayer().startInitialization();
-                this.next = this.newPlayerNextView;
-            } else {
-                this.next = this.existingPlayerNextView;
-            }
-            loadNextPhase((Stage) errorMessage.getScene().getWindow());
-        }
-    }
-     */
-
     @Override
     public void onUpdateEvent(ClientEvent ce) throws Exception {
-        // gets the joinRoomStatus Boolean from client
-        // model.getMessenger().setClientEventListener(this);
         Boolean joinRoomSuccess = ce.getStatusBoolean();
-        System.out.println("GUI message received " + joinRoomSuccess);
+        // System.out.println("GUI message received " + joinRoomSuccess);
         if (!joinRoomSuccess) {
             errorMessage.setText("The room is full! Try another room.");
         } else {
             boolean checkInSuccess = model.checkIn();
-            System.out.println("GUI checkIn " + checkInSuccess);
-
+            // System.out.println("GUI checkIn " + checkInSuccess);
             if (checkInSuccess) {
                 this.next = "loading";
             } else {

@@ -52,10 +52,6 @@ public class LoadingController extends Controller implements Initializable, Clie
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //model.getPlayer().waitOtherPlayers();
-        //model.getMessenger().setClientEventListener(this);
-        //messenger.setWaitOthers("wait others");
-
         loadingMessage.setText(messageForPlayer);
         bounceTransition(circle1, 200, -21);
         bounceTransition(circle2, 250, -15);
@@ -64,13 +60,12 @@ public class LoadingController extends Controller implements Initializable, Clie
         model.setListener(this);
         messenger.setWaitOthers("wait others");
         System.out.println("loading initialize finished");
-
     }
 
     /**
-     *
      * @param myNode is the Java FX Node that you want to bounce.
-     * @param duration is time in milliseconds that you want the myNode to go from lowest point to highest point.
+     * @param duration is time in milliseconds that you want the myNode to go from lowest point to
+     *     highest point.
      * @param jumpBy is the number of pixels that you want myNode to jump.
      */
     private void bounceTransition(Node myNode, int duration, int jumpBy) {
@@ -86,7 +81,7 @@ public class LoadingController extends Controller implements Initializable, Clie
     @Override
     @FXML
     public void onUpdateEvent(ClientEvent ce) {
-        this.next = "selectTerritoryGroup";
+        this.next = ce.getNextViewName();
         Platform.runLater(
                 () -> {
                     try {
