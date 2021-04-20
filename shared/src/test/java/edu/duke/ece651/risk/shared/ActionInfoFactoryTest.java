@@ -2,6 +2,7 @@ package edu.duke.ece651.risk.shared;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,7 +29,8 @@ class ActionInfoFactoryTest {
         assertEquals("move", info1.getActionType());
         assertEquals("Player 1", info1.getSrcOwnerName());
     }
-  @Test
+
+    @Test
     public void test_create_spy_move() {
         ActionInfoFactory af = new ActionInfoFactory();
         ActionInfo info1 = af.createMoveSpyActionInfo("Player 1", "A", "B", 1);
@@ -60,7 +62,7 @@ class ActionInfoFactoryTest {
         assertEquals(10, info1.getUpgradeUnitActionInfo().getNumToUpgrade());
     }
 
-  @Test
+    @Test
     public void test_create_upgrade_spy_unit() {
         ActionInfoFactory af = new ActionInfoFactory();
         ActionInfo info1 = af.createUpgradeSpyUnitActionInfo("Player 1", "A", 10);
@@ -86,5 +88,16 @@ class ActionInfoFactoryTest {
         ActionInfo info1 = af.createCloakingActionInfo("Player 1", "Fuqua");
         assertEquals("Player 1", info1.getSrcOwnerName());
         assertEquals("Fuqua", info1.getSrcName());
+        assertNull(info1.getTargetTerritoryNames());
+    }
+
+    @Test
+    public void test_research_patent() {
+        ActionInfoFactory af = new ActionInfoFactory();
+        ActionInfo info1 = af.creatResearchPatentActionInfo("Player 1", new ArrayList<>());
+        assertEquals("Player 1", info1.getSrcOwnerName());
+        assertEquals("research patent", info1.getActionType());
+        assertEquals(new ArrayList<>(), info1.getTargetTerritoryNames());
+        assertEquals(0, info1.getResearchPatentActionInfo().getTargetTerritoryNames().size());
     }
 }

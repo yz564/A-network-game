@@ -9,10 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -38,7 +35,7 @@ public class MoveActionController extends Controller implements Initializable, E
 
   @FXML Label errorMessage;
 
-  @FXML ArrayList<Label> labelList;
+  @FXML ArrayList<ToggleButton> labelList;
 
   @FXML Label playerInfo;
 

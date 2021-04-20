@@ -14,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -37,7 +38,7 @@ public class UpgradeTechActionsController extends Controller implements Initiali
 
   @FXML Label errorMessage;
 
-  @FXML ArrayList<Label> labelList;
+  @FXML ArrayList<ToggleButton> labelList;
 
   @FXML Label playerInfo;
 

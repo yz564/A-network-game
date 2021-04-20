@@ -13,7 +13,7 @@ public class V2RiskWorldMapTest {
     @Test
     public void test_addterritory() {
         WorldMap worldmap = new V2RiskWorldMap();
-        Territory t1 = new V2Territory("Narnia", 0, 0, 0);
+        Territory t1 = new V2Territory("Narnia", 0, 0, 0, 0, 0, 0, 0, 0);
         assertTrue(worldmap.tryAddTerritory(t1));
         assertFalse(worldmap.tryAddTerritory(t1));
         assertEquals(t1, worldmap.getTerritory("Narnia"));
@@ -35,8 +35,8 @@ public class V2RiskWorldMapTest {
     @Test
     public void test_assignowner() {
         WorldMap worldmap = new V2RiskWorldMap();
-        Territory t1 = new V2Territory("Narnia", 0, 0, 0);
-        Territory t2 = new V2Territory("Elantris", 0, 0, 0);
+        Territory t1 = new V2Territory("Narnia", 0, 0, 0, 0, 0, 0, 0, 0);
+        Territory t2 = new V2Territory("Elantris", 0, 0, 0, 0, 0, 0, 0, 0);
         assertTrue(worldmap.tryAddTerritory(t1));
         assertTrue(worldmap.tryAddTerritory(t2));
         assertTrue(worldmap.tryAddInitGroup(1, "Narnia"));
@@ -50,9 +50,9 @@ public class V2RiskWorldMapTest {
     @Test
     public void test_playerterritories() {
         WorldMap worldmap = new V2RiskWorldMap();
-        Territory t1 = new V2Territory("Narnia", 0, 0, 0);
-        Territory t2 = new V2Territory("Elantris", 0, 0, 0);
-        Territory t3 = new V2Territory("Oz", 0, 0, 0);
+        Territory t1 = new V2Territory("Narnia", 0, 0, 0, 0, 0, 0, 0, 0);
+        Territory t2 = new V2Territory("Elantris", 0, 0, 0, 0, 0, 0, 0, 0);
+        Territory t3 = new V2Territory("Oz", 0, 0, 0, 0, 0, 0, 0, 0);
         t1.setOwnerName("Player 1");
         t2.setOwnerName("Player 1");
         HashMap<String, Territory> expected = new HashMap<String, Territory>();
@@ -87,8 +87,8 @@ public class V2RiskWorldMapTest {
     @Test
     public void test_getterritory() {
         WorldMap worldmap = new V2RiskWorldMap();
-        Territory t1 = new V2Territory("Narnia", 0, 0, 0);
-        Territory t2 = new V2Territory("Elantris", 0, 0, 0);
+        Territory t1 = new V2Territory("Narnia", 0, 0, 0, 0, 0, 0, 0, 0);
+        Territory t2 = new V2Territory("Elantris", 0, 0, 0, 0, 0, 0, 0, 0);
         worldmap.tryAddTerritory(t1);
         worldmap.tryAddTerritory(t2);
         ArrayList<String> expected = new ArrayList<String>();
