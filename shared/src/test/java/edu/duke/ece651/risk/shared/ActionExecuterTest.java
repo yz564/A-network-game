@@ -3,6 +3,7 @@ package edu.duke.ece651.risk.shared;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,9 +16,9 @@ public class ActionExecuterTest {
         map.tryAssignInitOwner(1, "Green player");
         map.tryAssignInitOwner(2, "Blue player");
         map.tryAssignInitOwner(3, "Red player");
-        map.tryAddPlayerInfo(new PlayerInfo("Green player", 100, 100));
-        map.tryAddPlayerInfo(new PlayerInfo("Blue player", 100, 100));
-        map.tryAddPlayerInfo(new PlayerInfo("Red player", 100, 100));
+        map.tryAddPlayerInfo(new PlayerInfo("Green player", 1, 100, 100));
+        map.tryAddPlayerInfo(new PlayerInfo("Blue player", 2, 100, 100));
+        map.tryAddPlayerInfo(new PlayerInfo("Red player", 3, 100, 100));
         map.getPlayerInfo("Green player").setMultiVizStatus(map.getMyTerritories(), false);
         map.getPlayerInfo("Blue player").setMultiVizStatus(map.getMyTerritories(), false);
         map.getPlayerInfo("Red player").setMultiVizStatus(map.getMyTerritories(), false);
@@ -345,5 +346,27 @@ public class ActionExecuterTest {
         assertEquals(9, map.getTerritory("Fuqua").getTroopNumUnits("level0"));
         assertEquals(1, map.getTerritory("Fuqua").getSpyTroopNumUnits("Green player"));
         assertEquals(80, map.getPlayerInfo("Green player").getResTotals().get("tech"));
+    }
+
+    @Test
+    public void test_research_patent() {
+        WorldMap map = setupV2Map();
+        HashMap<String, Integer> numUnits1 = new HashMap<String, Integer>();
+        numUnits1.put("level5", 10);
+        map.getTerritory("Law").trySetNumUnits(numUnits1);
+        HashMap<String, Integer> numUnits2 = new HashMap<String, Integer>();
+        numUnits2.put("level0", 10);
+        map.getTerritory("Fuqua").trySetNumUnits(numUnits2);
+        assertEquals(0, map.getPlayerInfo("Green player").getPatentProgress());
+
+        ActionInfoFactory af = new ActionInfoFactory();
+        ArrayList<String> territoryNames = new ArrayList<>();
+        territoryNames.add("Fuqua");
+        territoryNames.add("Law");
+        ActionInfo info = af.createResearchPatentActionInfo("Green player", territoryNames);
+        ActionExecuter executer = new ActionExecuter();
+        executer.executeResearchPatent(map, info);
+        assertEquals(17, map.getPlayerInfo("Green player").getPatentProgress());
+        assertEquals(94, map.getPlayerInfo("Green player").getResTotals().get("tech"));
     }
 }

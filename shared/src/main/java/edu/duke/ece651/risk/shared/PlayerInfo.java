@@ -76,6 +76,7 @@ public class PlayerInfo implements java.io.Serializable {
         this.isCloakingResearched = false;
         this.vizStatus = new HashMap<>();
         this.patentProgress = 0;
+        createCharacterFromId(playerId);
     }
 
     /**

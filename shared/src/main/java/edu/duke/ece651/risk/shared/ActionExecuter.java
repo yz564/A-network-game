@@ -1,5 +1,6 @@
 package edu.duke.ece651.risk.shared;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -202,6 +203,39 @@ public class ActionExecuter {
     }
 
     /**
+     * Adds the patent progress to the player who ordered the research patent action.
+     *
+     * @param map a WorldMap object where the action is implemented.
+     * @param info a ActionInfo object that contains source owner name and the info of the territory
+     *     that involved in the patent research action.
+     */
+    public void executeResearchPatent(WorldMap map, ActionInfo info) {
+        // increase patent progress
+        String playerDomain = map.getPlayerInfo(info.getSrcOwnerName()).getResearchDomain();
+        ArrayList<String> territoryNames = info.getTargetTerritoryNames();
+        int total = 0;
+        // calculate the sum of each target territory's generated gross progress.
+        for (String territoryName : territoryNames) {
+            V2Territory territory = (V2Territory) map.getTerritory(territoryName);
+            int gross = 0;
+            // sum(number of units in each level troop * (bonus of each level troop + 1))
+            for (String troopName : territory.getMyTroops().keySet()) {
+                Troop troop = territory.getTroop(troopName);
+                gross = gross + (troop.getBonus() + 1) * troop.getNumUnits();
+            }
+            gross = gross * territory.getPatentResearchRate().get(playerDomain);
+            total = total + gross;
+        }
+        // adjust the speed of research patent.
+        // TODO: find appropriate speed
+        total = total / 30;
+        map.getPlayerInfo(info.getSrcOwnerName()).addPatentProgress(total);
+        // deducts cost
+        HashMap<String, Integer> resCost = costCal.calculateResearchPatentCost(info, map);
+        deductCost(map, info, resCost);
+    }
+
+    /**
      * Executes the attack order with given action info for attack. Before calling this function,
      * troops are removed from src territory and costs are deducted in executePreAttack() already.
      *
@@ -258,7 +292,8 @@ public class ActionExecuter {
     public String findHighestLevelTroop(HashMap<String, Integer> units) {
         Integer highestLevel = -1;
         String highestTroopName = null;
-        HashMap<String, Troop> troopInfo = (new V2Territory("", 0, 0, 0, 0, 0, 0, 0, 0)).getMyTroops();
+        HashMap<String, Troop> troopInfo =
+                (new V2Territory("", 0, 0, 0, 0, 0, 0, 0, 0)).getMyTroops();
         for (String troopName : units.keySet()) {
             if (units.get(troopName) > 0
                     && troopInfo.get(troopName).getTechLevelReq() > highestLevel) {
@@ -279,7 +314,8 @@ public class ActionExecuter {
     public String findLowestLevelTroop(HashMap<String, Integer> units) {
         Integer lowestLevel = 7;
         String lowestTroopName = null;
-        HashMap<String, Troop> troopInfo = (new V2Territory("", 0, 0, 0, 0, 0, 0, 0, 0)).getMyTroops();
+        HashMap<String, Troop> troopInfo =
+                (new V2Territory("", 0, 0, 0, 0, 0, 0, 0, 0)).getMyTroops();
         for (String troopName : units.keySet()) {
             if (units.get(troopName) > 0
                     && troopInfo.get(troopName).getTechLevelReq() < lowestLevel) {
@@ -321,7 +357,8 @@ public class ActionExecuter {
      * @return true if the attacker wins the fight, false otherwise.
      */
     private boolean isAttackerWinFight(String attacker, String defender) {
-        HashMap<String, Troop> troopInfo = (new V2Territory("", 0, 0, 0, 0, 0, 0, 0, 0)).getMyTroops();
+        HashMap<String, Troop> troopInfo =
+                (new V2Territory("", 0, 0, 0, 0, 0, 0, 0, 0)).getMyTroops();
         int attackerBonus = troopInfo.get(attacker).getBonus();
         int defenderBonus = troopInfo.get(defender).getBonus();
         return rollOneDice() + attackerBonus > rollOneDice() + defenderBonus;
