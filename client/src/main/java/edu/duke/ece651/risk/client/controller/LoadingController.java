@@ -80,15 +80,21 @@ public class LoadingController extends Controller implements Initializable, Clie
 
     @Override
     @FXML
-    public void onUpdateEvent(ClientEvent ce) {
-        this.next = ce.getNextViewName();
-        Platform.runLater(
-                () -> {
-                    try {
-                        loadNextPhase((Stage) loadingMessage.getScene().getWindow());
-                    } catch (IOException e) {
-                        loadingMessage.setText(e.getMessage());
-                    }
-                });
+    public void onUpdateEvent(ClientEvent ce) throws Exception {
+        System.out.println("LoadingController got message from client.");
+        try {
+            this.next = ce.getNextViewName();
+            Platform.runLater(
+                    () -> {
+                        try {
+                            loadNextPhase((Stage) loadingMessage.getScene().getWindow());
+                        } catch (IOException e) {
+                            loadingMessage.setText(e.getMessage());
+                        }
+                    });
+        } catch (Exception e) {
+            System.out.println("Exception in LoadingController's onUpdateEvent: " + e.getMessage());
+            throw new Exception(e.getMessage());
+        }
     }
 }

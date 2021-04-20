@@ -68,11 +68,13 @@ public class AllocateTalentsController extends Controller
         numAllowed.setText(String.valueOf(model.getPlayer().getMaxUnitsToPlace()));
         // add change listeners to numUnits fields
         addNumUnitsChangeListeners();
+        /*
         try {
             model.getPlayer().startAllocation();
         } catch (Exception e) {
             e.printStackTrace();
         }
+         */
     }
 
     private void addNumUnitsChangeListeners() {
