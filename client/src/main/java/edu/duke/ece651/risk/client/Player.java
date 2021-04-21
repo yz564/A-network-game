@@ -327,13 +327,33 @@ public class Player implements Runnable {
         }
     }
 
+    public String tryIssueResearchPatentOrder(ActionInfo order) {
+        String problem = ruleChecker.checkRuleForResearchPatent(order, this.theMap);
+        if (problem == null) {
+            if (isLimitedActionUsed.get("research patent")) {
+                return "Invalid action: You can only research patent once in each turn.";
+            } else if (!tmpOrders.isEmpty()) {
+                return "Invalid action: You cannot only research patent after other actions in a turn.";
+            }
+            this.tmpOrders.add(order);
+            executer.executeResearchPatent(theMap, order);
+            isLimitedActionUsed.put("research patent", true);
+            return null;
+        } else {
+            return problem;
+        }
+    }
+
     public void doneIssueOrders() throws Exception {
         ArrayList<ActionInfo> group1Orders = new ArrayList<>();
         ArrayList<ActionInfo> attackOrders = new ArrayList<>();
+        ArrayList<ActionInfo> patentOrders = new ArrayList<>();
         ObjectIO toSend = new ObjectIO();
         for (ActionInfo order : this.tmpOrders) {
             if (order.getActionType().equals("attack")) {
                 attackOrders.add(order);
+            } else if (order.getActionType().equals("research patent")) {
+                patentOrders.add(order);
             } else {
                 group1Orders.add(order);
             }
@@ -341,6 +361,7 @@ public class Player implements Runnable {
         this.tmpOrders = new ArrayList<>(); // refresh the local order ArrayList<ActionInfo>
         toSend.moveOrders = group1Orders;
         toSend.attackOrders = attackOrders;
+        toSend.patentOrders = patentOrders;
         // resets all to false in isLimitedActionUsed for limited orders
         isLimitedActionUsed.replaceAll((n, v) -> false);
         // send the orders to server
