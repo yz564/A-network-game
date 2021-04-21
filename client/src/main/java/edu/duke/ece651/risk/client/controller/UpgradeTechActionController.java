@@ -11,17 +11,17 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.*;
 
-public class AttackActionController extends ActionController {
-    @FXML ArrayList<Label> srcNumList;
-    @FXML ArrayList<Label> destNumList;
+public class UpgradeTechActionController extends ActionController {
+    @FXML Label oldLevel;
+    @FXML Label newLevel;
 
     /**
      * Constructor that initializes the model.
      *
      * @param model is the backend of the game.
      */
-    public AttackActionController(App model, String srcName, String destName, Stage mainPage) {
-        super(model, srcName, destName, mainPage);
+    public UpgradeTechActionController(App model, Stage mainPage) {
+        super(model, null, null, mainPage);
     }
 
     /**
@@ -32,17 +32,11 @@ public class AttackActionController extends ActionController {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        loadTerritoryInfo();
-        loadResourceInfo("food");
-        addNumUnitsChangeListeners("food");
-        addSliderChangeListener();
-        InitializeControllerHelper helper = new InitializeControllerHelper();
-        // set the number of units for each talent types
-        helper.initializeNumUnit(map, srcTerritoryName, destTerritoryName, srcNumList, destNumList);
-        // set the max value for sliders for each talent types
-        helper.initializeSliders(sliderList, srcNumList);
-        // delete the rows for talent types with 0 units
-        helper.initializeTalentRows(srcNumList, destNumList, grid);
+        loadResourceInfo("tech");
+        int currentTechLevel = map.getPlayerInfo(playerName).getTechLevel();
+        oldLevel.setText(String.valueOf(currentTechLevel));
+        newLevel.setText(String.valueOf(currentTechLevel + 1));
+        updateTotalCost(getActionInfo(), "tech");
     }
 
     /** Returns a attack ActionInfo object based on fields entered by the user in the view. */
@@ -50,11 +44,10 @@ public class AttackActionController extends ActionController {
     protected ActionInfo getActionInfo() throws IllegalArgumentException {
         ActionInfoFactory af = new ActionInfoFactory();
         ActionRuleCheckerHelper checker = new ActionRuleCheckerHelper();
-        HashMap<String, Integer> numUnits = getNumUnits();
-        ActionInfo info = af.createAttackActionInfo(
-                playerName, srcTerritoryName, destTerritoryName, numUnits);
-        String error = checker.checkRuleForAttack(info, map);
-        if (error != null){
+        ActionInfo info =
+                af.createUpgradeTechActionInfo(playerName, Integer.valueOf(newLevel.getText()));
+        String error = checker.checkRuleForUpgradeTech(info, map);
+        if (error != null) {
             throw new IllegalArgumentException(error);
         }
         return info;
@@ -68,8 +61,8 @@ public class AttackActionController extends ActionController {
             try {
                 clearErrorMessage();
                 ActionInfo info = getActionInfo();
-                updateTotalCost(info, "food");
-                String success = model.getPlayer().tryIssueAttackOrder(info);
+                updateTotalCost(info, "tech");
+                String success = model.getPlayer().tryIssueUpgradeTechOrder(info);
                 if (success != null) {
                     setErrorMessage(success);
                 } else {

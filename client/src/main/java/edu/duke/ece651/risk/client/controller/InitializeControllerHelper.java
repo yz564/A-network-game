@@ -245,6 +245,12 @@ public class InitializeControllerHelper {
         }
     }
 
+    public void initializeSliders(ArrayList<Slider> sliderList, ArrayList<Label> srcNumList){
+        for (int i = 0; i < srcNumList.size(); i++) {
+            sliderList.get(i).setMax(Integer.valueOf(srcNumList.get(i).getText()));
+        }
+    }
+
     public void initializeTalentRows(
             ArrayList<Label> srcNumList, ArrayList<Label> destNumList, GridPane grid) {
         for (int i = 0; i < srcNumList.size(); i++) {
@@ -278,6 +284,7 @@ public class InitializeControllerHelper {
         ans = ans + "- Food Resource: " + info.getResTotals().get("food") + "\n";
         ans = ans + "- Tech Resource: " + info.getResTotals().get("tech") + "\n";
         ans = ans + "- Territory Amount: " + map.getPlayerTerritories(playerName).size() + "\n";
+        ans = ans + "- Cloaking Researched: " + map.getPlayerInfo(playerName).getIsCloakingResearched() + "\n";
         return ans;
     }
 
@@ -303,6 +310,7 @@ public class InitializeControllerHelper {
         ans = ans + "- Size: " + territory.getSize() + "\n";
         ans = ans + "- Food Production Rate: " + territory.getResProduction().get("food") + "\n";
         ans = ans + "- Tech Production Rate: " + territory.getResProduction().get("tech") + "\n";
+        ans = ans + "- Cloaking Turns: " + territory.getCloakingTurns() + "\n";
         ans =
                 ans
                         + "--------------------------\n"

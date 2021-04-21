@@ -13,468 +13,344 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<?import java.util.ArrayList?>
-<GridPane fx:id="grid" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-          style="-fx-background-color: #00539B;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-          fx:controller="edu.duke.ece651.risk.client.controller.AttackActionController">
+<GridPane fx:id="grid" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #00539B;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.risk.client.controller.AttackActionController">
     <columnConstraints>
-        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity"
-                           prefWidth="30.0"/>
-        <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity"
-                           prefWidth="26.0"/>
-        <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity"
-                           prefWidth="14.0"/>
-        <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity"
-                           prefWidth="50.0"/>
-        <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity"
-                           prefWidth="100.0"/>
-        <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity"
-                           prefWidth="50.0"/>
-        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity"
-                           prefWidth="30.0"/>
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="30.0" />
+        <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="26.0" />
+        <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="14.0" />
+        <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="50.0" />
+        <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
+        <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="50.0" />
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="30.0" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="60.0" vgrow="NEVER"/>
-        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" vgrow="NEVER"/>
-        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="70.0" vgrow="NEVER"/>
-        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" vgrow="NEVER"/>
-        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" vgrow="NEVER"/>
-        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" valignment="CENTER"
-                        vgrow="NEVER"/>
-        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" valignment="CENTER"
-                        vgrow="NEVER"/>
-        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" valignment="CENTER"
-                        vgrow="NEVER"/>
-        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" valignment="CENTER"
-                        vgrow="NEVER"/>
-        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" valignment="CENTER"
-                        vgrow="NEVER"/>
-        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" valignment="CENTER"
-                        vgrow="NEVER"/>
-        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" valignment="CENTER"
-                        vgrow="NEVER"/>
-        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" valignment="CENTER"
-                        vgrow="NEVER"/>
-        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" valignment="CENTER"
-                        vgrow="NEVER"/>
-        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" valignment="CENTER"
-                        vgrow="NEVER"/>
-        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" valignment="CENTER"
-                        vgrow="NEVER"/>
-        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" valignment="CENTER"
-                        vgrow="NEVER"/>
-        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" valignment="CENTER"
-                        vgrow="NEVER"/>
-        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" valignment="CENTER"
-                        vgrow="SOMETIMES"/>
-        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" valignment="CENTER"
-                        vgrow="SOMETIMES"/>
-        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" valignment="CENTER"
-                        vgrow="SOMETIMES"/>
-        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" valignment="CENTER"
-                        vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="60.0" vgrow="NEVER" />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" vgrow="NEVER" />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="70.0" vgrow="NEVER" />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" vgrow="NEVER" />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" vgrow="NEVER" />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" valignment="CENTER" vgrow="NEVER" />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" valignment="CENTER" vgrow="NEVER" />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" valignment="CENTER" vgrow="NEVER" />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" valignment="CENTER" vgrow="NEVER" />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" valignment="CENTER" vgrow="NEVER" />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" valignment="CENTER" vgrow="NEVER" />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" valignment="CENTER" vgrow="NEVER" />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" valignment="CENTER" vgrow="NEVER" />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" valignment="CENTER" vgrow="NEVER" />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" valignment="CENTER" vgrow="NEVER" />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" valignment="CENTER" vgrow="NEVER" />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" valignment="CENTER" vgrow="NEVER" />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" valignment="CENTER" vgrow="NEVER" />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" valignment="CENTER" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" valignment="CENTER" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" valignment="CENTER" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <ImageView fitWidth="26.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1"
-                   GridPane.rowIndex="5">
+        <ImageView fitWidth="26.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="5">
             <image>
-                <Image url="@../icons/tooltip/level0.png"/>
+                <Image url="@../icons/tooltip/level0.png" />
             </image>
         </ImageView>
-        <ImageView fitHeight="36.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1"
-                   GridPane.halignment="LEFT" GridPane.rowIndex="7">
+        <ImageView fitHeight="36.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="7">
             <image>
-                <Image url="@../icons/tooltip/level1.png"/>
+                <Image url="@../icons/tooltip/level1.png" />
             </image>
             <GridPane.margin>
-                <Insets/>
+                <Insets />
             </GridPane.margin>
         </ImageView>
-        <ImageView fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1"
-                   GridPane.halignment="LEFT" GridPane.rowIndex="9" GridPane.valignment="BOTTOM">
+        <ImageView fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="9" GridPane.valignment="BOTTOM">
             <image>
-                <Image url="@../icons/tooltip/level2.png"/>
+                <Image url="@../icons/tooltip/level2.png" />
             </image>
         </ImageView>
-        <ImageView fitHeight="36.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1"
-                   GridPane.halignment="RIGHT" GridPane.rowIndex="11">
+        <ImageView fitHeight="36.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="11">
             <image>
-                <Image url="@../icons/tooltip/level3.png"/>
+                <Image url="@../icons/tooltip/level3.png" />
             </image>
         </ImageView>
-        <ImageView fitWidth="26.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1"
-                   GridPane.rowIndex="13">
+        <ImageView fitWidth="26.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="13">
             <image>
-                <Image url="@../icons/tooltip/level4.png"/>
+                <Image url="@../icons/tooltip/level4.png" />
             </image>
         </ImageView>
-        <ImageView fitWidth="26.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1"
-                   GridPane.rowIndex="15">
+        <ImageView fitWidth="26.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="15">
             <image>
-                <Image url="@../icons/tooltip/level5.png"/>
+                <Image url="@../icons/tooltip/level5.png" />
             </image>
         </ImageView>
-        <ImageView fitHeight="36.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1"
-                   GridPane.rowIndex="17">
+        <ImageView fitHeight="36.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="17">
             <image>
-                <Image url="@../icons/tooltip/level6.png"/>
+                <Image url="@../icons/tooltip/level6.png" />
             </image>
         </ImageView>
-        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-               minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="45.0" text="Undergrad"
-               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="6">
+        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="45.0" text="Undergrad" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="6">
             <font>
-                <Font name="Open Sans Regular" size="7.0"/>
+                <Font name="Open Sans Regular" size="7.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-               minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="45.0" text="Master"
-               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="8">
+        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="45.0" text="Master" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="8">
             <font>
-                <Font name="Open Sans Regular" size="7.0"/>
+                <Font name="Open Sans Regular" size="7.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-               minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="45.0" text="PhD"
-               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="10">
+        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="45.0" text="PhD" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="10">
             <font>
-                <Font name="Open Sans Regular" size="7.0"/>
+                <Font name="Open Sans Regular" size="7.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-               minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="45.0" text="Postdoc"
-               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="12">
+        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="45.0" text="Postdoc" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="12">
             <font>
-                <Font name="Open Sans Regular" size="7.0"/>
+                <Font name="Open Sans Regular" size="7.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-               minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="45.0" text="Asst. Prof."
-               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="14">
+        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="45.0" text="Asst. Prof." textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="14">
             <font>
-                <Font name="Open Sans Regular" size="7.0"/>
+                <Font name="Open Sans Regular" size="7.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-               minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="45.0" text="Assoc. Prof."
-               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="16">
+        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="45.0" text="Assoc. Prof." textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="16">
             <font>
-                <Font name="Open Sans Regular" size="7.0"/>
+                <Font name="Open Sans Regular" size="7.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-               minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="45.0" text="Professor"
-               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="18">
+        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="45.0" text="Professor" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="18">
             <font>
-                <Font name="Open Sans Regular" size="7.0"/>
+                <Font name="Open Sans Regular" size="7.0" />
             </font>
         </Label>
-        <ImageView fx:id="srcImage" fitHeight="70.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1"
-                   GridPane.halignment="LEFT" GridPane.rowIndex="2">
+        <ImageView fx:id="srcImage" fitHeight="70.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
             <image>
-                <Image url="@../static-images/territory/Gross Hall.jpg"/>
+                <Image url="@../static-images/territory/Gross Hall.jpg" />
             </image>
         </ImageView>
-        <ImageView fx:id="destImage" fitHeight="70.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5"
-                   GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+        <ImageView fx:id="destImage" fitHeight="70.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
             <image>
-                <Image url="@../static-images/territory/Gross Hall.jpg"/>
+                <Image url="@../static-images/territory/Gross Hall.jpg" />
             </image>
         </ImageView>
-        <Label fx:id="srcNum0" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-               minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100"
-               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="5">
+        <Label fx:id="srcNum0" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="5">
             <font>
-                <Font name="Open Sans Regular" size="20.0"/>
+                <Font name="Open Sans Regular" size="20.0" />
             </font>
         </Label>
-        <Label fx:id="srcNum1" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-               minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100"
-               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="7">
+        <Label fx:id="srcNum1" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="7">
             <font>
-                <Font name="Open Sans Regular" size="20.0"/>
+                <Font name="Open Sans Regular" size="20.0" />
             </font>
         </Label>
-        <Label fx:id="srcNum2" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-               minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100"
-               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="9">
+        <Label fx:id="srcNum2" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="9">
             <font>
-                <Font name="Open Sans Regular" size="20.0"/>
+                <Font name="Open Sans Regular" size="20.0" />
             </font>
         </Label>
-        <Label fx:id="srcNum3" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-               minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100"
-               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="11">
+        <Label fx:id="srcNum3" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="11">
             <font>
-                <Font name="Open Sans Regular" size="20.0"/>
+                <Font name="Open Sans Regular" size="20.0" />
             </font>
         </Label>
-        <Label fx:id="srcNum4" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-               minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100"
-               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="13">
+        <Label fx:id="srcNum4" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="13">
             <font>
-                <Font name="Open Sans Regular" size="20.0"/>
+                <Font name="Open Sans Regular" size="20.0" />
             </font>
         </Label>
-        <Label fx:id="srcNum5" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-               minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100"
-               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="15">
+        <Label fx:id="srcNum5" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="15">
             <font>
-                <Font name="Open Sans Regular" size="20.0"/>
+                <Font name="Open Sans Regular" size="20.0" />
             </font>
         </Label>
-        <Label fx:id="srcNum6" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-               minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100"
-               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="17">
+        <Label fx:id="srcNum6" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="17">
             <font>
-                <Font name="Open Sans Regular" size="20.0"/>
+                <Font name="Open Sans Regular" size="20.0" />
             </font>
         </Label>
-        <Label fx:id="destNum0" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-               minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100"
-               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="5">
+        <Label fx:id="destNum0" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="5">
             <font>
-                <Font name="Open Sans Regular" size="20.0"/>
+                <Font name="Open Sans Regular" size="20.0" />
             </font>
         </Label>
-        <Label fx:id="destNum1" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-               minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100"
-               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="7">
+        <Label fx:id="destNum1" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="7">
             <font>
-                <Font name="Open Sans Regular" size="20.0"/>
+                <Font name="Open Sans Regular" size="20.0" />
             </font>
         </Label>
-        <Label fx:id="destNum2" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-               minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100"
-               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="9">
+        <Label fx:id="destNum2" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="9">
             <font>
-                <Font name="Open Sans Regular" size="20.0"/>
+                <Font name="Open Sans Regular" size="20.0" />
             </font>
         </Label>
-        <Label fx:id="destNum3" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-               minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100"
-               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="11">
+        <Label fx:id="destNum3" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="11">
             <font>
-                <Font name="Open Sans Regular" size="20.0"/>
+                <Font name="Open Sans Regular" size="20.0" />
             </font>
         </Label>
-        <Label fx:id="destNum4" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-               minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100"
-               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="13">
+        <Label fx:id="destNum4" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="13">
             <font>
-                <Font name="Open Sans Regular" size="20.0"/>
+                <Font name="Open Sans Regular" size="20.0" />
             </font>
         </Label>
-        <Label fx:id="destNum5" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-               minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100"
-               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="15">
+        <Label fx:id="destNum5" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="15">
             <font>
-                <Font name="Open Sans Regular" size="20.0"/>
+                <Font name="Open Sans Regular" size="20.0" />
             </font>
         </Label>
-        <Label fx:id="destNum6" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-               minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100"
-               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="17">
+        <Label fx:id="destNum6" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="17">
             <font>
-                <Font name="Open Sans Regular" size="20.0"/>
+                <Font name="Open Sans Regular" size="20.0" />
             </font>
         </Label>
-        <Slider fx:id="slider0" GridPane.columnIndex="4" GridPane.rowIndex="6"/>
-        <Slider fx:id="slider1" GridPane.columnIndex="4" GridPane.rowIndex="8"/>
-        <Slider fx:id="slider2" GridPane.columnIndex="4" GridPane.rowIndex="10"/>
-        <Slider fx:id="slider3" GridPane.columnIndex="4" GridPane.rowIndex="12"/>
-        <Slider fx:id="slider4" GridPane.columnIndex="4" GridPane.rowIndex="14"/>
-        <Slider fx:id="slider5" GridPane.columnIndex="4" GridPane.rowIndex="16"/>
-        <Slider fx:id="slider6" GridPane.columnIndex="4" GridPane.rowIndex="18"/>
-        <TextField fx:id="num0" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                   minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" text="0" GridPane.columnIndex="4"
-                   GridPane.rowIndex="5">
+        <Slider fx:id="slider0" majorTickUnit="5.0" minorTickCount="4" snapToTicks="true" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+        <Slider fx:id="slider1" majorTickUnit="5.0" minorTickCount="4" snapToTicks="true" GridPane.columnIndex="4" GridPane.rowIndex="8" />
+        <Slider fx:id="slider2" majorTickUnit="5.0" minorTickCount="4" snapToTicks="true" GridPane.columnIndex="4" GridPane.rowIndex="10" />
+        <Slider fx:id="slider3" majorTickUnit="5.0" minorTickCount="4" snapToTicks="true" GridPane.columnIndex="4" GridPane.rowIndex="12" />
+        <Slider fx:id="slider4" majorTickUnit="5.0" minorTickCount="4" snapToTicks="true" GridPane.columnIndex="4" GridPane.rowIndex="14" />
+        <Slider fx:id="slider5" majorTickUnit="5.0" minorTickCount="4" snapToTicks="true" GridPane.columnIndex="4" GridPane.rowIndex="16" />
+        <Slider fx:id="slider6" majorTickUnit="5.0" minorTickCount="4" snapToTicks="true" GridPane.columnIndex="4" GridPane.rowIndex="18" />
+        <TextField fx:id="num0" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" text="0" GridPane.columnIndex="4" GridPane.rowIndex="5">
             <font>
-                <Font name="Open Sans Regular" size="13.0"/>
+                <Font name="Open Sans Regular" size="13.0" />
             </font>
         </TextField>
-        <TextField fx:id="num1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                   minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" text="0" GridPane.columnIndex="4"
-                   GridPane.rowIndex="7">
+        <TextField fx:id="num1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" text="0" GridPane.columnIndex="4" GridPane.rowIndex="7">
             <font>
-                <Font name="Open Sans Regular" size="13.0"/>
+                <Font name="Open Sans Regular" size="13.0" />
             </font>
         </TextField>
-        <TextField fx:id="num2" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                   minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" text="0" GridPane.columnIndex="4"
-                   GridPane.rowIndex="9">
+        <TextField fx:id="num2" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" text="0" GridPane.columnIndex="4" GridPane.rowIndex="9">
             <font>
-                <Font name="Open Sans Regular" size="13.0"/>
+                <Font name="Open Sans Regular" size="13.0" />
             </font>
         </TextField>
-        <TextField fx:id="num3" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                   minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" text="0" GridPane.columnIndex="4"
-                   GridPane.rowIndex="11">
+        <TextField fx:id="num3" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" text="0" GridPane.columnIndex="4" GridPane.rowIndex="11">
             <font>
-                <Font name="Open Sans Regular" size="13.0"/>
+                <Font name="Open Sans Regular" size="13.0" />
             </font>
         </TextField>
-        <TextField fx:id="num4" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                   minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" text="0" GridPane.columnIndex="4"
-                   GridPane.rowIndex="13">
+        <TextField fx:id="num4" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" text="0" GridPane.columnIndex="4" GridPane.rowIndex="13">
             <font>
-                <Font name="Open Sans Regular" size="13.0"/>
+                <Font name="Open Sans Regular" size="13.0" />
             </font>
         </TextField>
-        <TextField fx:id="num5" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                   minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" text="0" GridPane.columnIndex="4"
-                   GridPane.rowIndex="15">
+        <TextField fx:id="num5" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" text="0" GridPane.columnIndex="4" GridPane.rowIndex="15">
             <font>
-                <Font name="Open Sans Regular" size="13.0"/>
+                <Font name="Open Sans Regular" size="13.0" />
             </font>
         </TextField>
-        <TextField fx:id="num6" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                   minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" text="0" GridPane.columnIndex="4"
-                   GridPane.rowIndex="17">
+        <TextField fx:id="num6" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="50.0" text="0" GridPane.columnIndex="4" GridPane.rowIndex="17">
             <font>
-                <Font name="Open Sans Regular" size="13.0"/>
+                <Font name="Open Sans Regular" size="13.0" />
             </font>
         </TextField>
-        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-               minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" text="Attack"
-               textAlignment="CENTER" textFill="WHITE" GridPane.columnSpan="7" GridPane.rowIndex="0"
-               GridPane.valignment="BOTTOM">
+        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" text="Attack" textAlignment="CENTER" textFill="WHITE" GridPane.columnSpan="7" GridPane.rowIndex="0" GridPane.valignment="BOTTOM">
             <font>
-                <Font name="EB Garamond Regular" size="35.0"/>
+                <Font name="EB Garamond Regular" size="35.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-               minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="60.0" text="Src Talents"
-               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="4">
+        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="60.0" text="Src Talents" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="4">
             <font>
-                <Font name="Open Sans Regular" size="10.0"/>
+                <Font name="Open Sans Regular" size="10.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-               minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="60.0" text="Dest Talents"
-               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="4">
+        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="60.0" text="Dest Talents" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="4">
             <font>
-                <Font name="Open Sans Regular" size="10.0"/>
+                <Font name="Open Sans Regular" size="10.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-               minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="60.0" text="To Attack"
-               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="4">
+        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="60.0" text="To Attack" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="4">
             <font>
-                <Font name="Open Sans Regular" size="10.0"/>
+                <Font name="Open Sans Regular" size="10.0" />
             </font>
         </Label>
-        <Label fx:id="srcName" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-               minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="105.0" text="Src Territory"
-               textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1"
-               GridPane.halignment="LEFT" GridPane.rowIndex="1">
+        <Label fx:id="srcName" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="105.0" text="Src Territory" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
             <font>
-                <Font name="Open Sans Regular" size="13.0"/>
+                <Font name="Open Sans Regular" size="13.0" />
             </font>
         </Label>
-        <Label fx:id="destName" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-               minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="105.0" text="Dest Territory"
-               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.halignment="RIGHT"
-               GridPane.rowIndex="1">
+        <Label fx:id="destName" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="105.0" text="Dest Territory" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
             <font>
-                <Font name="Open Sans Regular" size="13.0"/>
+                <Font name="Open Sans Regular" size="13.0" />
             </font>
         </Label>
-        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="5"
-              GridPane.rowIndex="19">
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="19">
             <children>
-                <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-                       minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="80.0" text="Total Cost:"
-                       textAlignment="CENTER" textFill="WHITE">
+                <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="80.0" text="Total Cost:" textAlignment="CENTER" textFill="WHITE">
                     <font>
-                        <Font name="Open Sans Regular" size="13.0"/>
+                        <Font name="Open Sans Regular" size="13.0" />
                     </font>
                 </Label>
-                <Label fx:id="actionCost" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity"
-                       maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0"
-                       prefWidth="50.0" text="0" textAlignment="CENTER" textFill="WHITE">
+                <Label fx:id="actionCost" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="0" textAlignment="CENTER" textFill="WHITE">
                     <font>
-                        <Font name="Open Sans Regular" size="20.0"/>
+                        <Font name="Open Sans Regular" size="20.0" />
                     </font>
                 </Label>
-                <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-                       minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="10.0" text="/"
-                       textAlignment="CENTER" textFill="WHITE">
+                <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="10.0" text="/" textAlignment="CENTER" textFill="WHITE">
                     <font>
-                        <Font name="Open Sans Regular" size="20.0"/>
+                        <Font name="Open Sans Regular" size="20.0" />
                     </font>
                 </Label>
-                <Label fx:id="resourceAvailable" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity"
-                       maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0"
-                       prefWidth="50.0" text="100" textAlignment="CENTER" textFill="WHITE">
+                <Label fx:id="resourceAvailable" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="50.0" text="100" textAlignment="CENTER" textFill="WHITE">
                     <font>
-                        <Font name="Open Sans Regular" size="20.0"/>
+                        <Font name="Open Sans Regular" size="20.0" />
                     </font>
                 </Label>
             </children>
         </HBox>
-        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0" GridPane.columnIndex="1"
-              GridPane.columnSpan="5" GridPane.rowIndex="20">
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="20">
             <children>
-                <Button alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-                        minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAction"
-                        prefHeight="30.0" prefWidth="70.0" text="Confirm" textAlignment="CENTER"/>
-                <Button alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-                        minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onCancel"
-                        prefHeight="30.0" prefWidth="70.0" text="Cancel" textAlignment="CENTER"/>
+                <Button alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAction" prefHeight="30.0" prefWidth="70.0" text="Confirm" textAlignment="CENTER" />
+                <Button alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onCancel" prefHeight="30.0" prefWidth="70.0" text="Cancel" textAlignment="CENTER" />
             </children>
         </HBox>
-        <Label fx:id="errorMessage" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity"
-               maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="241.0"
-               text="" textAlignment="CENTER" textFill="HOTPINK" wrapText="true" GridPane.columnSpan="7"
-               GridPane.rowIndex="21">
+        <Label fx:id="errorMessage" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="241.0" text="" textAlignment="CENTER" textFill="HOTPINK" wrapText="true" GridPane.columnSpan="7" GridPane.rowIndex="21">
             <font>
-                <Font name="Open Sans Regular" size="13.0"/>
+                <Font name="Open Sans Regular" size="10.0" />
             </font>
         </Label>
     </children>
     <fx:define>
         <ArrayList fx:id="srcNumList">
-            <fx:reference source="srcNum0"/>
-            <fx:reference source="srcNum1"/>
-            <fx:reference source="srcNum2"/>
-            <fx:reference source="srcNum3"/>
-            <fx:reference source="srcNum4"/>
-            <fx:reference source="srcNum5"/>
-            <fx:reference source="srcNum6"/>
+            <fx:reference source="srcNum0" />
+            <fx:reference source="srcNum1" />
+            <fx:reference source="srcNum2" />
+            <fx:reference source="srcNum3" />
+            <fx:reference source="srcNum4" />
+            <fx:reference source="srcNum5" />
+            <fx:reference source="srcNum6" />
         </ArrayList>
     </fx:define>
     <fx:define>
         <ArrayList fx:id="destNumList">
-            <fx:reference source="destNum0"/>
-            <fx:reference source="destNum1"/>
-            <fx:reference source="destNum2"/>
-            <fx:reference source="destNum3"/>
-            <fx:reference source="destNum4"/>
-            <fx:reference source="destNum5"/>
-            <fx:reference source="destNum6"/>
+            <fx:reference source="destNum0" />
+            <fx:reference source="destNum1" />
+            <fx:reference source="destNum2" />
+            <fx:reference source="destNum3" />
+            <fx:reference source="destNum4" />
+            <fx:reference source="destNum5" />
+            <fx:reference source="destNum6" />
         </ArrayList>
     </fx:define>
     <fx:define>
         <ArrayList fx:id="sliderList">
-            <fx:reference source="slider0"/>
-            <fx:reference source="slider1"/>
-            <fx:reference source="slider2"/>
-            <fx:reference source="slider3"/>
-            <fx:reference source="slider4"/>
-            <fx:reference source="slider5"/>
-            <fx:reference source="slider6"/>
+            <fx:reference source="slider0" />
+            <fx:reference source="slider1" />
+            <fx:reference source="slider2" />
+            <fx:reference source="slider3" />
+            <fx:reference source="slider4" />
+            <fx:reference source="slider5" />
+            <fx:reference source="slider6" />
         </ArrayList>
     </fx:define>
     <fx:define>
         <ArrayList fx:id="numList">
-            <fx:reference source="num0"/>
-            <fx:reference source="num1"/>
-            <fx:reference source="num2"/>
-            <fx:reference source="num3"/>
-            <fx:reference source="num4"/>
-            <fx:reference source="num5"/>
-            <fx:reference source="num6"/>
+            <fx:reference source="num0" />
+            <fx:reference source="num1" />
+            <fx:reference source="num2" />
+            <fx:reference source="num3" />
+            <fx:reference source="num4" />
+            <fx:reference source="num5" />
+            <fx:reference source="num6" />
         </ArrayList>
     </fx:define>
 </GridPane>

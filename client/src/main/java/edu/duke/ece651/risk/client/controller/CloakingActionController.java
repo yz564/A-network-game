@@ -1,27 +1,32 @@
 package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
-import edu.duke.ece651.risk.shared.*;
+import edu.duke.ece651.risk.shared.ActionInfo;
+import edu.duke.ece651.risk.shared.ActionInfoFactory;
+import edu.duke.ece651.risk.shared.ActionRuleCheckerHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.ResourceBundle;
 
-public class AttackActionController extends ActionController {
-    @FXML ArrayList<Label> srcNumList;
-    @FXML ArrayList<Label> destNumList;
+public class CloakingActionController extends ActionController {
+    @FXML Label oldCloakTurns;
+    @FXML Label newCloakTurns;
 
     /**
      * Constructor that initializes the model.
      *
      * @param model is the backend of the game.
      */
-    public AttackActionController(App model, String srcName, String destName, Stage mainPage) {
-        super(model, srcName, destName, mainPage);
+    public CloakingActionController(App model, String srcName, Stage mainPage) {
+        super(model, srcName, null, mainPage);
     }
 
     /**
@@ -33,16 +38,11 @@ public class AttackActionController extends ActionController {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadTerritoryInfo();
-        loadResourceInfo("food");
-        addNumUnitsChangeListeners("food");
-        addSliderChangeListener();
-        InitializeControllerHelper helper = new InitializeControllerHelper();
-        // set the number of units for each talent types
-        helper.initializeNumUnit(map, srcTerritoryName, destTerritoryName, srcNumList, destNumList);
-        // set the max value for sliders for each talent types
-        helper.initializeSliders(sliderList, srcNumList);
-        // delete the rows for talent types with 0 units
-        helper.initializeTalentRows(srcNumList, destNumList, grid);
+        loadResourceInfo("tech");
+        int currentCloakTurns = map.getTerritory(srcTerritoryName).getCloakingTurns();
+        oldCloakTurns.setText(String.valueOf(currentCloakTurns));
+        newCloakTurns.setText("3");
+        updateTotalCost(getActionInfo(), "tech");
     }
 
     /** Returns a attack ActionInfo object based on fields entered by the user in the view. */
@@ -50,10 +50,8 @@ public class AttackActionController extends ActionController {
     protected ActionInfo getActionInfo() throws IllegalArgumentException {
         ActionInfoFactory af = new ActionInfoFactory();
         ActionRuleCheckerHelper checker = new ActionRuleCheckerHelper();
-        HashMap<String, Integer> numUnits = getNumUnits();
-        ActionInfo info = af.createAttackActionInfo(
-                playerName, srcTerritoryName, destTerritoryName, numUnits);
-        String error = checker.checkRuleForAttack(info, map);
+        ActionInfo info = af.createCloakingActionInfo(playerName, srcTerritoryName);
+        String error = checker.checkRuleForCloaking(info, map);
         if (error != null){
             throw new IllegalArgumentException(error);
         }
@@ -68,8 +66,8 @@ public class AttackActionController extends ActionController {
             try {
                 clearErrorMessage();
                 ActionInfo info = getActionInfo();
-                updateTotalCost(info, "food");
-                String success = model.getPlayer().tryIssueAttackOrder(info);
+                updateTotalCost(info, "tech");
+                String success = model.getPlayer().tryIssueCloakingOrder(info);
                 if (success != null) {
                     setErrorMessage(success);
                 } else {

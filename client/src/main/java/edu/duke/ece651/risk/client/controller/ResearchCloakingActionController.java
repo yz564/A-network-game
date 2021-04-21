@@ -1,27 +1,28 @@
 package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
-import edu.duke.ece651.risk.shared.*;
+import edu.duke.ece651.risk.shared.ActionInfo;
+import edu.duke.ece651.risk.shared.ActionInfoFactory;
+import edu.duke.ece651.risk.shared.ActionRuleCheckerHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.*;
+import java.util.ResourceBundle;
 
-public class MoveActionController extends ActionController {
-  @FXML ArrayList<Label> srcNumList;
-  @FXML ArrayList<Label> destNumList;
+public class ResearchCloakingActionController extends ActionController {
 
   /**
    * Constructor that initializes the model.
    *
    * @param model is the backend of the game.
    */
-  public MoveActionController(App model, String srcName, String destName, Stage mainPage) {
-    super(model, srcName, destName, mainPage);
+  public ResearchCloakingActionController(App model, Stage mainPage) {
+    super(model, null, null, mainPage);
   }
 
   /**
@@ -32,35 +33,24 @@ public class MoveActionController extends ActionController {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    loadTerritoryInfo();
-    loadResourceInfo("food");
-    addNumUnitsChangeListeners("food");
-    addSliderChangeListener();
-    InitializeControllerHelper helper = new InitializeControllerHelper();
-    // set the number of units for each talent types
-    helper.initializeNumUnit(map, srcTerritoryName, destTerritoryName, srcNumList, destNumList);
-    // set the max value for sliders for each talent types
-    helper.initializeSliders(sliderList, srcNumList);
-    // delete the rows for talent types with 0 units
-    helper.initializeTalentRows(srcNumList, destNumList, grid);
+    loadResourceInfo("tech");
+    updateTotalCost(getActionInfo(), "tech");
   }
 
-  /** Returns a move ActionInfo object based on fields entered by the user in the view. */
+  /** Returns a attack ActionInfo object based on fields entered by the user in the view. */
   @Override
   protected ActionInfo getActionInfo() throws IllegalArgumentException {
     ActionInfoFactory af = new ActionInfoFactory();
     ActionRuleCheckerHelper checker = new ActionRuleCheckerHelper();
-    HashMap<String, Integer> numUnits = getNumUnits();
-    ActionInfo info = af.createMoveActionInfo(
-            playerName, srcTerritoryName, destTerritoryName, numUnits);
-    String error = checker.checkRuleForMove(info, map);
+    ActionInfo info = af.createResearchCloakingActionInfo(playerName);
+    String error = checker.checkRuleForResearchCloaking(info, map);
     if (error != null){
       throw new IllegalArgumentException(error);
     }
     return info;
   }
 
-  /** Triggered when player confirms their move action by clicking on the Confirm button. */
+  /** Triggered when player confirms their attack action by clicking on the Confirm button. */
   @FXML
   public void onAction(ActionEvent ae) throws Exception {
     Object source = ae.getSource();
@@ -68,8 +58,8 @@ public class MoveActionController extends ActionController {
       try {
         clearErrorMessage();
         ActionInfo info = getActionInfo();
-        updateTotalCost(info, "food");
-        String success = model.getPlayer().tryIssueMoveOrder(info);
+        updateTotalCost(info, "tech");
+        String success = model.getPlayer().tryIssueResearchCloakingOrder(info);
         if (success != null) {
           setErrorMessage(success);
         } else {

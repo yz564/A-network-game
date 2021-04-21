@@ -45,9 +45,11 @@ public class ControllerFactory {
                 "attackAction",
                 new AttackActionController((App) model, srcName, destName, mainPage));
         controllers.put("upgradeTalentsAction", new UpgradeTalentsActionController((App) model));
-        controllers.put("upgradeTechAction", new UpgradeTechActionsController((App) model));
+        controllers.put("upgradeTechAction", new UpgradeTechActionController((App) model, mainPage));
         controllers.put("moveSpyAction", new MoveSpyActionController((App) model));
         controllers.put("upgradeSpyAction", new UpgradeSpyActionController((App) model));
+        controllers.put("researchCloakingAction", new ResearchCloakingActionController((App) model, mainPage));
+        controllers.put("cloakingAction", new CloakingActionController((App) model, srcName, mainPage));
         return controllers;
     }
 }

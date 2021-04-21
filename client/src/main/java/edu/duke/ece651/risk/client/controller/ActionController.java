@@ -26,7 +26,6 @@ public abstract class ActionController extends Controller {
     String playerName;
     String srcTerritoryName;
     String destTerritoryName;
-    String actionType;
     Stage mainPage;
 
     @FXML GridPane grid;
@@ -44,33 +43,42 @@ public abstract class ActionController extends Controller {
      *
      * @param model is the backend of the game.
      */
-    public ActionController(App model, String srcName, String destName, String actionType, Stage mainPage) {
+    public ActionController(
+            App model, String srcName, String destName, Stage mainPage) {
         super(model);
         this.next = "selectAction";
         this.playerName = model.getPlayer().getName();
         this.srcTerritoryName = srcName;
         this.destTerritoryName = destName;
-        this.actionType = actionType;
         this.mainPage = mainPage;
+        this.map = model.getPlayer().getMap();
     }
 
     /**
      * Initializes the view.
+     *
      * @param location is the location of the FXML resource.
      * @param resources used to initialize the root object of the view.
      */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources) {}
+
+    protected void loadResourceInfo(String resource){
+        resourceAvailable.setText(
+                String.valueOf(
+                        map.getPlayerInfo(model.getPlayer().getName()).getResTotals().get(resource)));
     }
 
-    protected void loadBasicInfo() {
-        this.map = model.getPlayer().getMap();
-        // set basic information for action: srcName, srcImage, destName, destImage, resourcesAvailable
-        srcName.setText(srcTerritoryName);
-        destName.setText(destTerritoryName);
-        srcImage.setImage(new Image("ui/static-images/territory/" + srcTerritoryName + ".jpg"));
-        destImage.setImage(new Image("ui/static-images/territory/" + destTerritoryName + ".jpg"));
-        resourceAvailable.setText(String.valueOf(map.getPlayerInfo(model.getPlayer().getName()).getResTotals().get("food")));
+    protected void loadTerritoryInfo() {
+        if (srcTerritoryName != null) {
+            srcName.setText(srcTerritoryName);
+            srcImage.setImage(new Image("ui/static-images/territory/" + srcTerritoryName + ".jpg"));
+        }
+        if (destTerritoryName != null){
+            destName.setText(destTerritoryName);
+            destImage.setImage(
+                    new Image("ui/static-images/territory/" + destTerritoryName + ".jpg"));
+        }
     }
 
     protected void addNumUnitsChangeListeners(String resource) {
@@ -80,10 +88,24 @@ public abstract class ActionController extends Controller {
                             (observable, oldValue, newValue) -> {
                                 try {
                                     clearErrorMessage();
-                                    updateTotalCost(getActionInfo(actionType), resource);
+                                    updateTotalCost(getActionInfo(), resource);
                                 } catch (IllegalArgumentException e) {
                                     setErrorMessage(e.getMessage());
                                 }
+                            });
+        }
+    }
+
+    protected void addSliderChangeListener() {
+        for (Slider numSlider : sliderList) {
+            int id = sliderList.indexOf(numSlider);
+            numSlider
+                    .valueProperty()
+                    .addListener(
+                            (observable, oldValue, newValue) -> {
+                                numList.get(id)
+                                        .textProperty()
+                                        .setValue(String.valueOf(newValue.intValue()));
                             });
         }
     }
@@ -123,7 +145,8 @@ public abstract class ActionController extends Controller {
         return parsedInt;
     }
 
-    protected void updateTotalCost(ActionInfo actionInfo, String resource) throws IllegalArgumentException {
+    protected void updateTotalCost(ActionInfo actionInfo, String resource)
+            throws IllegalArgumentException {
         int TotalCost = calculateTotalCost(actionInfo, resource);
         actionCost.setText(String.valueOf(TotalCost));
         if (TotalCost > Integer.valueOf(resourceAvailable.getText())) {
@@ -141,9 +164,7 @@ public abstract class ActionController extends Controller {
         return costs.get(resource);
     }
 
-    /**
-     * Returns map of troop names to the number of units requested to perform the action
-     */
+    /** Returns map of troop names to the number of units requested to perform the action */
     protected HashMap<String, Integer> getNumUnits() {
         HashMap<String, Integer> numUnits = new HashMap<>();
         for (TextField numField : numList) {
@@ -153,7 +174,7 @@ public abstract class ActionController extends Controller {
         return numUnits;
     }
 
-    protected ActionInfo getActionInfo(String actionType) throws IllegalArgumentException {
+    protected ActionInfo getActionInfo() throws IllegalArgumentException {
         return null;
     }
 }
