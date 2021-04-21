@@ -24,6 +24,12 @@ public class ServerOrderHelper {
      */
     public ArrayList<ActionInfo> group1Orders;
 
+    /**
+     * An ArrayList of ActionInfo that represents all information needed to execute the research
+     * patent action.
+     */
+    public ArrayList<ActionInfo> patentOrders;
+
     /** The executer for execute attack and move actions. */
     private final ActionExecuter executer;
 
@@ -40,17 +46,28 @@ public class ServerOrderHelper {
     /**
      * Getter of group1Orders.
      *
-     * <p>An ArrayList of ActionInfo that represents all information needed to execute the move
-     * action, upgrade tech action, or upgrade unit action.
+     * @return an ArrayList of ActionInfo that represents all information needed to execute the move
+     *     action, upgrade tech action, or upgrade unit action.
      */
     public ArrayList<ActionInfo> getGroup1Orders() {
         return this.group1Orders;
+    }
+
+    /**
+     * Getter of patentOrders
+     *
+     * @return an ArrayList of ActionInfo that represents all information needed to execute the
+     *     research patent action.
+     */
+    public ArrayList<ActionInfo> getPatentOrders() {
+        return this.patentOrders;
     }
 
     /** Default constructor of the ServerOrderHelper. */
     public ServerOrderHelper() {
         this.attackOrders = new ArrayList<ActionInfo>();
         this.group1Orders = new ArrayList<ActionInfo>();
+        this.patentOrders = new ArrayList<ActionInfo>();
         this.executer = new ActionExecuter(); // default seed
     }
 
@@ -62,6 +79,7 @@ public class ServerOrderHelper {
     public ServerOrderHelper(long seed) {
         this.attackOrders = new ArrayList<ActionInfo>();
         this.group1Orders = new ArrayList<ActionInfo>();
+        this.patentOrders = new ArrayList<ActionInfo>();
         this.executer = new ActionExecuter(seed);
     }
 
@@ -72,6 +90,7 @@ public class ServerOrderHelper {
     public void clearAllOrders() {
         attackOrders = new ArrayList<ActionInfo>();
         group1Orders = new ArrayList<ActionInfo>();
+        patentOrders = new ArrayList<ActionInfo>();
     }
 
     /**
@@ -82,6 +101,7 @@ public class ServerOrderHelper {
     public void collectOrders(ObjectIO orders) {
         group1Orders.addAll(orders.moveOrders);
         attackOrders.addAll(orders.attackOrders);
+        patentOrders.addAll(orders.patentOrders);
     }
 
     /**
@@ -149,7 +169,7 @@ public class ServerOrderHelper {
     }
 
     /**
-     * Resolves the orders in group1Order ArrayList on a given map. Orders should be all valid and
+     * Resolves the orders in group1Orders ArrayList on a given map. Orders should be all valid and
      * checked by rehearseGroup1Orders().
      *
      * @param map a given WorldMap map to resolve the orders on.
@@ -175,7 +195,39 @@ public class ServerOrderHelper {
     }
 
     /**
-     * Checks the validity of orders in attackOrder ArrayList on a given map (should be a temporary
+     * Checks the validity of orders in patentOrders ArrayList on a given map (should be a temporary
+     * cloned map of the original map), and returns the problem of the orders as a String.
+     *
+     * @param tempMap a given WorldMap map (should be a temporary cloned * map of the original map).
+     * @return a String that describing the problem of the orders in group1 ArrayList. Or null if
+     *     there is not any problem in the orders.
+     */
+    public String rehearsePatentOrders(WorldMap tempMap) {
+        for (ActionInfo order : patentOrders) {
+            String problem = ruleChecker.checkRuleForResearchPatent(order, tempMap);
+            if (problem != null) {
+                return problem;
+            } else {
+                executer.executeResearchPatent(tempMap, order);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Resolves the orders in patentOrders ArrayList on a given map. Orders should be all valid and
+     * checked by rehearseGroup1Orders().
+     *
+     * @param map a given WorldMap map to resolve the orders on.
+     */
+    public void resolvePatentOrders(WorldMap map) {
+        for (ActionInfo order : patentOrders) {
+            executer.executeResearchPatent(map, order);
+        }
+    }
+
+    /**
+     * Checks the validity of orders in attackOrders ArrayList on a given map (should be a temporary
      * cloned map of the original map), and returns the problem of the orders as a String.
      *
      * @param tempMap a given WorldMap map (should be a temporary cloned * map of the original map).
@@ -254,6 +306,10 @@ public class ServerOrderHelper {
     public String tryResolveAllOrders(WorldMap map) {
         WorldMap tempMap = (WorldMap) SerializationUtils.clone(map);
         String problem = null;
+        problem = rehearsePatentOrders(tempMap);
+        if (problem != null) {
+            return problem;
+        }
         problem = rehearseGroup1Orders(tempMap);
         if (problem != null) {
             return problem;
@@ -262,6 +318,7 @@ public class ServerOrderHelper {
         if (problem != null) {
             return problem;
         }
+        resolvePatentOrders(map);
         resolveGroup1Orders(map);
         resolveAttackOrders(map);
         return problem;
