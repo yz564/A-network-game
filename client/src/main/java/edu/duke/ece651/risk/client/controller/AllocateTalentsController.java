@@ -58,9 +58,9 @@ public class AllocateTalentsController extends Controller
         // set map image according to number of players
         helper.initializeMap(map, mapImageView);
         // set coloring for each territory label
-        helper.initializeTerritoryLabelByGroup(model.getPlayer().getMap(), labelList);
+        helper.initializeTerritoryLabelByGroup(map, labelList);
         // set tooltip for each territory label
-        helper.initializeTerritoryTooltips(model.getPlayer().getMap(), labelList);
+        helper.initializeTerritoryTooltips(map, labelList, model.getPlayer().getName());
         // set image and label for selected character
         helper.initializeSelectedCharacter(model, charSelected, nameSelected);
         // set visibility of numUnits fields according to selected territory group

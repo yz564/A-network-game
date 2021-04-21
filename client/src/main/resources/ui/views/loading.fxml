@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="990.0" style="-fx-background-color: #0053A0;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.risk.client.controller.LoadingController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="990.0" style="-fx-background-color: #0053A0;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="edu.duke.ece651.risk.client.controller.LoadingController">
    <children>
       <Circle fx:id="circle2" fill="#ff4aa2" layoutX="495.0" layoutY="199.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fx:id="circle3" fill="#1fed78" layoutX="545.0" layoutY="199.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />

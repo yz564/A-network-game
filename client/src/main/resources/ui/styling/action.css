@@ -16,6 +16,11 @@
     -fx-alignment: CENTER;
 }
 
+.action-attack:disabled, .action-move:disabled, .action-upgradeTech:disabled, .action-upgradeTalents:disabled,
+.action-researchCloaking:disabled, .action-cloaking:disabled, .action-moveSpy:disabled,.action-researchPatent:disabled{
+    -fx-background-color: GREY;
+}
+
 .action-attack {
     -fx-background-color: HOTPINK;
 }

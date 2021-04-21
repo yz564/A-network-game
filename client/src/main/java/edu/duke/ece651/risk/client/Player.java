@@ -41,6 +41,10 @@ public class Player implements Runnable {
         isLimitedActionUsed.put("cloaking", false);
     }
 
+    public HashMap<String, Boolean> getIsLimitedActionUsed() {
+        return isLimitedActionUsed;
+    }
+
     public String waitOtherPlayers() throws Exception {
         sendMessage(new ObjectIO("wait others", 0));
         tmp = (ObjectIO) in.readObject();
