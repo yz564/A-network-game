@@ -43,6 +43,11 @@ public class MoveActionController extends ActionController {
     helper.initializeSliders(sliderList, srcNumList);
     // delete the rows for talent types with 0 units
     helper.initializeTalentRows(srcNumList, destNumList, grid);
+    try {
+      updateTotalCost(getActionInfo(), "food");
+    } catch (Exception e) {
+      setErrorMessage(e.getMessage());
+    }
   }
 
   /** Returns a move ActionInfo object based on fields entered by the user in the view. */

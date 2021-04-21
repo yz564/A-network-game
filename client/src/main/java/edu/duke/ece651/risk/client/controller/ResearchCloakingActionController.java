@@ -34,7 +34,11 @@ public class ResearchCloakingActionController extends ActionController {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     loadResourceInfo("tech");
-    updateTotalCost(getActionInfo(), "tech");
+    try {
+      updateTotalCost(getActionInfo(), "tech");
+    } catch (Exception e) {
+      setErrorMessage(e.getMessage());
+    }
   }
 
   /** Returns a attack ActionInfo object based on fields entered by the user in the view. */

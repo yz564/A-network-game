@@ -58,10 +58,15 @@ public class UpgradeTalentsActionController extends ActionController {
     public void initialize(URL location, ResourceBundle resources) {
         loadTerritoryInfo();
         loadResourceInfo("tech");
-        setUpgradeFromChoiceBox();
         addChoiceBoxChangeListener();
         addSliderChangeListener();
         addNumUnitsChangeListeners("tech");
+        setUpgradeFromChoiceBox();
+        try {
+            updateTotalCost(getActionInfo(), "tech");
+        } catch (Exception e) {
+            setErrorMessage(e.getMessage());
+        }
     }
 
     private void addChoiceBoxChangeListener() {
@@ -123,6 +128,7 @@ public class UpgradeTalentsActionController extends ActionController {
             }
         }
         oldTalent.getItems().addAll(upgradeFrom);
+        oldTalent.setValue(upgradeFrom.get(0));
     }
 
     private void setImageLabel(
@@ -158,6 +164,7 @@ public class UpgradeTalentsActionController extends ActionController {
             }
         }
         newTalent.getItems().addAll(upgradeTo);
+        newTalent.setValue(upgradeTo.get(0));
     }
 
     /** Returns a attack ActionInfo object based on fields entered by the user in the view. */

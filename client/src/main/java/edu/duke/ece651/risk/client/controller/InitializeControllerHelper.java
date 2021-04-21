@@ -199,6 +199,8 @@ public class InitializeControllerHelper {
 
     public void initializeTerritoryButtons(App model, ArrayList<ToggleButton> territoryLabelList) {
         String playerName = model.getPlayer().getName();
+        PlayerInfo playerInfo = model.getPlayer().getMap().getPlayerInfo(playerName);
+        HashMap<String, Boolean> limited = model.getPlayer().getIsLimitedActionUsed();
         int numPlayers = model.getPlayer().getMap().getNumPlayers();
         StyleMapping mapping = new StyleMapping();
         for (ToggleButton territoryButton : territoryLabelList) {
@@ -214,15 +216,20 @@ public class InitializeControllerHelper {
                             .getMap()
                             .getPlayerInfo(territory.getOwnerName())
                             .getPlayerId();
-            if ((!territory.isBelongTo(playerName)) && territory.getSpyTroopNumUnits(playerName) <= 0) {
-                territoryButton
-                        .getStyleClass()
-                        .removeAll("territory-group-" + String.valueOf(playerId));
-                territoryButton
-                        .getStyleClass()
-                        .addAll("territory-group-disabled-" + String.valueOf(playerId));
-                territoryButton.setOnAction(null);
-                // territoryButton.setDisable(true);
+            if (territory.getSpyTroopNumUnits(playerName) <= 0 || limited.get("move spy")) {
+                if ((territory.isBelongTo(playerName)
+                                && !playerInfo.getIsCloakingResearched()
+                                && territory.getTotalNumUnits() <= 0)
+                        || !territory.isBelongTo(playerName)) {
+                    territoryButton
+                            .getStyleClass()
+                            .removeAll("territory-group-" + String.valueOf(playerId));
+                    territoryButton
+                            .getStyleClass()
+                            .addAll("territory-group-disabled-" + String.valueOf(playerId));
+                    territoryButton.setOnAction(null);
+                    // territoryButton.setDisable(true);
+                }
             }
         }
     }
@@ -245,7 +252,7 @@ public class InitializeControllerHelper {
         }
     }
 
-    public void initializeSliders(ArrayList<Slider> sliderList, ArrayList<Label> srcNumList){
+    public void initializeSliders(ArrayList<Slider> sliderList, ArrayList<Label> srcNumList) {
         for (int i = 0; i < srcNumList.size(); i++) {
             sliderList.get(i).setMax(Integer.parseInt(srcNumList.get(i).getText()));
         }
@@ -259,9 +266,9 @@ public class InitializeControllerHelper {
             if (srcNum <= 0 && destNum <= 0) {
                 int row = i * 2 + 5;
                 grid.getRowConstraints().get(row).setMaxHeight(0);
-                grid.getRowConstraints().get(row+1).setMaxHeight(0);
+                grid.getRowConstraints().get(row + 1).setMaxHeight(0);
                 grid.getChildren().removeIf(node -> GridPane.getRowIndex(node) == row);
-                grid.getChildren().removeIf(node -> GridPane.getRowIndex(node) == row+1);
+                grid.getChildren().removeIf(node -> GridPane.getRowIndex(node) == row + 1);
             }
         }
     }
@@ -284,7 +291,11 @@ public class InitializeControllerHelper {
         ans = ans + "- Food Resource: " + info.getResTotals().get("food") + "\n";
         ans = ans + "- Tech Resource: " + info.getResTotals().get("tech") + "\n";
         ans = ans + "- Territory Amount: " + map.getPlayerTerritories(playerName).size() + "\n";
-        ans = ans + "- Cloaking Researched: " + map.getPlayerInfo(playerName).getIsCloakingResearched() + "\n";
+        ans =
+                ans
+                        + "- Cloaking Researched: "
+                        + map.getPlayerInfo(playerName).getIsCloakingResearched()
+                        + "\n";
         return ans;
     }
 

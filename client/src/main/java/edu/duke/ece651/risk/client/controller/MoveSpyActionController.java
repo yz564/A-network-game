@@ -55,6 +55,11 @@ public class MoveSpyActionController extends ActionController {
                         add(srcNum);
                     }
                 });
+        try {
+            updateTotalCost(getActionInfo(), "food");
+        } catch (Exception e) {
+            setErrorMessage(e.getMessage());
+        }
     }
 
     /** Returns a move ActionInfo object based on fields entered by the user in the view. */

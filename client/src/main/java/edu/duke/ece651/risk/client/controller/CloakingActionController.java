@@ -42,7 +42,11 @@ public class CloakingActionController extends ActionController {
         int currentCloakTurns = map.getTerritory(srcTerritoryName).getCloakingTurns();
         oldCloakTurns.setText(String.valueOf(currentCloakTurns));
         newCloakTurns.setText("3");
-        updateTotalCost(getActionInfo(), "tech");
+        try {
+            updateTotalCost(getActionInfo(), "tech");
+        } catch (Exception e) {
+            setErrorMessage(e.getMessage());
+        }
     }
 
     /** Returns a attack ActionInfo object based on fields entered by the user in the view. */
