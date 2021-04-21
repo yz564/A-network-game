@@ -30,6 +30,7 @@ public class ServerOrderHelperTest {
 
         assert (info1 == oh.getAttackOrders().get(0));
         assert (info2 == oh.getGroup1Orders().get(0));
+        assertEquals(0, oh.getPatentOrders().size());
     }
 
     @Test
@@ -91,9 +92,9 @@ public class ServerOrderHelperTest {
         map.tryAssignInitOwner(1, "Green player");
         map.tryAssignInitOwner(2, "Blue player");
         map.tryAssignInitOwner(3, "Red player");
-        map.tryAddPlayerInfo(new PlayerInfo("Green player", 10000, 10000));
-        map.tryAddPlayerInfo(new PlayerInfo("Blue player", 10000, 10000));
-        map.tryAddPlayerInfo(new PlayerInfo("Red player", 10000, 10000));
+        map.tryAddPlayerInfo(new PlayerInfo("Green player", 1, 10000, 10000));
+        map.tryAddPlayerInfo(new PlayerInfo("Blue player", 2, 10000, 10000));
+        map.tryAddPlayerInfo(new PlayerInfo("Red player", 3, 10000, 10000));
         map.getPlayerInfo("Green player").setMultiVizStatus(map.getMyTerritories(), false);
         map.getPlayerInfo("Blue player").setMultiVizStatus(map.getMyTerritories(), false);
         map.getPlayerInfo("Red player").setMultiVizStatus(map.getMyTerritories(), false);
@@ -380,9 +381,10 @@ public class ServerOrderHelperTest {
         ServerOrderHelper oh = new ServerOrderHelper();
         oh.collectOrders(obj1);
         // fail
-        // TODO
         assertFalse(map.getPlayerInfo("Green player").getIsCloakingResearched());
-        // assertEquals("", oh.tryResolveAllOrders(map));
+        assertEquals(
+                "That action is invalid: cloaking has not been researched yet",
+                oh.tryResolveAllOrders(map));
         // success
         map.getPlayerInfo("Green player").setIsCloakingResearched(true);
         assertNull(oh.tryResolveAllOrders(map));
@@ -460,5 +462,37 @@ public class ServerOrderHelperTest {
         playerNames.add("Blue player");
         playerNames.add("Red player");
         oh.doAfterTurn(map, playerNames);
+    }
+
+    @Test
+    public void test_try_resolve_all_orders_patent() {
+        WorldMap map = setupV2Map();
+        HashMap<String, Integer> numUnits1 = new HashMap<String, Integer>();
+        numUnits1.put("level5", 10);
+        map.getTerritory("Law").trySetNumUnits(numUnits1);
+        HashMap<String, Integer> numUnits2 = new HashMap<String, Integer>();
+        numUnits2.put("level0", 10);
+        map.getTerritory("Fuqua").trySetNumUnits(numUnits2);
+        assertEquals(0, map.getPlayerInfo("Green player").getPatentProgress());
+
+        ActionInfoFactory af = new ActionInfoFactory();
+        ArrayList<String> territoryNames = new ArrayList<>();
+        territoryNames.add("Fuqua");
+        territoryNames.add("Law");
+        ActionInfo info1 = af.createResearchPatentActionInfo("Green player", territoryNames);
+
+        ObjectIO obj1 = new ObjectIO();
+        obj1.patentOrders.add(info1);
+        ServerOrderHelper oh = new ServerOrderHelper();
+        oh.collectOrders(obj1);
+        // fail
+        // TODO
+        // assertEquals("",oh.tryResolveAllOrders(map));
+        assertEquals(0, map.getPlayerInfo("Green player").getPatentProgress());
+        // success
+        map.getPlayerInfo("Green player").setIsCloakingResearched(true);
+        assertNull(oh.tryResolveAllOrders(map));
+        assertEquals(17, map.getPlayerInfo("Green player").getPatentProgress());
+        assertEquals(9994, map.getPlayerInfo("Green player").getResTotals().get("tech"));
     }
 }

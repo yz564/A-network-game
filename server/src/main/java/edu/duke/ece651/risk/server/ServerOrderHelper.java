@@ -126,7 +126,7 @@ public class ServerOrderHelper {
                 if (problem != null) {
                     return problem;
                 } else {
-                    executer.executeUpgradeTech(tempMap, order);
+                    // executer.executeUpgradeTech(tempMap, order);
                 }
             } else if (order.getActionType().equals("upgrade unit")) {
                 String problem = ruleChecker.checkRuleForUpgradeUnit(order, tempMap);
