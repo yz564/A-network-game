@@ -71,7 +71,7 @@ public class SelectActionController extends Controller implements Initializable 
         // set coloring for each territory label
         helper.initializeTerritoryLabelByOwner(map, labelList);
         // set tooltip for each territory label
-        helper.initializeTerritoryTooltips(map, labelList);
+        helper.initializeTerritoryTooltips(map, labelList, model.getPlayer().getName());
         // set image and label for selected character
         helper.initializeSelectedCharacter(model, charSelected, nameSelected);
         // set tooltip for player info
@@ -116,27 +116,35 @@ public class SelectActionController extends Controller implements Initializable 
         Territory selectedTerritory =
                 map.getTerritory(mapping.getTerritoryName(territoryButton.getId()));
         this.selectedSrc = selectedTerritory.getName();
+        String playerName = model.getPlayer().getName();
         for (String territoryName : map.getMyTerritories()) {
             int id = mapping.getLabelId(territoryName);
             Territory territory = map.getTerritory(territoryName);
             GridPane actionPane = actionList.get(id);
-            if (selectedTerritory.getName().equals(territoryName)) {
-                setActionButtons(actionPane, "upgradeTalents", "cloaking");
-            } else if (selectedTerritory.isReachableTo(territory)) {
-                if (selectedTerritory.getSpyTroopNumUnits(model.getPlayer().getName()) > 0) {
-                    setActionButtons(actionPane, "move", "moveSpy");
-                } else {
-                    setActionButtons(actionPane, "move");
-                }
-            } else if (selectedTerritory.isAdjacentTo(territory)) {
-                if (selectedTerritory.getSpyTroopNumUnits(model.getPlayer().getName()) > 0) {
-                    setActionButtons(actionPane, "attack", "moveSpy");
-                } else {
-                    setActionButtons(actionPane, "attack");
-                }
+            if (!selectedTerritory.isBelongTo(playerName)) {
+                if (selectedTerritory.getName().equals(territoryName)
+                        || selectedTerritory.isAdjacentTo(territory)) {
+                    setActionButtons(actionPane, "moveSpy");
+                    }
             } else {
-                for (Node child : actionPane.getChildren()) {
-                    child.setVisible(false);
+                if (selectedTerritory.getName().equals(territoryName)) {
+                    setActionButtons(actionPane, "upgradeTalents", "cloaking");
+                } else if (selectedTerritory.isReachableTo(territory)) {
+                    if (selectedTerritory.getSpyTroopNumUnits(model.getPlayer().getName()) > 0) {
+                        setActionButtons(actionPane, "move", "moveSpy");
+                    } else {
+                        setActionButtons(actionPane, "move");
+                    }
+                } else if (selectedTerritory.isAdjacentTo(territory)) {
+                    if (selectedTerritory.getSpyTroopNumUnits(model.getPlayer().getName()) > 0) {
+                        setActionButtons(actionPane, "attack", "moveSpy");
+                    } else {
+                        setActionButtons(actionPane, "attack");
+                    }
+                } else {
+                    for (Node child : actionPane.getChildren()) {
+                        child.setVisible(false);
+                    }
                 }
             }
         }
@@ -186,7 +194,10 @@ public class SelectActionController extends Controller implements Initializable 
                 String destId = "label" + selectedAction.getParent().getId().substring(6);
                 this.selectedDest = mapping.getTerritoryName(destId);
                 this.next = action + "Action";
-                loadActionPopup((Stage) (((Node) ae.getSource()).getScene().getWindow()), selectedSrc, selectedDest);
+                loadActionPopup(
+                        (Stage) (((Node) ae.getSource()).getScene().getWindow()),
+                        selectedSrc,
+                        selectedDest);
             } else {
                 throw new IllegalArgumentException(
                         "Action event " + ae.getSource() + " is invalid.");

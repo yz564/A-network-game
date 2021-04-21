@@ -149,7 +149,7 @@ public abstract class ActionController extends Controller {
             throws IllegalArgumentException {
         int TotalCost = calculateTotalCost(actionInfo, resource);
         actionCost.setText(String.valueOf(TotalCost));
-        if (TotalCost > Integer.valueOf(resourceAvailable.getText())) {
+        if (TotalCost > Integer.parseInt(resourceAvailable.getText())) {
             actionCost.setTextFill(Color.HOTPINK);
             throw new IllegalArgumentException(
                     "Invalid action: Total action cost is more than resource available.");

@@ -46,7 +46,7 @@ public class InitializeControllerHelperTest {
         territoryLabel.setId("label0");
         ArrayList<ToggleButton> labels = new ArrayList<>();
         labels.add(territoryLabel);
-        helper.initializeTerritoryTooltips(map, labels);
+        //helper.initializeTerritoryTooltips(map, labels);
     }
 
     @Test

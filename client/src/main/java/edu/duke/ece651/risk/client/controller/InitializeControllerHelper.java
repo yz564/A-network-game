@@ -29,7 +29,7 @@ public class InitializeControllerHelper {
      * @param territoryLabelList the territory label ArrayList.
      */
     public void initializeTerritoryTooltips(
-            WorldMap map, ArrayList<ToggleButton> territoryLabelList) {
+            WorldMap map, ArrayList<ToggleButton> territoryLabelList, String playerName) {
         int numPlayers = map.getNumPlayers();
         StyleMapping mapping = new StyleMapping();
         for (ToggleButton territoryLabel : territoryLabelList) {
@@ -40,9 +40,9 @@ public class InitializeControllerHelper {
             }
             String territoryName = mapping.getTerritoryName(territoryLabel.getId());
             Tooltip tt = new Tooltip();
-            tt.setText(getTerritoryTextInfo(map, territoryName));
+            tt.setText(getTerritoryTextInfo(map, territoryName, playerName));
             tt.getStyleClass().add("tooltip-territory");
-            tt.setShowDelay(Duration.millis(500));
+            tt.setShowDelay(Duration.millis(1000));
             tt.setHideDelay(Duration.millis(200));
             territoryLabel.setTooltip(tt);
         }
@@ -60,7 +60,7 @@ public class InitializeControllerHelper {
         Tooltip tt = new Tooltip();
         tt.setText(getPlayerInfo(map, playerName));
         tt.getStyleClass().add("tooltip-player-info");
-        tt.setShowDelay(Duration.millis(200));
+        tt.setShowDelay(Duration.millis(500));
         tt.setHideDelay(Duration.millis(200));
         Tooltip.install(playerCharacter, tt);
     }
@@ -214,7 +214,7 @@ public class InitializeControllerHelper {
                             .getMap()
                             .getPlayerInfo(territory.getOwnerName())
                             .getPlayerId();
-            if (!territory.isBelongTo(playerName)) {
+            if ((!territory.isBelongTo(playerName)) && territory.getSpyTroopNumUnits(playerName) <= 0) {
                 territoryButton
                         .getStyleClass()
                         .removeAll("territory-group-" + String.valueOf(playerId));
@@ -247,15 +247,15 @@ public class InitializeControllerHelper {
 
     public void initializeSliders(ArrayList<Slider> sliderList, ArrayList<Label> srcNumList){
         for (int i = 0; i < srcNumList.size(); i++) {
-            sliderList.get(i).setMax(Integer.valueOf(srcNumList.get(i).getText()));
+            sliderList.get(i).setMax(Integer.parseInt(srcNumList.get(i).getText()));
         }
     }
 
     public void initializeTalentRows(
             ArrayList<Label> srcNumList, ArrayList<Label> destNumList, GridPane grid) {
         for (int i = 0; i < srcNumList.size(); i++) {
-            int srcNum = Integer.valueOf(srcNumList.get(i).getText());
-            int destNum = Integer.valueOf(destNumList.get(i).getText());
+            int srcNum = Integer.parseInt(srcNumList.get(i).getText());
+            int destNum = Integer.parseInt(destNumList.get(i).getText());
             if (srcNum <= 0 && destNum <= 0) {
                 int row = i * 2 + 5;
                 grid.getRowConstraints().get(row).setMaxHeight(0);
@@ -295,7 +295,7 @@ public class InitializeControllerHelper {
      * @param territoryName The territory's name to get info about.
      * @return a String that has text information of the given territory.
      */
-    private String getTerritoryTextInfo(WorldMap map, String territoryName) {
+    private String getTerritoryTextInfo(WorldMap map, String territoryName, String playerName) {
         Territory territory = map.getTerritory(territoryName);
         String ans =
                 "--------------------------\n"
@@ -324,6 +324,7 @@ public class InitializeControllerHelper {
         ans = ans + "- Asst. Prof: " + territory.getTroopNumUnits("level4") + "\n";
         ans = ans + "- Assc. Prof: " + territory.getTroopNumUnits("level5") + "\n";
         ans = ans + "- Professor: " + territory.getTroopNumUnits("level6") + "\n";
+        ans = ans + "- Spy: " + territory.getSpyTroopNumUnits(playerName) + "\n";
         return ans;
     }
 }
