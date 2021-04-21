@@ -194,6 +194,24 @@ public class ServerOrderHelper {
         }
     }
 
+    public String rehearsePatentOrders(WorldMap tempMap) {
+        for (ActionInfo order : patentOrders) {
+            String problem = ruleChecker.checkRuleForResearchPatent(order, tempMap);
+            if (problem != null) {
+                return problem;
+            } else {
+                executer.executeResearchPatent(tempMap, order);
+            }
+        }
+        return null;
+    }
+
+    public void resolvePatentOrders(WorldMap map) {
+        for (ActionInfo order : patentOrders) {
+            executer.executeResearchPatent(map, order);
+        }
+    }
+
     /**
      * Checks the validity of orders in attackOrder ArrayList on a given map (should be a temporary
      * cloned map of the original map), and returns the problem of the orders as a String.
@@ -274,6 +292,10 @@ public class ServerOrderHelper {
     public String tryResolveAllOrders(WorldMap map) {
         WorldMap tempMap = (WorldMap) SerializationUtils.clone(map);
         String problem = null;
+        problem = rehearsePatentOrders(tempMap);
+        if (problem != null) {
+            return problem;
+        }
         problem = rehearseGroup1Orders(tempMap);
         if (problem != null) {
             return problem;
@@ -282,6 +304,7 @@ public class ServerOrderHelper {
         if (problem != null) {
             return problem;
         }
+        resolvePatentOrders(map);
         resolveGroup1Orders(map);
         resolveAttackOrders(map);
         return problem;
