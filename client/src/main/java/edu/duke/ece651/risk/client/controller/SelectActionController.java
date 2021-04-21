@@ -11,14 +11,19 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.stage.Popup;
+import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
@@ -30,6 +35,8 @@ public class SelectActionController extends Controller implements Initializable 
     String nextOnCompleteTurn;
     String nextOnLeave;
     String nextOnGameEnd;
+    String selectedSrc;
+    String selectedDest;
 
     @FXML ImageView mapImageView;
     @FXML Circle charSelected;
@@ -108,6 +115,7 @@ public class SelectActionController extends Controller implements Initializable 
         StyleMapping mapping = new StyleMapping();
         Territory selectedTerritory =
                 map.getTerritory(mapping.getTerritoryName(territoryButton.getId()));
+        this.selectedSrc = selectedTerritory.getName();
         for (String territoryName : map.getMyTerritories()) {
             int id = mapping.getLabelId(territoryName);
             Territory territory = map.getTerritory(territoryName);
@@ -168,17 +176,25 @@ public class SelectActionController extends Controller implements Initializable 
         }
     }
 
+    @FXML
     public void onSelectAction(ActionEvent ae, String action) {
         Object source = ae.getSource();
         try {
             if (source instanceof Button) {
+                Button selectedAction = (Button) source;
+                StyleMapping mapping = new StyleMapping();
+                String destId = "label" + selectedAction.getParent().getId().substring(6);
+                this.selectedDest = mapping.getTerritoryName(destId);
                 next = action + "Action";
-                loadNextPhase((Stage) mapImageView.getScene().getWindow());
+                if (action.equals("attack")){
+                    loadActionPopup((Stage) (((Node) ae.getSource()).getScene().getWindow()), selectedSrc, selectedDest);
+                }
             } else {
                 throw new IllegalArgumentException(
                         "Action event " + ae.getSource() + " is invalid.");
             }
         } catch (Exception e) {
+            System.out.println(e);
             setErrorMessage(e.getMessage());
         }
     }

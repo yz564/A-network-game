@@ -60,7 +60,8 @@ public class PhaseStorage {
                         "attackAction",
                         "Duke Risk Game! - Attack Enemy Territory",
                         "/ui/views/attack-action.fxml",
-                        "/ui/styling/territory-group.css");
+                        "/ui/styling/territory-group.css",
+                        "/ui/styling/general-design.css");
         Phase phase9 =
                 makePhase(
                         "upgradeTalentsAction",
