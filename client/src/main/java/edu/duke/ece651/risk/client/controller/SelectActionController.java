@@ -185,10 +185,8 @@ public class SelectActionController extends Controller implements Initializable 
                 StyleMapping mapping = new StyleMapping();
                 String destId = "label" + selectedAction.getParent().getId().substring(6);
                 this.selectedDest = mapping.getTerritoryName(destId);
-                next = action + "Action";
-                if (action.equals("attack")){
-                    loadActionPopup((Stage) (((Node) ae.getSource()).getScene().getWindow()), selectedSrc, selectedDest);
-                }
+                this.next = action + "Action";
+                loadActionPopup((Stage) (((Node) ae.getSource()).getScene().getWindow()), selectedSrc, selectedDest);
             } else {
                 throw new IllegalArgumentException(
                         "Action event " + ae.getSource() + " is invalid.");

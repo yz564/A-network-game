@@ -1,7 +1,6 @@
 package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
-import edu.duke.ece651.risk.client.view.StyleMapping;
 import edu.duke.ece651.risk.shared.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -154,7 +153,6 @@ public abstract class ActionController extends Controller {
         return numUnits;
     }
 
-    /** Returns a move ActionInfo object based on fields entered by the user in the view. */
     protected ActionInfo getActionInfo(String actionType) throws IllegalArgumentException {
         return null;
     }

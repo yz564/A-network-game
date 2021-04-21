@@ -1,24 +1,13 @@
 package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
-import edu.duke.ece651.risk.client.view.PhaseChanger;
 import edu.duke.ece651.risk.shared.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
@@ -52,6 +41,25 @@ public class AttackActionController extends ActionController {
         helper.initializeTalentRows(srcNumList, destNumList, grid);
     }
 
+    /** Returns a attack ActionInfo object based on fields entered by the user in the view. */
+    @Override
+    protected ActionInfo getActionInfo(String actionType) throws IllegalArgumentException {
+        ActionInfoFactory af = new ActionInfoFactory();
+        ActionRuleCheckerHelper checker = new ActionRuleCheckerHelper();
+        String error = null;
+        ActionInfo info = null;
+        HashMap<String, Integer> numUnits = getNumUnits();
+        if (actionType.equals("attack")) {
+            info = af.createAttackActionInfo(
+                    playerName, srcTerritoryName, destTerritoryName, numUnits);
+            error = checker.checkRuleForAttack(info, map);
+        }
+        if (error != null){
+            throw new IllegalArgumentException(error);
+        }
+        return info;
+    }
+
     /** Triggered when player confirms their attack action by clicking on the Confirm button. */
     @FXML
     public void onAction(ActionEvent ae) throws Exception {
@@ -75,24 +83,5 @@ public class AttackActionController extends ActionController {
         } else {
             throw new IllegalArgumentException("Invalid ActionEvent source " + source);
         }
-    }
-
-    /** Returns a move ActionInfo object based on fields entered by the user in the view. */
-    @Override
-    protected ActionInfo getActionInfo(String actionType) throws IllegalArgumentException {
-        ActionInfoFactory af = new ActionInfoFactory();
-        ActionRuleCheckerHelper checker = new ActionRuleCheckerHelper();
-        String error = null;
-        ActionInfo info = null;
-        HashMap<String, Integer> numUnits = getNumUnits();
-        if (actionType.equals("attack")) {
-            info = af.createAttackActionInfo(
-                    playerName, srcTerritoryName, destTerritoryName, numUnits);
-            error = checker.checkRuleForAttack(info, map);
-        }
-        if (error != null){
-            throw new IllegalArgumentException(error);
-        }
-        return info;
     }
 }

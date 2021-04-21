@@ -39,7 +39,8 @@ public class ControllerFactory {
     private static HashMap<String, Object> makeActionControllers(
             Object model, String srcName, String destName, Stage mainPage) {
         HashMap<String, Object> controllers = new HashMap<>();
-        controllers.put("moveAction", new MoveActionController((App) model));
+        controllers.put(
+                "moveAction", new MoveActionController((App) model, srcName, destName, mainPage));
         controllers.put(
                 "attackAction",
                 new AttackActionController((App) model, srcName, destName, mainPage));
