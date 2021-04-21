@@ -169,7 +169,7 @@ public class ServerOrderHelper {
     }
 
     /**
-     * Resolves the orders in group1Order ArrayList on a given map. Orders should be all valid and
+     * Resolves the orders in group1Orders ArrayList on a given map. Orders should be all valid and
      * checked by rehearseGroup1Orders().
      *
      * @param map a given WorldMap map to resolve the orders on.
@@ -194,6 +194,14 @@ public class ServerOrderHelper {
         }
     }
 
+    /**
+     * Checks the validity of orders in patentOrders ArrayList on a given map (should be a temporary
+     * cloned map of the original map), and returns the problem of the orders as a String.
+     *
+     * @param tempMap a given WorldMap map (should be a temporary cloned * map of the original map).
+     * @return a String that describing the problem of the orders in group1 ArrayList. Or null if
+     *     there is not any problem in the orders.
+     */
     public String rehearsePatentOrders(WorldMap tempMap) {
         for (ActionInfo order : patentOrders) {
             String problem = ruleChecker.checkRuleForResearchPatent(order, tempMap);
@@ -206,6 +214,12 @@ public class ServerOrderHelper {
         return null;
     }
 
+    /**
+     * Resolves the orders in patentOrders ArrayList on a given map. Orders should be all valid and
+     * checked by rehearseGroup1Orders().
+     *
+     * @param map a given WorldMap map to resolve the orders on.
+     */
     public void resolvePatentOrders(WorldMap map) {
         for (ActionInfo order : patentOrders) {
             executer.executeResearchPatent(map, order);
@@ -213,7 +227,7 @@ public class ServerOrderHelper {
     }
 
     /**
-     * Checks the validity of orders in attackOrder ArrayList on a given map (should be a temporary
+     * Checks the validity of orders in attackOrders ArrayList on a given map (should be a temporary
      * cloned map of the original map), and returns the problem of the orders as a String.
      *
      * @param tempMap a given WorldMap map (should be a temporary cloned * map of the original map).
