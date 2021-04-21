@@ -64,7 +64,7 @@ public class ActionExecuter {
      * @param info the action info that contains the source owner name from whom to deduct the cost.
      * @param resCost the resource cost to deduct.
      */
-    private void deductCost(WorldMap map, ActionInfo info, HashMap<String, Integer> resCost) {
+    public void deductCost(WorldMap map, ActionInfo info, HashMap<String, Integer> resCost) {
         PlayerInfo srcOwnerInfo = map.getPlayerInfo(info.getSrcOwnerName());
         for (String resType : resCost.keySet()) {
             srcOwnerInfo.updateOneResTotal(resType, (-1) * resCost.get(resType));

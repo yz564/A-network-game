@@ -12,6 +12,9 @@ public class ServerOrderHelper {
     /** The rule checker helper for actions. */
     private final ActionRuleCheckerHelper ruleChecker = new ActionRuleCheckerHelper();
 
+    /** The ActionCostCalculator that calculates resource costs for each kind of action. */
+    private final ActionCostCalculator costCal = new ActionCostCalculator();
+
     /**
      * An ArrayList of ActionInfo that represents all information needed to execute the attack
      * action.
@@ -127,6 +130,9 @@ public class ServerOrderHelper {
                     return problem;
                 } else {
                     // executer.executeUpgradeTech(tempMap, order);
+                    HashMap<String, Integer> resCost =
+                            costCal.calculateUpgradeTechCost(order, tempMap);
+                    executer.deductCost(tempMap, order, resCost);
                 }
             } else if (order.getActionType().equals("upgrade unit")) {
                 String problem = ruleChecker.checkRuleForUpgradeUnit(order, tempMap);

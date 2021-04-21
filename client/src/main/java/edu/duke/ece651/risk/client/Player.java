@@ -20,6 +20,7 @@ public class Player implements Runnable {
     private int maxUnitsToPlace;
     private WorldMap theMap;
     private final ActionRuleCheckerHelper ruleChecker = new ActionRuleCheckerHelper();
+    private final ActionCostCalculator costCal = new ActionCostCalculator();
     private final ActionExecuter executer = new ActionExecuter();
     private ArrayList<ActionInfo> tmpOrders;
     private HashMap<String, Boolean> isLimitedActionUsed;
@@ -38,7 +39,7 @@ public class Player implements Runnable {
         this.isLimitedActionUsed = new HashMap<String, Boolean>();
         isLimitedActionUsed.put("upgrade tech", false);
         isLimitedActionUsed.put("move spy", false);
-        isLimitedActionUsed.put("cloaking", false);
+        isLimitedActionUsed.put("research patent", false);
     }
 
     public HashMap<String, Boolean> getIsLimitedActionUsed() {
@@ -118,7 +119,7 @@ public class Player implements Runnable {
             sendMessage(new ObjectIO(info, Integer.parseInt(info)));
             receiveMessage();
             if (tmp.id == 0) {
-              //receiveMessage();
+                // receiveMessage();
                 // this.territoryGroupSelected = info;
                 // System.out.println(theMap.getPlayerTerritories(name));
                 return true;
@@ -212,7 +213,7 @@ public class Player implements Runnable {
             sendMessage(orders);
             // read in a map for action phase.
             // TODO: abstract this out with askLeave()?
-            //receiveMessage();
+            // receiveMessage();
             return null;
         } else {
             return "Invalid placement: Total number of units exceeds maximum.";
@@ -301,12 +302,8 @@ public class Player implements Runnable {
     public String tryIssueCloakingOrder(ActionInfo order) {
         String problem = ruleChecker.checkRuleForCloaking(order, this.theMap);
         if (problem == null) {
-            if (isLimitedActionUsed.get("cloaking")) {
-                return "Invalid action: You can only order cloaking once in each turn.";
-            }
             this.tmpOrders.add(order);
             executer.executeCloaking(this.theMap, order);
-            isLimitedActionUsed.put("cloaking", true);
             return null;
         } else {
             return problem;
@@ -320,7 +317,9 @@ public class Player implements Runnable {
                 return "Invalid action: You can only upgrade tech once in each turn.";
             }
             this.tmpOrders.add(order);
-            executer.executeUpgradeTech(this.theMap, order);
+            // executer.executeUpgradeTech(this.theMap, order);
+            HashMap<String, Integer> resCost = costCal.calculateUpgradeTechCost(order, theMap);
+            executer.deductCost(theMap, order, resCost);
             isLimitedActionUsed.put("upgrade tech", true);
             return null;
         } else {
@@ -328,7 +327,7 @@ public class Player implements Runnable {
         }
     }
 
-    public String doneIssueOrders() throws Exception {
+    public void doneIssueOrders() throws Exception {
         ArrayList<ActionInfo> group1Orders = new ArrayList<>();
         ArrayList<ActionInfo> attackOrders = new ArrayList<>();
         ObjectIO toSend = new ObjectIO();
@@ -347,8 +346,7 @@ public class Player implements Runnable {
         // send the orders to server
         sendMessage(toSend);
         // read in the new map for next action phase.
-        //return checkStatus();
-        return null;
+        // return checkStatus();
     }
 
     public String checkStatus() throws Exception {
