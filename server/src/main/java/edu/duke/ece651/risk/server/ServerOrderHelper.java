@@ -24,6 +24,12 @@ public class ServerOrderHelper {
      */
     public ArrayList<ActionInfo> group1Orders;
 
+    /**
+     * An ArrayList of ActionInfo that represents all information needed to execute the research
+     * patent action.
+     */
+    public ArrayList<ActionInfo> patentOrders;
+
     /** The executer for execute attack and move actions. */
     private final ActionExecuter executer;
 
@@ -40,17 +46,28 @@ public class ServerOrderHelper {
     /**
      * Getter of group1Orders.
      *
-     * <p>An ArrayList of ActionInfo that represents all information needed to execute the move
-     * action, upgrade tech action, or upgrade unit action.
+     * @return an ArrayList of ActionInfo that represents all information needed to execute the move
+     *     action, upgrade tech action, or upgrade unit action.
      */
     public ArrayList<ActionInfo> getGroup1Orders() {
         return this.group1Orders;
+    }
+
+    /**
+     * Getter of patentOrders
+     *
+     * @return an ArrayList of ActionInfo that represents all information needed to execute the
+     *     research patent action.
+     */
+    public ArrayList<ActionInfo> getPatentOrders() {
+        return this.patentOrders;
     }
 
     /** Default constructor of the ServerOrderHelper. */
     public ServerOrderHelper() {
         this.attackOrders = new ArrayList<ActionInfo>();
         this.group1Orders = new ArrayList<ActionInfo>();
+        this.patentOrders = new ArrayList<ActionInfo>();
         this.executer = new ActionExecuter(); // default seed
     }
 
@@ -62,6 +79,7 @@ public class ServerOrderHelper {
     public ServerOrderHelper(long seed) {
         this.attackOrders = new ArrayList<ActionInfo>();
         this.group1Orders = new ArrayList<ActionInfo>();
+        this.patentOrders = new ArrayList<ActionInfo>();
         this.executer = new ActionExecuter(seed);
     }
 
@@ -72,6 +90,7 @@ public class ServerOrderHelper {
     public void clearAllOrders() {
         attackOrders = new ArrayList<ActionInfo>();
         group1Orders = new ArrayList<ActionInfo>();
+        patentOrders = new ArrayList<ActionInfo>();
     }
 
     /**
@@ -82,6 +101,7 @@ public class ServerOrderHelper {
     public void collectOrders(ObjectIO orders) {
         group1Orders.addAll(orders.moveOrders);
         attackOrders.addAll(orders.attackOrders);
+        patentOrders.addAll(orders.patentOrders);
     }
 
     /**
