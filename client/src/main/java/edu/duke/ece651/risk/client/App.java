@@ -14,13 +14,14 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import edu.duke.ece651.risk.client.controller.ControllerFactory;
 import edu.duke.ece651.risk.shared.ObjectIO;
 
 /**
  * in and out are objectIOStream tmp stores the most recent ObjectIO read by the client (sent from
  * the server)
  */
-public class App {
+public class App implements Runnable, GUIEventListener{
   private Socket server;
   private ObjectInputStream in;
   private ObjectOutputStream out;
@@ -30,6 +31,13 @@ public class App {
   private int currentRoomId;
   private HashSet<Integer> joinedRoomId;
   private String name;
+  private GUIEvent theGUIEvent;
+  private Boolean isGUIUpdated;
+  private ClientEventMessenger messenger;
+  private ControllerFactory myFactory;
+  private Boolean isLeave;
+  private Boolean isRejoin;
+  
 
   // private String serverAdd;
 
@@ -41,6 +49,13 @@ public class App {
     this.stdIn = null;
     this.players = null;
     this.joinedRoomId = null;
+    this.name = null;
+    this.theGUIEvent = null;
+    this.isGUIUpdated = false;
+    this.messenger = new ClientEventMessenger();
+    this.myFactory = new ControllerFactory();
+    this.isLeave = false;
+    this.isRejoin = false;
   }
 
   public void deleteJoinedRoomId(int id) {
@@ -97,6 +112,12 @@ public class App {
       joinedRoomId.add(currentRoomId);
       return true;
     }
+    try{
+    sendMessage(new ObjectIO("wait"));
+    receiveMessage();
+  } catch (Exception e) {
+  }
+    isRejoin = true;
     return false;
   }
 
@@ -104,6 +125,7 @@ public class App {
     out.writeObject(new ObjectIO("/leave"));
     out.flush();
     out.reset();
+    isLeave = true;
   }
 
   /** every time after join a room, call this method */
@@ -136,13 +158,21 @@ public class App {
   }
 
   public ObjectIO receiveMessage() throws Exception {
+    try{
     return (ObjectIO) in.readObject();
+    }catch(Exception e){
+      throw new Exception("app receiveMessage exception");
+    }
   }
 
   public void sendMessage(ObjectIO info) throws Exception {
+    try{
     out.writeObject(info);
     out.flush();
     out.reset();
+    }catch(Exception e){
+      throw new Exception("app sendMessage exception");
+    }
   }
 
   public Boolean tryLogin(String userName, String password) throws Exception {
@@ -162,19 +192,132 @@ public class App {
     tmp = receiveMessage();
     return tmp.id == 0;
   }
-  /*
+
+  public ClientEventMessenger getMessenger() {
+    return messenger;
+  }
+
+  public void setListener(ClientEventListener listener) {
+    messenger.setClientEventListener(listener);
+  }
+
+  public void checkGUIUpdate() throws Exception{
+    while (!isGUIUpdated) {
+          Thread.sleep(10);
+        }
+    isGUIUpdated = false;
+  }
+  
   @Override
   public void run() {
-    try (var socket = new Socket(serverAdd, 3333)){
-            this.server = socket;
-            this.out = new ObjectOutputStream(socket.getOutputStream());
-            this.in = new ObjectInputStream(socket.getInputStream());
-          } catch (Exception e) {
-    }
     while (true) {
-    }
-  }*/
+      try{
+        System.out.println("run() start from join room");
+        
+        checkGUIUpdate();
+        receiveMessage();
+        int roomId=theGUIEvent.getRoomId();
+        currentRoomId=roomId-1;
+        System.out.println("roomId: "+roomId);
+        sendMessage(new ObjectIO("", roomId));
+        System.out.println("roomId after sending: "+roomId);
+        tmp = receiveMessage();
+        messenger.setStatusBoolean(tmp.id==0,"loading");
 
+        if (!isRejoin) {
+          //wait other players to join phase
+          checkGUIUpdate();
+          sendMessage(new ObjectIO("wait others", 0));
+          tmp = receiveMessage();
+          getPlayer().receiveMessage();
+          messenger.setMap(getPlayer().getMap(), "selectTerritoryGroup");
+
+          //select territory phase
+          checkGUIUpdate();
+          getPlayer().startAllocation();
+          messenger.setMap(getPlayer().getMap(), "allocateTalents");
+
+          //allocate talents  phase
+          checkGUIUpdate();
+          getPlayer().receiveMessage();
+          messenger.setMap(getPlayer().getMap(), "selectAction");
+          isRejoin = false;
+        }
+        //select action phase
+        while(true){
+        while (!isGUIUpdated && !isLeave) {
+          Thread.sleep(10);
+        }
+        if (isLeave) {
+          isLeave=false;
+          break;
+        }
+        isGUIUpdated = false;
+        String result=getPlayer().checkStatus();
+        if (result == null) {
+          messenger.setMap(getPlayer().getMap(), "selectAction");
+        }
+        else {
+          messenger.setMap(getPlayer().getMap(), "gameEnd");
+          break;
+        }
+        }
+        
+        //messenger.setStatusBoolean(true,"selectAction");
+      }catch (Exception e) {
+      System.out.println("Exception from App run(): "+e.getMessage());
+    }
+    }
+  }
+  
+  @Override
+  public void onUpdateEvent(GUIEvent ge) {
+    this.theGUIEvent=ge;
+    this.isGUIUpdated = true;
+    System.out.println("isGUIUpdated: "+isGUIUpdated);
+    System.out.println("App: onUpdateEvent");
+  }
+  /*
+  @Override
+  public void onUpdateJoinRoom(GUIEvent ge){
+    try{
+      receiveMessage();
+      int roomId=ge.getRoomId();
+      currentRoomId = roomId - 1;
+      sendMessage(new ObjectIO("", roomId));
+      tmp = receiveMessage();
+      // messenger.setClientEventListener((ClientEventListener)myFactory.getController("joinRoom",this));
+      messenger.setStatusBoolean(tmp.id==0);
+      System.out.println("messenger status");
+      /*
+      sendMessage(new ObjectIO("wait others", 0));
+    tmp = receiveMessage();
+
+    System.out.println(tmp.message);
+    getPlayer().receiveMessage();
+    messenger.setClientEventListener((ClientEventListener)myFactory.getController("loading",this));
+    messenger.setMap(getPlayer().getMap());
+    }
+    catch (Exception e) {
+      System.out.println("Exception catched 1: "+e.getMessage());
+    }
+  }
+
+  @Override
+  public void onUpdateWaitOthers(GUIEvent ge){
+    try{
+    sendMessage(new ObjectIO("wait others", 0));
+    tmp = receiveMessage();
+    System.out.println(tmp.message);
+    getPlayer().receiveMessage();
+    //messenger.setClientEventListener((ClientEventListener)myFactory.getController("loading",this));
+    messenger.setMap(getPlayer().getMap());
+    
+  } catch (Exception e) {
+      System.out.println("Exception catched 2: "+e.getMessage());
+    }
+  }
+*/
   /**
    * the enter point of the client. after connecting with the server, new App, and call its method
    * to communicate with the server(game).

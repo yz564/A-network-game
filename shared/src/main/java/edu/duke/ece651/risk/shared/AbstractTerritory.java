@@ -186,6 +186,15 @@ public abstract class AbstractTerritory implements Territory {
   }
 
   @Override
+  public int getTotalNumUnits(){
+    int totalUnits = 0;
+    for (String troopName : myTroops.keySet()) {
+      totalUnits += myTroops.get(troopName).getNumUnits();
+    }
+    return totalUnits;
+  }
+
+  @Override
   public Troop getSpyTroop(String playerName){
     if (isExistSpyTroop(playerName)) {
       return spyTroop.get(playerName);

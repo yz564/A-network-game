@@ -1,143 +1,1309 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <?import java.util.ArrayList?>
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0"
-          prefWidth="868.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="edu.duke.ece651.risk.client.controller.SelectActionController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="825.0" prefWidth="990.0" style="-fx-background-color: #00539B#00539B;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="edu.duke.ece651.risk.client.controller.SelectActionController">
     <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="417.7982177734375" minWidth="10.0"
-                           prefWidth="180.1204376220703"/>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="542.6627502441406" minWidth="10.0"
-                           prefWidth="473.4930419921875"/>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="288.6829833984375" minWidth="10.0"
-                           prefWidth="215.0069580078125"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="653.6329956054688" minWidth="10.0" prefWidth="182.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="611.1713562011719" minWidth="10.0" prefWidth="467.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="611.1713562011719" minWidth="10.0" prefWidth="341.0" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="195.0" minHeight="10.0" prefHeight="78.44306182861328" vgrow="SOMETIMES"/>
-        <RowConstraints maxHeight="195.0" minHeight="10.0" prefHeight="24.05693817138672" vgrow="SOMETIMES"/>
-        <RowConstraints maxHeight="195.0" minHeight="0.0" prefHeight="55.01898193359375" vgrow="SOMETIMES"/>
-        <RowConstraints maxHeight="695.0318450927734" minHeight="10.0" prefHeight="643.9810180664062"
-                        vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="195.0" minHeight="10.0" prefHeight="102.85224151611328" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="195.0" minHeight="0.0" prefHeight="61.64775848388672" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="695.0318450927734" minHeight="10.0" prefHeight="660.2085418701172" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="630.0" prefWidth="826.0"
-                    GridPane.rowIndex="3">
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="630.0" prefWidth="826.0" GridPane.rowIndex="2">
             <children>
-                <ImageView fx:id="mapImageView" fitHeight="662.0" fitWidth="868.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="mapImageView" fitHeight="660.0" fitWidth="990.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../static-images/world-maps/V2MapDesignEven.jpg"/>
+                        <Image url="@../static-images/world-maps/new-map-even.png" />
                     </image>
                 </ImageView>
-                <Label fx:id="label0" alignment="CENTER" layoutX="152.0" layoutY="90.0" prefHeight="40.0"
-                       prefWidth="70.0" text="Fuqua" textAlignment="CENTER" wrapText="true"/>
-                <Label fx:id="label1" alignment="CENTER" layoutX="222.0" layoutY="178.0" prefHeight="30.0"
-                       prefWidth="50.0" text="Law" textAlignment="CENTER" wrapText="true"/>
-                <Label fx:id="label2" alignment="CENTER" layoutX="295.0" layoutY="115.0" prefHeight="40.0"
-                       prefWidth="70.0" text="Gross Hall" textAlignment="CENTER" wrapText="true"/>
-                <Label fx:id="label3" alignment="CENTER" layoutX="398.0" layoutY="171.0" prefHeight="40.0"
-                       prefWidth="70.0" text="FFRC" textAlignment="CENTER" wrapText="true"/>
-                <Label fx:id="label4" alignment="CENTER" layoutX="334.0" layoutY="267.0" prefHeight="40.0"
-                       prefWidth="70.0" text="Bryan Center" textAlignment="CENTER" wrapText="true"/>
-                <Label fx:id="label5" alignment="CENTER" layoutX="502.0" layoutY="151.0" prefHeight="40.0"
-                       prefWidth="70.0" text="LSRC" textAlignment="CENTER" wrapText="true"/>
-                <Label fx:id="label6" alignment="CENTER" layoutX="484.0" layoutY="257.0" prefHeight="40.0"
-                       prefWidth="70.0" text="Pratt" textAlignment="CENTER" wrapText="true"/>
-                <Label fx:id="label7" alignment="CENTER" layoutX="478.0" layoutY="380.0" prefHeight="40.0"
-                       prefWidth="70.0" text="Perkins Library" textAlignment="CENTER" wrapText="true"/>
-                <Label fx:id="label8" alignment="CENTER" layoutX="650.0" layoutY="243.0" prefHeight="40.0"
-                       prefWidth="70.0" text="Duke Hospital" textAlignment="CENTER" wrapText="true"/>
-                <Label fx:id="label9" alignment="CENTER" layoutX="589.0" layoutY="380.0" prefHeight="40.0"
-                       prefWidth="70.0" text="Duke Clinics" textAlignment="CENTER" wrapText="true"/>
-                <Label fx:id="label10" alignment="CENTER" layoutX="555.0" layoutY="527.0" prefHeight="40.0"
-                       prefWidth="70.0" text="Duke Garden" textAlignment="CENTER" wrapText="true"/>
-                <Label fx:id="label11" alignment="CENTER" layoutX="388.0" layoutY="382.0" prefHeight="20.0"
-                       prefWidth="120.0" rotate="90.0" text="Duke Chapel" textAlignment="CENTER" wrapText="true"/>
-                <Label fx:id="label12" alignment="CENTER" layoutX="331.0" layoutY="418.0" prefHeight="40.0"
-                       prefWidth="70.0" text="Student&#10;Housing" textAlignment="CENTER" wrapText="true"/>
-                <Label fx:id="label13" alignment="CENTER" layoutX="197.0" layoutY="417.0" prefHeight="40.0"
-                       prefWidth="70.0" text="Wilson Gym" textAlignment="CENTER" wrapText="true"/>
-                <Label fx:id="label14" alignment="CENTER" layoutX="156.0" layoutY="276.0" prefHeight="40.0"
-                       prefWidth="70.0" text="Cameron&#10;Stadium" textAlignment="CENTER" wrapText="true"/>
-                <Label fx:id="label15" alignment="CENTER" layoutX="87.0" layoutY="399.0" prefHeight="40.0"
-                       prefWidth="70.0" text="Wallace Stadium" textAlignment="CENTER" wrapText="true"/>
-                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="215.0" layoutY="18.0" prefHeight="39.0"
-                       prefWidth="449.0" textAlignment="CENTER" textFill="#fa0707"/>
-            </children>
+                <ToggleButton fx:id="label0" alignment="CENTER" contentDisplay="CENTER" layoutX="146.0" layoutY="28.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="189.0" prefWidth="187.0" styleClass="territory-0" text="Fuqua" textAlignment="CENTER" wrapText="true">
+                            <font>
+                                <Font name="Open Sans Regular" size="13.0" />
+                            </font>
+                            <graphic>
+                                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="50.0" prefWidth="70.0">
+                                    <children>
+                                        <StackPane layoutX="15.0" layoutY="-30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0">
+                                            <children>
+                                                <Circle fill="TRANSPARENT" radius="20.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+                                                <Label fx:id="num0" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="1" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0" text="30" textAlignment="CENTER" textFill="WHITE">
+                                                    <font>
+                                                        <Font name="Open Sans Regular" size="20.0" />
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </StackPane>
+                                        <GridPane fx:id="action0" alignment="CENTER" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="30.0" prefWidth="65.0">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                            <children>
+                                                <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                                    <graphic>
+                                                        <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../icons/attack.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                                <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                                    <graphic>
+                                                        <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../icons/moveSpy.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                            </children>
+                                        </GridPane>
+                                    </children>
+                                </AnchorPane>
+                            </graphic>
+               <padding>
+                  <Insets right="45.0" top="10.0" />
+               </padding>
+                        </ToggleButton>
+                <ToggleButton fx:id="label1" alignment="CENTER" contentDisplay="CENTER" layoutX="257.0" layoutY="141.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="171.0" prefWidth="90.0" styleClass="territory-1" text="Law" textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font name="Open Sans Regular" size="13.0" />
+                    </font>
+                    <graphic>
+                        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="50.0" prefWidth="50.0">
+                            <children>
+                                <StackPane layoutX="5.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0">
+                                    <children>
+                                        <Circle fill="TRANSPARENT" radius="20.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+                                        <Label fx:id="num1" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="1" prefHeight="40.0" prefWidth="40.0" text="30" textAlignment="CENTER" textFill="WHITE">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="20.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </StackPane>
+                                <GridPane fx:id="action1" alignment="CENTER" layoutX="17.0" layoutY="85.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="65.0" prefWidth="30.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                            <graphic>
+                                                <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../icons/attack.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                        <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                            <graphic>
+                                                <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../icons/moveSpy.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                    </children>
+                                </GridPane>
+                            </children>
+                        </AnchorPane>
+                    </graphic>
+               <padding>
+                  <Insets bottom="100.0" left="5.0" />
+               </padding>
+                </ToggleButton>
+                <ToggleButton fx:id="label2" alignment="CENTER" contentDisplay="CENTER" layoutX="338.0" layoutY="66.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="158.0" prefWidth="195.0" styleClass="territory-2" text="Gross&#10;Hall" textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font name="Open Sans Regular" size="13.0" />
+                    </font>
+                    <padding>
+                        <Insets right="110.0" top="35.0" />
+                    </padding>
+               <graphic>
+                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="50.0" prefWidth="70.0">
+                     <children>
+                            <StackPane layoutX="15.0" layoutY="-38.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0">
+                                <children>
+                                    <Circle fill="TRANSPARENT" radius="20.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+                                    <Label fx:id="num2" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="1" prefHeight="40.0" prefWidth="40.0" text="30" textAlignment="CENTER" textFill="WHITE">
+                                        <font>
+                                            <Font name="Open Sans Regular" size="20.0" />
+                                        </font>
+                                    </Label>
+                                </children>
+                            </StackPane>
+                            <GridPane fx:id="action2" alignment="CENTER" layoutX="2.0" layoutY="42.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="65.0">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                <children>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                        <graphic>
+                                            <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../icons/attack.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                        <graphic>
+                                            <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../icons/moveSpy.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                </children>
+                            </GridPane>
+                     </children>
+                  </AnchorPane>
+               </graphic>
+                </ToggleButton>
+                <ToggleButton fx:id="label3" alignment="CENTER" contentDisplay="CENTER" layoutX="421.0" layoutY="121.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="103.0" prefWidth="128.0" styleClass="territory-3" text="FFRC" textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font name="Open Sans Regular" size="13.0" />
+                    </font>
+               <padding>
+                  <Insets right="10.0" top="15.0" />
+               </padding>
+               <graphic>
+                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="50.0" prefWidth="70.0">
+                     <children>
+                            <StackPane layoutX="15.0" layoutY="-23.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0">
+                                <children>
+                                    <Circle fill="TRANSPARENT" radius="20.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+                                    <Label fx:id="num3" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" opacity="1" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0" text="30" textAlignment="CENTER" textFill="WHITE">
+                                        <font>
+                                            <Font name="Open Sans Regular" size="20.0" />
+                                        </font>
+                                    </Label>
+                                </children>
+                            </StackPane>
+                            <GridPane fx:id="action3" alignment="CENTER" layoutX="2.0" layoutY="33.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="30.0" prefWidth="65.0">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                <children>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                        <graphic>
+                                            <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../icons/attack.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                        <graphic>
+                                            <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../icons/moveSpy.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                </children>
+                            </GridPane>
+                     </children>
+                  </AnchorPane>
+               </graphic>
+                </ToggleButton>
+                <ToggleButton fx:id="label4" alignment="CENTER" contentDisplay="CENTER" layoutX="338.0" layoutY="223.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="133.0" prefWidth="186.0" styleClass="territory-4" text="Bryan&#10;Center" textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font name="Open Sans Regular" size="13.0" />
+                    </font>
+                    <padding>
+                        <Insets left="40.0" top="30.0" />
+                    </padding>
+               <graphic>
+                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="50.0" prefWidth="70.0">
+                     <children>
+                            <StackPane layoutX="15.0" layoutY="-38.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0">
+                                <children>
+                                    <Circle fill="TRANSPARENT" radius="20.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+                                    <Label fx:id="num4" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="1" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0" text="30" textAlignment="CENTER" textFill="WHITE">
+                                        <font>
+                                            <Font name="Open Sans Regular" size="20.0" />
+                                        </font>
+                                    </Label>
+                                </children>
+                            </StackPane>
+                            <GridPane fx:id="action4" alignment="CENTER" layoutX="-55.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="30.0" prefWidth="65.0">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                <children>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                        <graphic>
+                                            <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../icons/attack.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                        <graphic>
+                                            <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../icons/moveSpy.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                </children>
+                            </GridPane>
+                     </children>
+                  </AnchorPane>
+               </graphic>
+                </ToggleButton>
+                <ToggleButton fx:id="label5" alignment="CENTER" contentDisplay="CENTER" layoutX="528.0" layoutY="83.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="162.0" prefWidth="157.0" styleClass="territory-5" text="LSRC" textAlignment="CENTER" wrapText="true">
+                    <padding>
+                        <Insets right="20.0" top="50.0" />
+                    </padding>
+                    <font>
+                        <Font name="Open Sans Regular" size="13.0" />
+                    </font>
+               <graphic>
+                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="40.0" prefWidth="50.0">
+                     <children>
+                            <StackPane layoutX="5.0" layoutY="-35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0">
+                                <children>
+                                    <Circle fill="TRANSPARENT" radius="20.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+                                    <Label fx:id="num5" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="1" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0" text="30" textAlignment="CENTER" textFill="WHITE">
+                                        <font>
+                                            <Font name="Open Sans Regular" size="20.0" />
+                                        </font>
+                                    </Label>
+                                </children>
+                            </StackPane>
+                            <GridPane fx:id="action5" alignment="CENTER" layoutX="50.0" layoutY="-5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="65.0" prefWidth="30.0">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                <children>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                        <graphic>
+                                            <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../icons/attack.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                        <graphic>
+                                            <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../icons/moveSpy.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                </children>
+                            </GridPane>
+                     </children>
+                  </AnchorPane>
+               </graphic>
+                </ToggleButton>
+                <ToggleButton fx:id="label6" alignment="CENTER" contentDisplay="CENTER" layoutX="522.0" layoutY="195.0" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="142.0" prefWidth="120.0" styleClass="territory-6" text="Pratt" textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font name="Open Sans Regular" size="13.0" />
+                    </font>
+               <padding>
+                  <Insets left="20.0" top="60.0" />
+               </padding>
+               <graphic>
+                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="50.0" prefWidth="70.0">
+                     <children>
+                            <StackPane layoutX="15.0" layoutY="-30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0">
+                                <children>
+                                    <Circle fill="TRANSPARENT" radius="20.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+                                    <Label fx:id="num6" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="1" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0" text="30" textAlignment="CENTER" textFill="WHITE">
+                                        <font>
+                                            <Font name="Open Sans Regular" size="20.0" />
+                                        </font>
+                                    </Label>
+                                </children>
+                            </StackPane>
+                            <GridPane fx:id="action6" alignment="CENTER" layoutX="-18.0" layoutY="-38.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="65.0" prefWidth="30.0">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                <children>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                        <graphic>
+                                            <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../icons/attack.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                        <graphic>
+                                            <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../icons/moveSpy.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                </children>
+                            </GridPane>
+                     </children>
+                  </AnchorPane>
+               </graphic>
+                </ToggleButton>
+                <ToggleButton fx:id="label7" alignment="CENTER" contentDisplay="CENTER" layoutX="522.0" layoutY="301.0" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="187.0" prefWidth="124.0" styleClass="territory-7" text="Perkins&#10;Library" textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font name="Open Sans Regular" size="13.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="35.0" right="20.0" />
+                    </padding>
+               <graphic>
+                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="50.0" prefWidth="70.0">
+                     <children>
+                            <StackPane layoutX="15.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0">
+                                <children>
+                                    <Circle fill="TRANSPARENT" radius="20.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+                                    <Label fx:id="num7" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="1" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0" text="30" textAlignment="CENTER" textFill="WHITE">
+                                        <font>
+                                            <Font name="Open Sans Regular" size="20.0" />
+                                        </font>
+                                    </Label>
+                                </children>
+                            </StackPane>
+                            <GridPane fx:id="action7" alignment="CENTER" layoutX="2.0" layoutY="92.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="30.0" prefWidth="65.0">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                <children>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                        <graphic>
+                                            <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../icons/attack.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                        <graphic>
+                                            <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../icons/moveSpy.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                </children>
+                            </GridPane>
+                     </children>
+                  </AnchorPane>
+               </graphic>
+                </ToggleButton>
+                <ToggleButton fx:id="label8" alignment="CENTER" contentDisplay="CENTER" layoutX="640.0" layoutY="121.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="245.0" prefWidth="263.0" styleClass="territory-8" text="Duke&#10;Hospital" textAlignment="CENTER" wrapText="true">
+                    <padding>
+                        <Insets left="70.0" top="90.0" />
+                    </padding>
+                    <font>
+                        <Font name="Open Sans Regular" size="13.0" />
+                    </font>
+               <graphic>
+                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="50.0" prefWidth="70.0">
+                     <children>
+                            <StackPane layoutX="15.0" layoutY="-38.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0">
+                                <children>
+                                    <Circle fill="TRANSPARENT" radius="20.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+                                    <Label fx:id="num8" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="1" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0" text="30" textAlignment="CENTER" textFill="WHITE">
+                                        <font>
+                                            <Font name="Open Sans Regular" size="20.0" />
+                                        </font>
+                                    </Label>
+                                </children>
+                            </StackPane>
+                            <GridPane fx:id="action8" alignment="CENTER" layoutX="2.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="30.0" prefWidth="65.0">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                <children>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                        <graphic>
+                                            <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../icons/attack.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                        <graphic>
+                                            <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../icons/moveSpy.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                </children>
+                            </GridPane>
+                     </children>
+                  </AnchorPane>
+               </graphic>
+                </ToggleButton>
+                <ToggleButton fx:id="label9" alignment="CENTER" contentDisplay="CENTER" layoutX="623.0" layoutY="281.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="197.0" prefWidth="177.0" styleClass="territory-9" text="Duke&#10;Clinics" textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font name="Open Sans Regular" size="13.0" />
+                    </font>
+               <graphic>
+                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="50.0" prefWidth="70.0">
+                     <children>
+                            <StackPane layoutX="15.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0">
+                                <children>
+                                    <Circle fill="TRANSPARENT" radius="20.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+                                    <Label fx:id="num9" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="1" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0" text="30" textAlignment="CENTER" textFill="WHITE">
+                                        <font>
+                                            <Font name="Open Sans Regular" size="20.0" />
+                                        </font>
+                                    </Label>
+                                </children>
+                            </StackPane>
+                            <GridPane fx:id="action9" alignment="CENTER" layoutX="2.0" layoutY="95.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="30.0" prefWidth="65.0">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                <children>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                        <graphic>
+                                            <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../icons/attack.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                        <graphic>
+                                            <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../icons/moveSpy.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                </children>
+                            </GridPane>
+                     </children>
+                  </AnchorPane>
+               </graphic>
+               <padding>
+                  <Insets bottom="30.0" />
+               </padding>
+                </ToggleButton>
+                <ToggleButton fx:id="label10" alignment="CENTER" contentDisplay="CENTER" layoutX="508.0" layoutY="482.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="139.0" prefWidth="327.0" styleClass="territory-10" text="Duke&#10;Garden" textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font name="Open Sans Regular" size="13.0" />
+                    </font>
+               <graphic>
+                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="50.0" prefWidth="70.0">
+                     <children>
+                            <StackPane layoutX="15.0" layoutY="-35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0">
+                                <children>
+                                    <Circle fill="TRANSPARENT" radius="20.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+                                    <Label fx:id="num10" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="1" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0" text="30" textAlignment="CENTER" textFill="WHITE">
+                                        <font>
+                                            <Font name="Open Sans Regular" size="20.0" />
+                                        </font>
+                                    </Label>
+                                </children>
+                            </StackPane>
+                            <GridPane fx:id="action10" alignment="CENTER" layoutX="2.0" layoutY="48.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="30.0" prefWidth="65.0">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                <children>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false">
+                                        <graphic>
+                                            <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../icons/attack.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.columnIndex="1">
+                                        <graphic>
+                                            <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../icons/moveSpy.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                </children>
+                            </GridPane>
+                     </children>
+                  </AnchorPane>
+               </graphic>
+                </ToggleButton>
+                <ToggleButton fx:id="label11" alignment="CENTER" contentDisplay="CENTER" layoutX="395.0" layoutY="386.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="44.0" prefWidth="223.0" rotate="90.0" styleClass="territory-11" text="Duke Chapel" textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font name="Open Sans Regular" size="13.0" />
+                    </font>
+                <graphic>
+                    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="20.0" prefWidth="70.0">
+                        <children>
+                            <StackPane layoutX="93.0" layoutY="-10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0">
+                                <children>
+                                    <Circle fill="TRANSPARENT" radius="20.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+                                    <Label fx:id="num11" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" opacity="1" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0" rotate="-90.0" text="30" textAlignment="CENTER" textFill="WHITE">
+                                        <font>
+                                            <Font name="Open Sans Regular" size="20.0" />
+                                        </font>
+                                    </Label>
+                                </children>
+                            </StackPane>
+                            <GridPane fx:id="action11" alignment="CENTER" layoutX="-55.0" layoutY="-24.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="65.0" prefWidth="30.0" rotate="-90.0">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                <children>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                        <graphic>
+                                            <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../icons/attack.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                        <graphic>
+                                            <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../icons/moveSpy.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                </children>
+                            </GridPane>
+                        </children>
+                    </AnchorPane>
+                </graphic>
+                </ToggleButton>
+                <ToggleButton fx:id="label12" alignment="CENTER" contentDisplay="CENTER" layoutX="347.0" layoutY="353.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="266.0" prefWidth="157.0" styleClass="territory-12" text="Student&#10;Housing" textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font name="Open Sans Regular" size="13.0" />
+                    </font>
+               <graphic>
+                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="50.0" prefWidth="70.0">
+                     <children>
+                            <StackPane layoutX="15.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0">
+                                <children>
+                                    <Circle fill="TRANSPARENT" radius="20.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+                                    <Label fx:id="num12" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="1" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0" text="30" textAlignment="CENTER" textFill="WHITE">
+                                        <font>
+                                            <Font name="Open Sans Regular" size="20.0" />
+                                        </font>
+                                    </Label>
+                                </children>
+                            </StackPane>
+                            <GridPane fx:id="action12" alignment="CENTER" layoutX="2.0" layoutY="95.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="30.0" prefWidth="65.0">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                <children>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                        <graphic>
+                                            <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../icons/attack.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                        <graphic>
+                                            <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../icons/moveSpy.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                </children>
+                            </GridPane>
+                     </children>
+                  </AnchorPane>
+               </graphic>
+               <padding>
+                  <Insets bottom="155.0" />
+               </padding>
+                </ToggleButton>
+                <ToggleButton fx:id="label13" alignment="CENTER" contentDisplay="CENTER" layoutX="219.0" layoutY="381.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="149.0" prefWidth="126.0" styleClass="territory-13" text="Wilson&#10;Gym" textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font name="Open Sans Regular" size="13.0" />
+                    </font>
+                    <graphic>
+                        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="50.0" prefWidth="50.0">
+                            <children>
+                                <StackPane layoutX="5.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0">
+                                    <children>
+                                        <Circle fill="TRANSPARENT" radius="20.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+                                        <Label fx:id="num13" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="1" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0" text="30" textAlignment="CENTER" textFill="WHITE">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="20.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </StackPane>
+                                <GridPane fx:id="action13" alignment="CENTER" layoutX="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="65.0" prefWidth="30.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                            <graphic>
+                                                <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../icons/attack.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                        <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                            <graphic>
+                                                <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../icons/moveSpy.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                    </children>
+                                </GridPane>
+                            </children>
+                        </AnchorPane>
+                    </graphic>
+                    <padding>
+                        <Insets bottom="58.0" right="45.0" />
+                    </padding>
+                </ToggleButton>
+                <ToggleButton fx:id="label14" alignment="CENTER" contentDisplay="CENTER" layoutX="198.0" layoutY="218.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="165.0" prefWidth="150.0" styleClass="territory-14" text="Cameron&#10;Stadium" textAlignment="CENTER" wrapText="true">
+                    <padding>
+                        <Insets bottom="50.0" right="60.0" />
+                    </padding>
+                    <font>
+                        <Font name="Open Sans Regular" size="13.0" />
+                    </font>
+               <graphic>
+                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="50.0" prefWidth="70.0">
+                     <children>
+                            <StackPane layoutX="15.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0">
+                                <children>
+                                    <Circle fill="TRANSPARENT" radius="20.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+                                    <Label fx:id="num14" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="1" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0" text="30" textAlignment="CENTER" textFill="WHITE">
+                                        <font>
+                                            <Font name="Open Sans Regular" size="20.0" />
+                                        </font>
+                                    </Label>
+                                </children>
+                            </StackPane>
+                            <GridPane fx:id="action14" alignment="CENTER" layoutX="60.0" layoutY="80.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="30.0" prefWidth="65.0">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                <children>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                        <graphic>
+                                            <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../icons/attack.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                        <graphic>
+                                            <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../icons/moveSpy.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                </children>
+                            </GridPane>
+                     </children>
+                  </AnchorPane>
+               </graphic>
+                </ToggleButton>
+                <ToggleButton fx:id="label15" alignment="CENTER" contentDisplay="CENTER" layoutX="36.0" layoutY="340.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="192.0" prefWidth="189.0" styleClass="territory-15" text="Wallace&#10;Stadium" textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font name="Open Sans Regular" size="13.0" />
+                    </font>
+               <graphic>
+                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="50.0" prefWidth="70.0">
+                     <children>
+                            <StackPane layoutX="-40.0" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0">
+                                <children>
+                                    <Circle fill="TRANSPARENT" radius="20.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+                                    <Label fx:id="num15" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="1" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0" text="30" textAlignment="CENTER" textFill="WHITE">
+                                        <font>
+                                            <Font name="Open Sans Regular" size="20.0" />
+                                        </font>
+                                    </Label>
+                                </children>
+                            </StackPane>
+                            <GridPane fx:id="action15" alignment="CENTER" layoutX="2.0" layoutY="45.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="30.0" prefWidth="65.0">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                <children>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                        <graphic>
+                                            <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../icons/attack.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 15; -fx-padding: 0;" styleClass="action-button" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                        <graphic>
+                                            <ImageView fitHeight="23.0" fitWidth="23.0" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../icons/moveSpy.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                </children>
+                            </GridPane>
+                     </children>
+                  </AnchorPane>
+               </graphic>
+               <padding>
+                  <Insets bottom="10.0" left="90.0" />
+               </padding>
+                </ToggleButton>
+                </children>
         </AnchorPane>
-        <Label alignment="BOTTOM_CENTER" prefHeight="47.0" prefWidth="881.0" text="New Turn Begins!"
-               textAlignment="CENTER" GridPane.columnSpan="3">
+        <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="95.0" prefWidth="655.0" text="New Turn Begins..." textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1">
             <font>
-                <Font size="25.0"/>
+                <Font name="EB Garamond Regular" size="50.0" />
             </font>
         </Label>
-        <ButtonBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                   prefHeight="59.0" prefWidth="281.0" GridPane.columnIndex="1" GridPane.halignment="CENTER"
-                   GridPane.rowIndex="2">
-            <buttons>
-                <SplitMenuButton fx:id="actionMenu" mnemonicParsing="false" prefHeight="30.0" text="Select Action">
-                    <items>
-                        <MenuItem mnemonicParsing="false" onAction="#onSelectMove" text="Move"/>
-                        <MenuItem mnemonicParsing="false" onAction="#onSelectAttack" text="Attack"/>
-                        <MenuItem mnemonicParsing="false" onAction="#onSelectUpgradeTalents" text="Upgrade Talents"/>
-                        <MenuItem mnemonicParsing="false" onAction="#onSelectUpgradeTech" text="Upgrade Tech Level"/>
-                        <MenuItem mnemonicParsing="false" onAction="#onSelectUpgradeSpy" text="Upgrade Spy"/>
-                        <MenuItem mnemonicParsing="false" onAction="#onSelectMoveSpy" text="Move Spy"/>
-                        <MenuItem mnemonicParsing="false" onAction="#onSelectResearchCloaking" text="Research Cloaking"/>
-                        <MenuItem mnemonicParsing="false" onAction="#onSelectCloaking" text="Cloaking"/>
-                    </items>
-                </SplitMenuButton>
-                <Button mnemonicParsing="false" onAction="#onCompletingTurn" prefHeight="30.0" prefWidth="125.0"
-                        text="Complete Turn"/>
-            </buttons>
-        </ButtonBar>
-        <Label alignment="CENTER" prefHeight="20.0" prefWidth="868.0"
-               text="Please select an action to perform or complete the turn. You may perform multiple actions for a turn."
-               GridPane.columnSpan="3" GridPane.rowIndex="1"/>
-        <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#onLeavingGame" text="Leave Game"
-                GridPane.columnIndex="2" GridPane.halignment="RIGHT">
-            <GridPane.margin>
-                <Insets right="30.0"/>
-            </GridPane.margin>
-        </Button>
-        <Label fx:id="playerInfo" alignment="CENTER" prefHeight="26.0" prefWidth="86.0" text="Player Info">
-            <GridPane.margin>
-                <Insets left="30.0"/>
-            </GridPane.margin>
+        <Label alignment="CENTER" prefHeight="43.0" prefWidth="422.0" text="Select a player action next to your character, or select one of your territories to perform a territory action." textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <font>
+                <Font name="Open Sans Regular" size="13.0" />
+            </font>
         </Label>
+        <Label fx:id="errorMessage" alignment="CENTER" contentDisplay="CENTER" prefHeight="63.0" prefWidth="346.0" textAlignment="CENTER" textFill="HOTPINK" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <font>
+                <Font name="Open Sans Regular" size="13.0" />
+            </font>
+        </Label>
+        <AnchorPane prefHeight="89.0" prefWidth="394.0" GridPane.columnIndex="2" GridPane.rowSpan="2">
+            <children>
+                <Button layoutX="181.0" layoutY="52.0" mnemonicParsing="false" onAction="#onLeaveGame" prefHeight="34.0" prefWidth="110.0" text="Leave Game">
+                    <font>
+                        <Font name="Open Sans Regular" size="13.0" />
+                    </font>
+               <tooltip>
+                  <Tooltip maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="311.0" prefWidth="300.0" textAlignment="CENTER">
+                     <graphic>
+                        <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="311.0" prefWidth="285.0">
+                          <columnConstraints>
+                            <ColumnConstraints />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="10.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="10.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="10.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="10.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="10.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                              <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../icons/tooltip/size.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../icons/tooltip/food.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../icons/tooltip/tech.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="11" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../icons/tooltip/cloak.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../icons/tooltip/level0.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../icons/tooltip/level6.png" />
+                                 </image>
+                              </ImageView>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="266.0" text="&lt;Fuqua&gt;" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.columnSpan="12" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="20.0" />
+                                 </font></Label>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../icons/tooltip/level1.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../icons/tooltip/level2.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="11" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../icons/tooltip/level3.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../icons/tooltip/level5.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../icons/tooltip/level4.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../icons/tooltip/spy.png" />
+                                 </image>
+                              </ImageView>
+                              <Label alignment="CENTER" prefHeight="30.0" prefWidth="265.0" text="Talents:" textFill="WHITE" GridPane.columnIndex="2" GridPane.columnSpan="12" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="15.0" />
+                                 </font></Label>
+                              <Label alignment="CENTER" prefHeight="31.0" prefWidth="267.0" text="Infomation:" textFill="WHITE" GridPane.columnIndex="2" GridPane.columnSpan="12" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="15.0" />
+                                 </font></Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="26.0" text="Size" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" text="10" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="25.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="30.0" text="10" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="8">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="25.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="69.0" text="Undergrad" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="9">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" text="10" textFill="WHITE" GridPane.columnIndex="6" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="25.0" />
+                                 </font>
+                              </Label>
+                              <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" text="10" textFill="WHITE" GridPane.columnIndex="9" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="25.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="30.0" text="3" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="12" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="25.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="30.0" text="10" textFill="WHITE" GridPane.columnIndex="6" GridPane.rowIndex="8">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="25.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="69.0" text="Master" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="9">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="69.0" text="PhD" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="8" GridPane.columnSpan="2" GridPane.rowIndex="9">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="30.0" text="10" textFill="WHITE" GridPane.columnIndex="9" GridPane.rowIndex="8">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="25.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="30.0" text="10" textFill="WHITE" GridPane.columnIndex="12" GridPane.rowIndex="8">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="25.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="30.0" text="10" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="10">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="25.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="30.0" text="10" textFill="WHITE" GridPane.columnIndex="6" GridPane.rowIndex="10">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="25.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="30.0" text="10" textFill="WHITE" GridPane.columnIndex="9" GridPane.rowIndex="10">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="25.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="30.0" text="10" textFill="WHITE" GridPane.columnIndex="9" GridPane.rowIndex="5">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="25.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="69.0" text="PostDoc" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="11" GridPane.columnSpan="2" GridPane.rowIndex="9">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="69.0" text="Asst. Prof" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="11">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="69.0" text="Assc. Prof" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="11">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="69.0" text="Professor" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="8" GridPane.columnSpan="2" GridPane.rowIndex="11">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="69.0" text="Your Spy" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="8" GridPane.columnSpan="2" GridPane.rowIndex="6">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="70.0" text="Food Prod." textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="70.0" text="Tech Prod." textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="8" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="70.0" text="Cloak Turns" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="11" GridPane.columnSpan="2" GridPane.rowIndex="6">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="10.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../icons/tooltip/owner.png" />
+                                 </image>
+                              </ImageView>
+                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="98.0" text="Yisong" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3" GridPane.columnSpan="4" GridPane.rowIndex="5">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="13.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="11" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../icons/tooltip/tech.png" />
+                                 </image>
+                              </ImageView>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="70.0" text="Business" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="11" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="37.0" text="Owner" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.columnSpan="5" GridPane.rowIndex="6">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="10.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="-3.0" />
+                                 </GridPane.margin>
+                              </Label>
+                           </children>
+                        </GridPane>
+                     </graphic>
+                     <font>
+                        <Font name="Open Sans Regular" size="13.0" />
+                     </font>
+                  </Tooltip>
+               </tooltip>
+                </Button>
+            <Button layoutX="39.0" layoutY="52.0" mnemonicParsing="false" onAction="#onCompleteTurn" prefHeight="34.0" prefWidth="110.0" text="Complete Turn">
+               <font>
+                  <Font name="Open Sans Regular" size="13.0" />
+               </font>
+            </Button>
+            </children>
+        </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowSpan="2">
+         <children>
+            <GridPane fx:id="actionPlayer" alignment="CENTER" layoutX="153.0" layoutY="18.0" prefHeight="130.0" prefWidth="40.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Button focusTraversable="false" mnemonicParsing="false" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 20; -fx-padding: 0;">
+                     <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" translateX="-1.0">
+                           <image>
+                              <Image url="@../icons/upgradeTech.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <styleClass>
+                        <String fx:value="action-player" />
+                        <String fx:value="action-upgradeTech" />
+                     </styleClass>
+                  </Button>
+                  <Button focusTraversable="false" mnemonicParsing="false" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 20; -fx-padding: 0;" GridPane.rowIndex="1">
+                     <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/researchCloaking.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <styleClass>
+                        <String fx:value="action-player" />
+                        <String fx:value="action-researchCloaking" />
+                     </styleClass>
+                  </Button>
+                  <Button focusTraversable="false" mnemonicParsing="false" pickOnBounds="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 20; -fx-padding: 0;" GridPane.rowIndex="2">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateY="2.0">
+                           <image>
+                              <Image url="@../icons/researchPatent.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <styleClass>
+                        <String fx:value="action-player" />
+                        <String fx:value="action-researchPatent" />
+                     </styleClass>
+                  </Button>
+               </children>
+            </GridPane>
+              <VBox alignment="CENTER" layoutX="14.0" layoutY="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="161.0" prefWidth="135.0">
+                  <children>
+                      <Label alignment="CENTER" prefHeight="30.0" prefWidth="177.0" text="Your Character:" textFill="WHITE">
+                          <font>
+                              <Font name="Open Sans Regular" size="15.0" />
+                          </font>
+                      </Label>
+                      <Circle fx:id="charSelected" accessibleRole="NODE" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" VBox.vgrow="NEVER" />
+                      <Label fx:id="nameSelected" alignment="CENTER" contentDisplay="CENTER" textAlignment="CENTER" textFill="WHITE">
+                          <font>
+                              <Font name="Open Sans Regular" size="15.0" />
+                          </font>
+                      </Label>
+                  </children>
+              </VBox>
+         </children>
+      </AnchorPane>
     </children>
 
     <fx:define>
         <ArrayList fx:id="labelList">
-            <fx:reference source="label0"/>
-            <fx:reference source="label1"/>
-            <fx:reference source="label2"/>
-            <fx:reference source="label3"/>
-            <fx:reference source="label4"/>
-            <fx:reference source="label5"/>
-            <fx:reference source="label6"/>
-            <fx:reference source="label7"/>
-            <fx:reference source="label8"/>
-            <fx:reference source="label9"/>
-            <fx:reference source="label10"/>
-            <fx:reference source="label11"/>
-            <fx:reference source="label12"/>
-            <fx:reference source="label13"/>
-            <fx:reference source="label14"/>
-            <fx:reference source="label15"/>
+            <fx:reference source="label0" />
+            <fx:reference source="label1" />
+            <fx:reference source="label2" />
+            <fx:reference source="label3" />
+            <fx:reference source="label4" />
+            <fx:reference source="label5" />
+            <fx:reference source="label6" />
+            <fx:reference source="label7" />
+            <fx:reference source="label8" />
+            <fx:reference source="label9" />
+            <fx:reference source="label10" />
+            <fx:reference source="label11" />
+            <fx:reference source="label12" />
+            <fx:reference source="label13" />
+            <fx:reference source="label14" />
+            <fx:reference source="label15" />
+        </ArrayList>
+    </fx:define>
+    <fx:define>
+        <ArrayList fx:id="numList">
+            <fx:reference source="num0" />
+            <fx:reference source="num1" />
+            <fx:reference source="num2" />
+            <fx:reference source="num3" />
+            <fx:reference source="num4" />
+            <fx:reference source="num5" />
+            <fx:reference source="num6" />
+            <fx:reference source="num7" />
+            <fx:reference source="num8" />
+            <fx:reference source="num9" />
+            <fx:reference source="num10" />
+            <fx:reference source="num11" />
+            <fx:reference source="num12" />
+            <fx:reference source="num13" />
+            <fx:reference source="num14" />
+            <fx:reference source="num15" />
+        </ArrayList>
+    </fx:define>
+    <fx:define>
+        <ArrayList fx:id="actionList">
+            <fx:reference source="action0" />
+            <fx:reference source="action1" />
+            <fx:reference source="action2" />
+            <fx:reference source="action3" />
+            <fx:reference source="action4" />
+            <fx:reference source="action5" />
+            <fx:reference source="action6" />
+            <fx:reference source="action7" />
+            <fx:reference source="action8" />
+            <fx:reference source="action9" />
+            <fx:reference source="action10" />
+            <fx:reference source="action11" />
+            <fx:reference source="action12" />
+            <fx:reference source="action13" />
+            <fx:reference source="action14" />
+            <fx:reference source="action15" />
         </ArrayList>
     </fx:define>
 </GridPane>

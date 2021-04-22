@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 
 public class ClientGUI extends Application {
     Stage window;
-    Object model;
+    App model;
     String next = "serverConnect";
 
     /**
@@ -23,6 +23,8 @@ public class ClientGUI extends Application {
     public void start(Stage stage) throws Exception {
         window = stage;
         model = new App();
+        Thread t=new Thread(model);
+        t.start();
         Object controller = new ControllerFactory().getController(next, model);
         window = PhaseChanger.switchTo(window, controller, next);
         window.getScene().getStylesheets().add(getClass().getResource("/ui/styling/fonts.css").toString());
@@ -37,3 +39,11 @@ public class ClientGUI extends Application {
         launch(args);
     }
 }
+
+
+
+
+
+
+
+

@@ -1,0 +1,84 @@
+package edu.duke.ece651.risk.client.controller;
+
+import edu.duke.ece651.risk.client.App;
+import edu.duke.ece651.risk.shared.*;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+
+import java.net.URL;
+import java.util.*;
+
+public class UpgradeTechActionController extends ActionController {
+    @FXML Label oldLevel;
+    @FXML Label newLevel;
+
+    /**
+     * Constructor that initializes the model.
+     *
+     * @param model is the backend of the game.
+     */
+    public UpgradeTechActionController(App model, Stage mainPage) {
+        super(model, null, null, mainPage);
+    }
+
+    /**
+     * Sets various elements in the view to default values.
+     *
+     * @param location is the location of the FXML resource.
+     * @param resources used to initialize the root object of the view.
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        loadResourceInfo("tech");
+        int currentTechLevel = map.getPlayerInfo(playerName).getTechLevel();
+        oldLevel.setText(String.valueOf(currentTechLevel));
+        newLevel.setText(String.valueOf(currentTechLevel + 1));
+        try {
+            updateTotalCost(getActionInfo(), "tech");
+        } catch (Exception e) {
+            setErrorMessage(e.getMessage());
+        }
+    }
+
+    /** Returns a attack ActionInfo object based on fields entered by the user in the view. */
+    @Override
+    protected ActionInfo getActionInfo() throws IllegalArgumentException {
+        ActionInfoFactory af = new ActionInfoFactory();
+        ActionRuleCheckerHelper checker = new ActionRuleCheckerHelper();
+        ActionInfo info =
+                af.createUpgradeTechActionInfo(playerName, Integer.valueOf(newLevel.getText()));
+        String error = checker.checkRuleForUpgradeTech(info, map);
+        if (error != null) {
+            throw new IllegalArgumentException(error);
+        }
+        return info;
+    }
+
+    /** Triggered when player confirms their attack action by clicking on the Confirm button. */
+    @FXML
+    public void onAction(ActionEvent ae) throws Exception {
+        Object source = ae.getSource();
+        if (source instanceof Button) {
+            try {
+                clearErrorMessage();
+                ActionInfo info = getActionInfo();
+                updateTotalCost(info, "tech");
+                String success = model.getPlayer().tryIssueUpgradeTechOrder(info);
+                if (success != null) {
+                    setErrorMessage(success);
+                } else {
+                    Stage popup = (Stage) (((Node) ae.getSource()).getScene().getWindow());
+                    popup.close();
+                    loadNextPhase(mainPage);
+                }
+            } catch (IllegalArgumentException e) {
+                setErrorMessage(e.getMessage());
+            }
+        } else {
+            throw new IllegalArgumentException("Invalid ActionEvent source " + source);
+        }
+    }
+}

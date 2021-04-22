@@ -35,6 +35,15 @@ public class StyleMapping {
     return territoryLabels.get(labelName);
   }
 
+  public int getLabelId(String TerritoryName){
+    for (String labelName : territoryLabels.keySet()){
+      if (territoryLabels.get(labelName).equals(TerritoryName)){
+        return Integer.valueOf(labelName.substring(5));
+      }
+    }
+    return -1;
+  }
+
   private static HashMap<Integer, String> makeColors() {
     HashMap<Integer, String> colors = new HashMap<>();
     colors.put(1, "Pink");
@@ -52,11 +61,11 @@ public class StyleMapping {
   private static ArrayList<String> makeTalentNames() {
     ArrayList<String> talentNames = new ArrayList<>();
     talentNames.add("Undergrad");
-    talentNames.add("Masters");
+    talentNames.add("Master");
     talentNames.add("PhD");
     talentNames.add("Postdoc");
-    talentNames.add("Asst. Prof");
-    talentNames.add("Assc. Prof");
+    talentNames.add("Asst. Prof.");
+    talentNames.add("Assoc. Prof.");
     talentNames.add("Professor");
     return talentNames;
   }
@@ -68,12 +77,13 @@ public class StyleMapping {
   private static HashMap<String, String> makeTalents() {
     HashMap<String, String> talents = new HashMap<>();
     talents.put("Undergrad", "level0");
-    talents.put("Masters", "level1");
+    talents.put("Master", "level1");
     talents.put("PhD", "level2");
     talents.put("Postdoc", "level3");
-    talents.put("Asst. Prof", "level4");
-    talents.put("Assc. Prof", "level5");
+    talents.put("Asst. Prof.", "level4");
+    talents.put("Assoc. Prof.", "level5");
     talents.put("Professor", "level6");
+    talents.put("Spy", "spy");
     return talents;
   }
 

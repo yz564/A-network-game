@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -29,7 +30,7 @@ public class AllocateTalentsController extends Controller
     @FXML Label numAllocated;
     @FXML Label numAllowed;
     @FXML Label errorMessage;
-    @FXML ArrayList<Label> labelList;
+    @FXML ArrayList<ToggleButton> labelList;
     @FXML ArrayList<TextField> numList;
 
     /**
@@ -40,7 +41,7 @@ public class AllocateTalentsController extends Controller
     public AllocateTalentsController(App model) {
         super(model);
         this.numUnitsEntered = 0;
-        this.next = "selectAction";
+        this.next = "loading";
     }
 
     /**
@@ -57,9 +58,9 @@ public class AllocateTalentsController extends Controller
         // set map image according to number of players
         helper.initializeMap(map, mapImageView);
         // set coloring for each territory label
-        helper.initializeTerritoryLabelByGroup(model.getPlayer().getMap(), labelList);
+        helper.initializeTerritoryLabelByGroup(map, labelList);
         // set tooltip for each territory label
-        helper.initializeTerritoryTooltips(model.getPlayer().getMap(), labelList);
+        helper.initializeTerritoryTooltips(map, labelList, model.getPlayer().getName());
         // set image and label for selected character
         helper.initializeSelectedCharacter(model, charSelected, nameSelected);
         // set visibility of numUnits fields according to selected territory group
@@ -68,11 +69,13 @@ public class AllocateTalentsController extends Controller
         numAllowed.setText(String.valueOf(model.getPlayer().getMaxUnitsToPlace()));
         // add change listeners to numUnits fields
         addNumUnitsChangeListeners();
+        /*
         try {
             model.getPlayer().startAllocation();
         } catch (Exception e) {
             e.printStackTrace();
         }
+         */
     }
 
     private void addNumUnitsChangeListeners() {
