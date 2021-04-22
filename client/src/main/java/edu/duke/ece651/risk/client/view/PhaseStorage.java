@@ -99,7 +99,7 @@ public class PhaseStorage {
                         "/ui/styling/territory-group.css",
                         "/ui/styling/general-design.css");
         Phase phase14 =
-                makePhase("gameEnd", "Duke Risk Game! - Game End", "/ui/views/game-end.fxml");
+                makePhase("gameEnd", "Duke Risk Game! - Game End", "/ui/views/game-end-fancy.fxml", "/ui/styling/general-design.css");
         Phase phase15 = makePhase("loading", "Waiting for Other Players", "/ui/views/loading.fxml");
         Phase phaseTest = makePhase("test", "Duke Risk Game! - Test", "/ui/views/test.fxml");
         // Add new Phases here
