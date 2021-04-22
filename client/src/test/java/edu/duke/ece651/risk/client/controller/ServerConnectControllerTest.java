@@ -71,6 +71,8 @@ class ServerConnectControllerTest {
         //FxAssert.verifyThat(testErrorMessage, LabeledMatchers.hasText(""));
         //Assertions.assertThat(cont.errorMessage).hasText("Server address does not exist!");
         assertEquals(true, model.isConnectedToServer());
+
+        // get current Stage, and check its title matches the title from controller factory.
     }
 
     @Test
