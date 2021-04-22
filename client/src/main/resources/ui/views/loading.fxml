@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
@@ -17,5 +18,16 @@
          </font>
       </Label>
       <Separator layoutX="150.0" layoutY="240.0" prefHeight="6.0" prefWidth="690.0" />
+      <Label layoutX="421.0" layoutY="285.0" text="Did you know?" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="triviaText" alignment="TOP_LEFT" layoutX="292.0" layoutY="384.0" prefHeight="97.0" prefWidth="550.0" text="Trivia" textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="triviaIcon" fitHeight="64.0" fitWidth="64.0" layoutX="199.0" layoutY="382.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </Pane>
