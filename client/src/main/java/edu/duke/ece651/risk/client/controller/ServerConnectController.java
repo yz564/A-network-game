@@ -2,13 +2,18 @@ package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
 import edu.duke.ece651.risk.client.view.PhaseChanger;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class ServerConnectController extends Controller implements ErrorHandlingController {
     /**
@@ -21,8 +26,22 @@ public class ServerConnectController extends Controller implements ErrorHandling
         this.next = "userLogin";
     }
 
+    @FXML Pane root;
     @FXML TextField serverConnectAddressField;
     @FXML Label errorMessage;
+
+    /**
+     * Sets focus on the root pane rather than the text field.
+     *
+     * @param location is the location of the FXML resource.
+     * @param resources used to initialize the root object of the view.
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        Platform.runLater(() -> {
+            root.requestFocus();
+        });
+    }
 
     /**
      * @param ae

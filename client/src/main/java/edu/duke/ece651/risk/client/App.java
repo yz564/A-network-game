@@ -35,6 +35,8 @@ public class App implements Runnable, GUIEventListener{
   private Boolean isGUIUpdated;
   private ClientEventMessenger messenger;
   private ControllerFactory myFactory;
+  private Boolean isLeave;
+  private Boolean isRejoin;
   
 
   // private String serverAdd;
@@ -52,6 +54,8 @@ public class App implements Runnable, GUIEventListener{
     this.isGUIUpdated = false;
     this.messenger = new ClientEventMessenger();
     this.myFactory = new ControllerFactory();
+    this.isLeave = false;
+    this.isRejoin = false;
   }
 
   public void deleteJoinedRoomId(int id) {
@@ -118,6 +122,7 @@ public class App implements Runnable, GUIEventListener{
     receiveMessage();
   } catch (Exception e) {
   }
+    isRejoin = true;
     return false;
   }
 
@@ -130,6 +135,7 @@ public class App implements Runnable, GUIEventListener{
     out.writeObject(new ObjectIO("/leave"));
     out.flush();
     out.reset();
+    isLeave = true;
   }
 
   /** every time after join a room, call this method */
@@ -204,18 +210,21 @@ public class App implements Runnable, GUIEventListener{
   public void setListener(ClientEventListener listener) {
     messenger.setClientEventListener(listener);
   }
+
+  public void checkGUIUpdate() throws Exception{
+    while (!isGUIUpdated) {
+          Thread.sleep(10);
+        }
+    isGUIUpdated = false;
+  }
   
   @Override
   public void run() {
     while (true) {
       try{
-        System.out.println("run()");
+        System.out.println("run() start from join room");
         
-        while (!isGUIUpdated) {
-          Thread.sleep(100);
-        }
-        //System.out.println("isGUIUpdated: "+isGUIUpdated);
-        isGUIUpdated=false;
+        checkGUIUpdate();
         receiveMessage();
         int roomId=theGUIEvent.getRoomId();
         currentRoomId=roomId-1;
@@ -224,34 +233,34 @@ public class App implements Runnable, GUIEventListener{
         System.out.println("roomId after sending: "+roomId);
         tmp = receiveMessage();
         messenger.setStatusBoolean(tmp.id==0,"loading");
-        
-        while(!isGUIUpdated){Thread.sleep(100);}
-        isGUIUpdated=false;
-        sendMessage(new ObjectIO("wait others", 0));
-        tmp = receiveMessage();
-        System.out.println(tmp.message);
-        getPlayer().receiveMessage();
-        messenger.setMap(getPlayer().getMap(),"selectTerritoryGroup");
-        //messenger.setStatusBoolean(true,"selectTerritoryGroup");
-       
-        while (!isGUIUpdated) {
-          Thread.sleep(100);
-        }
-        isGUIUpdated = false;
-        getPlayer().startAllocation();
-        messenger.setMap(getPlayer().getMap(),"allocateTalents");
-        //messenger.setStatusBoolean(true,"allocateTalents");
-        
-        while (!isGUIUpdated) {
-          Thread.sleep(100);
-        }
-        isGUIUpdated = false;
-        getPlayer().receiveMessage();
-        messenger.setMap(getPlayer().getMap(),"selectAction");
 
+        if (!isRejoin) {
+          //wait other players to join phase
+          checkGUIUpdate();
+          sendMessage(new ObjectIO("wait others", 0));
+          tmp = receiveMessage();
+          getPlayer().receiveMessage();
+          messenger.setMap(getPlayer().getMap(), "selectTerritoryGroup");
+
+          //select territory phase
+          checkGUIUpdate();
+          getPlayer().startAllocation();
+          messenger.setMap(getPlayer().getMap(), "allocateTalents");
+
+          //allocate talents  phase
+          checkGUIUpdate();
+          getPlayer().receiveMessage();
+          messenger.setMap(getPlayer().getMap(), "selectAction");
+          isRejoin = false;
+        }
+        //select action phase
         while(true){
-        while (!isGUIUpdated) {
-          Thread.sleep(100);
+        while (!isGUIUpdated && !isLeave) {
+          Thread.sleep(10);
+        }
+        if (isLeave) {
+          isLeave=false;
+          break;
         }
         isGUIUpdated = false;
         String result=getPlayer().checkStatus();

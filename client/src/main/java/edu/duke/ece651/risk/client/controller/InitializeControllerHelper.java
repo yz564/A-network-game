@@ -6,13 +6,19 @@ import edu.duke.ece651.risk.client.view.StyleMapping;
 import edu.duke.ece651.risk.shared.PlayerInfo;
 import edu.duke.ece651.risk.shared.Territory;
 import edu.duke.ece651.risk.shared.WorldMap;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class InitializeControllerHelper {
 
@@ -22,7 +28,8 @@ public class InitializeControllerHelper {
      * @param map The game's map for gathering information to display.
      * @param territoryLabelList the territory label ArrayList.
      */
-    public void initializeTerritoryTooltips(WorldMap map, ArrayList<ToggleButton> territoryLabelList) {
+    public void initializeTerritoryTooltips(
+            WorldMap map, ArrayList<ToggleButton> territoryLabelList, String playerName) {
         int numPlayers = map.getNumPlayers();
         StyleMapping mapping = new StyleMapping();
         for (ToggleButton territoryLabel : territoryLabelList) {
@@ -33,9 +40,9 @@ public class InitializeControllerHelper {
             }
             String territoryName = mapping.getTerritoryName(territoryLabel.getId());
             Tooltip tt = new Tooltip();
-            tt.setText(getTerritoryTextInfo(map, territoryName));
+            tt.setText(getTerritoryTextInfo(map, territoryName, playerName));
             tt.getStyleClass().add("tooltip-territory");
-            tt.setShowDelay(Duration.millis(500));
+            tt.setShowDelay(Duration.millis(1000));
             tt.setHideDelay(Duration.millis(200));
             territoryLabel.setTooltip(tt);
         }
@@ -53,7 +60,7 @@ public class InitializeControllerHelper {
         Tooltip tt = new Tooltip();
         tt.setText(getPlayerInfo(map, playerName));
         tt.getStyleClass().add("tooltip-player-info");
-        tt.setShowDelay(Duration.millis(200));
+        tt.setShowDelay(Duration.millis(500));
         tt.setHideDelay(Duration.millis(200));
         Tooltip.install(playerCharacter, tt);
     }
@@ -87,7 +94,8 @@ public class InitializeControllerHelper {
      * @param map The game's map for gathering information to display.
      * @param territoryLabelList the territory label ArrayList.
      */
-    public void initializeTerritoryLabelByGroup(WorldMap map, ArrayList<ToggleButton> territoryLabelList) {
+    public void initializeTerritoryLabelByGroup(
+            WorldMap map, ArrayList<ToggleButton> territoryLabelList) {
         int numPlayers = map.getNumPlayers();
         StyleMapping mapping = new StyleMapping();
         // set coloring for each territory label
@@ -103,7 +111,8 @@ public class InitializeControllerHelper {
         }
     }
 
-    public void initializeTerritoryLabelByOwner(WorldMap map, ArrayList<ToggleButton> territoryLabelList) {
+    public void initializeTerritoryLabelByOwner(
+            WorldMap map, ArrayList<ToggleButton> territoryLabelList) {
         int numPlayers = map.getNumPlayers();
         StyleMapping mapping = new StyleMapping();
         // set coloring for each territory label
@@ -152,7 +161,9 @@ public class InitializeControllerHelper {
     }
 
     public void initializeNumUnitsFields(
-            App model, ArrayList<ToggleButton> territoryLabelList, ArrayList<TextField> numUnitsList) {
+            App model,
+            ArrayList<ToggleButton> territoryLabelList,
+            ArrayList<TextField> numUnitsList) {
         int playerId =
                 model.getPlayer().getMap().getPlayerInfo(model.getPlayer().getName()).getPlayerId();
         ArrayList<String> playerTerritories = model.getPlayer().getMap().getInitGroup(playerId);
@@ -167,10 +178,12 @@ public class InitializeControllerHelper {
     }
 
     public void initializeTerritoryTotalNumUnitsLabels(
-            WorldMap map, ArrayList<ToggleButton> territoryLabelList, ArrayList<Label> numLabelList){
+            WorldMap map,
+            ArrayList<ToggleButton> territoryLabelList,
+            ArrayList<Label> numLabelList) {
         int numPlayers = map.getNumPlayers();
         StyleMapping mapping = new StyleMapping();
-        for (int i = 0; i < territoryLabelList.size(); i++){
+        for (int i = 0; i < territoryLabelList.size(); i++) {
             if (numPlayers % 2 == 1 && i == 15) {
                 numLabelList.get(i).setText("");
                 numLabelList.get(i).setDisable(true);
@@ -178,15 +191,19 @@ public class InitializeControllerHelper {
             }
             String labelName = territoryLabelList.get(i).getId();
             String territoryName = mapping.getTerritoryName(labelName);
-            numLabelList.get(i).setText(String.valueOf(map.getTerritory(territoryName).getTotalNumUnits()));
+            numLabelList
+                    .get(i)
+                    .setText(String.valueOf(map.getTerritory(territoryName).getTotalNumUnits()));
         }
     }
 
-    public void initializeTerritoryButtons(App model, ArrayList<ToggleButton> territoryLabelList){
+    public void initializeTerritoryButtons(App model, ArrayList<ToggleButton> territoryLabelList) {
         String playerName = model.getPlayer().getName();
+        PlayerInfo playerInfo = model.getPlayer().getMap().getPlayerInfo(playerName);
+        HashMap<String, Boolean> limited = model.getPlayer().getIsLimitedActionUsed();
         int numPlayers = model.getPlayer().getMap().getNumPlayers();
         StyleMapping mapping = new StyleMapping();
-        for (ToggleButton territoryButton : territoryLabelList){
+        for (ToggleButton territoryButton : territoryLabelList) {
             if (numPlayers % 2 == 1 && territoryLabelList.indexOf(territoryButton) == 15) {
                 territoryButton.setText("");
                 territoryButton.setDisable(true);
@@ -195,12 +212,63 @@ public class InitializeControllerHelper {
             String territoryName = mapping.getTerritoryName(territoryButton.getId());
             Territory territory = model.getPlayer().getMap().getTerritory(territoryName);
             int playerId =
-                    model.getPlayer().getMap().getPlayerInfo(territory.getOwnerName()).getPlayerId();
-            if (!territory.isBelongTo(playerName)){
-                territoryButton.getStyleClass().removeAll("territory-group-" + String.valueOf(playerId));
-                territoryButton.getStyleClass().addAll("territory-group-disabled-" + String.valueOf(playerId));
-                territoryButton.setOnAction(null);
-                //territoryButton.setDisable(true);
+                    model.getPlayer()
+                            .getMap()
+                            .getPlayerInfo(territory.getOwnerName())
+                            .getPlayerId();
+            if (territory.getSpyTroopNumUnits(playerName) <= 0 || limited.get("move spy")) {
+                if ((territory.isBelongTo(playerName)
+                                && !playerInfo.getIsCloakingResearched()
+                                && territory.getTotalNumUnits() <= 0)
+                        || !territory.isBelongTo(playerName)) {
+                    territoryButton
+                            .getStyleClass()
+                            .removeAll("territory-group-" + String.valueOf(playerId));
+                    territoryButton
+                            .getStyleClass()
+                            .addAll("territory-group-disabled-" + String.valueOf(playerId));
+                    territoryButton.setOnAction(null);
+                    // territoryButton.setDisable(true);
+                }
+            }
+        }
+    }
+
+    public void initializeNumUnit(
+            WorldMap map,
+            String srcName,
+            String destName,
+            ArrayList<Label> srcNumList,
+            ArrayList<Label> destNumList) {
+        Territory src = map.getTerritory(srcName);
+        Territory dest = map.getTerritory(destName);
+        for (int i = 0; i < srcNumList.size(); i++) {
+            srcNumList
+                    .get(i)
+                    .setText(String.valueOf(src.getTroopNumUnits("level" + String.valueOf(i))));
+            destNumList
+                    .get(i)
+                    .setText(String.valueOf(dest.getTroopNumUnits("level" + String.valueOf(i))));
+        }
+    }
+
+    public void initializeSliders(ArrayList<Slider> sliderList, ArrayList<Label> srcNumList) {
+        for (int i = 0; i < srcNumList.size(); i++) {
+            sliderList.get(i).setMax(Integer.parseInt(srcNumList.get(i).getText()));
+        }
+    }
+
+    public void initializeTalentRows(
+            ArrayList<Label> srcNumList, ArrayList<Label> destNumList, GridPane grid) {
+        for (int i = 0; i < srcNumList.size(); i++) {
+            int srcNum = Integer.parseInt(srcNumList.get(i).getText());
+            int destNum = Integer.parseInt(destNumList.get(i).getText());
+            if (srcNum <= 0 && destNum <= 0) {
+                int row = i * 2 + 5;
+                grid.getRowConstraints().get(row).setMaxHeight(0);
+                grid.getRowConstraints().get(row + 1).setMaxHeight(0);
+                grid.getChildren().removeIf(node -> GridPane.getRowIndex(node) == row);
+                grid.getChildren().removeIf(node -> GridPane.getRowIndex(node) == row + 1);
             }
         }
     }
@@ -223,6 +291,11 @@ public class InitializeControllerHelper {
         ans = ans + "- Food Resource: " + info.getResTotals().get("food") + "\n";
         ans = ans + "- Tech Resource: " + info.getResTotals().get("tech") + "\n";
         ans = ans + "- Territory Amount: " + map.getPlayerTerritories(playerName).size() + "\n";
+        ans =
+                ans
+                        + "- Cloaking Researched: "
+                        + map.getPlayerInfo(playerName).getIsCloakingResearched()
+                        + "\n";
         return ans;
     }
 
@@ -233,7 +306,7 @@ public class InitializeControllerHelper {
      * @param territoryName The territory's name to get info about.
      * @return a String that has text information of the given territory.
      */
-    private String getTerritoryTextInfo(WorldMap map, String territoryName) {
+    private String getTerritoryTextInfo(WorldMap map, String territoryName, String playerName) {
         Territory territory = map.getTerritory(territoryName);
         String ans =
                 "--------------------------\n"
@@ -248,6 +321,7 @@ public class InitializeControllerHelper {
         ans = ans + "- Size: " + territory.getSize() + "\n";
         ans = ans + "- Food Production Rate: " + territory.getResProduction().get("food") + "\n";
         ans = ans + "- Tech Production Rate: " + territory.getResProduction().get("tech") + "\n";
+        ans = ans + "- Cloaking Turns: " + territory.getCloakingTurns() + "\n";
         ans =
                 ans
                         + "--------------------------\n"
@@ -261,6 +335,7 @@ public class InitializeControllerHelper {
         ans = ans + "- Asst. Prof: " + territory.getTroopNumUnits("level4") + "\n";
         ans = ans + "- Assc. Prof: " + territory.getTroopNumUnits("level5") + "\n";
         ans = ans + "- Professor: " + territory.getTroopNumUnits("level6") + "\n";
+        ans = ans + "- Spy: " + territory.getSpyTroopNumUnits(playerName) + "\n";
         return ans;
     }
 }

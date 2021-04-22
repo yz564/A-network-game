@@ -54,40 +54,53 @@ public class PhaseStorage {
                         "moveAction",
                         "Duke Risk Game! - Move Talents",
                         "/ui/views/move-action.fxml",
-                        "/ui/styling/territory-group.css");
+                        "/ui/styling/territory-group.css",
+                        "/ui/styling/general-design.css");
         Phase phase8 =
                 makePhase(
                         "attackAction",
                         "Duke Risk Game! - Attack Enemy Territory",
                         "/ui/views/attack-action.fxml",
-                        "/ui/styling/territory-group.css");
+                        "/ui/styling/territory-group.css",
+                        "/ui/styling/general-design.css");
         Phase phase9 =
                 makePhase(
                         "upgradeTalentsAction",
                         "Duke Risk Game! - Upgrade Your Talents",
                         "/ui/views/upgrade-talents-action.fxml",
-                        "/ui/styling/territory-group.css");
+                        "/ui/styling/territory-group.css",
+                        "/ui/styling/general-design.css");
         Phase phase10 =
                 makePhase(
                         "upgradeTechAction",
                         "Duke Risk Game! - Upgrade Your Tech Level",
                         "/ui/views/upgrade-tech-action.fxml",
-                        "/ui/styling/territory-group.css");
+                        "/ui/styling/territory-group.css",
+                        "/ui/styling/general-design.css");
         Phase phase11 =
                 makePhase(
                         "moveSpyAction",
                         "Duke Risk Game! - Move Your Spy",
                         "/ui/views/move-spy-action.fxml",
-                        "/ui/styling/territory-group.css");
+                        "/ui/styling/territory-group.css",
+                        "/ui/styling/general-design.css");
         Phase phase12 =
                 makePhase(
-                        "upgradeSpyAction",
-                        "Duke Risk Game! - Upgrade Your Spy",
-                        "/ui/views/upgrade-spy-action.fxml",
-                        "/ui/styling/territory-group.css");
+                        "researchCloakingAction",
+                        "Duke Risk Game! - Research Cloaking",
+                        "/ui/views/research-cloaking-action.fxml",
+                        "/ui/styling/territory-group.css",
+                        "/ui/styling/general-design.css");
         Phase phase13 =
-                makePhase("gameEnd", "Duke Risk Game! - Game End", "/ui/views/game-end.fxml");
-        Phase phase14 = makePhase("loading", "Waiting for Other Players", "/ui/views/loading.fxml");
+                makePhase(
+                        "cloakingAction",
+                        "Duke Risk Game! - Cloak Your Territory",
+                        "/ui/views/cloaking-action.fxml",
+                        "/ui/styling/territory-group.css",
+                        "/ui/styling/general-design.css");
+        Phase phase14 =
+                makePhase("gameEnd", "Duke Risk Game! - Game End", "/ui/views/game-end-fancy.fxml", "/ui/styling/general-design.css");
+        Phase phase15 = makePhase("loading", "Waiting for Other Players", "/ui/views/loading.fxml");
         Phase phaseTest = makePhase("test", "Duke Risk Game! - Test", "/ui/views/test.fxml");
         // Add new Phases here
 
@@ -105,6 +118,7 @@ public class PhaseStorage {
         phases.put(phase12.getName(), phase12);
         phases.put(phase13.getName(), phase13);
         phases.put(phase14.getName(), phase14);
+        phases.put(phase15.getName(), phase15);
         phases.put(phaseTest.getName(), phaseTest);
         // Put new Phases into HashMap here
         return phases;

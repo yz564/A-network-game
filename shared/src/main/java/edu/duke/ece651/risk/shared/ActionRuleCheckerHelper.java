@@ -56,9 +56,7 @@ public class ActionRuleCheckerHelper {
                 new TerritoryExistenceRuleChecker(
                         new SrcOwnershipRuleChecker(
                                 new CloakingRuleChecker(new EnoughResourceRuleChecker(null))));
-        this.researchPatentChecker =
-                new TerritoryExistenceRuleChecker(
-                        new SrcOwnershipRuleChecker(new EnoughResourceRuleChecker(null)));
+        this.researchPatentChecker = new EnoughResourceRuleChecker(null);
     }
 
     /**
@@ -157,15 +155,15 @@ public class ActionRuleCheckerHelper {
         return this.cloakingChecker.checkAction(action, worldmap);
     }
 
-  /**
-   * Checks if all the action rules are met to perform an upgrade tech action on a given worldmap.
-   * Calls the checkAction() of researchPatentChecker.
-   *
-   * @param action is the ActionInfo for an action
-   * @param worldmap is the worldmap to perform the action on
-   * @return error message if violates action rules, else null
-   */
-  public String checkRuleForResearchPatent(ActionInfo action, WorldMap worldmap) {
-    return this.researchPatentChecker.checkAction(action, worldmap);
-  }
+    /**
+     * Checks if all the action rules are met to perform an upgrade tech action on a given worldmap.
+     * Calls the checkAction() of researchPatentChecker.
+     *
+     * @param action is the ActionInfo for an action
+     * @param worldmap is the worldmap to perform the action on
+     * @return error message if violates action rules, else null
+     */
+    public String checkRuleForResearchPatent(ActionInfo action, WorldMap worldmap) {
+        return this.researchPatentChecker.checkAction(action, worldmap);
+    }
 }

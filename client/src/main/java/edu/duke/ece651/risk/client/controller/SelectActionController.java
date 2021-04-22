@@ -11,25 +11,34 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.stage.Popup;
+import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class SelectActionController extends Controller implements Initializable {
     WorldMap map;
+    String playerName;
     String nextOnCompleteTurn;
     String nextOnLeave;
     String nextOnGameEnd;
+    String selectedSrc;
+    String selectedDest;
 
     @FXML ImageView mapImageView;
     @FXML Circle charSelected;
@@ -58,13 +67,14 @@ public class SelectActionController extends Controller implements Initializable 
     public void initialize(URL location, ResourceBundle resources) {
         // get map from client App
         this.map = model.getPlayer().getMap();
+        this.playerName = model.getPlayer().getName();
         InitializeControllerHelper helper = new InitializeControllerHelper();
         // set map image according to number of players
         helper.initializeMap(map, mapImageView);
         // set coloring for each territory label
         helper.initializeTerritoryLabelByOwner(map, labelList);
         // set tooltip for each territory label
-        helper.initializeTerritoryTooltips(map, labelList);
+        helper.initializeTerritoryTooltips(map, labelList, model.getPlayer().getName());
         // set image and label for selected character
         helper.initializeSelectedCharacter(model, charSelected, nameSelected);
         // set tooltip for player info
@@ -106,52 +116,72 @@ public class SelectActionController extends Controller implements Initializable 
 
     private void setActionVisible(ToggleButton territoryButton) {
         StyleMapping mapping = new StyleMapping();
+        HashMap<String, Boolean> limited = model.getPlayer().getIsLimitedActionUsed();
         Territory selectedTerritory =
                 map.getTerritory(mapping.getTerritoryName(territoryButton.getId()));
+        this.selectedSrc = selectedTerritory.getName();
+        String playerName = model.getPlayer().getName();
         for (String territoryName : map.getMyTerritories()) {
             int id = mapping.getLabelId(territoryName);
             Territory territory = map.getTerritory(territoryName);
             GridPane actionPane = actionList.get(id);
-            if (selectedTerritory.getName().equals(territoryName)) {
-                setActionButtons(actionPane, "upgradeTalents", "cloaking");
-            } else if (selectedTerritory.isReachableTo(territory)) {
-                if (selectedTerritory.getSpyTroopNumUnits(model.getPlayer().getName()) > 0) {
-                    setActionButtons(actionPane, "move", "moveSpy");
+            ArrayList<String> actionList = new ArrayList<>();
+            if (selectedTerritory.isBelongTo(playerName)) {
+                if (selectedTerritory.getName().equals(territoryName)) {
+                    if (selectedTerritory.getTotalNumUnits() > 0) {
+                        actionList.add("upgradeTalents");
+                    }
+                    if (map.getPlayerInfo(playerName).getIsCloakingResearched()) {
+                        actionList.add("cloaking");
+                    }
+                } else if (selectedTerritory.isReachableTo(territory)) {
+                    if (selectedTerritory.getTotalNumUnits() > 0) {
+                        actionList.add("move");
+                    }
+                    if (selectedTerritory.getSpyTroopNumUnits(playerName) > 0 && !limited.get("move spy")) {
+                        actionList.add("moveSpy");
+                    }
+                } else if (selectedTerritory.isAdjacentTo(territory)) {
+                    if (selectedTerritory.getTotalNumUnits() > 0) {
+                        actionList.add("attack");
+                    }
+                    if (selectedTerritory.getSpyTroopNumUnits(playerName) > 0 && !limited.get("move spy")) {
+                        actionList.add("moveSpy");
+                    }
                 } else {
-                    setActionButtons(actionPane, "move");
-                }
-            } else if (selectedTerritory.isAdjacentTo(territory)) {
-                if (selectedTerritory.getSpyTroopNumUnits(model.getPlayer().getName()) > 0) {
-                    setActionButtons(actionPane, "attack", "moveSpy");
-                } else {
-                    setActionButtons(actionPane, "attack");
-                }
-            } else {
-                for (Node child : actionPane.getChildren()) {
-                    child.setVisible(false);
+                    for (Node child : actionPane.getChildren()) {
+                        child.setVisible(false);
+                    }
                 }
             }
+            else{
+                if ((selectedTerritory.getName().equals(territoryName)
+                        || selectedTerritory.isAdjacentTo(territory)) && !limited.get("move spy")) {
+                    actionList.add("moveSpy");
+                }
+            }
+            setActionButtons(actionPane, actionList);
         }
     }
 
     @FXML
-    private void setActionButtons(GridPane actionPane, String... actions) {
+    private void setActionButtons(GridPane actionPane, ArrayList<String> actions) {
         ObservableList<Node> childrenList = actionPane.getChildren();
         for (Node child : childrenList) {
             int id = childrenList.indexOf(child);
             Button actionButton = (Button) child;
-            if (id >= actions.length) {
+            if (id >= actions.size()) {
                 actionButton.setVisible(false);
             } else {
                 Image actionIcon =
-                        new Image("ui/icons/" + actions[id] + ".png", 500, 500, false, true);
+                        new Image("ui/icons/" + actions.get(id) + ".png", 500, 500, false, true);
                 ImageView actionImage = new ImageView(actionIcon);
                 actionImage.setFitHeight(23);
                 actionImage.setFitWidth(23);
                 actionButton.setGraphic(actionImage);
                 actionButton.getStyleClass().clear();
-                actionButton.getStyleClass().addAll("action-button", "action-" + actions[id]);
-                actionButton.setOnAction(ae -> onSelectAction(ae, actions[id]));
+                actionButton.getStyleClass().addAll("action-button", "action-" + actions.get(id));
+                actionButton.setOnAction(ae -> onSelectAction(ae, actions.get(id)));
                 actionButton.setVisible(true);
             }
         }
@@ -159,26 +189,45 @@ public class SelectActionController extends Controller implements Initializable 
 
     @FXML
     public void setPlayerActionButtons(GridPane actionPane, String... actions) {
+        HashMap<String, Boolean> limited = model.getPlayer().getIsLimitedActionUsed();
         ObservableList<Node> childrenList = actionPane.getChildren();
         for (Node child : childrenList) {
             int id = childrenList.indexOf(child);
             Button actionButton = (Button) child;
+            if (actions[id].equals("researchCloaking")) {
+                if (!map.getPlayerInfo(playerName).canCloakingResearched() || map.getPlayerInfo(playerName).getIsCloakingResearched()) {
+                    actionButton.setDisable(true);
+                }
+            }
+            if (actions[id].equals("upgradeTech")){
+                if (limited.get("upgrade tech")){
+                    actionButton.setDisable(true);
+                }
+            }
             actionButton.setOnAction(ae -> onSelectAction(ae, actions[id]));
-            // TODO: add checking for actions completed for turn
         }
     }
 
+    @FXML
     public void onSelectAction(ActionEvent ae, String action) {
         Object source = ae.getSource();
         try {
             if (source instanceof Button) {
-                next = action + "Action";
-                loadNextPhase((Stage) mapImageView.getScene().getWindow());
+                Button selectedAction = (Button) source;
+                StyleMapping mapping = new StyleMapping();
+                String destId = "label" + selectedAction.getParent().getId().substring(6);
+                this.selectedDest = mapping.getTerritoryName(destId);
+                this.next = action + "Action";
+                loadActionPopup(
+                        (Stage) (((Node) ae.getSource()).getScene().getWindow()),
+                        selectedSrc,
+                        selectedDest);
             } else {
                 throw new IllegalArgumentException(
                         "Action event " + ae.getSource() + " is invalid.");
             }
         } catch (Exception e) {
+            System.out.println(e);
             setErrorMessage(e.getMessage());
         }
     }
