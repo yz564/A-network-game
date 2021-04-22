@@ -109,7 +109,7 @@ public class LoadingController extends Controller implements Initializable, Clie
         bounceTransition(circle3, 200, -19);
 
         Random random = new Random();
-        Integer actionItem = random.nextInt(actionNames.length);
+        Integer actionItem = 0;//random.nextInt(actionNames.length);
         triviaText.setText(getActionDescription().get(actionNames[actionItem]));
         triviaIcon.setImage(new Image(getClass().getResource(getIconPaths().get(actionNames[actionItem])).toString()));
         triviaIcon.getStyleClass().addAll("action-button", "action-" + "move");

@@ -7,27 +7,27 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="990.0" style="-fx-background-color: #0053A0;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="edu.duke.ece651.risk.client.controller.LoadingController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="990.0" style="-fx-background-color: #0053A0;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.risk.client.controller.LoadingController">
    <children>
-      <Circle fx:id="circle2" fill="#ff4aa2" layoutX="495.0" layoutY="199.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="circle3" fill="#1fed78" layoutX="545.0" layoutY="199.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="circle1" fill="#ffcb3b" layoutX="445.0" layoutY="199.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Label fx:id="loadingMessage" alignment="CENTER" layoutX="295.0" layoutY="83.0" prefHeight="50.0" prefWidth="400.0" text="Loading Message" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Circle fx:id="circle2" fill="#ff4aa2" layoutX="495.0" layoutY="187.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="circle3" fill="#1fed78" layoutX="545.0" layoutY="187.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="circle1" fill="#ffcb3b" layoutX="445.0" layoutY="187.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label fx:id="loadingMessage" alignment="CENTER" layoutX="295.0" layoutY="71.0" prefHeight="50.0" prefWidth="400.0" text="Loading Message" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font name="Arial" size="24.0" />
          </font>
       </Label>
-      <Separator layoutX="150.0" layoutY="240.0" prefHeight="6.0" prefWidth="690.0" />
-      <Label layoutX="421.0" layoutY="285.0" text="Did you know?" textFill="WHITE">
+      <Separator layoutX="150.0" layoutY="228.0" prefHeight="6.0" prefWidth="690.0" />
+      <Label layoutX="421.0" layoutY="250.0" text="Did you know?" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="triviaText" alignment="TOP_LEFT" layoutX="292.0" layoutY="384.0" prefHeight="97.0" prefWidth="550.0" text="Trivia" textFill="WHITE" wrapText="true">
+      <Label fx:id="triviaText" alignment="TOP_LEFT" layoutX="303.0" layoutY="359.0" prefHeight="136.0" prefWidth="497.0" text="Trivia" textFill="WHITE" wrapText="true">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <ImageView fx:id="triviaIcon" fitHeight="64.0" fitWidth="64.0" layoutX="199.0" layoutY="382.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="triviaIcon" fitHeight="64.0" fitWidth="64.0" layoutX="191.0" layoutY="359.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </Pane>
