@@ -25,6 +25,7 @@ public class Player implements Runnable {
     private ArrayList<ActionInfo> tmpOrders;
     private HashMap<String, Boolean> isLimitedActionUsed;
     private String gameOverMessage;
+    private HashMap<String, TerritoryInfo> territoriesInfo;
 
     public Player(int id, ObjectInputStream in, ObjectOutputStream out, BufferedReader stdIn) {
         this.id = id;
@@ -40,6 +41,7 @@ public class Player implements Runnable {
         isLimitedActionUsed.put("upgrade tech", false);
         isLimitedActionUsed.put("move spy", false);
         isLimitedActionUsed.put("research patent", false);
+        territoriesInfo = new HashMap<>();
     }
 
     public HashMap<String, Boolean> getIsLimitedActionUsed() {
@@ -507,6 +509,18 @@ public class Player implements Runnable {
             // System.exit(0);
             while (true) {}
         } catch (Exception e) {
+        }
+    }
+
+    public void initializeTerritoriesInfo() {
+        for (String territoryName : theMap.getMyTerritories()) {
+            TerritoryInfo info =
+                    new TerritoryInfo(
+                            name,
+                            territoryName,
+                            theMap.getTerritory(territoryName).getDomain(),
+                            theMap.getTerritory(territoryName).getResProduction());
+            territoriesInfo.put(territoryName, info);
         }
     }
 }
