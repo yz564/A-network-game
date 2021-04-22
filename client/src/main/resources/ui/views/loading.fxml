@@ -14,7 +14,7 @@
       <Circle fx:id="circle1" fill="#ffcb3b" layoutX="445.0" layoutY="199.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
       <Label fx:id="loadingMessage" alignment="CENTER" layoutX="295.0" layoutY="83.0" prefHeight="50.0" prefWidth="400.0" text="Loading Message" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
-            <Font name="Arial" size="18.0" />
+            <Font name="Arial" size="24.0" />
          </font>
       </Label>
       <Separator layoutX="150.0" layoutY="240.0" prefHeight="6.0" prefWidth="690.0" />
@@ -25,7 +25,7 @@
       </Label>
       <Label fx:id="triviaText" alignment="TOP_LEFT" layoutX="292.0" layoutY="384.0" prefHeight="97.0" prefWidth="550.0" text="Trivia" textFill="WHITE" wrapText="true">
          <font>
-            <Font size="14.0" />
+            <Font size="18.0" />
          </font>
       </Label>
       <ImageView fx:id="triviaIcon" fitHeight="64.0" fitWidth="64.0" layoutX="199.0" layoutY="382.0" pickOnBounds="true" preserveRatio="true" />
