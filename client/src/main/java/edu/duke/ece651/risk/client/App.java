@@ -51,7 +51,6 @@ public class App implements Runnable, GUIEventListener {
         this.theGUIEvent = null;
         this.isGUIUpdated = false;
         this.messenger = new ClientEventMessenger();
-        this.myFactory = new ControllerFactory();
         this.isLeave = false;
         this.isRejoin = false;
     }
