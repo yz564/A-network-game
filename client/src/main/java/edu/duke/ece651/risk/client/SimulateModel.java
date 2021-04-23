@@ -15,12 +15,12 @@ import java.util.HashSet;
 public class SimulateModel {
     private static GUIEventMessenger messenger = new GUIEventMessenger();
 
-    public static App simulate(String task) throws Exception {
+    public static App simulate(String task, String address, String user, String pass, int room) throws Exception {
         App model = new App();
-        String serverAddress = "localhost";
-        String username = "Aman";
-        String password = "a";
-        Integer roomId = 1;
+        String serverAddress = address;
+        String username = user;
+        String password = pass;
+        Integer roomId = room;
         switch(task) {
             case "connectServer":
                 model = doServerConnect(model, serverAddress);

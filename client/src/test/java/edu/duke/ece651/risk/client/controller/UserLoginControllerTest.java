@@ -36,7 +36,7 @@ class UserLoginControllerTest {
     @Start
     private void start(Stage stage) throws Exception {
         model = new App();
-        model = SimulateModel.simulate("connectServer"); // player has connected to server
+        model = SimulateModel.simulate("connectServer", "localhost", "Bots1", "1", 1); // player has connected to server
         cont = new UserLoginController(model);
         testErrorMessage = new Label();
         cont.errorMessage = testErrorMessage;
@@ -49,8 +49,8 @@ class UserLoginControllerTest {
     @Test
     public void test_valid_login() {
         Platform.runLater(() -> {
-            testUserLoginUsernameField.setText("Aman");
-            testUserLoginPasswordField.setText("a");
+            testUserLoginUsernameField.setText("Bots1");
+            testUserLoginPasswordField.setText("1");
             Button login = new Button("Log In");
             try {
                 cont.logInButton(new ActionEvent(login, null));
@@ -65,8 +65,8 @@ class UserLoginControllerTest {
     @Test
     public void test_invalid_login() {
         Platform.runLater(() -> {
-            testUserLoginUsernameField.setText("Amandeep");
-            testUserLoginPasswordField.setText("a");
+            testUserLoginUsernameField.setText("incorrect username");
+            testUserLoginPasswordField.setText("random password");
             Button login = new Button("Log In");
             try {
                 cont.logInButton(new ActionEvent(login, null));

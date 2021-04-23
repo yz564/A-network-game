@@ -35,7 +35,7 @@ class JoinRoomControllerTest {
         try {
             this.stage = stage;
             model = new App();
-            model = SimulateModel.simulate("userLogin"); // player has logged in
+            model = SimulateModel.simulate("userLogin", "localhost", "Bots11", "11", 1); // player has logged in
             cont = new JoinRoomController(model);
             testErrorMessage = new Label();
             cont.errorMessage = testErrorMessage;
