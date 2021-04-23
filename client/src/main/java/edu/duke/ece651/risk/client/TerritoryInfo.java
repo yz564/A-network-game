@@ -21,6 +21,17 @@ public class TerritoryInfo {
         this.territoryName = territoryName;
         this.domain = domain;
         this.resProduction = resProduction;
+        this.ownerName = "Unknown";
+        this.cloakingTurns = 0;
+        this.playerSpyNum = 0;
+        this.troopNum = new HashMap<>();
+        troopNum.put("level0", 0);
+        troopNum.put("level1", 0);
+        troopNum.put("level2", 0);
+        troopNum.put("level3", 0);
+        troopNum.put("level4", 0);
+        troopNum.put("level5", 0);
+        troopNum.put("level6", 0);
     }
 
     public TerritoryInfo(
