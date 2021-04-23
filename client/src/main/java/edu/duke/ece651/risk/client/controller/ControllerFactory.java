@@ -29,8 +29,8 @@ public class ControllerFactory {
         controllers.put("selectAction", new SelectActionController((App) model));
         controllers.put("gameEnd", new GameEndController((App) model));
         controllers.put(
-                "loading",
-                new LoadingController((App) model, "Waiting for other players..."));
+                "loading", new LoadingController((App) model, "Waiting for other players..."));
+        controllers.put("watchGame", new WatchGameController((App) model));
         // Add new controllers here
         controllers.put("test", new ServerConnectController(model));
         return controllers;
@@ -44,11 +44,19 @@ public class ControllerFactory {
         controllers.put(
                 "attackAction",
                 new AttackActionController((App) model, srcName, destName, mainPage));
-        controllers.put("upgradeTalentsAction", new UpgradeTalentsActionController((App) model, srcName, mainPage));
-        controllers.put("upgradeTechAction", new UpgradeTechActionController((App) model, mainPage));
-        controllers.put("moveSpyAction", new MoveSpyActionController((App) model, srcName, destName, mainPage));
-        controllers.put("researchCloakingAction", new ResearchCloakingActionController((App) model, mainPage));
-        controllers.put("cloakingAction", new CloakingActionController((App) model, srcName, mainPage));
+        controllers.put(
+                "upgradeTalentsAction",
+                new UpgradeTalentsActionController((App) model, srcName, mainPage));
+        controllers.put(
+                "upgradeTechAction", new UpgradeTechActionController((App) model, mainPage));
+        controllers.put(
+                "moveSpyAction",
+                new MoveSpyActionController((App) model, srcName, destName, mainPage));
+        controllers.put(
+                "researchCloakingAction",
+                new ResearchCloakingActionController((App) model, mainPage));
+        controllers.put(
+                "cloakingAction", new CloakingActionController((App) model, srcName, mainPage));
         return controllers;
     }
 }

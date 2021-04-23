@@ -99,20 +99,26 @@ public class PhaseStorage {
                         "/ui/styling/territory-group.css",
                         "/ui/styling/general-design.css");
         Phase phase14 =
-                makePhase("gameEnd",
+                makePhase(
+                        "gameEnd",
                         "Duke Risk Game! - Game End",
                         "/ui/views/game-end-fancy.fxml",
                         "/ui/styling/general-design.css");
         Phase phase15 =
-                makePhase("loading",
-                "Waiting for Other Players",
-                "/ui/views/loading.fxml",
-                "/ui/styling/general-design.css",
+                makePhase(
+                        "loading",
+                        "Duke Risk Game! - Waiting for Other Players",
+                        "/ui/views/loading.fxml",
+                        "/ui/styling/general-design.css",
                         "/ui/styling/action.css");
-        Phase phaseTest =
-                makePhase("test",
-                "Duke Risk Game! - Test",
-                "/ui/views/test.fxml");
+        Phase phase16 =
+                makePhase(
+                        "watchGame",
+                        "Duke Risk Game! - Watch Game",
+                        "/ui/views/watch-game.fxml",
+                        "/ui/styling/general-design.css",
+                        "/ui/styling/action.css");
+        Phase phaseTest = makePhase("test", "Duke Risk Game! - Test", "/ui/views/test.fxml");
         // Add new Phases here
 
         phases.put(phase1.getName(), phase1);
@@ -130,6 +136,7 @@ public class PhaseStorage {
         phases.put(phase13.getName(), phase13);
         phases.put(phase14.getName(), phase14);
         phases.put(phase15.getName(), phase15);
+        phases.put(phase16.getName(), phase16);
         phases.put(phaseTest.getName(), phaseTest);
         // Put new Phases into HashMap here
         return phases;

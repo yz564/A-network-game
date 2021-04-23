@@ -52,7 +52,7 @@ public class JoinRoomController extends Controller
         Boolean joinRoomSuccess = ce.getStatusBoolean();
         // System.out.println("GUI message received " + joinRoomSuccess);
         if (!joinRoomSuccess) {
-            errorMessage.setText("The room is full! Try another room.");
+            Platform.runLater(() -> errorMessage.setText("The room is full! Try another room."));
         } else {
             boolean checkInSuccess = model.checkIn();
             // System.out.println("GUI checkIn " + checkInSuccess);

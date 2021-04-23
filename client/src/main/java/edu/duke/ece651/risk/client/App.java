@@ -226,11 +226,10 @@ public class App implements Runnable, GUIEventListener {
                     String result = getPlayer().checkStatus();
                     if (result == null) {
                         messenger.setMap(getPlayer().getMap(), "selectAction");
-                    }
-                    else if (result.equals("You lose")) {
-                      messenger.setMap(getPlayer().getMap(), "watchGame");
-                    }
-                    else {
+                    } else if (result.equals("You lose")) {
+                        // getPlayer().getMap().getPlayerInfo(name).setMultiVizStatus();
+                        messenger.setMap(getPlayer().getMap(), "watchGame");
+                    } else {
                         messenger.setMap(getPlayer().getMap(), "gameEnd");
                         break;
                     }
