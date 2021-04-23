@@ -86,6 +86,14 @@ public class TerritoryInfo {
         return troopNum.get(oneTroopName);
     }
 
+    public int getTotalTroopNum(){
+        int totalNum = 0;
+        for (String troopName: troopNum.keySet()){
+            totalNum += troopNum.get(troopName);
+        }
+        return totalNum;
+    }
+
     public void setTroopNum(HashMap<String, Integer> troopNum) {
         this.troopNum = troopNum;
     }

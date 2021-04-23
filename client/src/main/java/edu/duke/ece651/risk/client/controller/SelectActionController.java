@@ -74,13 +74,13 @@ public class SelectActionController extends Controller implements Initializable 
         // set coloring for each territory label
         helper.initializeTerritoryLabelByOwner(map, labelList);
         // set tooltip for each territory label
-        helper.initializeTerritoryTooltips(map, labelList, model.getPlayer().getName());
+        helper.initializeTerritoryTooltips(model.getPlayer(), labelList, model.getPlayer().getName());
         // set image and label for selected character
         helper.initializeSelectedCharacter(model, charSelected, nameSelected);
         // set tooltip for player info
         helper.initializePlayerInfoTooltip(map, model.getPlayer().getName(), charSelected);
         // set total number of units for each territory
-        helper.initializeTerritoryTotalNumUnitsLabels(map, labelList, numList);
+        helper.initializeTerritoryTotalNumUnitsLabels(model.getPlayer(), labelList, numList);
         // disable territory button for enemy territory
         helper.initializeTerritoryButtons(model, labelList);
         // set player action buttons
@@ -155,8 +155,7 @@ public class SelectActionController extends Controller implements Initializable 
                 }
             }
             else{
-                if ((selectedTerritory.getName().equals(territoryName)
-                        || selectedTerritory.isAdjacentTo(territory)) && !limited.get("move spy")) {
+                if (selectedTerritory.isAdjacentTo(territory) && !limited.get("move spy")) {
                     actionList.add("moveSpy");
                 }
             }

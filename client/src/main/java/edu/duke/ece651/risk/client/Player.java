@@ -43,6 +43,10 @@ public class Player implements Runnable {
         territoriesInfo = new HashMap<>();
     }
 
+    public Boolean isResearchPatentAvailable() {
+        return tmpOrders.isEmpty();
+    }
+
     public HashMap<String, Boolean> getIsLimitedActionUsed() {
         return isLimitedActionUsed;
     }
@@ -526,7 +530,7 @@ public class Player implements Runnable {
     }
 
     public void updateTerritoryInfo() {
-        HashMap<String, Boolean> vizStatus = theMap.getPlayerInfo("name").getAllVizStatus();
+        HashMap<String, Boolean> vizStatus = theMap.getPlayerInfo(name).getAllVizStatus();
         for (String territoryName : theMap.getMyTerritories()) {
             if (vizStatus.get(territoryName)) {
                 TerritoryInfo info = territoriesInfo.get(territoryName);
