@@ -39,7 +39,7 @@ class AppTest {
     public void test_login() throws Exception {
         App app = new App();
         String connect = app.tryConnect("localhost");
-        Boolean login = app.tryLogin("Bots1", "1");
+        Boolean login = app.tryLogin("Bots101", "101");
         assertEquals(true, login);
 
         app = new App();
@@ -52,7 +52,7 @@ class AppTest {
     public void test_checkin() throws Exception {
         App app = new App();
         String connect = app.tryConnect("localhost");
-        Boolean login = app.tryLogin("Bots2", "2");
+        Boolean login = app.tryLogin("Bots102", "102");
         Boolean checkin = app.checkIn();
         assertEquals(true, checkin);
         app.requestLeave();
@@ -64,21 +64,21 @@ class AppTest {
     public void test_join_room() throws Exception {
         App app = new App();
         app.tryConnect("localhost");
-        app.tryLogin("Bots3", "3");
+        app.tryLogin("Bots103", "103");
         app.checkIn();
         Boolean success = app.tryJoinRoom(1);
         assertEquals(true, success);
 
         App app2 = new App();
         app2.tryConnect("localhost");
-        app2.tryLogin("Bots4", "4");
+        app2.tryLogin("Bots104", "104");
         app2.checkIn();
         Boolean success2 = app2.tryJoinRoom(1);
         assertEquals(true, success2);
 
         App app3 = new App();
         app3.tryConnect("localhost");
-        app3.tryLogin("Bots5", "5");
+        app3.tryLogin("Bots105", "105");
         app3.checkIn();
         Boolean success3 = app3.tryJoinRoom(1);
         assertEquals(false, success3);
@@ -88,7 +88,7 @@ class AppTest {
     public void test_leave() throws Exception {
         App app = new App();
         String connect = app.tryConnect("localhost");
-        Boolean login = app.tryLogin("Bots6", "6");
+        Boolean login = app.tryLogin("Bots106", "106");
         Boolean checkin = app.checkIn();
         app.requestLeave();
         checkin = app.checkIn();
