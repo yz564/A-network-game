@@ -92,7 +92,7 @@ public class WatchGameController extends Controller implements Initializable, Cl
     public void onUpdateEvent(ClientEvent ce) throws Exception {
         System.out.println("LoadingController got message from client.");
         try {
-            this.next = "watchGame";
+            this.next = ce.getNextViewName();
             Platform.runLater(
                     () -> {
                         try {
