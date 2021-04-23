@@ -1,3 +1,8 @@
+.territory-group-disabled-unknown {
+    -fx-background-color: #c7c4bd90;
+    -fx-background-insets: 0;
+}
+
 .territory-group-1 {
     -fx-background-color: #FF69B470;
     -fx-border-color: #FF69B4;

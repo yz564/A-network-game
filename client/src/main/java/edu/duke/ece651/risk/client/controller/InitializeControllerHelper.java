@@ -1,6 +1,8 @@
 package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
+import edu.duke.ece651.risk.client.Player;
+import edu.duke.ece651.risk.client.TerritoryInfo;
 import edu.duke.ece651.risk.client.view.CharacterButton;
 import edu.duke.ece651.risk.client.view.StyleMapping;
 import edu.duke.ece651.risk.shared.PlayerInfo;
@@ -21,12 +23,10 @@ public class InitializeControllerHelper {
     /**
      * Initializes the Tooltips on each territory label.
      *
-     * @param map The game's map for gathering information to display.
      * @param territoryLabelList the territory label ArrayList.
      */
-    public void initializeTerritoryTooltips(
-            WorldMap map, ArrayList<ToggleButton> territoryLabelList, String playerName) {
-        int numPlayers = map.getNumPlayers();
+    public void initializeTerritoryTooltips(Player player, ArrayList<ToggleButton> territoryLabelList, String playerName) {
+        int numPlayers = player.getMap().getNumPlayers();
         StyleMapping mapping = new StyleMapping();
         for (ToggleButton territoryLabel : territoryLabelList) {
             if (numPlayers % 2 == 1 && territoryLabelList.indexOf(territoryLabel) == 15) {
@@ -36,7 +36,7 @@ public class InitializeControllerHelper {
             }
             String territoryName = mapping.getTerritoryName(territoryLabel.getId());
             Tooltip tt = new Tooltip();
-            tt.setText(getTerritoryTextInfo(map, territoryName, playerName));
+            tt.setText(getTerritoryTextInfo(player, territoryName, playerName));
             tt.getStyleClass().add("tooltip-territory");
             tt.setShowDelay(Duration.millis(1000));
             tt.setHideDelay(Duration.millis(200));
@@ -174,9 +174,10 @@ public class InitializeControllerHelper {
     }
 
     public void initializeTerritoryTotalNumUnitsLabels(
-            WorldMap map,
+            Player player,
             ArrayList<ToggleButton> territoryLabelList,
             ArrayList<Label> numLabelList) {
+        WorldMap map = player.getMap();
         int numPlayers = map.getNumPlayers();
         StyleMapping mapping = new StyleMapping();
         for (int i = 0; i < territoryLabelList.size(); i++) {
@@ -187,15 +188,18 @@ public class InitializeControllerHelper {
             }
             String labelName = territoryLabelList.get(i).getId();
             String territoryName = mapping.getTerritoryName(labelName);
+            TerritoryInfo info = player.getTerritoryInfo(territoryName);
             numLabelList
                     .get(i)
-                    .setText(String.valueOf(map.getTerritory(territoryName).getTotalNumUnits()));
+                    .setText(
+                            String.valueOf(info.getTotalTroopNum()));
         }
     }
 
     public void initializeTerritoryButtons(App model, ArrayList<ToggleButton> territoryLabelList) {
         String playerName = model.getPlayer().getName();
         PlayerInfo playerInfo = model.getPlayer().getMap().getPlayerInfo(playerName);
+        HashMap<String, Boolean> visibility = playerInfo.getAllVizStatus();
         HashMap<String, Boolean> limited = model.getPlayer().getIsLimitedActionUsed();
         int numPlayers = model.getPlayer().getMap().getNumPlayers();
         StyleMapping mapping = new StyleMapping();
@@ -212,17 +216,25 @@ public class InitializeControllerHelper {
                             .getMap()
                             .getPlayerInfo(territory.getOwnerName())
                             .getPlayerId();
-            if (territory.getSpyTroopNumUnits(playerName) <= 0 || limited.get("move spy")) {
+            if (!visibility.get(territoryName)){
+                territoryButton
+                        .getStyleClass()
+                        .removeAll("territory-group-" + playerId);
+                territoryButton
+                        .getStyleClass()
+                        .addAll("territory-group-disabled-unknown");
+            }
+            else if  (territory.getSpyTroopNumUnits(playerName) <= 0 || limited.get("move spy")) {
                 if ((territory.isBelongTo(playerName)
                                 && !playerInfo.getIsCloakingResearched()
                                 && territory.getTotalNumUnits() <= 0)
                         || !territory.isBelongTo(playerName)) {
                     territoryButton
                             .getStyleClass()
-                            .removeAll("territory-group-" + String.valueOf(playerId));
+                            .removeAll("territory-group-" + playerId);
                     territoryButton
                             .getStyleClass()
-                            .addAll("territory-group-disabled-" + String.valueOf(playerId));
+                            .addAll("territory-group-disabled-" + playerId);
                     territoryButton.setOnAction(null);
                     // territoryButton.setDisable(true);
                 }
@@ -298,40 +310,36 @@ public class InitializeControllerHelper {
     /**
      * Returns a String that has text information of the given territory.
      *
-     * @param map The game's map for gathering information to display.
-     * @param territoryName The territory's name to get info about.
      * @return a String that has text information of the given territory.
      */
-    private String getTerritoryTextInfo(WorldMap map, String territoryName, String playerName) {
-        Territory territory = map.getTerritory(territoryName);
+    private String getTerritoryTextInfo(Player player, String territoryName, String playerName) {
+        TerritoryInfo info = player.getTerritoryInfo(territoryName);
         String ans =
                 "--------------------------\n"
                         + territoryName
                         + "'s Information:\n"
                         + "--------------------------\n";
-        String ownerName = territory.getOwnerName();
-        if (ownerName == null) {
-            ownerName = "No Owner Yet";
-        }
-        ans = ans + "- Owner Name: " + ownerName + "\n";
-        ans = ans + "- Size: " + territory.getSize() + "\n";
-        ans = ans + "- Food Production Rate: " + territory.getResProduction().get("food") + "\n";
-        ans = ans + "- Tech Production Rate: " + territory.getResProduction().get("tech") + "\n";
-        ans = ans + "- Cloaking Turns: " + territory.getCloakingTurns() + "\n";
+        ans = ans + "- Owner Name: " + info.getOwnerName() + "\n";
+        ans = ans + "- Size: " + "\n";/*info.getSize() + "\n";*/
+        ans = ans + "- Food Production Rate: " + info.getFoodProduction() + "\n";
+        ans = ans + "- Tech Production Rate: " + info.getTechProduction() + "\n";
+        ans = ans + "- Domain: " + info.getDomain() + "\n";
+        ans = ans + "- Cloaking Turns: " + info.getCloakingTurns() + "\n";
+        ans = ans + "- Visibility: " + player.getMap().getPlayerInfo(playerName).getOneVizStatus(territoryName) + "\n";
         ans =
                 ans
                         + "--------------------------\n"
                         + territoryName
                         + "'s Talents:\n"
                         + "--------------------------\n";
-        ans = ans + "- Undergrads: " + territory.getTroopNumUnits("level0") + "\n";
-        ans = ans + "- Master: " + territory.getTroopNumUnits("level1") + "\n";
-        ans = ans + "- PhD: " + territory.getTroopNumUnits("level2") + "\n";
-        ans = ans + "- Postdoc: " + territory.getTroopNumUnits("level3") + "\n";
-        ans = ans + "- Asst. Prof: " + territory.getTroopNumUnits("level4") + "\n";
-        ans = ans + "- Assc. Prof: " + territory.getTroopNumUnits("level5") + "\n";
-        ans = ans + "- Professor: " + territory.getTroopNumUnits("level6") + "\n";
-        ans = ans + "- Spy: " + territory.getSpyTroopNumUnits(playerName) + "\n";
+        ans = ans + "- Undergrads: " + info.getOneTroopNum("level0") + "\n";
+        ans = ans + "- Master: " + info.getOneTroopNum("level1") + "\n";
+        ans = ans + "- PhD: " + info.getOneTroopNum("level2") + "\n";
+        ans = ans + "- Postdoc: " + info.getOneTroopNum("level3") + "\n";
+        ans = ans + "- Asst. Prof: " + info.getOneTroopNum("level4") + "\n";
+        ans = ans + "- Assoc. Prof: " + info.getOneTroopNum("level5") + "\n";
+        ans = ans + "- Professor: " + info.getOneTroopNum("level6") + "\n";
+        ans = ans + "- Spy: " + info.getPlayerSpyNum() + "\n";
         return ans;
     }
 }

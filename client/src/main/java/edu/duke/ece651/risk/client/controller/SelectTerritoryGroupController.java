@@ -54,7 +54,7 @@ public class SelectTerritoryGroupController extends Controller
         // set coloring for each territory label
         helper.initializeTerritoryLabelByGroup(map, labelList);
         // set tooltip for each territory label
-        helper.initializeTerritoryTooltips(map, labelList, model.getPlayer().getName());
+        helper.initializeTerritoryTooltips(model.getPlayer(), labelList, model.getPlayer().getName());
         // set image and label for each character
         helper.initializeCharacter(map, charList, nameList);
     }
