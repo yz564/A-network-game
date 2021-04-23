@@ -49,6 +49,7 @@ public class ControllerFactory {
         controllers.put("moveSpyAction", new MoveSpyActionController((App) model, srcName, destName, mainPage));
         controllers.put("researchCloakingAction", new ResearchCloakingActionController((App) model, mainPage));
         controllers.put("cloakingAction", new CloakingActionController((App) model, srcName, mainPage));
+        controllers.put("researchPatentAction", new ResearchPatentActionController((App) model, mainPage));
         return controllers;
     }
 }

@@ -25,7 +25,8 @@ public class InitializeControllerHelper {
      *
      * @param territoryLabelList the territory label ArrayList.
      */
-    public void initializeTerritoryTooltips(Player player, ArrayList<ToggleButton> territoryLabelList, String playerName) {
+    public void initializeTerritoryTooltips(
+            Player player, ArrayList<ToggleButton> territoryLabelList, String playerName) {
         int numPlayers = player.getMap().getNumPlayers();
         StyleMapping mapping = new StyleMapping();
         for (ToggleButton territoryLabel : territoryLabelList) {
@@ -189,10 +190,7 @@ public class InitializeControllerHelper {
             String labelName = territoryLabelList.get(i).getId();
             String territoryName = mapping.getTerritoryName(labelName);
             TerritoryInfo info = player.getTerritoryInfo(territoryName);
-            numLabelList
-                    .get(i)
-                    .setText(
-                            String.valueOf(info.getTotalTroopNum()));
+            numLabelList.get(i).setText(String.valueOf(info.getTotalTroopNum()));
         }
     }
 
@@ -216,25 +214,16 @@ public class InitializeControllerHelper {
                             .getMap()
                             .getPlayerInfo(territory.getOwnerName())
                             .getPlayerId();
-            if (!visibility.get(territoryName)){
-                territoryButton
-                        .getStyleClass()
-                        .removeAll("territory-group-" + playerId);
-                territoryButton
-                        .getStyleClass()
-                        .addAll("territory-group-disabled-unknown");
-            }
-            else if  (territory.getSpyTroopNumUnits(playerName) <= 0 || limited.get("move spy")) {
+            if (!visibility.get(territoryName)) {
+                territoryButton.getStyleClass().removeAll("territory-group-" + playerId);
+                territoryButton.getStyleClass().addAll("territory-group-disabled-unknown");
+            } else if (territory.getSpyTroopNumUnits(playerName) <= 0 || limited.get("move spy")) {
                 if ((territory.isBelongTo(playerName)
                                 && !playerInfo.getIsCloakingResearched()
                                 && territory.getTotalNumUnits() <= 0)
                         || !territory.isBelongTo(playerName)) {
-                    territoryButton
-                            .getStyleClass()
-                            .removeAll("territory-group-" + playerId);
-                    territoryButton
-                            .getStyleClass()
-                            .addAll("territory-group-disabled-" + playerId);
+                    territoryButton.getStyleClass().removeAll("territory-group-" + playerId);
+                    territoryButton.getStyleClass().addAll("territory-group-disabled-" + playerId);
                     territoryButton.setOnAction(null);
                     // territoryButton.setDisable(true);
                 }
@@ -251,12 +240,26 @@ public class InitializeControllerHelper {
         Territory src = map.getTerritory(srcName);
         Territory dest = map.getTerritory(destName);
         for (int i = 0; i < srcNumList.size(); i++) {
-            srcNumList
+            srcNumList.get(i).setText(String.valueOf(src.getTroopNumUnits("level" + i)));
+            destNumList.get(i).setText(String.valueOf(dest.getTroopNumUnits("level" + i)));
+        }
+    }
+
+    public void initializePlayerTerritoryInfo(
+            WorldMap map,
+            String playerName,
+            ArrayList<ToggleButton> srcNameList,
+            ArrayList<Label> srcNumList,
+            ArrayList<ImageView> srcImageList) {
+        ArrayList<String> playerTerritories =
+                new ArrayList(map.getPlayerTerritories(playerName).keySet());
+        for (int i = 0; i < playerTerritories.size(); i++) {
+            Territory target = map.getTerritory(playerTerritories.get(i));
+            srcNameList.get(i).setText(target.getName());
+            srcNumList.get(i).setText(String.valueOf(target.getTotalNumUnits()));
+            srcImageList
                     .get(i)
-                    .setText(String.valueOf(src.getTroopNumUnits("level" + i)));
-            destNumList
-                    .get(i)
-                    .setText(String.valueOf(dest.getTroopNumUnits("level" + i)));
+                    .setImage(new Image("ui/static-images/territory/" + target.getName() + ".jpg"));
         }
     }
 
@@ -277,6 +280,21 @@ public class InitializeControllerHelper {
                 grid.getRowConstraints().get(row + 1).setMaxHeight(0);
                 grid.getChildren().removeIf(node -> GridPane.getRowIndex(node) == row);
                 grid.getChildren().removeIf(node -> GridPane.getRowIndex(node) == row + 1);
+            }
+        }
+    }
+
+    public void initializeTerritoryRows(ArrayList<Label> srcNumList, GridPane grid) {
+        for (int i = 0; i < srcNumList.size(); i++) {
+            int srcNum = Integer.parseInt(srcNumList.get(i).getText());
+            if (srcNum <= 0) {
+                int row = (i / 2) * 3 + 4;
+                grid.getRowConstraints().get(row).setMaxHeight(0);
+                grid.getRowConstraints().get(row - 1).setMaxHeight(0);
+                grid.getRowConstraints().get(row - 2).setMaxHeight(0);
+                grid.getChildren().removeIf(node -> GridPane.getRowIndex(node) == row);
+                grid.getChildren().removeIf(node -> GridPane.getRowIndex(node) == row - 1);
+                grid.getChildren().removeIf(node -> GridPane.getRowIndex(node) == row - 2);
             }
         }
     }
@@ -320,12 +338,16 @@ public class InitializeControllerHelper {
                         + "'s Information:\n"
                         + "--------------------------\n";
         ans = ans + "- Owner Name: " + info.getOwnerName() + "\n";
-        ans = ans + "- Size: " + "\n";/*info.getSize() + "\n";*/
+        ans = ans + "- Size: " + "\n"; /*info.getSize() + "\n";*/
         ans = ans + "- Food Production Rate: " + info.getFoodProduction() + "\n";
         ans = ans + "- Tech Production Rate: " + info.getTechProduction() + "\n";
         ans = ans + "- Domain: " + info.getDomain() + "\n";
         ans = ans + "- Cloaking Turns: " + info.getCloakingTurns() + "\n";
-        ans = ans + "- Visibility: " + player.getMap().getPlayerInfo(playerName).getOneVizStatus(territoryName) + "\n";
+        ans =
+                ans
+                        + "- Visibility: "
+                        + player.getMap().getPlayerInfo(playerName).getOneVizStatus(territoryName)
+                        + "\n";
         ans =
                 ans
                         + "--------------------------\n"

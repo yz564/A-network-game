@@ -67,6 +67,7 @@ public class JoinRoomController extends Controller
                             loadNextPhase((Stage) errorMessage.getScene().getWindow());
                         } catch (IOException e) {
                             errorMessage.setText(e.getMessage());
+                            System.out.println(errorMessage.getText());
                         }
                     });
         }
