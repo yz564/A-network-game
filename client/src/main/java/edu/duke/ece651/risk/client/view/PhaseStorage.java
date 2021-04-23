@@ -106,20 +106,30 @@ public class PhaseStorage {
                         "/ui/styling/territory-group.css",
                         "/ui/styling/general-design.css");
         Phase phase15 =
-                makePhase("gameEnd",
+                makePhase(
+                        "gameEnd",
                         "Duke Risk Game! - Game End",
                         "/ui/views/game-end.fxml",
                         "/ui/styling/general-design.css");
         Phase phase16 =
-                makePhase("loading",
-                "Waiting for Other Players",
-                "/ui/views/loading.fxml",
-                "/ui/styling/general-design.css",
+                makePhase(
+                        "loading",
+                        "Waiting for Other Players",
+                        "/ui/views/loading.fxml",
+                        "/ui/styling/general-design.css",
                         "/ui/styling/action.css");
-        Phase phaseTest =
-                makePhase("test",
-                "Duke Risk Game! - Test",
-                "/ui/views/test.fxml");
+
+        Phase phase17 =
+                makePhase(
+                        "watchGame",
+                        "Duke Risk Game! - Watch Game",
+                        "/ui/views/watch-game.fxml",
+                        "/ui/styling/territory-group.css",
+                        "/ui/styling/territory.css",
+                        "/ui/styling/general-design.css",
+                        "/ui/styling/action.css");
+
+        Phase phaseTest = makePhase("test", "Duke Risk Game! - Test", "/ui/views/test.fxml");
         // Add new Phases here
 
         phases.put(phase1.getName(), phase1);
@@ -138,6 +148,7 @@ public class PhaseStorage {
         phases.put(phase14.getName(), phase14);
         phases.put(phase15.getName(), phase15);
         phases.put(phase16.getName(), phase16);
+        phases.put(phase17.getName(), phase17);
         phases.put(phaseTest.getName(), phaseTest);
         // Put new Phases into HashMap here
         return phases;

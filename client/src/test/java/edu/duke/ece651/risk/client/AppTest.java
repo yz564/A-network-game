@@ -18,10 +18,83 @@ import java.io.StringReader;
 
 class AppTest {
     @Test
-    void test_constructor() {
+    void test_tryConnect() {
+      try{
       App myApp=new App();
+      myApp.initializeApp(null, null, null, null);
+      myApp.deleteJoinedRoomId(0);
+      myApp.getPlayer();
+      myApp.getMessenger();
+      myApp.setListener(null);
+      myApp.tryConnect("localhost");
+    } catch (Exception e) {
     }
-  
+    }
+  @Test
+    void test_selectTerritory() {
+      try{
+        App myApp=new App(null,null,null,null);
+      myApp.trySelectTerritory(null);
+    } catch (Exception e) {
+    }
+    }
+  @Test
+    void test_checkIn() {
+      try{
+        App myApp=new App(null,null,null,null);
+      myApp.checkIn();
+    } catch (Exception e) {
+    }
+    }
+  @Test
+    void test_requestLeave() {
+      try{
+        App myApp=new App();
+      myApp.initializeApp(null, null, null, null);
+      myApp.requestLeave();
+    } catch (Exception e) {
+    }
+    }
+  @Test
+    void test_receiveMessage() {
+      try{
+        App myApp=new App(null,null,null,null);
+      myApp.receiveMessage();
+    } catch (Exception e) {
+    }
+    }
+  @Test
+    void test_sendMessage() {
+      try{
+        App myApp=new App(null,null,null,null);
+      myApp.sendMessage(null);
+    } catch (Exception e) {
+    }
+    }
+  @Test
+    void test_tryLogin() {
+      try{
+        App myApp=new App(null,null,null,null);
+      myApp.tryLogin(null, null);
+    } catch (Exception e) {
+    }
+    }
+  @Test
+    void test_tryJoinRoom() {
+      try{
+        App myApp=new App(null,null,null,null);
+      myApp.tryJoinRoom(0);
+    } catch (Exception e) {
+    }
+    }
+  @Test
+    void test_checkGUIUpdate() {
+      try{
+        App myApp=new App(null,null,null,null);
+      myApp.checkGUIUpdate();
+    } catch (Exception e) {
+    }
+    }
 }
 
 
