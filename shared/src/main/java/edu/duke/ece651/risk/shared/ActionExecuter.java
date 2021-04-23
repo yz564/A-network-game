@@ -211,6 +211,14 @@ public class ActionExecuter {
      */
     public void executeResearchPatent(WorldMap map, ActionInfo info) {
         // increase patent progress
+        int total = calculatePatentProgress(map, info);
+        map.getPlayerInfo(info.getSrcOwnerName()).addPatentProgress(total);
+        // deducts cost
+        HashMap<String, Integer> resCost = costCal.calculateResearchPatentCost(info, map);
+        deductCost(map, info, resCost);
+    }
+
+    public int calculatePatentProgress(WorldMap map, ActionInfo info) {
         String playerDomain = map.getPlayerInfo(info.getSrcOwnerName()).getResearchDomain();
         ArrayList<String> territoryNames = info.getTargetTerritoryNames();
         int total = 0;
@@ -229,10 +237,7 @@ public class ActionExecuter {
         // adjust the speed of research patent.
         // TODO: find appropriate speed
         total = total / 30;
-        map.getPlayerInfo(info.getSrcOwnerName()).addPatentProgress(total);
-        // deducts cost
-        HashMap<String, Integer> resCost = costCal.calculateResearchPatentCost(info, map);
-        deductCost(map, info, resCost);
+        return total;
     }
 
     /**
