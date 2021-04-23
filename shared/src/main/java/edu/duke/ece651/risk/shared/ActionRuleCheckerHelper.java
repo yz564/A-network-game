@@ -56,7 +56,7 @@ public class ActionRuleCheckerHelper {
                 new TerritoryExistenceRuleChecker(
                         new SrcOwnershipRuleChecker(
                                 new CloakingRuleChecker(new EnoughResourceRuleChecker(null))));
-        this.researchPatentChecker = new EnoughResourceRuleChecker(null);
+        this.researchPatentChecker = new PlayerTerritoryRuleChecker(new EnoughResourceRuleChecker(null));
     }
 
     /**
