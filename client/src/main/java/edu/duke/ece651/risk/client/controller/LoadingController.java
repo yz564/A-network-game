@@ -13,6 +13,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -35,6 +36,7 @@ public class LoadingController extends Controller implements Initializable, Clie
     @FXML Circle circle3;
     @FXML Label triviaText;
     @FXML ImageView triviaIcon;
+    @FXML Button triviaButton;
 
     String messageForPlayer;
     String[] actionNames;
@@ -47,7 +49,7 @@ public class LoadingController extends Controller implements Initializable, Clie
      */
     public LoadingController(App model, String message) {
         super(model);
-        actionNames = new String[] {"move", "attack", "spy", "cloaking", "upgrade", "patent"};
+        actionNames = new String[] {"move", "attack", "moveSpy", "cloaking", "upgradeTalents", "researchPatent"};
         this.messenger = new GUIEventMessenger();
         messenger.setGUIEventListener(model);
         this.messageForPlayer = message;
@@ -63,7 +65,7 @@ public class LoadingController extends Controller implements Initializable, Clie
                 "Units could only be moved within ones own territories.");
         descriptions.put("attack", "Attacking is a crucial part of the game. "+
                 "You could only attack a territory that is adjacent to your territory.");
-        descriptions.put("spy", "Once a spy is in enemy territory, "+
+        descriptions.put("moveSpy", "Once a spy is in enemy territory, "+
                 "you can see detailed information about the enemy territory. "+
                 "Spy can be moved one territory at a time. "+
                 "You could convert undergrad units to spy units.");
@@ -71,9 +73,9 @@ public class LoadingController extends Controller implements Initializable, Clie
                 "even if your territory is adjacent to enemy's territory. "+
                 "An enemy will, however, still see detailed territory information if they have a spy in "+
                 "your territory. To use cloaking, you must first research it.");
-        descriptions.put("upgrade", "Upgrading is a crucial part of the game. "+
+        descriptions.put("upgradeTalents", "Upgrading is a crucial part of the game. "+
                 "You could upgrade individual units, and technology level of your territories.");
-        descriptions.put("patent", "Finishing researching a patent for your character is another way to win the "+
+        descriptions.put("researchPatent", "Finishing researching a patent for your character is another way to win the "+
                 "game. You must start the research for the patent. Once the research is started, the research "+
                 "progresses automatically in each turn. The research is faster is you own territories related "+
                 "to the area of the research of your character.");
@@ -88,10 +90,10 @@ public class LoadingController extends Controller implements Initializable, Clie
         HashMap<String, String> paths = new HashMap<>();
         paths.put("move", "/ui/icons/move.png");
         paths.put("attack", "/ui/icons/attack.png");
-        paths.put("spy", "/ui/icons/moveSpy.png");
+        paths.put("moveSpy", "/ui/icons/moveSpy.png");
         paths.put("cloaking", "/ui/icons/cloaking.png");
-        paths.put("upgrade", "/ui/icons/upgradeTalents.png");
-        paths.put("patent", "/ui/icons/researchPatent.png");
+        paths.put("upgradeTalents", "/ui/icons/upgradeTalents.png");
+        paths.put("researchPatent", "/ui/icons/researchPatent.png");
         return paths;
     }
 
@@ -112,7 +114,8 @@ public class LoadingController extends Controller implements Initializable, Clie
         Integer actionItem = random.nextInt(actionNames.length);
         triviaText.setText(getActionDescription().get(actionNames[actionItem]));
         triviaIcon.setImage(new Image(getClass().getResource(getIconPaths().get(actionNames[actionItem])).toString()));
-        triviaIcon.getStyleClass().addAll("action-button", "action-" + "move");
+        triviaButton.getStyleClass().clear();
+        triviaButton.getStyleClass().addAll("action-button-big", "action-" + actionNames[actionItem]);
 
         model.setListener(this);
         messenger.setWaitOthers("wait others");
