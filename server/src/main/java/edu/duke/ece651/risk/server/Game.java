@@ -172,7 +172,7 @@ public class Game {
         p.setNotReady(); // set notready after writeObject, and let the players
         // thread readObject then set ready agian
       } else {
-        p.out.writeObject(new ObjectIO(p.getName() + ", you are watching the game ", -1, theMap, playerNames));
+        p.out.writeObject(new ObjectIO("you lost all territories", -1, theMap, playerNames));
         p.out.flush();
         p.out.reset();
       }
@@ -237,7 +237,7 @@ public class Game {
     }
     // broadcast the winner message
     if (count == 1) {
-      String info = "The winner is " + playerList.get(winnerID).getName()+"(Conquered all territories)";
+      String info = playerList.get(winnerID).getName()+" conquered all territories";
       return broadcastWinner(info, winnerID);
     }
     for (int i=0; i<numPlayers; i++){
@@ -245,7 +245,7 @@ public class Game {
       int patent=theMap.getPlayerInfo(p.getName()).getPatentProgress();
       if(patent>=100){
         winnerID=i;
-        String info = "The winner is " + playerList.get(winnerID).getName()+"(Patent researched)";
+        String info = playerList.get(winnerID).getName()+" finished the patent research";
         return broadcastWinner(info, winnerID);
       }
     }
