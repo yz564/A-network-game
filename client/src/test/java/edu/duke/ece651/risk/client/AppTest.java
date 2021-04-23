@@ -3,7 +3,9 @@
  */
 package edu.duke.ece651.risk.client;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import edu.duke.ece651.risk.shared.*;
 
@@ -19,20 +21,77 @@ import java.io.StringReader;
 class AppTest {
     @Test
     void test_constructor() {
-      App myApp=new App();
+        App myApp = new App();
     }
-  
+
+    @Test
+    public void test_try_connect() {
+        App app = new App();
+        String connect = app.tryConnect("localhost");
+        assertEquals(null, connect);
+
+        app = new App();
+        connect = app.tryConnect("incorrect server address");
+        assertEquals(true, connect.equals("Server address does not exist!"));
+    }
+
+    @Test
+    public void test_login() throws Exception {
+        App app = new App();
+        String connect = app.tryConnect("localhost");
+        Boolean login = app.tryLogin("Bots1", "1");
+        assertEquals(true, login);
+
+        app = new App();
+        connect = app.tryConnect("localhost");
+        login = app.tryLogin("Incorrect Username", "1");
+        assertEquals(false, login);
+    }
+
+    @Test
+    public void test_checkin() throws Exception {
+        App app = new App();
+        String connect = app.tryConnect("localhost");
+        Boolean login = app.tryLogin("Bots2", "2");
+        Boolean checkin = app.checkIn();
+        assertEquals(true, checkin);
+        app.requestLeave();
+        checkin = app.checkIn();
+        assertEquals(false, checkin);
+    }
+
+    @Test
+    public void test_join_room() throws Exception {
+        App app = new App();
+        app.tryConnect("localhost");
+        app.tryLogin("Bots3", "3");
+        app.checkIn();
+        Boolean success = app.tryJoinRoom(1);
+        assertEquals(true, success);
+
+        App app2 = new App();
+        app2.tryConnect("localhost");
+        app2.tryLogin("Bots4", "4");
+        app2.checkIn();
+        Boolean success2 = app2.tryJoinRoom(1);
+        assertEquals(true, success2);
+
+        App app3 = new App();
+        app3.tryConnect("localhost");
+        app3.tryLogin("Bots5", "5");
+        app3.checkIn();
+        Boolean success3 = app3.tryJoinRoom(1);
+        assertEquals(false, success3);
+    }
+
+    @Test
+    public void test_leave() throws Exception {
+        App app = new App();
+        String connect = app.tryConnect("localhost");
+        Boolean login = app.tryLogin("Bots6", "6");
+        Boolean checkin = app.checkIn();
+        app.requestLeave();
+        checkin = app.checkIn();
+        assertEquals(false, checkin);
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

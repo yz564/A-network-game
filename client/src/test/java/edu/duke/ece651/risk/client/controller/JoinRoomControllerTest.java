@@ -51,24 +51,27 @@ class JoinRoomControllerTest {
 
     }
 
-    @Disabled
     @Test
     public void test_join_room() {
         Platform.runLater(() -> {
-            //Button roomOne = new Button("joinRoomOneButton");
+            Button roomOne = new Button("joinRoomOneButton");
+            Button roomTwo = new Button("joinRoomTwoButton");
+            Button roomThree = new Button("joinRoomThreeButton");
+            Button roomFour = new Button("joinRoomFourButton");
             try {
-                cont.onJoinRoomOne(new ActionEvent(testRoomOneButton, null));
+                cont.onJoinRoomOne(new ActionEvent(roomOne, null));
+                cont.onJoinRoomTwo(new ActionEvent(roomTwo, null));
+                cont.onJoinRoomThree(new ActionEvent(roomThree, null));
+                cont.onJoinRoomFour(new ActionEvent(roomFour, null));
             }
             catch (Exception e) {
 
             }
         });
         WaitForAsyncUtils.waitForFxEvents();
-        //assertEquals(true, model.isConnectedToServer());
+        assertEquals(true, model.isConnectedToServer());
         //assertEquals(true, model.hasJoinedRoom(1));
-
-        // check if new window opens up --> stage.getWindow and WindowMatcher("title) should be true
-
+        // check if new window opens up --> stage.getWindow and WindowMatcher("title") should be true
 
     }
 }

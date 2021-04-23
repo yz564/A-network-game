@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,8 @@ import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 import org.testfx.matcher.control.LabeledMatchers;
 import org.testfx.util.WaitForAsyncUtils;
+
+import java.net.ServerSocket;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,9 +35,6 @@ class UserLoginControllerTest {
 
     @Start
     private void start(Stage stage) throws Exception {
-        //testStage = stage;
-        //testScene = new Scene();
-        //testStage.setScene(testScene);
         model = new App();
         model = SimulateModel.simulate("connectServer"); // player has connected to server
         cont = new UserLoginController(model);

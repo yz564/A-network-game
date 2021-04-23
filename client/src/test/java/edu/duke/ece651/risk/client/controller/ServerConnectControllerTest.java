@@ -3,9 +3,12 @@ package edu.duke.ece651.risk.client.controller;
 import edu.duke.ece651.risk.client.App;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,46 +22,29 @@ import org.testfx.matcher.control.TextInputControlMatchers;
 import org.testfx.assertions.api.Assertions;
 import org.testfx.util.WaitForAsyncUtils;
 
+import java.net.ServerSocket;
 import java.net.Socket;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(ApplicationExtension.class)
 class ServerConnectControllerTest {
+    Stage testStage;
+    Scene testScene;
+    StackPane testPane;
     TextField testServerConnectAddress;
     Label testErrorMessage;
     ServerConnectController cont;
     App model;
 
-
-    /**
-     * Runs the server for testing GUI.
-     */
-    private class ServerConnecter implements Runnable {
-        @Override
-        public void run(){
-            try {
-                Thread.sleep(10);
-                while (true) {
-                    Socket server = new Socket("localhost", 3333);
-                    break;
-                }
-                System.out.println("thread dead");
-            } catch (Exception e) {
-            }
-        }
-    }
-
     @Start
     private void start(Stage stage) {
-        ServerConnecter sc = new ServerConnecter();
-        Thread serverThread = new Thread(sc);
-        serverThread.start();
+        testStage = stage;
+        testPane = new StackPane();
+        testScene = new Scene(testPane, 990, 660);
+        testStage.setScene(testScene);
 
         model = new App();
-        Thread clientThread = new Thread(model);
-        clientThread.start();
-        
         cont = new ServerConnectController(model);
         testErrorMessage = new Label();
         cont.errorMessage = testErrorMessage;
@@ -71,6 +57,7 @@ class ServerConnectControllerTest {
         Platform.runLater(() -> {
             testServerConnectAddress.setText("12345");
             Button connect = new Button("Connect");
+            testPane.getChildren().add(connect);
             try {
                 cont.onConnectButton(new ActionEvent(connect, null));
             } catch (Exception e) {

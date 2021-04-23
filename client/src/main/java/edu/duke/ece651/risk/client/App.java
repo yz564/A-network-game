@@ -127,11 +127,6 @@ public class App implements Runnable, GUIEventListener{
     return false;
   }
 
-  /**
-   * Returns true if user has already successfully joined roomId, else returns false.
-   */
-  public Boolean hasJoinedRoom(int roomId) { return joinedRoomId.contains(roomId); }
-
   public void requestLeave() throws Exception {
     out.writeObject(new ObjectIO("/leave"));
     out.flush();

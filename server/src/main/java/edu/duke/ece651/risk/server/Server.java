@@ -53,11 +53,9 @@ public  Boolean isUserOnline(String name) {
     accounts.put("JY","jy");
     accounts.put("Yutong","yt");
     accounts.put("Yang","y");
-    accounts.put("Bots1", "1");
-    accounts.put("Bots2", "2");
-    accounts.put("Bots3", "3");
-    accounts.put("Bots4", "4");
-    accounts.put("Bots5", "5");
+    for (int i = 1; i <= 100; i++) {
+      accounts.put("Bots"+i, String.valueOf(i));
+    }
   }
 
   public void acceptConnection()throws IOException{
