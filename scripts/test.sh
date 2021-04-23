@@ -9,5 +9,8 @@ sleep 10
 scripts/coverage_summary.sh
 ls -l /
 ls -l /coverage-out/
+echo "This is before copying clover report."
 cp -r build/reports/clover/html/* /coverage-out/ || exit 1
+echo "Clover reports copied. Going to kill the server now."
 pkill server
+echo "Server killed."
