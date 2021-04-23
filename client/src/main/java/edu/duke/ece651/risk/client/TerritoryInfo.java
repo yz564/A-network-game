@@ -5,6 +5,7 @@ import java.util.HashMap;
 public class TerritoryInfo {
     final String playerName;
     final String territoryName;
+    final int size;
     final String domain;
     final HashMap<String, Integer> resProduction;
     String ownerName;
@@ -15,10 +16,12 @@ public class TerritoryInfo {
     public TerritoryInfo(
             String playerName,
             String territoryName,
+            int size,
             String domain,
             HashMap<String, Integer> resProduction) {
         this.playerName = playerName;
         this.territoryName = territoryName;
+        this.size = size;
         this.domain = domain;
         this.resProduction = resProduction;
         this.ownerName = "Unknown";
@@ -39,8 +42,9 @@ public class TerritoryInfo {
             String territoryName,
             String domain,
             Integer foodProduction,
-            Integer techProduction) {
-        this(playerName, territoryName, domain, new HashMap<>());
+            Integer techProduction,
+            int size) {
+        this(playerName, territoryName, size, domain, new HashMap<>());
         resProduction.put("food", foodProduction);
         resProduction.put("tech", techProduction);
     }
@@ -114,5 +118,9 @@ public class TerritoryInfo {
 
     public void setCloakingTurns(int cloakingTurns) {
         this.cloakingTurns = cloakingTurns;
+    }
+
+    public int getSize() {
+        return size;
     }
 }
