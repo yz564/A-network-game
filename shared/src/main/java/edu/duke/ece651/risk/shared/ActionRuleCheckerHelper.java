@@ -43,7 +43,7 @@ public class ActionRuleCheckerHelper {
         this.moveSpyChecker =
                 new TerritoryExistenceRuleChecker(
                         new SpyValidityRuleChecker(
-                                new DesAdjacencyRuleChecker(new EnoughResourceRuleChecker(null))));
+                                new SpyDesRuleChecker(new EnoughResourceRuleChecker(null))));
         this.upgradeSpyChecker =
                 new TerritoryExistenceRuleChecker(
                         new SrcOwnershipRuleChecker(
