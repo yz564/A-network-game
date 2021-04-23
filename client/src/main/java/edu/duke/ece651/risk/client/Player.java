@@ -538,4 +538,12 @@ public class Player implements Runnable {
             }
         }
     }
+
+    public HashMap<String, TerritoryInfo> getTerritoriesInfo() {
+        return territoriesInfo;
+    }
+
+    public TerritoryInfo getTerritoryInfo(String territoryName) {
+        return territoriesInfo.get(territoryName);
+    }
 }
