@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 
 <?import java.util.ArrayList?>
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="825.0" prefWidth="990.0" style="-fx-background-color: #00539B#00539B;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="edu.duke.ece651.risk.client.controller.SelectActionController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="825.0" prefWidth="990.0" style="-fx-background-color: #00539B#00539B;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.risk.client.controller.SelectActionController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="653.6329956054688" minWidth="10.0" prefWidth="182.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="611.1713562011719" minWidth="10.0" prefWidth="467.0" />
@@ -249,7 +249,7 @@
                   </AnchorPane>
                </graphic>
                 </ToggleButton>
-                <ToggleButton fx:id="label4" alignment="CENTER" contentDisplay="CENTER" layoutX="338.0" layoutY="223.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="133.0" prefWidth="186.0" styleClass="territory-4" text="Bryan&#10;Center" textAlignment="CENTER" wrapText="true">
+                <ToggleButton fx:id="label4" alignment="CENTER" contentDisplay="CENTER" layoutX="338.0" layoutY="223.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="133.0" prefWidth="187.0" styleClass="territory-4" text="Bryan&#10;Center" textAlignment="CENTER" wrapText="true">
                     <font>
                         <Font name="Open Sans Regular" size="13.0" />
                     </font>
@@ -408,7 +408,7 @@
                   </AnchorPane>
                </graphic>
                 </ToggleButton>
-                <ToggleButton fx:id="label7" alignment="CENTER" contentDisplay="CENTER" layoutX="522.0" layoutY="301.0" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="187.0" prefWidth="124.0" styleClass="territory-7" text="Perkins&#10;Library" textAlignment="CENTER" wrapText="true">
+                <ToggleButton fx:id="label7" alignment="CENTER" contentDisplay="CENTER" layoutX="522.0" layoutY="301.0" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="188.0" prefWidth="124.0" styleClass="territory-7" text="Perkins&#10;Library" textAlignment="CENTER" wrapText="true">
                     <font>
                         <Font name="Open Sans Regular" size="13.0" />
                     </font>
@@ -461,7 +461,7 @@
                   </AnchorPane>
                </graphic>
                 </ToggleButton>
-                <ToggleButton fx:id="label8" alignment="CENTER" contentDisplay="CENTER" layoutX="640.0" layoutY="121.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="245.0" prefWidth="263.0" styleClass="territory-8" text="Duke&#10;Hospital" textAlignment="CENTER" wrapText="true">
+                <ToggleButton fx:id="label8" alignment="CENTER" contentDisplay="CENTER" layoutX="640.0" layoutY="121.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="246.0" prefWidth="263.0" styleClass="territory-8" text="Duke&#10;Hospital" textAlignment="CENTER" wrapText="true">
                     <padding>
                         <Insets left="70.0" top="90.0" />
                     </padding>
@@ -617,7 +617,7 @@
                   </AnchorPane>
                </graphic>
                 </ToggleButton>
-                <ToggleButton fx:id="label11" alignment="CENTER" contentDisplay="CENTER" layoutX="395.0" layoutY="386.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="44.0" prefWidth="223.0" rotate="90.0" styleClass="territory-11" text="Duke Chapel" textAlignment="CENTER" wrapText="true">
+                <ToggleButton fx:id="label11" alignment="CENTER" contentDisplay="CENTER" layoutX="395.0" layoutY="386.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="45.0" prefWidth="223.0" rotate="90.0" styleClass="territory-11" text="Duke Chapel" textAlignment="CENTER" wrapText="true">
                     <font>
                         <Font name="Open Sans Regular" size="13.0" />
                     </font>
@@ -667,7 +667,7 @@
                     </AnchorPane>
                 </graphic>
                 </ToggleButton>
-                <ToggleButton fx:id="label12" alignment="CENTER" contentDisplay="CENTER" layoutX="347.0" layoutY="353.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="266.0" prefWidth="157.0" styleClass="territory-12" text="Student&#10;Housing" textAlignment="CENTER" wrapText="true">
+                <ToggleButton fx:id="label12" alignment="CENTER" contentDisplay="CENTER" layoutX="347.0" layoutY="353.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="267.0" prefWidth="157.0" styleClass="territory-12" text="Student&#10;Housing" textAlignment="CENTER" wrapText="true">
                     <font>
                         <Font name="Open Sans Regular" size="13.0" />
                     </font>
@@ -773,7 +773,7 @@
                         <Insets bottom="58.0" right="45.0" />
                     </padding>
                 </ToggleButton>
-                <ToggleButton fx:id="label14" alignment="CENTER" contentDisplay="CENTER" layoutX="198.0" layoutY="218.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="165.0" prefWidth="150.0" styleClass="territory-14" text="Cameron&#10;Stadium" textAlignment="CENTER" wrapText="true">
+                <ToggleButton fx:id="label14" alignment="CENTER" contentDisplay="CENTER" layoutX="198.0" layoutY="218.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="166.0" prefWidth="150.0" styleClass="territory-14" text="Cameron&#10;Stadium" textAlignment="CENTER" wrapText="true">
                     <padding>
                         <Insets bottom="50.0" right="60.0" />
                     </padding>

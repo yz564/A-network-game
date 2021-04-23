@@ -6,19 +6,15 @@ import edu.duke.ece651.risk.client.view.StyleMapping;
 import edu.duke.ece651.risk.shared.PlayerInfo;
 import edu.duke.ece651.risk.shared.Territory;
 import edu.duke.ece651.risk.shared.WorldMap;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class InitializeControllerHelper {
 
@@ -85,7 +81,7 @@ public class InitializeControllerHelper {
     public void initializeTerritoryPlayerInfoColor(App model, Label playerInfo) {
         int playerId =
                 model.getPlayer().getMap().getPlayerInfo(model.getPlayer().getName()).getPlayerId();
-        playerInfo.getStyleClass().add("territory-group-" + String.valueOf(playerId));
+        playerInfo.getStyleClass().add("territory-group-" + playerId);
     }
 
     /**
@@ -107,7 +103,7 @@ public class InitializeControllerHelper {
             }
             String territoryName = mapping.getTerritoryName(territoryLabel.getId());
             int initGroup = map.inWhichInitGroup(territoryName);
-            territoryLabel.getStyleClass().add("territory-group-" + String.valueOf(initGroup));
+            territoryLabel.getStyleClass().add("territory-group-disabled-" + initGroup);
         }
     }
 
@@ -125,7 +121,7 @@ public class InitializeControllerHelper {
             String territoryName = mapping.getTerritoryName(territoryLabel.getId());
             int initGroup =
                     map.getPlayerInfo(map.getTerritory(territoryName).getOwnerName()).getPlayerId();
-            territoryLabel.getStyleClass().add("territory-group-" + String.valueOf(initGroup));
+            territoryLabel.getStyleClass().add("territory-group-" + initGroup);
         }
     }
 
@@ -245,10 +241,10 @@ public class InitializeControllerHelper {
         for (int i = 0; i < srcNumList.size(); i++) {
             srcNumList
                     .get(i)
-                    .setText(String.valueOf(src.getTroopNumUnits("level" + String.valueOf(i))));
+                    .setText(String.valueOf(src.getTroopNumUnits("level" + i)));
             destNumList
                     .get(i)
-                    .setText(String.valueOf(dest.getTroopNumUnits("level" + String.valueOf(i))));
+                    .setText(String.valueOf(dest.getTroopNumUnits("level" + i)));
         }
     }
 
