@@ -30,6 +30,7 @@ public class App implements Runnable, GUIEventListener{
   private ArrayList<Player> players;
   private int currentRoomId;
   private HashSet<Integer> joinedRoomId;
+
   private String name;
   private GUIEvent theGUIEvent;
   private Boolean isGUIUpdated;
@@ -168,19 +169,21 @@ public class App implements Runnable, GUIEventListener{
   }
 
   public ObjectIO receiveMessage() throws Exception {
-    try{
-    return (ObjectIO) in.readObject();
-    }catch(Exception e){
+    try {
+      return (ObjectIO) in.readObject();
+    }
+    catch(Exception e){
       throw new Exception("app receiveMessage exception");
     }
   }
 
   public void sendMessage(ObjectIO info) throws Exception {
     try{
-    out.writeObject(info);
-    out.flush();
-    out.reset();
-    }catch(Exception e){
+      out.writeObject(info);
+      out.flush();
+      out.reset();
+    }
+    catch(Exception e){
       throw new Exception("app sendMessage exception");
     }
   }

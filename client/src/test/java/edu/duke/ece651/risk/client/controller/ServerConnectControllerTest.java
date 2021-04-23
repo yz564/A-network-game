@@ -19,19 +19,46 @@ import org.testfx.matcher.control.TextInputControlMatchers;
 import org.testfx.assertions.api.Assertions;
 import org.testfx.util.WaitForAsyncUtils;
 
+import java.net.Socket;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(ApplicationExtension.class)
 class ServerConnectControllerTest {
     TextField testServerConnectAddress;
     Label testErrorMessage;
-    Button testConnectButton;
     ServerConnectController cont;
     App model;
 
+
+    /**
+     * Runs the server for testing GUI.
+     */
+    private class ServerConnecter implements Runnable {
+        @Override
+        public void run(){
+            try {
+                Thread.sleep(10);
+                while (true) {
+                    Socket server = new Socket("localhost", 3333);
+                    break;
+                }
+                System.out.println("thread dead");
+            } catch (Exception e) {
+            }
+        }
+    }
+
     @Start
     private void start(Stage stage) {
+        ServerConnecter sc = new ServerConnecter();
+        Thread serverThread = new Thread(sc);
+        serverThread.start();
+
         model = new App();
+        Thread clientThread = new Thread(model);
+        clientThread.start();
+        
         cont = new ServerConnectController(model);
         testErrorMessage = new Label();
         cont.errorMessage = testErrorMessage;
@@ -68,8 +95,6 @@ class ServerConnectControllerTest {
             }
         });
         WaitForAsyncUtils.waitForFxEvents();
-        //FxAssert.verifyThat(testErrorMessage, LabeledMatchers.hasText(""));
-        //Assertions.assertThat(cont.errorMessage).hasText("Server address does not exist!");
         assertEquals(true, model.isConnectedToServer());
 
         // get current Stage, and check its title matches the title from controller factory.
@@ -86,3 +111,4 @@ class ServerConnectControllerTest {
     }
 
 }
+

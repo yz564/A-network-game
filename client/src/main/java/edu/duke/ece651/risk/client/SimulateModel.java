@@ -18,7 +18,7 @@ public class SimulateModel {
     public static App simulate(String task) throws Exception {
         App model = new App();
         String serverAddress = "localhost";
-        String usernamee = "Aman";
+        String username = "Aman";
         String password = "a";
         Integer roomId = 1;
         switch(task) {
@@ -27,11 +27,11 @@ public class SimulateModel {
                 break;
             case "userLogin":
                 model = doServerConnect(model, serverAddress);
-                model = doLogin(model, "Aman", "a");
+                model = doLogin(model, username, password);
                 break;
             case "joinRoom":
                 model = doServerConnect(model, serverAddress);
-                model = doLogin(model, "Aman", "a");
+                model = doLogin(model, username, password);
                 model = joinRoom(model, roomId);
                 break;
             default:
