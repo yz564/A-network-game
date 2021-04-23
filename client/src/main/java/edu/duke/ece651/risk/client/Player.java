@@ -58,9 +58,6 @@ public class Player implements Runnable {
         return tmp.message;
     }
 
-    public String getGameOverMessage() {
-        return gameOverMessage;
-    }
 
     public int getRoomId() {
         quitRoom();
@@ -374,6 +371,14 @@ public class Player implements Runnable {
         sendMessage(toSend);
         // read in the new map for next action phase.
         // return checkStatus();
+    }
+
+  public Boolean isWin(){
+    return tmp.id == -3;
+  }
+
+  public String getGameOverMessage() {
+        return tmp.message;
     }
 
     public String checkStatus() throws Exception {
