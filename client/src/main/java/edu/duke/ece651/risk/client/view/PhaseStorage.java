@@ -116,6 +116,8 @@ public class PhaseStorage {
                         "watchGame",
                         "Duke Risk Game! - Watch Game",
                         "/ui/views/watch-game.fxml",
+                        "/ui/styling/territory-group.css",
+                        "/ui/styling/territory.css",
                         "/ui/styling/general-design.css",
                         "/ui/styling/action.css");
         Phase phaseTest = makePhase("test", "Duke Risk Game! - Test", "/ui/views/test.fxml");

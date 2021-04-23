@@ -227,7 +227,14 @@ public class App implements Runnable, GUIEventListener {
                     if (result == null) {
                         messenger.setMap(getPlayer().getMap(), "selectAction");
                     } else if (result.equals("You lose")) {
-                        // getPlayer().getMap().getPlayerInfo(name).setMultiVizStatus();
+                        // all territories visible while watching the game
+                        for (String territoryName : getPlayer().getMap().getMyTerritories()) {
+                            getPlayer()
+                                    .getMap()
+                                    .getPlayerInfo(name)
+                                    .setOneVizStatus(territoryName, true);
+                        }
+                        getPlayer().updateTerritoryInfo();
                         messenger.setMap(getPlayer().getMap(), "watchGame");
                     } else {
                         messenger.setMap(getPlayer().getMap(), "gameEnd");
