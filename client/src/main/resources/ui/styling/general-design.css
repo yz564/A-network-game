@@ -46,3 +46,34 @@
     -fx-border-radius: 7;
     -fx-border-insets: -1.5;
 }
+
+.toggle-button-patent {
+    -fx-background-color: WHITE;
+    -fx-background-radius: 7;
+    -fx-text-fill: #012169;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 0);
+}
+
+.toggle-button-patent:hover {
+    -fx-background-color: #B5B5B5;
+    -fx-background-radius: 7;
+    -fx-text-fill: #012169;
+    -fx-padding: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 0);
+}
+
+.toggle-button-patent:focused {
+    -fx-border-color: #012169;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 7;
+    -fx-padding: 0;
+    -fx-border-insets: -1.5;
+}
+
+.toggle-button-patent:selected {
+    -fx-background-color: #012169;
+    -fx-background-radius: 7;
+    -fx-text-fill: WHITE;
+    -fx-padding: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 0);
+}

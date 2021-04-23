@@ -3,7 +3,6 @@ package edu.duke.ece651.risk.client;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import edu.duke.ece651.risk.shared.*;
 
@@ -25,6 +24,7 @@ public class Player implements Runnable {
     private ArrayList<ActionInfo> tmpOrders;
     private HashMap<String, Boolean> isLimitedActionUsed;
     private String gameOverMessage;
+    private HashMap<String, TerritoryInfo> territoriesInfo;
 
     public Player(int id, ObjectInputStream in, ObjectOutputStream out, BufferedReader stdIn) {
         this.id = id;
@@ -40,6 +40,11 @@ public class Player implements Runnable {
         isLimitedActionUsed.put("upgrade tech", false);
         isLimitedActionUsed.put("move spy", false);
         isLimitedActionUsed.put("research patent", false);
+        territoriesInfo = new HashMap<>();
+    }
+
+    public Boolean isResearchPatentAvailable() {
+        return tmpOrders.isEmpty();
     }
 
     public HashMap<String, Boolean> getIsLimitedActionUsed() {
@@ -51,10 +56,6 @@ public class Player implements Runnable {
         tmp = (ObjectIO) in.readObject();
         System.out.println(tmp.message);
         return tmp.message;
-    }
-
-    public String getGameOverMessage() {
-        return gameOverMessage;
     }
 
     public int getRoomId() {
@@ -101,6 +102,7 @@ public class Player implements Runnable {
     public void receiveMessage() throws Exception {
         tmp = (ObjectIO) in.readObject();
         updateMap();
+        updateTerritoryInfo();
         // return (ObjectIO) in.readObject();
     }
 
@@ -234,6 +236,7 @@ public class Player implements Runnable {
         if (problem == null) {
             this.tmpOrders.add(order);
             executer.executePreAttack(this.theMap, order);
+            updateTerritoryInfo();
             return null;
         } else {
             return problem;
@@ -245,6 +248,7 @@ public class Player implements Runnable {
         if (problem == null) {
             this.tmpOrders.add(order);
             executer.executeMove(this.theMap, order);
+            updateTerritoryInfo();
             return null;
         } else {
             return problem;
@@ -256,6 +260,7 @@ public class Player implements Runnable {
         if (problem == null) {
             this.tmpOrders.add(order);
             executer.executeUpgradeUnit(this.theMap, order);
+            updateTerritoryInfo();
             return null;
         } else {
             return problem;
@@ -267,6 +272,7 @@ public class Player implements Runnable {
         if (problem == null) {
             this.tmpOrders.add(order);
             executer.executeUpgradeSpyUnit(this.theMap, order);
+            updateTerritoryInfo();
             return null;
         } else {
             return problem;
@@ -282,6 +288,7 @@ public class Player implements Runnable {
             this.tmpOrders.add(order);
             executer.executeMoveSpy(this.theMap, order);
             isLimitedActionUsed.put("move spy", true);
+            updateTerritoryInfo();
             return null;
         } else {
             return problem;
@@ -293,6 +300,7 @@ public class Player implements Runnable {
         if (problem == null) {
             this.tmpOrders.add(order);
             executer.executeResearchCloaking(this.theMap, order);
+            updateTerritoryInfo();
             return null;
         } else {
             return problem;
@@ -304,6 +312,7 @@ public class Player implements Runnable {
         if (problem == null) {
             this.tmpOrders.add(order);
             executer.executeCloaking(this.theMap, order);
+            updateTerritoryInfo();
             return null;
         } else {
             return problem;
@@ -321,6 +330,7 @@ public class Player implements Runnable {
             HashMap<String, Integer> resCost = costCal.calculateUpgradeTechCost(order, theMap);
             executer.deductCost(theMap, order, resCost);
             isLimitedActionUsed.put("upgrade tech", true);
+            updateTerritoryInfo();
             return null;
         } else {
             return problem;
@@ -338,6 +348,7 @@ public class Player implements Runnable {
             this.tmpOrders.add(order);
             executer.executeResearchPatent(theMap, order);
             isLimitedActionUsed.put("research patent", true);
+            updateTerritoryInfo();
             return null;
         } else {
             return problem;
@@ -368,6 +379,14 @@ public class Player implements Runnable {
         sendMessage(toSend);
         // read in the new map for next action phase.
         // return checkStatus();
+    }
+
+    public Boolean isWin() {
+        return tmp.id == -3;
+    }
+
+    public String getGameOverMessage() {
+        return tmp.message;
     }
 
     public String checkStatus() throws Exception {
@@ -508,5 +527,40 @@ public class Player implements Runnable {
             while (true) {}
         } catch (Exception e) {
         }
+    }
+
+    public void initializeTerritoriesInfo() {
+        for (String territoryName : theMap.getMyTerritories()) {
+            TerritoryInfo info =
+                    new TerritoryInfo(
+                            name,
+                            territoryName,
+                            theMap.getTerritory(territoryName).getSize(),
+                            theMap.getTerritory(territoryName).getDomain(),
+                            theMap.getTerritory(territoryName).getResProduction());
+            territoriesInfo.put(territoryName, info);
+        }
+    }
+
+    public void updateTerritoryInfo() {
+        HashMap<String, Boolean> vizStatus = theMap.getPlayerInfo(name).getAllVizStatus();
+        for (String territoryName : theMap.getMyTerritories()) {
+            if (vizStatus.get(territoryName)) {
+                TerritoryInfo info = territoriesInfo.get(territoryName);
+                Territory territory = theMap.getTerritory(territoryName);
+                info.setCloakingTurns(territory.getCloakingTurns());
+                info.setOwnerName(territory.getOwnerName());
+                info.setPlayerSpyNum(territory.getSpyTroopNumUnits(name));
+                info.setTroopNum(territory.getAllNumUnits());
+            }
+        }
+    }
+
+    public HashMap<String, TerritoryInfo> getTerritoriesInfo() {
+        return territoriesInfo;
+    }
+
+    public TerritoryInfo getTerritoryInfo(String territoryName) {
+        return territoriesInfo.get(territoryName);
     }
 }

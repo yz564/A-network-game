@@ -29,18 +29,6 @@ public class GameEndController extends Controller implements Initializable {
   public GameEndController(App model) {
     super(model);
     this.next = "joinRoom";
-    won = true;
-    if (won == true) {
-      verdict = "You won!";
-      reason = "You won all territories at Duke!";
-      imagePath = "/ui/static-images/end-game/win-game.gif";
-    }
-    else {
-      verdict = "You lost!";
-      reason = "You lost all your territories!";
-      imagePath = "/ui/static-images/end-game/lose-game.gif";
-    }
-
   }
 
   @FXML Label gameEndLabel;
@@ -49,7 +37,15 @@ public class GameEndController extends Controller implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    gameEndLabel.setText(model.getPlayer().getGameOverMessage());
+    if (model.getPlayer().isWin()) {
+      verdict = "You won!";
+      imagePath = "/ui/static-images/end-game/win-game.gif";
+    }
+    else {
+      verdict = "You lost!";
+      imagePath = "/ui/static-images/end-game/lose-game.gif";
+    }
+    reason = model.getPlayer().getGameOverMessage();
     gameEndLabel.setText(verdict);
     gameEndSubLabel.setText(reason);
     gameEndImage.setImage(new Image(getClass().getResource(imagePath).toString()));

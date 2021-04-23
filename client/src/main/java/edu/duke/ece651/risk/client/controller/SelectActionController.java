@@ -74,13 +74,14 @@ public class SelectActionController extends Controller implements Initializable 
         // set coloring for each territory label
         helper.initializeTerritoryLabelByOwner(map, labelList);
         // set tooltip for each territory label
-        helper.initializeTerritoryTooltips(map, labelList, model.getPlayer().getName());
+        helper.initializeTerritoryTooltips(
+                model.getPlayer(), labelList, model.getPlayer().getName());
         // set image and label for selected character
         helper.initializeSelectedCharacter(model, charSelected, nameSelected);
         // set tooltip for player info
         helper.initializePlayerInfoTooltip(map, model.getPlayer().getName(), charSelected);
         // set total number of units for each territory
-        helper.initializeTerritoryTotalNumUnitsLabels(map, labelList, numList);
+        helper.initializeTerritoryTotalNumUnitsLabels(model.getPlayer(), labelList, numList);
         // disable territory button for enemy territory
         helper.initializeTerritoryButtons(model, labelList);
         // set player action buttons
@@ -138,14 +139,16 @@ public class SelectActionController extends Controller implements Initializable 
                     if (selectedTerritory.getTotalNumUnits() > 0) {
                         actionList.add("move");
                     }
-                    if (selectedTerritory.getSpyTroopNumUnits(playerName) > 0 && !limited.get("move spy")) {
+                    if (selectedTerritory.getSpyTroopNumUnits(playerName) > 0
+                            && !limited.get("move spy")) {
                         actionList.add("moveSpy");
                     }
                 } else if (selectedTerritory.isAdjacentTo(territory)) {
                     if (selectedTerritory.getTotalNumUnits() > 0) {
                         actionList.add("attack");
                     }
-                    if (selectedTerritory.getSpyTroopNumUnits(playerName) > 0 && !limited.get("move spy")) {
+                    if (selectedTerritory.getSpyTroopNumUnits(playerName) > 0
+                            && !limited.get("move spy")) {
                         actionList.add("moveSpy");
                     }
                 } else {
@@ -153,10 +156,8 @@ public class SelectActionController extends Controller implements Initializable 
                         child.setVisible(false);
                     }
                 }
-            }
-            else{
-                if ((selectedTerritory.getName().equals(territoryName)
-                        || selectedTerritory.isAdjacentTo(territory)) && !limited.get("move spy")) {
+            } else {
+                if (selectedTerritory.isAdjacentTo(territory) && !limited.get("move spy")) {
                     actionList.add("moveSpy");
                 }
             }
@@ -195,17 +196,31 @@ public class SelectActionController extends Controller implements Initializable 
             int id = childrenList.indexOf(child);
             Button actionButton = (Button) child;
             if (actions[id].equals("researchCloaking")) {
-                if (!map.getPlayerInfo(playerName).canCloakingResearched() || map.getPlayerInfo(playerName).getIsCloakingResearched()) {
+                if (!map.getPlayerInfo(playerName).canCloakingResearched()
+                        || map.getPlayerInfo(playerName).getIsCloakingResearched()) {
                     actionButton.setDisable(true);
                 }
             }
-            if (actions[id].equals("upgradeTech")){
-                if (limited.get("upgrade tech")){
+            if (actions[id].equals("upgradeTech")) {
+                if (limited.get("upgrade tech")) {
+                    actionButton.setDisable(true);
+                }
+            }
+            if (actions[id].equals("researchPatent")) {
+                if (checkZeroTotalUnits() || limited.get("research patent")) {
                     actionButton.setDisable(true);
                 }
             }
             actionButton.setOnAction(ae -> onSelectAction(ae, actions[id]));
         }
+    }
+
+    private boolean checkZeroTotalUnits() {
+        int totalNum = 0;
+        for (Label numLabel : numList) {
+            totalNum += Integer.valueOf(numLabel.getText());
+        }
+        return totalNum == 0;
     }
 
     @FXML

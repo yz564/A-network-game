@@ -30,7 +30,7 @@ public class ControllerFactory {
         controllers.put("gameEnd", new GameEndController((App) model));
         controllers.put(
                 "loading",
-                new LoadingController((App) model, "Waiting for other players to join..."));
+                new LoadingController((App) model, "Waiting for other players..."));
         // Add new controllers here
         controllers.put("test", new ServerConnectController(model));
         return controllers;
@@ -49,6 +49,7 @@ public class ControllerFactory {
         controllers.put("moveSpyAction", new MoveSpyActionController((App) model, srcName, destName, mainPage));
         controllers.put("researchCloakingAction", new ResearchCloakingActionController((App) model, mainPage));
         controllers.put("cloakingAction", new CloakingActionController((App) model, srcName, mainPage));
+        controllers.put("researchPatentAction", new ResearchPatentActionController((App) model, mainPage));
         return controllers;
     }
 }
