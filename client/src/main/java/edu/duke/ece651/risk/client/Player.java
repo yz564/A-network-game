@@ -3,7 +3,6 @@ package edu.duke.ece651.risk.client;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import edu.duke.ece651.risk.shared.*;
 
@@ -519,6 +518,7 @@ public class Player implements Runnable {
                     new TerritoryInfo(
                             name,
                             territoryName,
+                            theMap.getTerritory(territoryName).getSize(),
                             theMap.getTerritory(territoryName).getDomain(),
                             theMap.getTerritory(territoryName).getResProduction());
             territoriesInfo.put(territoryName, info);
