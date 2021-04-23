@@ -58,9 +58,11 @@ public class TerritoryInfo {
         return ans;
     }
 
+    /*
     public HashMap<String, Integer> getResProduction() {
         return resProduction;
     }
+     */
 
     public Integer getFoodProduction() {
         return resProduction.get("food");
@@ -78,17 +80,18 @@ public class TerritoryInfo {
         this.ownerName = ownerName;
     }
 
-    public HashMap<String, Integer> getTroopNum() {
+    /* public HashMap<String, Integer> getTroopNum() {
         return troopNum;
     }
+     */
 
     public Integer getOneTroopNum(String oneTroopName) {
         return troopNum.get(oneTroopName);
     }
 
-    public int getTotalTroopNum(){
+    public int getTotalTroopNum() {
         int totalNum = 0;
-        for (String troopName: troopNum.keySet()){
+        for (String troopName : troopNum.keySet()) {
             totalNum += troopNum.get(troopName);
         }
         return totalNum;
@@ -98,6 +101,7 @@ public class TerritoryInfo {
         this.troopNum = troopNum;
     }
 
+    /*
     public Boolean trySetOneTroopNum(String oneTroopName, Integer oneTroopNum) {
         if (this.troopNum.containsKey(oneTroopName)) {
             troopNum.put(oneTroopName, oneTroopNum);
@@ -106,6 +110,7 @@ public class TerritoryInfo {
             return false;
         }
     }
+     */
 
     public int getPlayerSpyNum() {
         return playerSpyNum;
