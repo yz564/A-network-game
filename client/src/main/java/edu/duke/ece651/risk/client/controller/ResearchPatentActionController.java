@@ -1,9 +1,7 @@
 package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
-import edu.duke.ece651.risk.shared.ActionInfo;
-import edu.duke.ece651.risk.shared.ActionInfoFactory;
-import edu.duke.ece651.risk.shared.ActionRuleCheckerHelper;
+import edu.duke.ece651.risk.shared.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -24,6 +22,8 @@ public class ResearchPatentActionController extends ActionController {
     @FXML ArrayList<ToggleButton> srcNameList;
     @FXML ArrayList<ImageView> srcImageList;
     @FXML ArrayList<GridPane> territoryList;
+    @FXML Label oldPatentProgress;
+    @FXML Label newPatentProgress;
 
     /**
      * Constructor that initializes the model.
@@ -45,6 +45,7 @@ public class ResearchPatentActionController extends ActionController {
     public void initialize(URL location, ResourceBundle resources) {
         loadTerritoryInfo();
         loadResourceInfo("tech");
+        oldPatentProgress.setText(String.valueOf(map.getPlayerInfo(playerName).getPatentProgress()));
         InitializeControllerHelper helper = new InitializeControllerHelper();
         // set the info for each player territory
         helper.initializePlayerTerritoryInfo(map, playerName, srcNameList, srcNumList, srcImageList);
@@ -53,6 +54,7 @@ public class ResearchPatentActionController extends ActionController {
         addTerritoryToggleChangeListeners("tech");
         try {
             updateTotalCost(getActionInfo(), "tech");
+            updatePatentProgress(getActionInfo());
         } catch (Exception e) {
             setErrorMessage(e.getMessage());
         }
@@ -67,6 +69,12 @@ public class ResearchPatentActionController extends ActionController {
         }
     }
 
+    private void updatePatentProgress(ActionInfo actionInfo) throws IllegalArgumentException{
+        ActionExecuter executer = new ActionExecuter();
+        int newPatentProgressInt = Integer.parseInt(oldPatentProgress.getText()) + executer.calculatePatentProgress(map, actionInfo);
+        newPatentProgress.setText(String.valueOf(newPatentProgressInt));
+    }
+
     private void addTerritoryToggleChangeListeners(String resource) {
         for (ToggleButton nameToggle : srcNameList) {
             nameToggle.selectedProperty()
@@ -76,6 +84,7 @@ public class ResearchPatentActionController extends ActionController {
                                     clearErrorMessage();
                                     updateSelectedList(nameToggle.getText(), newValue.booleanValue());
                                     updateTotalCost(getActionInfo(), resource);
+                                    updatePatentProgress(getActionInfo());
                                 } catch (IllegalArgumentException e) {
                                     setErrorMessage(e.getMessage());
                                 }
