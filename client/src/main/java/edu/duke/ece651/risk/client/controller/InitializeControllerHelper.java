@@ -32,8 +32,7 @@ public class InitializeControllerHelper {
         StyleMapping mapping = new StyleMapping();
         for (ToggleButton territoryLabel : territoryLabelList) {
             if (numPlayers % 2 == 1 && territoryLabelList.indexOf(territoryLabel) == 15) {
-                territoryLabel.setDisable(true);
-                territoryLabel.setText("");
+                territoryLabel.setVisible(false);
                 continue;
             }
             String territoryName = mapping.getTerritoryName(territoryLabel.getId());
@@ -80,12 +79,6 @@ public class InitializeControllerHelper {
         }
     }
 
-    public void initializeTerritoryPlayerInfoColor(App model, Label playerInfo) {
-        int playerId =
-                model.getPlayer().getMap().getPlayerInfo(model.getPlayer().getName()).getPlayerId();
-        playerInfo.getStyleClass().add("territory-group-" + playerId);
-    }
-
     /**
      * Initializes the color of each territory label.
      *
@@ -99,8 +92,7 @@ public class InitializeControllerHelper {
         // set coloring for each territory label
         for (ToggleButton territoryLabel : territoryLabelList) {
             if (numPlayers % 2 == 1 && territoryLabelList.indexOf(territoryLabel) == 15) {
-                territoryLabel.setText("");
-                territoryLabel.setDisable(true);
+                territoryLabel.setVisible(false);
                 continue;
             }
             String territoryName = mapping.getTerritoryName(territoryLabel.getId());
@@ -116,8 +108,7 @@ public class InitializeControllerHelper {
         // set coloring for each territory label
         for (ToggleButton territoryLabel : territoryLabelList) {
             if (numPlayers % 2 == 1 && territoryLabelList.indexOf(territoryLabel) == 15) {
-                territoryLabel.setText("");
-                territoryLabel.setDisable(true);
+                territoryLabel.setVisible(false);
                 continue;
             }
             String territoryName = mapping.getTerritoryName(territoryLabel.getId());
@@ -184,8 +175,6 @@ public class InitializeControllerHelper {
         StyleMapping mapping = new StyleMapping();
         for (int i = 0; i < territoryLabelList.size(); i++) {
             if (numPlayers % 2 == 1 && i == 15) {
-                numLabelList.get(i).setText("");
-                numLabelList.get(i).setDisable(true);
                 continue;
             }
             String labelName = territoryLabelList.get(i).getId();
@@ -204,8 +193,7 @@ public class InitializeControllerHelper {
         StyleMapping mapping = new StyleMapping();
         for (ToggleButton territoryButton : territoryLabelList) {
             if (numPlayers % 2 == 1 && territoryLabelList.indexOf(territoryButton) == 15) {
-                territoryButton.setText("");
-                territoryButton.setDisable(true);
+                territoryButton.setVisible(false);
                 continue;
             }
             String territoryName = mapping.getTerritoryName(territoryButton.getId());
