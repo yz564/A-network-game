@@ -8,6 +8,7 @@ import edu.duke.ece651.risk.client.view.StyleMapping;
 import edu.duke.ece651.risk.shared.PlayerInfo;
 import edu.duke.ece651.risk.shared.Territory;
 import edu.duke.ece651.risk.shared.WorldMap;
+import javafx.geometry.HPos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -256,7 +257,11 @@ public class InitializeControllerHelper {
         for (int i = 0; i < playerTerritories.size(); i++) {
             Territory target = map.getTerritory(playerTerritories.get(i));
             srcNameList.get(i).setText(target.getName());
+            srcNameList.get(i).getStyleClass().addAll("toggle-button-patent");
             srcNumList.get(i).setText(String.valueOf(target.getTotalNumUnits()));
+            if (target.getTotalNumUnits () <=0){
+                srcNameList.get(i).setDisable(true);
+            }
             srcImageList
                     .get(i)
                     .setImage(new Image("ui/static-images/territory/" + target.getName() + ".jpg"));
@@ -284,11 +289,19 @@ public class InitializeControllerHelper {
         }
     }
 
-    public void initializeTerritoryRows(ArrayList<Label> srcNumList, GridPane grid) {
-        for (int i = 0; i < srcNumList.size(); i++) {
+    public void initializeTerritoryRows(ArrayList<Label> srcNumList, ArrayList<GridPane> territoryList, GridPane grid) {
+        for (int i = 0; i < srcNumList.size(); i = i + 2) {
             int srcNum = Integer.parseInt(srcNumList.get(i).getText());
-            if (srcNum <= 0) {
-                int row = (i / 2) * 3 + 4;
+            int srcNumNext = Integer.parseInt(srcNumList.get(i+1).getText());
+            int row = (i / 2) * 3 + 4;
+            if (srcNum <= 0){
+                grid.getChildren().removeIf(node -> GridPane.getRowIndex(node) == row - 2 && GridPane.getHalignment(node) == HPos.LEFT);
+                grid.setHalignment(territoryList.get(i+1), HPos.CENTER);
+            }else if (srcNumNext <= 0){
+                grid.getChildren().removeIf(node -> GridPane.getRowIndex(node) == row - 2 && GridPane.getHalignment(node) == HPos.RIGHT);
+                grid.setHalignment(territoryList.get(i), HPos.CENTER);
+            }
+            if (srcNum <= 0 && srcNumNext <= 0) {
                 grid.getRowConstraints().get(row).setMaxHeight(0);
                 grid.getRowConstraints().get(row - 1).setMaxHeight(0);
                 grid.getRowConstraints().get(row - 2).setMaxHeight(0);
@@ -322,6 +335,7 @@ public class InitializeControllerHelper {
                         + "- Cloaking Researched: "
                         + map.getPlayerInfo(playerName).getIsCloakingResearched()
                         + "\n";
+        ans = ans + "- Patent Progress: " + map.getPlayerInfo(playerName).getPatentProgress() + "\n";
         return ans;
     }
 

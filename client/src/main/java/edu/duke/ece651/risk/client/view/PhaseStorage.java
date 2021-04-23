@@ -137,7 +137,7 @@ public class PhaseStorage {
         phases.put(phase13.getName(), phase13);
         phases.put(phase14.getName(), phase14);
         phases.put(phase15.getName(), phase15);
-        phases.put(phase16.getName(), phase15);
+        phases.put(phase16.getName(), phase16);
         phases.put(phaseTest.getName(), phaseTest);
         // Put new Phases into HashMap here
         return phases;

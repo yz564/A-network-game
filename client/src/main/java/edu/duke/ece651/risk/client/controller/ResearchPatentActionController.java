@@ -9,9 +9,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -23,6 +23,7 @@ public class ResearchPatentActionController extends ActionController {
     @FXML ArrayList<Label> srcNumList;
     @FXML ArrayList<ToggleButton> srcNameList;
     @FXML ArrayList<ImageView> srcImageList;
+    @FXML ArrayList<GridPane> territoryList;
 
     /**
      * Constructor that initializes the model.
@@ -48,7 +49,8 @@ public class ResearchPatentActionController extends ActionController {
         // set the info for each player territory
         helper.initializePlayerTerritoryInfo(map, playerName, srcNameList, srcNumList, srcImageList);
         // delete the rows for player territory with 0 units
-        helper.initializeTerritoryRows(srcNumList, grid);
+        helper.initializeTerritoryRows(srcNumList, territoryList, grid);
+        addTerritoryToggleChangeListeners("tech");
         try {
             updateTotalCost(getActionInfo(), "tech");
         } catch (Exception e) {
@@ -56,7 +58,7 @@ public class ResearchPatentActionController extends ActionController {
         }
     }
 
-    private void updateSelectedList(String territoryName, boolean selected){
+    private void updateSelectedList(String territoryName, boolean selected) {
         if (selected){
             selectedList.add(territoryName);
         }
@@ -70,9 +72,9 @@ public class ResearchPatentActionController extends ActionController {
             nameToggle.selectedProperty()
                     .addListener(
                             (observable, oldValue, newValue) -> {
-                                updateSelectedList(nameToggle.getText(), newValue.booleanValue());
                                 try {
                                     clearErrorMessage();
+                                    updateSelectedList(nameToggle.getText(), newValue.booleanValue());
                                     updateTotalCost(getActionInfo(), resource);
                                 } catch (IllegalArgumentException e) {
                                     setErrorMessage(e.getMessage());
