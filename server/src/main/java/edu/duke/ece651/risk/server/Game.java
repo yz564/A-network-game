@@ -237,8 +237,23 @@ public class Game {
     }
     // broadcast the winner message
     if (count == 1) {
-      String info = "The winner is " + playerList.get(winnerID).getName();
-      System.out.println(info);
+      String info = "The winner is " + playerList.get(winnerID).getName()+"(Conquered all territories)";
+      return broadcastWinner(info, winnerID);
+    }
+    for (int i=0; i<numPlayers; i++){
+      Player p = playerList.get(i);
+      int patent=theMap.getPlayerInfo(p.getName()).getPatentProgress();
+      if(patent>=100){
+        winnerID=i;
+        String info = "The winner is " + playerList.get(winnerID).getName()+"(Patent researched)";
+        return broadcastWinner(info, winnerID);
+      }
+    }
+    return false;
+  }
+
+  private Boolean broadcastWinner(String info, int winnerID) throws Exception{
+    System.out.println(info);
       for (int i = 0; i < numPlayers; i++) {
         Player p = playerList.get(i);
         if (i == winnerID) {
@@ -253,7 +268,16 @@ public class Game {
         p.out.reset();
       }
       return true;
-    }
-    return false;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
