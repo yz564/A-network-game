@@ -15,7 +15,7 @@ public class ClientGUI extends Application {
      */
     @Override
     public void init() throws InterruptedException {
-        Double DURATION_SECONDS = 1.5; // duration of splash screen
+        Double DURATION_SECONDS = 3.0; // duration of splash screen
         Thread.sleep((long) (1000 * DURATION_SECONDS));
     }
 

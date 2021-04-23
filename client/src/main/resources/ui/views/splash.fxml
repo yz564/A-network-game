@@ -6,17 +6,16 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="990.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="990.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="660.0" fitWidth="990.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../static-images/background/chapel.jpg" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" layoutX="299.0" layoutY="8.0" prefHeight="88.0" prefWidth="393.0" text="Welcome to Duke RISK Game!" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Label alignment="CENTER" layoutX="322.0" layoutY="31.0" prefHeight="88.0" prefWidth="647.0" text="Welcome to Duke RISK Game!" textAlignment="CENTER" textFill="#012169" wrapText="true">
          <font>
-            <Font size="30.0" />
+            <Font name="EB Garamond Regular" size="50.0" />
          </font>
       </Label>
    </children>
