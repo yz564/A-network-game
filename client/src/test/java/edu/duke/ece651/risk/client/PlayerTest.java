@@ -1,6 +1,6 @@
 package edu.duke.ece651.risk.client;
 
-import edu.duke.ece651.risk.shared.ObjectIO;
+import edu.duke.ece651.risk.shared.*;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -15,26 +15,39 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerTest {
 
-    private Player createPlayer() throws IllegalArgumentException {
-        try {
-            Socket server = new Socket("localhost", 3333);
-            ObjectOutputStream out = new ObjectOutputStream(server.getOutputStream());
-            ObjectInputStream in = new ObjectInputStream(server.getInputStream());
-            ObjectIO tmp = null;
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            Player p = new Player(0, in, out, reader);
-            return p;
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Server address does not exist!");
-        }
-    }
-    @Test
-    public void test_constructor() throws IllegalArgumentException {
-        Player p = createPlayer();
+    private Player createPlayer() throws Exception {
+        Socket server = new Socket("localhost", 3333);
+        ObjectOutputStream out = new ObjectOutputStream(server.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(server.getInputStream());
+        ObjectIO tmp = new ObjectIO();
+        WorldMapFactory factory = new V2MapFactory();
+        WorldMap worldmap = factory.makeTestWorldMap();
+        worldmap.tryAssignInitOwner(1, "Player 1");
+        worldmap.tryAssignInitOwner(2, "Player 2");
+        worldmap.tryAssignInitOwner(3, "Player 3");
+        PlayerInfo p1 = new PlayerInfo("Player 1", 30, 30);
+        worldmap.tryAddPlayerInfo(p1);
+        Territory t1 = worldmap.getTerritory("Narnia");
+        t1.tryAddTroopUnits("level0", 5);
+        tmp.map = worldmap;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        Player p = new Player(0, in, out, reader);
+        return p;
     }
 
     @Test
-    public void test_name() {
+    public void test_constructor() throws Exception {
+        try {
+            Player p = createPlayer();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Test
+    public void test_name() throws Exception {
         Player p = createPlayer();
         String name = "player";
         p.setName(name);
@@ -42,7 +55,7 @@ class PlayerTest {
     }
 
     @Test
-    public void test_wait() {
+    public void test_wait() throws Exception {
         Player p = createPlayer();
         assertEquals(false, p.isWait());
         p.setWait(true);
@@ -90,5 +103,19 @@ class PlayerTest {
         numUnits.put("D", 1);
         success = p.tryAllocation(numUnits);
         assertEquals(true, success.equals("Invalid placement: Total number of units exceeds maximum."));
+    }
+
+    @Disabled
+    @Test
+    public void test_attack_order() throws Exception {
+        Player p = createPlayer();
+        p.setName("Player 1");
+        ActionInfoFactory af = new ActionInfoFactory();
+        HashMap<String, Integer> unitNum1 = new HashMap<>();
+        unitNum1.put("level0", 3);
+        ActionInfo info = af.createAttackActionInfo("Player 1", "Narnia", "Elantris", unitNum1);
+        //assertThrows(NullPointerException.class, () -> p.tryIssueAttackOrder(info1));
+        String success = p.tryIssueAttackOrder(info);
+        assertEquals(null, success);
     }
 }
