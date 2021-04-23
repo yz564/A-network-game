@@ -24,6 +24,7 @@ class AppTest {
         App myApp = new App();
     }
 
+    @Disabled
     @Test
     public void test_try_connect() {
         App app = new App();
@@ -35,6 +36,7 @@ class AppTest {
         assertEquals(true, connect.equals("Server address does not exist!"));
     }
 
+    @Disabled
     @Test
     public void test_login() throws Exception {
         App app = new App();
@@ -60,6 +62,7 @@ class AppTest {
         assertEquals(false, checkin);
     }
 
+    @Disabled
     @Test
     public void test_join_room() throws Exception {
         App app = new App();
