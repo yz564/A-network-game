@@ -8,6 +8,7 @@ import edu.duke.ece651.risk.client.view.StyleMapping;
 import edu.duke.ece651.risk.shared.PlayerInfo;
 import edu.duke.ece651.risk.shared.Territory;
 import edu.duke.ece651.risk.shared.WorldMap;
+import javafx.geometry.HPos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,13 +26,13 @@ public class InitializeControllerHelper {
      *
      * @param territoryLabelList the territory label ArrayList.
      */
-    public void initializeTerritoryTooltips(Player player, ArrayList<ToggleButton> territoryLabelList, String playerName) {
+    public void initializeTerritoryTooltips(
+            Player player, ArrayList<ToggleButton> territoryLabelList, String playerName) {
         int numPlayers = player.getMap().getNumPlayers();
         StyleMapping mapping = new StyleMapping();
         for (ToggleButton territoryLabel : territoryLabelList) {
             if (numPlayers % 2 == 1 && territoryLabelList.indexOf(territoryLabel) == 15) {
-                territoryLabel.setDisable(true);
-                territoryLabel.setText("");
+                territoryLabel.setVisible(false);
                 continue;
             }
             String territoryName = mapping.getTerritoryName(territoryLabel.getId());
@@ -78,12 +79,6 @@ public class InitializeControllerHelper {
         }
     }
 
-    public void initializeTerritoryPlayerInfoColor(App model, Label playerInfo) {
-        int playerId =
-                model.getPlayer().getMap().getPlayerInfo(model.getPlayer().getName()).getPlayerId();
-        playerInfo.getStyleClass().add("territory-group-" + playerId);
-    }
-
     /**
      * Initializes the color of each territory label.
      *
@@ -97,8 +92,7 @@ public class InitializeControllerHelper {
         // set coloring for each territory label
         for (ToggleButton territoryLabel : territoryLabelList) {
             if (numPlayers % 2 == 1 && territoryLabelList.indexOf(territoryLabel) == 15) {
-                territoryLabel.setText("");
-                territoryLabel.setDisable(true);
+                territoryLabel.setVisible(false);
                 continue;
             }
             String territoryName = mapping.getTerritoryName(territoryLabel.getId());
@@ -114,8 +108,7 @@ public class InitializeControllerHelper {
         // set coloring for each territory label
         for (ToggleButton territoryLabel : territoryLabelList) {
             if (numPlayers % 2 == 1 && territoryLabelList.indexOf(territoryLabel) == 15) {
-                territoryLabel.setText("");
-                territoryLabel.setDisable(true);
+                territoryLabel.setVisible(false);
                 continue;
             }
             String territoryName = mapping.getTerritoryName(territoryLabel.getId());
@@ -182,17 +175,12 @@ public class InitializeControllerHelper {
         StyleMapping mapping = new StyleMapping();
         for (int i = 0; i < territoryLabelList.size(); i++) {
             if (numPlayers % 2 == 1 && i == 15) {
-                numLabelList.get(i).setText("");
-                numLabelList.get(i).setDisable(true);
                 continue;
             }
             String labelName = territoryLabelList.get(i).getId();
             String territoryName = mapping.getTerritoryName(labelName);
             TerritoryInfo info = player.getTerritoryInfo(territoryName);
-            numLabelList
-                    .get(i)
-                    .setText(
-                            String.valueOf(info.getTotalTroopNum()));
+            numLabelList.get(i).setText(String.valueOf(info.getTotalTroopNum()));
         }
     }
 
@@ -205,8 +193,7 @@ public class InitializeControllerHelper {
         StyleMapping mapping = new StyleMapping();
         for (ToggleButton territoryButton : territoryLabelList) {
             if (numPlayers % 2 == 1 && territoryLabelList.indexOf(territoryButton) == 15) {
-                territoryButton.setText("");
-                territoryButton.setDisable(true);
+                territoryButton.setVisible(false);
                 continue;
             }
             String territoryName = mapping.getTerritoryName(territoryButton.getId());
@@ -216,25 +203,16 @@ public class InitializeControllerHelper {
                             .getMap()
                             .getPlayerInfo(territory.getOwnerName())
                             .getPlayerId();
-            if (!visibility.get(territoryName)){
-                territoryButton
-                        .getStyleClass()
-                        .removeAll("territory-group-" + playerId);
-                territoryButton
-                        .getStyleClass()
-                        .addAll("territory-group-disabled-unknown");
-            }
-            else if  (territory.getSpyTroopNumUnits(playerName) <= 0 || limited.get("move spy")) {
+            if (!visibility.get(territoryName)) {
+                territoryButton.getStyleClass().removeAll("territory-group-" + playerId);
+                territoryButton.getStyleClass().addAll("territory-group-disabled-unknown");
+            } else if (territory.getSpyTroopNumUnits(playerName) <= 0 || limited.get("move spy")) {
                 if ((territory.isBelongTo(playerName)
                                 && !playerInfo.getIsCloakingResearched()
                                 && territory.getTotalNumUnits() <= 0)
                         || !territory.isBelongTo(playerName)) {
-                    territoryButton
-                            .getStyleClass()
-                            .removeAll("territory-group-" + playerId);
-                    territoryButton
-                            .getStyleClass()
-                            .addAll("territory-group-disabled-" + playerId);
+                    territoryButton.getStyleClass().removeAll("territory-group-" + playerId);
+                    territoryButton.getStyleClass().addAll("territory-group-disabled-" + playerId);
                     territoryButton.setOnAction(null);
                     // territoryButton.setDisable(true);
                 }
@@ -251,12 +229,30 @@ public class InitializeControllerHelper {
         Territory src = map.getTerritory(srcName);
         Territory dest = map.getTerritory(destName);
         for (int i = 0; i < srcNumList.size(); i++) {
-            srcNumList
+            srcNumList.get(i).setText(String.valueOf(src.getTroopNumUnits("level" + i)));
+            destNumList.get(i).setText(String.valueOf(dest.getTroopNumUnits("level" + i)));
+        }
+    }
+
+    public void initializePlayerTerritoryInfo(
+            WorldMap map,
+            String playerName,
+            ArrayList<ToggleButton> srcNameList,
+            ArrayList<Label> srcNumList,
+            ArrayList<ImageView> srcImageList) {
+        ArrayList<String> playerTerritories =
+                new ArrayList(map.getPlayerTerritories(playerName).keySet());
+        for (int i = 0; i < playerTerritories.size(); i++) {
+            Territory target = map.getTerritory(playerTerritories.get(i));
+            srcNameList.get(i).setText(target.getName());
+            srcNameList.get(i).getStyleClass().addAll("toggle-button-patent");
+            srcNumList.get(i).setText(String.valueOf(target.getTotalNumUnits()));
+            if (target.getTotalNumUnits () <=0){
+                srcNameList.get(i).setDisable(true);
+            }
+            srcImageList
                     .get(i)
-                    .setText(String.valueOf(src.getTroopNumUnits("level" + i)));
-            destNumList
-                    .get(i)
-                    .setText(String.valueOf(dest.getTroopNumUnits("level" + i)));
+                    .setImage(new Image("ui/static-images/territory/" + target.getName() + ".jpg"));
         }
     }
 
@@ -277,6 +273,29 @@ public class InitializeControllerHelper {
                 grid.getRowConstraints().get(row + 1).setMaxHeight(0);
                 grid.getChildren().removeIf(node -> GridPane.getRowIndex(node) == row);
                 grid.getChildren().removeIf(node -> GridPane.getRowIndex(node) == row + 1);
+            }
+        }
+    }
+
+    public void initializeTerritoryRows(ArrayList<Label> srcNumList, ArrayList<GridPane> territoryList, GridPane grid) {
+        for (int i = 0; i < srcNumList.size(); i = i + 2) {
+            int srcNum = Integer.parseInt(srcNumList.get(i).getText());
+            int srcNumNext = Integer.parseInt(srcNumList.get(i+1).getText());
+            int row = (i / 2) * 3 + 4;
+            if (srcNum <= 0){
+                grid.getChildren().removeIf(node -> GridPane.getRowIndex(node) == row - 2 && GridPane.getHalignment(node) == HPos.LEFT);
+                grid.setHalignment(territoryList.get(i+1), HPos.CENTER);
+            }else if (srcNumNext <= 0){
+                grid.getChildren().removeIf(node -> GridPane.getRowIndex(node) == row - 2 && GridPane.getHalignment(node) == HPos.RIGHT);
+                grid.setHalignment(territoryList.get(i), HPos.CENTER);
+            }
+            if (srcNum <= 0 && srcNumNext <= 0) {
+                grid.getRowConstraints().get(row).setMaxHeight(0);
+                grid.getRowConstraints().get(row - 1).setMaxHeight(0);
+                grid.getRowConstraints().get(row - 2).setMaxHeight(0);
+                grid.getChildren().removeIf(node -> GridPane.getRowIndex(node) == row);
+                grid.getChildren().removeIf(node -> GridPane.getRowIndex(node) == row - 1);
+                grid.getChildren().removeIf(node -> GridPane.getRowIndex(node) == row - 2);
             }
         }
     }
@@ -304,6 +323,7 @@ public class InitializeControllerHelper {
                         + "- Cloaking Researched: "
                         + map.getPlayerInfo(playerName).getIsCloakingResearched()
                         + "\n";
+        ans = ans + "- Patent Progress: " + map.getPlayerInfo(playerName).getPatentProgress() + "\n";
         return ans;
     }
 
@@ -320,12 +340,16 @@ public class InitializeControllerHelper {
                         + "'s Information:\n"
                         + "--------------------------\n";
         ans = ans + "- Owner Name: " + info.getOwnerName() + "\n";
-        ans = ans + "- Size: " + "\n";/*info.getSize() + "\n";*/
+        ans = ans + "- Size: " + "\n"; /*info.getSize() + "\n";*/
         ans = ans + "- Food Production Rate: " + info.getFoodProduction() + "\n";
         ans = ans + "- Tech Production Rate: " + info.getTechProduction() + "\n";
         ans = ans + "- Domain: " + info.getDomain() + "\n";
         ans = ans + "- Cloaking Turns: " + info.getCloakingTurns() + "\n";
-        ans = ans + "- Visibility: " + player.getMap().getPlayerInfo(playerName).getOneVizStatus(territoryName) + "\n";
+        ans =
+                ans
+                        + "- Visibility: "
+                        + player.getMap().getPlayerInfo(playerName).getOneVizStatus(territoryName)
+                        + "\n";
         ans =
                 ans
                         + "--------------------------\n"

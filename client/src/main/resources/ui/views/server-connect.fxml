@@ -8,26 +8,31 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="990.0" style="-fx-background-color: #00539B#00539B;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="edu.duke.ece651.risk.client.controller.ServerConnectController">
+<Pane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="990.0" style="-fx-background-color: #00539B#00539B;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.risk.client.controller.ServerConnectController">
     <children>
         <ImageView fitHeight="660.0" fitWidth="990.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../static-images/background/chapel-blue.png" />
+                <Image url="@../static-images/background/chapel-blue.jpg" />
             </image>
         </ImageView>
-      <TextField fx:id="serverConnectAddressField" alignment="CENTER" layoutX="624.0" layoutY="235.0" prefHeight="34.0" prefWidth="271.0" promptText="Enter server address to connect to game">
+      <TextField fx:id="serverConnectAddressField" alignment="CENTER" layoutX="589.0" layoutY="297.0" prefHeight="34.0" prefWidth="271.0" promptText="Enter server address to connect to game">
          <font>
             <Font name="Open Sans Regular" size="13.0" />
          </font>
       </TextField>
-      <Button fx:id="serverConnect" layoutX="713.0" layoutY="296.0" mnemonicParsing="false" onAction="#onConnectButton" prefHeight="34.0" prefWidth="94.0" text="Connect">
+      <Button fx:id="serverConnect" layoutX="676.0" layoutY="372.0" mnemonicParsing="false" onAction="#onConnectButton" prefHeight="34.0" prefWidth="94.0" text="Connect">
          <font>
             <Font name="Open Sans Regular" size="13.0" />
          </font>
       </Button>
-      <Label fx:id="errorMessage" alignment="CENTER" layoutX="641.0" layoutY="366.0" prefHeight="17.0" prefWidth="238.0" text="" textAlignment="CENTER" textFill="HOTPINK">
+      <Label fx:id="errorMessage" alignment="CENTER" layoutX="603.0" layoutY="399.0" prefHeight="17.0" prefWidth="238.0" text="" textAlignment="CENTER" textFill="HOTPINK">
          <font>
             <Font name="Open Sans Regular" size="13.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="601.0" layoutY="127.0" text="Connect to &#10;Game Server" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="EB Garamond Regular" size="50.0" />
          </font>
       </Label>
 

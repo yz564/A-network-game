@@ -100,18 +100,26 @@ public class PhaseStorage {
                         "/ui/styling/general-design.css");
         Phase phase14 =
                 makePhase(
-                        "gameEnd",
-                        "Duke Risk Game! - Game End",
-                        "/ui/views/game-end-fancy.fxml",
+                        "researchPatentAction",
+                        "Duke Risk Game! - Research Patent",
+                        "/ui/views/research-patent-action.fxml",
+                        "/ui/styling/territory-group.css",
                         "/ui/styling/general-design.css");
         Phase phase15 =
                 makePhase(
+                        "gameEnd",
+                        "Duke Risk Game! - Game End",
+                        "/ui/views/game-end.fxml",
+                        "/ui/styling/general-design.css");
+        Phase phase16 =
+                makePhase(
                         "loading",
-                        "Duke Risk Game! - Waiting for Other Players",
+                        "Waiting for Other Players",
                         "/ui/views/loading.fxml",
                         "/ui/styling/general-design.css",
                         "/ui/styling/action.css");
-        Phase phase16 =
+
+        Phase phase17 =
                 makePhase(
                         "watchGame",
                         "Duke Risk Game! - Watch Game",
@@ -120,6 +128,7 @@ public class PhaseStorage {
                         "/ui/styling/territory.css",
                         "/ui/styling/general-design.css",
                         "/ui/styling/action.css");
+
         Phase phaseTest = makePhase("test", "Duke Risk Game! - Test", "/ui/views/test.fxml");
         // Add new Phases here
 
@@ -139,6 +148,7 @@ public class PhaseStorage {
         phases.put(phase14.getName(), phase14);
         phases.put(phase15.getName(), phase15);
         phases.put(phase16.getName(), phase16);
+        phases.put(phase17.getName(), phase17);
         phases.put(phaseTest.getName(), phaseTest);
         // Put new Phases into HashMap here
         return phases;

@@ -43,8 +43,7 @@ public abstract class ActionController extends Controller {
      *
      * @param model is the backend of the game.
      */
-    public ActionController(
-            App model, String srcName, String destName, Stage mainPage) {
+    public ActionController(App model, String srcName, String destName, Stage mainPage) {
         super(model);
         this.next = "selectAction";
         this.playerName = model.getPlayer().getName();
@@ -63,10 +62,12 @@ public abstract class ActionController extends Controller {
     @Override
     public void initialize(URL location, ResourceBundle resources) {}
 
-    protected void loadResourceInfo(String resource){
+    protected void loadResourceInfo(String resource) {
         resourceAvailable.setText(
                 String.valueOf(
-                        map.getPlayerInfo(model.getPlayer().getName()).getResTotals().get(resource)));
+                        map.getPlayerInfo(model.getPlayer().getName())
+                                .getResTotals()
+                                .get(resource)));
     }
 
     protected void loadTerritoryInfo() {
@@ -74,7 +75,7 @@ public abstract class ActionController extends Controller {
             srcName.setText(srcTerritoryName);
             srcImage.setImage(new Image("ui/static-images/territory/" + srcTerritoryName + ".jpg"));
         }
-        if (destTerritoryName != null){
+        if (destTerritoryName != null) {
             destName.setText(destTerritoryName);
             destImage.setImage(
                     new Image("ui/static-images/territory/" + destTerritoryName + ".jpg"));
@@ -153,6 +154,10 @@ public abstract class ActionController extends Controller {
             actionCost.setTextFill(Color.HOTPINK);
             throw new IllegalArgumentException(
                     "Invalid action: Total action cost is more than resource available.");
+        } else if (TotalCost == 0) {
+            actionCost.setTextFill(Color.HOTPINK);
+            throw new IllegalArgumentException(
+                    "Invalid action: Action cannot be empty with zero action cost.");
         } else {
             actionCost.setTextFill(Color.WHITE);
         }
