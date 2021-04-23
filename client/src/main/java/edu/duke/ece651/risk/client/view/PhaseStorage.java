@@ -99,9 +99,20 @@ public class PhaseStorage {
                         "/ui/styling/territory-group.css",
                         "/ui/styling/general-design.css");
         Phase phase14 =
-                makePhase("gameEnd", "Duke Risk Game! - Game End", "/ui/views/game-end-fancy.fxml", "/ui/styling/general-design.css");
-        Phase phase15 = makePhase("loading", "Waiting for Other Players", "/ui/views/loading.fxml");
-        Phase phaseTest = makePhase("test", "Duke Risk Game! - Test", "/ui/views/test.fxml");
+                makePhase("gameEnd",
+                        "Duke Risk Game! - Game End",
+                        "/ui/views/game-end-fancy.fxml",
+                        "/ui/styling/general-design.css");
+        Phase phase15 =
+                makePhase("loading",
+                "Waiting for Other Players",
+                "/ui/views/loading.fxml",
+                "/ui/styling/general-design.css",
+                        "/ui/styling/action.css");
+        Phase phaseTest =
+                makePhase("test",
+                "Duke Risk Game! - Test",
+                "/ui/views/test.fxml");
         // Add new Phases here
 
         phases.put(phase1.getName(), phase1);

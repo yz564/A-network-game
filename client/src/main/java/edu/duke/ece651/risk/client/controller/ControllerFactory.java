@@ -30,7 +30,7 @@ public class ControllerFactory {
         controllers.put("gameEnd", new GameEndController((App) model));
         controllers.put(
                 "loading",
-                new LoadingController((App) model, "Waiting for other players to join..."));
+                new LoadingController((App) model, "Waiting for other players..."));
         // Add new controllers here
         controllers.put("test", new ServerConnectController(model));
         return controllers;
