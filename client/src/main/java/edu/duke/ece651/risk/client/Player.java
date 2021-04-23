@@ -25,6 +25,7 @@ public class Player implements Runnable {
     private ArrayList<ActionInfo> tmpOrders;
     private HashMap<String, Boolean> isLimitedActionUsed;
     private String gameOverMessage;
+    private HashMap<String, TerritoryInfo> territoriesInfo;
 
     public Player(int id, ObjectInputStream in, ObjectOutputStream out, BufferedReader stdIn) {
         this.id = id;
@@ -40,6 +41,7 @@ public class Player implements Runnable {
         isLimitedActionUsed.put("upgrade tech", false);
         isLimitedActionUsed.put("move spy", false);
         isLimitedActionUsed.put("research patent", false);
+        territoriesInfo = new HashMap<>();
     }
 
     public HashMap<String, Boolean> getIsLimitedActionUsed() {
@@ -101,6 +103,7 @@ public class Player implements Runnable {
     public void receiveMessage() throws Exception {
         tmp = (ObjectIO) in.readObject();
         updateMap();
+        updateTerritoryInfo();
         // return (ObjectIO) in.readObject();
     }
 
@@ -507,6 +510,32 @@ public class Player implements Runnable {
             // System.exit(0);
             while (true) {}
         } catch (Exception e) {
+        }
+    }
+
+    public void initializeTerritoriesInfo() {
+        for (String territoryName : theMap.getMyTerritories()) {
+            TerritoryInfo info =
+                    new TerritoryInfo(
+                            name,
+                            territoryName,
+                            theMap.getTerritory(territoryName).getDomain(),
+                            theMap.getTerritory(territoryName).getResProduction());
+            territoriesInfo.put(territoryName, info);
+        }
+    }
+
+    public void updateTerritoryInfo() {
+        HashMap<String, Boolean> vizStatus = theMap.getPlayerInfo("name").getAllVizStatus();
+        for (String territoryName : theMap.getMyTerritories()) {
+            if (vizStatus.get(territoryName)) {
+                TerritoryInfo info = territoriesInfo.get(territoryName);
+                Territory territory = theMap.getTerritory(territoryName);
+                info.setCloakingTurns(territory.getCloakingTurns());
+                info.setOwnerName(territory.getOwnerName());
+                info.setPlayerSpyNum(territory.getSpyTroopNumUnits(name));
+                info.setTroopNum(territory.getAllNumUnits());
+            }
         }
     }
 }
