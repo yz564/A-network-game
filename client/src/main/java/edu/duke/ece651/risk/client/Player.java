@@ -58,7 +58,6 @@ public class Player implements Runnable {
         return tmp.message;
     }
 
-
     public int getRoomId() {
         quitRoom();
         return id;
@@ -237,6 +236,7 @@ public class Player implements Runnable {
         if (problem == null) {
             this.tmpOrders.add(order);
             executer.executePreAttack(this.theMap, order);
+            updateTerritoryInfo();
             return null;
         } else {
             return problem;
@@ -248,6 +248,7 @@ public class Player implements Runnable {
         if (problem == null) {
             this.tmpOrders.add(order);
             executer.executeMove(this.theMap, order);
+            updateTerritoryInfo();
             return null;
         } else {
             return problem;
@@ -259,6 +260,7 @@ public class Player implements Runnable {
         if (problem == null) {
             this.tmpOrders.add(order);
             executer.executeUpgradeUnit(this.theMap, order);
+            updateTerritoryInfo();
             return null;
         } else {
             return problem;
@@ -270,6 +272,7 @@ public class Player implements Runnable {
         if (problem == null) {
             this.tmpOrders.add(order);
             executer.executeUpgradeSpyUnit(this.theMap, order);
+            updateTerritoryInfo();
             return null;
         } else {
             return problem;
@@ -285,6 +288,7 @@ public class Player implements Runnable {
             this.tmpOrders.add(order);
             executer.executeMoveSpy(this.theMap, order);
             isLimitedActionUsed.put("move spy", true);
+            updateTerritoryInfo();
             return null;
         } else {
             return problem;
@@ -296,6 +300,7 @@ public class Player implements Runnable {
         if (problem == null) {
             this.tmpOrders.add(order);
             executer.executeResearchCloaking(this.theMap, order);
+            updateTerritoryInfo();
             return null;
         } else {
             return problem;
@@ -307,6 +312,7 @@ public class Player implements Runnable {
         if (problem == null) {
             this.tmpOrders.add(order);
             executer.executeCloaking(this.theMap, order);
+            updateTerritoryInfo();
             return null;
         } else {
             return problem;
@@ -324,6 +330,7 @@ public class Player implements Runnable {
             HashMap<String, Integer> resCost = costCal.calculateUpgradeTechCost(order, theMap);
             executer.deductCost(theMap, order, resCost);
             isLimitedActionUsed.put("upgrade tech", true);
+            updateTerritoryInfo();
             return null;
         } else {
             return problem;
@@ -341,6 +348,7 @@ public class Player implements Runnable {
             this.tmpOrders.add(order);
             executer.executeResearchPatent(theMap, order);
             isLimitedActionUsed.put("research patent", true);
+            updateTerritoryInfo();
             return null;
         } else {
             return problem;
@@ -373,11 +381,11 @@ public class Player implements Runnable {
         // return checkStatus();
     }
 
-  public Boolean isWin(){
-    return tmp.id == -3;
-  }
+    public Boolean isWin() {
+        return tmp.id == -3;
+    }
 
-  public String getGameOverMessage() {
+    public String getGameOverMessage() {
         return tmp.message;
     }
 
