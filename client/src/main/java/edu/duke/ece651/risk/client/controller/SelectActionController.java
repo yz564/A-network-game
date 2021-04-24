@@ -76,8 +76,8 @@ public class SelectActionController extends Controller implements Initializable 
         // set coloring for each territory label
         helper.initializeTerritoryLabelByOwner(map, labelList);
         // set tooltip for each territory label
-        helper.initializeTerritoryTooltips(
-                model.getPlayer(), labelList, model.getPlayer().getName());
+        //helper.initializeTerritoryTooltips(
+        //        model.getPlayer(), labelList, model.getPlayer().getName());
         // set image and label for selected character
         helper.initializeSelectedCharacter(model, charSelected, nameSelected);
         // set tooltip for player info

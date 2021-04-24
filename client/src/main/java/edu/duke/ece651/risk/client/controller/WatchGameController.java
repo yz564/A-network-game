@@ -61,8 +61,8 @@ public class WatchGameController extends Controller implements Initializable, Cl
         // set coloring for each territory label
         helper.initializeTerritoryLabelByOwner(map, labelList);
         // set tooltip for each territory label
-        helper.initializeTerritoryTooltips(
-                model.getPlayer(), labelList, model.getPlayer().getName());
+        //helper.initializeTerritoryTooltips(
+        //        model.getPlayer(), labelList, model.getPlayer().getName());
         // set total number of units for each territory
         helper.initializeTerritoryTotalNumUnitsLabels(model.getPlayer(), labelList, numList);
         // disable territory button for enemy territory
