@@ -104,4 +104,27 @@ public class V2RiskWorldMapTest {
         assertEquals(1, worldmap.inWhichInitGroup("Narnia"));
         assertEquals(0, worldmap.inWhichInitGroup("Elantris"));
     }
+
+    @Test
+    public void test_sortplayerterritory(){
+        WorldMap worldmap = new V2RiskWorldMap();
+        Territory t1 = new V2Territory("Narnia", 0, 0, 0, 0, 0, 0, 0, 0);
+        Territory t2 = new V2Territory("Elantris", 0, 0, 0, 0, 0, 0, 0, 0);
+        Territory t3 = new V2Territory("Oz", 0, 0, 0, 0, 0, 0, 0, 0);
+        worldmap.tryAddTerritory(t1);
+        worldmap.tryAddTerritory(t2);
+        worldmap.tryAddTerritory(t3);
+        t1.tryAddTroopUnits("level0", 5);
+        t2.tryAddTroopUnits("level0", 2);
+        t3.tryAddTroopUnits("level0", 10);
+        t1.setOwnerName("Player 1");
+        t2.setOwnerName("Player 1");
+        t3.setOwnerName("Player 1");
+        ArrayList<String> sortList = worldmap.sortPlayerTerritory("Player 1");
+        ArrayList<String> expected = new ArrayList<>();
+        expected.add("Oz");
+        expected.add("Narnia");
+        expected.add("Elantris");
+        assertEquals(expected, sortList);
+    }
 }

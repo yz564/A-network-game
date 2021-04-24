@@ -242,8 +242,8 @@ public class InitializeControllerHelper {
             ArrayList<Label> srcNumList,
             ArrayList<ImageView> srcImageList) {
         //TODO: replace with new method
-        ArrayList<String> playerTerritories =
-                new ArrayList(map.getPlayerTerritories(playerName).keySet());
+        ArrayList<String> playerTerritories = map.sortPlayerTerritory(playerName);
+                //new ArrayList(map.getPlayerTerritories(playerName).keySet());
         for (int i = 0; i < 8; i++) {
             Territory target = map.getTerritory(playerTerritories.get(i));
             srcNameList.get(i).setText(target.getName());

@@ -89,4 +89,6 @@ public interface WorldMap extends java.io.Serializable {
   public int inWhichInitGroup(String territoryName);
 
   public ArrayList<String> getMyTerritories();
+
+  public ArrayList<String> sortPlayerTerritory(String playerName);
 }
