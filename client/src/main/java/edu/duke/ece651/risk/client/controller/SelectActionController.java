@@ -24,11 +24,13 @@ import javafx.stage.Popup;
 import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class SelectActionController extends Controller implements Initializable {
@@ -184,6 +186,7 @@ public class SelectActionController extends Controller implements Initializable 
                 actionButton.getStyleClass().addAll("action-button", "action-" + actions.get(id));
                 actionButton.setOnAction(ae -> onSelectAction(ae, actions.get(id)));
                 actionButton.setVisible(true);
+                setActionTooltip(actionButton, actions.get(id));
             }
         }
     }
@@ -195,6 +198,7 @@ public class SelectActionController extends Controller implements Initializable 
         for (Node child : childrenList) {
             int id = childrenList.indexOf(child);
             Button actionButton = (Button) child;
+            setActionTooltip(actionButton, actions[id]);
             if (actions[id].equals("researchCloaking")) {
                 if (!map.getPlayerInfo(playerName).canCloakingResearched()
                         || map.getPlayerInfo(playerName).getIsCloakingResearched()) {
@@ -213,6 +217,17 @@ public class SelectActionController extends Controller implements Initializable 
             }
             actionButton.setOnAction(ae -> onSelectAction(ae, actions[id]));
         }
+    }
+
+    public void setActionTooltip(Button actionButton, String actionName){
+        Tooltip tt = new Tooltip();
+        String[] actionArray = actionName.split("(?=\\p{Upper})");
+        String newActionName = String.join(" ", actionArray);
+        tt.setText(newActionName.substring(0, 1).toUpperCase() + newActionName.substring(1));
+        tt.getStyleClass().add("tooltip-territory");
+        tt.setShowDelay(Duration.millis(200));
+        tt.setHideDelay(Duration.millis(200));
+        actionButton.setTooltip(tt);
     }
 
     private boolean checkZeroTotalUnits() {
