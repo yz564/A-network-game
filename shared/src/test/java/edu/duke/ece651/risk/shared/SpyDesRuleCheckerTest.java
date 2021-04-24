@@ -25,10 +25,15 @@ public class SpyDesRuleCheckerTest {
         ActionInfo a3 = af.createMoveSpyActionInfo("Player 1", "Narnia", "Hogwarts", 1);
         ActionInfo a4 = af.createUpgradeTechActionInfo("Player 1", 2);
         assertNull(rc.checkMyRule(a1, worldmap));
-        assertEquals("That action is invalid: destination own Territory is not reachable from source Territory",
+        assertEquals(
+                "That action is invalid: destination own Territory is not reachable from source Territory",
                 rc.checkMyRule(a2, worldmap));
-        assertEquals("That action is invalid: destination enemy Territory is not adjacent to source Territory",
+        assertEquals(
+                "That action is invalid: destination enemy Territory is not adjacent to source Territory",
                 rc.checkMyRule(a3, worldmap));
         assertNull(rc.checkMyRule(a4, worldmap));
+        t2.setOwnerName("Player 1");
+        ActionInfo a5 = af.createMoveSpyActionInfo("Player 1", "Narnia", "Midkemia", 1);
+        assertNull(rc.checkMyRule(a5, worldmap));
     }
 }
