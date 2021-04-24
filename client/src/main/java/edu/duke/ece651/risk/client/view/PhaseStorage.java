@@ -106,15 +106,27 @@ public class PhaseStorage {
                         "/ui/styling/territory-group.css",
                         "/ui/styling/general-design.css");
         Phase phase15 =
-                makePhase("gameEnd",
+                makePhase(
+                        "gameEnd",
                         "Duke Risk Game! - Game End",
                         "/ui/views/game-end.fxml",
                         "/ui/styling/general-design.css");
         Phase phase16 =
-                makePhase("loading",
-                "Waiting for Other Players",
-                "/ui/views/loading.fxml",
-                "/ui/styling/general-design.css",
+                makePhase(
+                        "loading",
+                        "Waiting for Other Players",
+                        "/ui/views/loading.fxml",
+                        "/ui/styling/general-design.css",
+                        "/ui/styling/action.css");
+
+        Phase phase17 =
+                makePhase(
+                        "watchGame",
+                        "Duke Risk Game! - Watch Game",
+                        "/ui/views/watch-game.fxml",
+                        "/ui/styling/territory-group.css",
+                        "/ui/styling/territory.css",
+                        "/ui/styling/general-design.css",
                         "/ui/styling/action.css");
 
         Phase phase17 =

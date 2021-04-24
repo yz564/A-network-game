@@ -259,7 +259,7 @@
                 <Font name="Open Sans Regular" size="10.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="60.0" text="To Attack" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="4">
+        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="60.0" text="To Move" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="4">
             <font>
                 <Font name="Open Sans Regular" size="10.0" />
             </font>

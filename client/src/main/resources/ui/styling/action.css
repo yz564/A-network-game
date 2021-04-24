@@ -7,6 +7,16 @@
     -fx-alignment: CENTER;
 }
 
+.action-button-big {
+    -fx-background-radius: 45;
+    -fx-background-insets: 1;
+    -fx-border-color: BLACK;
+    -fx-border-width: 3;
+    -fx-border-radius: 45;
+    -fx-padding:0;
+    -fx-alignment: CENTER;
+}
+
 .action-player, .action-player:hover, .action-player:pressed {
     -fx-background-radius: 20;
     -fx-background-insets: 1;

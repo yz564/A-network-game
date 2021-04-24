@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.ImageView?>
@@ -28,6 +29,10 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <ImageView fx:id="triviaIcon" fitHeight="64.0" fitWidth="64.0" layoutX="191.0" layoutY="359.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="triviaButton" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="191.0" layoutY="359.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="90.0" prefWidth="90.0" style="-fx-background-radius: 45; -fx-padding: 0;" styleClass="action-button-big" textAlignment="CENTER">
+         <graphic>
+            <ImageView fx:id="triviaIcon" fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
+         </graphic>
+      </Button>
    </children>
 </Pane>
