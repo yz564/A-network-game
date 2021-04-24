@@ -31,6 +31,8 @@ public class ControllerFactory {
         controllers.put("loading", new LoadingController((App) model, "Waiting for other players..."));
         controllers.put("characterInfo", new CharacterInfoController((App) model));
         controllers.put("watchGame", new WatchGameController((App) model));
+        controllers.put("loading", new LoadingController((App) model, "Waiting for other players..."));
+        controllers.put("characterInfo", new CharacterInfoController((App) model));
         // Add new controllers here
         controllers.put("test", new ServerConnectController(model));
         return controllers;

@@ -93,8 +93,8 @@ class AppTest {
     void test_checkGUIUpdate() {
       try{
         App myApp=new App(null,null,null,null);
-      myApp.checkGUIUpdate();
-    } catch (Exception e) {
-    }
+        myApp.checkGUIUpdate();
+        }
+      catch (Exception e) {}
     }
 }
