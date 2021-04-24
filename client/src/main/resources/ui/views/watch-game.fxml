@@ -15,6 +15,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
+<?import java.util.ArrayList?>
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="825.0" prefWidth="990.0" style="-fx-background-color: #00539B#00539B;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.risk.client.controller.WatchGameController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="653.6329956054688" minWidth="10.0" percentWidth="20.0" prefWidth="182.0" />
