@@ -80,6 +80,10 @@ public class App implements Runnable, GUIEventListener {
         return null;
     }
 
+    public Boolean isConnectedToServer() {
+        return this.server != null;
+    }
+
     public void initializeApp(
             Socket server, ObjectInputStream in, ObjectOutputStream out, ObjectIO tmp) {
         this.server = server;

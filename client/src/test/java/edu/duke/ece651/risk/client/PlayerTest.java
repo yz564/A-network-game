@@ -68,6 +68,7 @@ class PlayerTest {
         p.sendMessage(new ObjectIO());
     }
 
+    @Disabled
     @Test
     public void test_receive_message() throws Exception {
         Player p = createPlayer();
