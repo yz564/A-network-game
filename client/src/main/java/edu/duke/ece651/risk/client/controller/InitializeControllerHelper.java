@@ -247,7 +247,7 @@ public class InitializeControllerHelper {
             srcNameList.get(i).setText(target.getName());
             srcNameList.get(i).getStyleClass().addAll("toggle-button-patent");
             srcNumList.get(i).setText(String.valueOf(target.getTotalNumUnits()));
-            if (target.getTotalNumUnits () <=0){
+            if (target.getTotalNumUnits() <= 0) {
                 srcNameList.get(i).setDisable(true);
             }
             srcImageList
@@ -277,16 +277,25 @@ public class InitializeControllerHelper {
         }
     }
 
-    public void initializeTerritoryRows(ArrayList<Label> srcNumList, ArrayList<GridPane> territoryList, GridPane grid) {
+    public void initializeTerritoryRows(
+            ArrayList<Label> srcNumList, ArrayList<GridPane> territoryList, GridPane grid) {
         for (int i = 0; i < srcNumList.size(); i = i + 2) {
             int srcNum = Integer.parseInt(srcNumList.get(i).getText());
-            int srcNumNext = Integer.parseInt(srcNumList.get(i+1).getText());
+            int srcNumNext = Integer.parseInt(srcNumList.get(i + 1).getText());
             int row = (i / 2) * 3 + 4;
-            if (srcNum <= 0){
-                grid.getChildren().removeIf(node -> GridPane.getRowIndex(node) == row - 2 && GridPane.getHalignment(node) == HPos.LEFT);
-                grid.setHalignment(territoryList.get(i+1), HPos.CENTER);
-            }else if (srcNumNext <= 0){
-                grid.getChildren().removeIf(node -> GridPane.getRowIndex(node) == row - 2 && GridPane.getHalignment(node) == HPos.RIGHT);
+            if (srcNum <= 0) {
+                grid.getChildren()
+                        .removeIf(
+                                node ->
+                                        GridPane.getRowIndex(node) == row - 2
+                                                && GridPane.getHalignment(node) == HPos.LEFT);
+                grid.setHalignment(territoryList.get(i + 1), HPos.CENTER);
+            } else if (srcNumNext <= 0) {
+                grid.getChildren()
+                        .removeIf(
+                                node ->
+                                        GridPane.getRowIndex(node) == row - 2
+                                                && GridPane.getHalignment(node) == HPos.RIGHT);
                 grid.setHalignment(territoryList.get(i), HPos.CENTER);
             }
             if (srcNum <= 0 && srcNumNext <= 0) {
@@ -323,7 +332,11 @@ public class InitializeControllerHelper {
                         + "- Cloaking Researched: "
                         + map.getPlayerInfo(playerName).getIsCloakingResearched()
                         + "\n";
-        ans = ans + "- Patent Progress: " + map.getPlayerInfo(playerName).getPatentProgress() + "\n";
+        ans =
+                ans
+                        + "- Patent Progress: "
+                        + map.getPlayerInfo(playerName).getPatentProgress()
+                        + "\n";
         return ans;
     }
 
@@ -340,7 +353,7 @@ public class InitializeControllerHelper {
                         + "'s Information:\n"
                         + "--------------------------\n";
         ans = ans + "- Owner Name: " + info.getOwnerName() + "\n";
-        ans = ans + "- Size: " + "\n"; /*info.getSize() + "\n";*/
+        ans = ans + "- Size: " + info.getSize() + "\n";
         ans = ans + "- Food Production Rate: " + info.getFoodProduction() + "\n";
         ans = ans + "- Tech Production Rate: " + info.getTechProduction() + "\n";
         ans = ans + "- Domain: " + info.getDomain() + "\n";
