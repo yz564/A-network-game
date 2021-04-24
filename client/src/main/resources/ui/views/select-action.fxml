@@ -89,6 +89,436 @@
                <padding>
                   <Insets right="45.0" top="10.0" />
                </padding>
+                    <tooltip>
+                        <Tooltip maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                                 prefHeight="311.0" prefWidth="300.0" textAlignment="CENTER">
+                            <font>
+                                <Font name="Open Sans Regular" size="13.0"/>
+                            </font>
+                            <graphic>
+                                <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                          minWidth="-Infinity" prefHeight="311.0" prefWidth="285.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="10.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0"
+                                                           prefWidth="100.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="10.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="10.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="10.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="10.0"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0"
+                                                        vgrow="SOMETIMES"/>
+                                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0"
+                                                        vgrow="SOMETIMES"/>
+                                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0"
+                                                        vgrow="SOMETIMES"/>
+                                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0"
+                                                        vgrow="SOMETIMES"/>
+                                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0"
+                                                        vgrow="SOMETIMES"/>
+                                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0"
+                                                        vgrow="SOMETIMES"/>
+                                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0"
+                                                        vgrow="SOMETIMES"/>
+                                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0"
+                                                        vgrow="SOMETIMES"/>
+                                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0"
+                                                        vgrow="SOMETIMES"/>
+                                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0"
+                                                        vgrow="SOMETIMES"/>
+                                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0"
+                                                        vgrow="SOMETIMES"/>
+                                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0"
+                                                        vgrow="SOMETIMES"/>
+                                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="10.0"
+                                                        vgrow="SOMETIMES"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label fx:id="name0" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0"
+                                               prefWidth="266.0" text="&lt;Fuqua&gt;" textAlignment="CENTER"
+                                               textFill="WHITE" GridPane.columnIndex="2" GridPane.columnSpan="12"
+                                               GridPane.rowIndex="1">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="20.0"/>
+                                            </font>
+                                        </Label>
+                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true"
+                                                   preserveRatio="true" GridPane.columnIndex="2"
+                                                   GridPane.halignment="CENTER" GridPane.rowIndex="2"
+                                                   GridPane.valignment="CENTER">
+                                            <image>
+                                                <Image url="@../icons/tooltip/size.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="26.0" text="Size"
+                                               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2"
+                                               GridPane.columnSpan="2" GridPane.halignment="CENTER"
+                                               GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="10.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="size0" maxHeight="-Infinity" maxWidth="-Infinity"
+                                               minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0"
+                                               prefWidth="30.0" text="10" textFill="WHITE" GridPane.columnIndex="3"
+                                               GridPane.halignment="CENTER" GridPane.rowIndex="2"
+                                               GridPane.valignment="CENTER">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="25.0"/>
+                                            </font>
+                                        </Label>
+                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true"
+                                                   preserveRatio="true" GridPane.columnIndex="5"
+                                                   GridPane.halignment="CENTER" GridPane.rowIndex="2"
+                                                   GridPane.valignment="CENTER">
+                                            <image>
+                                                <Image url="@../icons/tooltip/food.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0"
+                                               prefWidth="70.0" text="Food Prod." textAlignment="CENTER"
+                                               textFill="WHITE" GridPane.columnIndex="5" GridPane.columnSpan="2"
+                                               GridPane.rowIndex="3">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="10.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="food0" maxHeight="-Infinity" maxWidth="-Infinity"
+                                               minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0"
+                                               prefWidth="30.0" text="10" textFill="WHITE" GridPane.columnIndex="6"
+                                               GridPane.rowIndex="2">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="25.0"/>
+                                            </font>
+                                        </Label>
+                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true"
+                                                   preserveRatio="true" GridPane.columnIndex="8"
+                                                   GridPane.halignment="CENTER" GridPane.rowIndex="2"
+                                                   GridPane.valignment="CENTER">
+                                            <image>
+                                                <Image url="@../icons/tooltip/tech.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0"
+                                               prefWidth="70.0" text="Tech Prod." textAlignment="CENTER"
+                                               textFill="WHITE" GridPane.columnIndex="8" GridPane.columnSpan="2"
+                                               GridPane.rowIndex="3">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="10.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="tech0" maxHeight="-Infinity" maxWidth="-Infinity"
+                                               minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0"
+                                               prefWidth="30.0" text="10" textFill="WHITE" GridPane.columnIndex="9"
+                                               GridPane.rowIndex="2">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="25.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="domain0" alignment="CENTER" contentDisplay="CENTER"
+                                               prefHeight="13.0" prefWidth="70.0" text="Business" textAlignment="CENTER"
+                                               textFill="WHITE" GridPane.columnIndex="11" GridPane.columnSpan="2"
+                                               GridPane.rowIndex="3">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="10.0"/>
+                                            </font>
+                                        </Label>
+                                        <ImageView fx:id="domainIcon0" fitHeight="25.0" fitWidth="25.0"
+                                                   pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="11"
+                                                   GridPane.columnSpan="2" GridPane.halignment="CENTER"
+                                                   GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                            <image>
+                                                <Image url="@../icons/tooltip/tech.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <Label alignment="CENTER" prefHeight="31.0" prefWidth="267.0" text="Infomation:"
+                                               textFill="WHITE" GridPane.columnIndex="2" GridPane.columnSpan="12"
+                                               GridPane.rowIndex="4">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                        <ImageView fx:id="ownerDomainIcon0" fitHeight="25.0" fitWidth="25.0"
+                                                   pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2"
+                                                   GridPane.columnSpan="2" GridPane.halignment="CENTER"
+                                                   GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                                            <image>
+                                                <Image url="@../icons/tooltip/owner.png"/>
+                                            </image>
+                                            <GridPane.margin>
+                                                <Insets left="-15.0"/>
+                                            </GridPane.margin>
+                                        </ImageView>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0"
+                                               prefWidth="37.0" text="Owner" textAlignment="CENTER" textFill="WHITE"
+                                               GridPane.columnIndex="3" GridPane.columnSpan="4"
+                                               GridPane.halignment="CENTER" GridPane.rowIndex="6">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="10.0"/>
+                                            </font>
+                                            <GridPane.margin>
+                                                <Insets left="10.0"/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <Label fx:id="owner0" alignment="CENTER" maxHeight="-Infinity"
+                                               maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                                               prefHeight="30.0" prefWidth="90.0" text="Yisong" textAlignment="CENTER"
+                                               textFill="WHITE" GridPane.columnIndex="3" GridPane.columnSpan="4"
+                                               GridPane.rowIndex="5">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="13.0"/>
+                                            </font>
+                                            <GridPane.margin>
+                                                <Insets left="10.0"/>
+                                            </GridPane.margin>
+                                        </Label>
+                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true"
+                                                   preserveRatio="true" GridPane.columnIndex="8"
+                                                   GridPane.halignment="CENTER" GridPane.rowIndex="5"
+                                                   GridPane.valignment="CENTER">
+                                            <image>
+                                                <Image url="@../icons/tooltip/spy.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0"
+                                               prefWidth="69.0" text="Your Spy" textAlignment="CENTER" textFill="WHITE"
+                                               GridPane.columnIndex="8" GridPane.columnSpan="2" GridPane.rowIndex="6">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="10.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="spy0" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
+                                               minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0"
+                                               prefWidth="30.0" text="10" textFill="WHITE" GridPane.columnIndex="9"
+                                               GridPane.rowIndex="5">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="25.0"/>
+                                            </font>
+                                        </Label>
+                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true"
+                                                   preserveRatio="true" GridPane.columnIndex="11"
+                                                   GridPane.halignment="CENTER" GridPane.rowIndex="5"
+                                                   GridPane.valignment="CENTER">
+                                            <image>
+                                                <Image url="@../icons/tooltip/cloak.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0"
+                                               prefWidth="70.0" text="Cloak Turns" textAlignment="CENTER"
+                                               textFill="WHITE" GridPane.columnIndex="11" GridPane.columnSpan="2"
+                                               GridPane.rowIndex="6">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="10.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="cloak0" alignment="CENTER" contentDisplay="CENTER"
+                                               maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                               minWidth="-Infinity" prefHeight="34.0" prefWidth="30.0" text="3"
+                                               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="12"
+                                               GridPane.halignment="CENTER" GridPane.rowIndex="5"
+                                               GridPane.valignment="CENTER">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="25.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="265.0" text="Talents:"
+                                               textFill="WHITE" GridPane.columnIndex="2" GridPane.columnSpan="12"
+                                               GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true"
+                                                   preserveRatio="true" GridPane.columnIndex="2"
+                                                   GridPane.halignment="CENTER" GridPane.rowIndex="8"
+                                                   GridPane.valignment="CENTER">
+                                            <image>
+                                                <Image url="@../icons/tooltip/level0.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0"
+                                               prefWidth="69.0" text="Undergrad" textAlignment="CENTER" textFill="WHITE"
+                                               GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="9">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="10.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="level00" alignment="CENTER" maxHeight="-Infinity"
+                                               maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                                               prefHeight="35.0" prefWidth="30.0" text="10" textFill="WHITE"
+                                               GridPane.columnIndex="3" GridPane.rowIndex="8">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="25.0"/>
+                                            </font>
+                                        </Label>
+                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true"
+                                                   preserveRatio="true" GridPane.columnIndex="5"
+                                                   GridPane.halignment="CENTER" GridPane.rowIndex="8"
+                                                   GridPane.valignment="CENTER">
+                                            <image>
+                                                <Image url="@../icons/tooltip/level1.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0"
+                                               prefWidth="69.0" text="Master" textAlignment="CENTER" textFill="WHITE"
+                                               GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="9">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="10.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="level10" alignment="CENTER" maxHeight="-Infinity"
+                                               maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                                               prefHeight="34.0" prefWidth="30.0" text="10" textFill="WHITE"
+                                               GridPane.columnIndex="6" GridPane.rowIndex="8">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="25.0"/>
+                                            </font>
+                                        </Label>
+                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true"
+                                                   preserveRatio="true" GridPane.columnIndex="8"
+                                                   GridPane.halignment="CENTER" GridPane.rowIndex="8"
+                                                   GridPane.valignment="CENTER">
+                                            <image>
+                                                <Image url="@../icons/tooltip/level2.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0"
+                                               prefWidth="69.0" text="PhD" textAlignment="CENTER" textFill="WHITE"
+                                               GridPane.columnIndex="8" GridPane.columnSpan="2" GridPane.rowIndex="9">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="10.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="level20" alignment="CENTER" maxHeight="-Infinity"
+                                               maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                                               prefHeight="34.0" prefWidth="30.0" text="10" textFill="WHITE"
+                                               GridPane.columnIndex="9" GridPane.rowIndex="8">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="25.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0"
+                                               prefWidth="69.0" text="PostDoc" textAlignment="CENTER" textFill="WHITE"
+                                               GridPane.columnIndex="11" GridPane.columnSpan="2" GridPane.rowIndex="9">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="10.0"/>
+                                            </font>
+                                        </Label>
+                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true"
+                                                   preserveRatio="true" GridPane.columnIndex="11"
+                                                   GridPane.halignment="CENTER" GridPane.rowIndex="8"
+                                                   GridPane.valignment="CENTER">
+                                            <image>
+                                                <Image url="@../icons/tooltip/level3.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <Label fx:id="level30" alignment="CENTER" maxHeight="-Infinity"
+                                               maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                                               prefHeight="34.0" prefWidth="30.0" text="10" textFill="WHITE"
+                                               GridPane.columnIndex="12" GridPane.rowIndex="8">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="25.0"/>
+                                            </font>
+                                        </Label>
+                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true"
+                                                   preserveRatio="true" GridPane.columnIndex="2"
+                                                   GridPane.halignment="CENTER" GridPane.rowIndex="10"
+                                                   GridPane.valignment="CENTER">
+                                            <image>
+                                                <Image url="@../icons/tooltip/level4.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0"
+                                               prefWidth="69.0" text="Asst. Prof" textAlignment="CENTER"
+                                               textFill="WHITE" GridPane.columnIndex="2" GridPane.columnSpan="2"
+                                               GridPane.rowIndex="11">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="10.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="level40" alignment="CENTER" maxHeight="-Infinity"
+                                               maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                                               prefHeight="33.0" prefWidth="30.0" text="10" textFill="WHITE"
+                                               GridPane.columnIndex="3" GridPane.rowIndex="10">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="25.0"/>
+                                            </font>
+                                        </Label>
+                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true"
+                                                   preserveRatio="true" GridPane.columnIndex="5"
+                                                   GridPane.halignment="CENTER" GridPane.rowIndex="10"
+                                                   GridPane.valignment="CENTER">
+                                            <image>
+                                                <Image url="@../icons/tooltip/level5.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0"
+                                               prefWidth="69.0" text="Assoc. Prof" textAlignment="CENTER"
+                                               textFill="WHITE" GridPane.columnIndex="5" GridPane.columnSpan="2"
+                                               GridPane.rowIndex="11">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="10.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="level50" alignment="CENTER" maxHeight="-Infinity"
+                                               maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                                               prefHeight="34.0" prefWidth="30.0" text="10" textFill="WHITE"
+                                               GridPane.columnIndex="6" GridPane.rowIndex="10">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="25.0"/>
+                                            </font>
+                                        </Label>
+                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true"
+                                                   preserveRatio="true" GridPane.columnIndex="8"
+                                                   GridPane.halignment="CENTER" GridPane.rowIndex="10"
+                                                   GridPane.valignment="CENTER">
+                                            <image>
+                                                <Image url="@../icons/tooltip/level6.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0"
+                                               prefWidth="69.0" text="Professor" textAlignment="CENTER" textFill="WHITE"
+                                               GridPane.columnIndex="8" GridPane.columnSpan="2" GridPane.rowIndex="11">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="10.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="level60" alignment="CENTER" maxHeight="-Infinity"
+                                               maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                                               prefHeight="36.0" prefWidth="30.0" text="10" textFill="WHITE"
+                                               GridPane.columnIndex="9" GridPane.rowIndex="10">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="25.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="ownerDomain0" alignment="CENTER" contentDisplay="CENTER"
+                                               maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                               minWidth="-Infinity" prefHeight="13.0" prefWidth="50.0" text="Business"
+                                               textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2"
+                                               GridPane.columnSpan="2" GridPane.halignment="CENTER"
+                                               GridPane.rowIndex="6">
+                                            <font>
+                                                <Font name="Open Sans Regular" size="10.0"/>
+                                            </font>
+                                            <GridPane.margin>
+                                                <Insets left="-15.0"/>
+                                            </GridPane.margin>
+                                        </Label>
+                                    </children>
+                                </GridPane>
+                            </graphic>
+                        </Tooltip>
+                    </tooltip>
                         </ToggleButton>
                 <ToggleButton fx:id="label1" alignment="CENTER" contentDisplay="CENTER" layoutX="257.0" layoutY="141.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSelectTerritory" opacity="1" pickOnBounds="false" prefHeight="171.0" prefWidth="90.0" styleClass="territory-1" text="Law" textAlignment="CENTER" wrapText="true">
                     <font>
@@ -902,270 +1332,6 @@
                     <font>
                         <Font name="Open Sans Regular" size="13.0" />
                     </font>
-               <tooltip>
-                  <Tooltip maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="311.0" prefWidth="300.0" textAlignment="CENTER">
-                     <graphic>
-                        <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="311.0" prefWidth="285.0">
-                          <columnConstraints>
-                            <ColumnConstraints />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="10.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="10.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="10.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="10.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="10.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                              <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-                                 <image>
-                                    <Image url="@../icons/tooltip/size.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-                                 <image>
-                                    <Image url="@../icons/tooltip/food.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-                                 <image>
-                                    <Image url="@../icons/tooltip/tech.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="11" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
-                                 <image>
-                                    <Image url="@../icons/tooltip/cloak.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
-                                 <image>
-                                    <Image url="@../icons/tooltip/level0.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
-                                 <image>
-                                    <Image url="@../icons/tooltip/level6.png" />
-                                 </image>
-                              </ImageView>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="266.0" text="&lt;Fuqua&gt;" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.columnSpan="12" GridPane.rowIndex="1">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="20.0" />
-                                 </font></Label>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
-                                 <image>
-                                    <Image url="@../icons/tooltip/level1.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
-                                 <image>
-                                    <Image url="@../icons/tooltip/level2.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="11" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
-                                 <image>
-                                    <Image url="@../icons/tooltip/level3.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
-                                 <image>
-                                    <Image url="@../icons/tooltip/level5.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
-                                 <image>
-                                    <Image url="@../icons/tooltip/level4.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
-                                 <image>
-                                    <Image url="@../icons/tooltip/spy.png" />
-                                 </image>
-                              </ImageView>
-                              <Label alignment="CENTER" prefHeight="30.0" prefWidth="265.0" text="Talents:" textFill="WHITE" GridPane.columnIndex="2" GridPane.columnSpan="12" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="15.0" />
-                                 </font></Label>
-                              <Label alignment="CENTER" prefHeight="31.0" prefWidth="267.0" text="Infomation:" textFill="WHITE" GridPane.columnIndex="2" GridPane.columnSpan="12" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="15.0" />
-                                 </font></Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="26.0" text="Size" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="10.0" />
-                                 </font>
-                              </Label>
-                              <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" text="10" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="25.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="30.0" text="10" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="8">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="25.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="69.0" text="Undergrad" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="9">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="10.0" />
-                                 </font>
-                              </Label>
-                              <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" text="10" textFill="WHITE" GridPane.columnIndex="6" GridPane.rowIndex="2">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="25.0" />
-                                 </font>
-                              </Label>
-                              <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" text="10" textFill="WHITE" GridPane.columnIndex="9" GridPane.rowIndex="2">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="25.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="30.0" text="3" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="12" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="25.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="30.0" text="10" textFill="WHITE" GridPane.columnIndex="6" GridPane.rowIndex="8">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="25.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="69.0" text="Master" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="9">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="10.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="69.0" text="PhD" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="8" GridPane.columnSpan="2" GridPane.rowIndex="9">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="10.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="30.0" text="10" textFill="WHITE" GridPane.columnIndex="9" GridPane.rowIndex="8">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="25.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="30.0" text="10" textFill="WHITE" GridPane.columnIndex="12" GridPane.rowIndex="8">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="25.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="30.0" text="10" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="10">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="25.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="30.0" text="10" textFill="WHITE" GridPane.columnIndex="6" GridPane.rowIndex="10">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="25.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="30.0" text="10" textFill="WHITE" GridPane.columnIndex="9" GridPane.rowIndex="10">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="25.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="30.0" text="10" textFill="WHITE" GridPane.columnIndex="9" GridPane.rowIndex="5">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="25.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="69.0" text="PostDoc" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="11" GridPane.columnSpan="2" GridPane.rowIndex="9">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="10.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="69.0" text="Asst. Prof" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="11">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="10.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="69.0" text="Assc. Prof" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="11">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="10.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="69.0" text="Professor" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="8" GridPane.columnSpan="2" GridPane.rowIndex="11">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="10.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="69.0" text="Your Spy" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="8" GridPane.columnSpan="2" GridPane.rowIndex="6">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="10.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="70.0" text="Food Prod." textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="3">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="10.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="70.0" text="Tech Prod." textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="8" GridPane.columnSpan="2" GridPane.rowIndex="3">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="10.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="70.0" text="Cloak Turns" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="11" GridPane.columnSpan="2" GridPane.rowIndex="6">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="10.0" />
-                                 </font>
-                              </Label>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
-                                 <image>
-                                    <Image url="@../icons/tooltip/owner.png" />
-                                 </image>
-                              </ImageView>
-                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="98.0" text="Yisong" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3" GridPane.columnSpan="4" GridPane.rowIndex="5">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="13.0" />
-                                 </font>
-                              </Label>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="11" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-                                 <image>
-                                    <Image url="@../icons/tooltip/tech.png" />
-                                 </image>
-                              </ImageView>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="70.0" text="Business" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="11" GridPane.columnSpan="2" GridPane.rowIndex="3">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="10.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="37.0" text="Owner" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.columnSpan="5" GridPane.rowIndex="6">
-                                 <font>
-                                    <Font name="Open Sans Regular" size="10.0" />
-                                 </font>
-                                 <GridPane.margin>
-                                    <Insets left="-3.0" />
-                                 </GridPane.margin>
-                              </Label>
-                           </children>
-                        </GridPane>
-                     </graphic>
-                     <font>
-                        <Font name="Open Sans Regular" size="13.0" />
-                     </font>
-                  </Tooltip>
-               </tooltip>
                 </Button>
             <Button layoutX="39.0" layoutY="52.0" mnemonicParsing="false" onAction="#onCompleteTurn" prefHeight="34.0" prefWidth="110.0" text="Complete Turn">
                <font>

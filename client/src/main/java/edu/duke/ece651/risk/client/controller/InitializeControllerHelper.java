@@ -25,7 +25,7 @@ public class InitializeControllerHelper {
      * Initializes the Tooltips on each territory label.
      *
      * @param territoryLabelList the territory label ArrayList.
-     */
+     *//*
     public void initializeTerritoryTooltips(
             Player player, ArrayList<ToggleButton> territoryLabelList, String playerName) {
         int numPlayers = player.getMap().getNumPlayers();
@@ -43,7 +43,7 @@ public class InitializeControllerHelper {
             tt.setHideDelay(Duration.millis(200));
             territoryLabel.setTooltip(tt);
         }
-    }
+    }*/
 
     /**
      * Initializes the Tooltip on the player info label.
