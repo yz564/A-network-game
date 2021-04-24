@@ -206,6 +206,7 @@ public class InitializeControllerHelper {
             if (!visibility.get(territoryName)) {
                 territoryButton.getStyleClass().removeAll("territory-group-" + playerId);
                 territoryButton.getStyleClass().addAll("territory-group-disabled-unknown");
+                territoryButton.setOnAction(null);
             } else if (territory.getSpyTroopNumUnits(playerName) <= 0 || limited.get("move spy")) {
                 if ((territory.isBelongTo(playerName)
                                 && !playerInfo.getIsCloakingResearched()

@@ -207,7 +207,9 @@ public class SelectActionController extends Controller implements Initializable 
                 }
             }
             if (actions[id].equals("researchPatent")) {
-                if (checkZeroTotalUnits() || limited.get("research patent")) {
+                if (checkZeroTotalUnits()
+                        || limited.get("research patent")
+                        || !model.getPlayer().isResearchPatentAvailable()) {
                     actionButton.setDisable(true);
                 }
             }
