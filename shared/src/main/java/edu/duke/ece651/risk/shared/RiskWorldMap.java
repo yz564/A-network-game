@@ -163,4 +163,29 @@ public abstract class RiskWorldMap implements WorldMap {
   public ArrayList<String> getMyTerritories() {
     return new ArrayList<>(myTerritories.keySet());
   }
+
+  @Override
+  public ArrayList<String> sortPlayerTerritory(String playerName){
+    ArrayList<String> sortedList = new ArrayList<>();
+    ArrayList<String> playerTerritories = new ArrayList<>(getPlayerTerritories(playerName).keySet());
+        while (playerTerritories.size() != 0) {
+            String highest = findHighestTotalNumUnitTerritory(playerTerritories);
+            sortedList.add(highest);
+          playerTerritories.remove(highest);
+      }
+        return sortedList;
+  }
+
+  private String findHighestTotalNumUnitTerritory(ArrayList<String> territoryToSort){
+    int highestTotalNumUnit = -1;
+    String highestTotalNumUnitTerritory = null;
+    for (String territoryName: territoryToSort){
+      Territory territory = getTerritory(territoryName);
+      if (territory.getTotalNumUnits() > highestTotalNumUnit){
+        highestTotalNumUnit = territory.getTotalNumUnits();
+        highestTotalNumUnitTerritory = territoryName;
+      }
+    }
+    return highestTotalNumUnitTerritory;
+  }
 }
