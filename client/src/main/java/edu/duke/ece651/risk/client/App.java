@@ -80,6 +80,10 @@ public class App implements Runnable, GUIEventListener {
         return null;
     }
 
+    public Boolean isConnectedToServer() {
+        return this.server != null;
+    }
+
     public void initializeApp(
             Socket server, ObjectInputStream in, ObjectOutputStream out, ObjectIO tmp) {
         this.server = server;
@@ -200,7 +204,7 @@ public class App implements Runnable, GUIEventListener {
                     tmp = receiveMessage();
                     getPlayer().receiveMessage();
                     getPlayer().initializeTerritoriesInfo(); // initialize territoryInfo
-                    messenger.setMap(getPlayer().getMap(), "selectTerritoryGroup");
+                    messenger.setMap(getPlayer().getMap(), "characterInfo");
 
                     // select territory phase
                     checkGUIUpdate();

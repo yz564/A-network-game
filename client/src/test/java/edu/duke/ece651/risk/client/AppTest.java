@@ -3,7 +3,9 @@
  */
 package edu.duke.ece651.risk.client;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import edu.duke.ece651.risk.shared.*;
 
@@ -91,21 +93,8 @@ class AppTest {
     void test_checkGUIUpdate() {
       try{
         App myApp=new App(null,null,null,null);
-      myApp.checkGUIUpdate();
-    } catch (Exception e) {
-    }
+        myApp.checkGUIUpdate();
+        }
+      catch (Exception e) {}
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

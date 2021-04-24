@@ -129,7 +129,16 @@ public class PhaseStorage {
                         "/ui/styling/general-design.css",
                         "/ui/styling/action.css");
 
-        Phase phaseTest = makePhase("test", "Duke Risk Game! - Test", "/ui/views/test.fxml");
+        Phase phase18 =
+                makePhase("characterInfo",
+                        "Duke Risk Game! - Know Your Characters",
+                        "/ui/views/characters.fxml",
+                        "/ui/styling/general-design.css");
+
+        Phase phaseTest =
+                makePhase("test",
+                "Duke Risk Game! - Test",
+                "/ui/views/test.fxml");
         // Add new Phases here
 
         phases.put(phase1.getName(), phase1);
@@ -149,6 +158,7 @@ public class PhaseStorage {
         phases.put(phase15.getName(), phase15);
         phases.put(phase16.getName(), phase16);
         phases.put(phase17.getName(), phase17);
+        phases.put(phase18.getName(), phase18);
         phases.put(phaseTest.getName(), phaseTest);
         // Put new Phases into HashMap here
         return phases;

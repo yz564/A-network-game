@@ -28,9 +28,11 @@ public class ControllerFactory {
         controllers.put("allocateTalents", new AllocateTalentsController((App) model));
         controllers.put("selectAction", new SelectActionController((App) model));
         controllers.put("gameEnd", new GameEndController((App) model));
-        controllers.put(
-                "loading", new LoadingController((App) model, "Waiting for other players..."));
+        controllers.put("loading", new LoadingController((App) model, "Waiting for other players..."));
+        controllers.put("characterInfo", new CharacterInfoController((App) model));
         controllers.put("watchGame", new WatchGameController((App) model));
+        controllers.put("loading", new LoadingController((App) model, "Waiting for other players..."));
+        controllers.put("characterInfo", new CharacterInfoController((App) model));
         // Add new controllers here
         controllers.put("test", new ServerConnectController(model));
         return controllers;

@@ -23,6 +23,10 @@ public class JoinRoomController extends Controller
         implements Initializable, ErrorHandlingController, ClientEventListener {
     @FXML Label errorMessage;
     GUIEventMessenger messenger;
+    @FXML Button joinRoomOneButton;
+    @FXML Button joinRoomTwoButton;
+    @FXML Button joinRoomThreeButton;
+    @FXML Button joinRoomFourButton;
 
     /**
      * Simple constructor which sets the model.

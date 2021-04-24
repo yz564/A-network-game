@@ -49,7 +49,6 @@ public class ServerConnectController extends Controller implements ErrorHandling
      */
     @FXML
     public void onConnectButton(ActionEvent ae) throws Exception {
-
         Object source = ae.getSource();
         if (source instanceof Button) {
             clearErrorMessage();
