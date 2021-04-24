@@ -109,7 +109,7 @@ public class PhaseStorage {
                 makePhase(
                         "gameEnd",
                         "Duke Risk Game! - Game End",
-                        "/ui/views/game-end.fxml",
+                        "/ui/views/game-end-fancy.fxml",
                         "/ui/styling/general-design.css");
         Phase phase16 =
                 makePhase(
