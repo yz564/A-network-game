@@ -235,7 +235,7 @@ public class App implements Runnable, GUIEventListener {
                     tmp = receiveMessage();
                     getPlayer().receiveMessage();
                     getPlayer().initializeTerritoriesInfo(); // initialize territoryInfo
-                    messenger.setMap(getPlayer().getMap(), "selectTerritoryGroup");
+                    messenger.setMap(getPlayer().getMap(), "characterInfo");
 
                     // select territory phase
                     checkGUIUpdate();
