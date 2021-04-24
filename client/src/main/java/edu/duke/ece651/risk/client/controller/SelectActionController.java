@@ -1,41 +1,30 @@
 package edu.duke.ece651.risk.client.controller;
 
 import edu.duke.ece651.risk.client.App;
-import edu.duke.ece651.risk.client.view.PhaseChanger;
+import edu.duke.ece651.risk.client.Player;
+import edu.duke.ece651.risk.client.TerritoryInfo;
 import edu.duke.ece651.risk.client.view.StyleMapping;
 import edu.duke.ece651.risk.shared.Territory;
 import edu.duke.ece651.risk.shared.WorldMap;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.stage.Popup;
-import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class SelectActionController extends Controller implements Initializable {
-    WorldMap map;
-    String playerName;
+public class SelectActionController extends MapController {
     String nextOnCompleteTurn;
     String nextOnLeave;
     String nextOnGameEnd;
@@ -45,7 +34,6 @@ public class SelectActionController extends Controller implements Initializable 
     @FXML ImageView mapImageView;
     @FXML Circle charSelected;
     @FXML Label nameSelected;
-    @FXML ArrayList<ToggleButton> labelList;
     @FXML ArrayList<Label> numList;
     @FXML ArrayList<GridPane> actionList;
     @FXML GridPane actionPlayer;
@@ -67,9 +55,7 @@ public class SelectActionController extends Controller implements Initializable 
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // get map from client App
-        this.map = model.getPlayer().getMap();
-        this.playerName = model.getPlayer().getName();
+        super.initializeTerritoryTooltip();
         InitializeControllerHelper helper = new InitializeControllerHelper();
         // set map image according to number of players
         helper.initializeMap(map, mapImageView);
