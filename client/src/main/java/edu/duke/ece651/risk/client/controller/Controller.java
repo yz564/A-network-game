@@ -42,8 +42,7 @@ public abstract class Controller implements Initializable, ErrorHandlingControll
      * @param resources used to initialize the root object of the view.
      */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-    }
+    public void initialize(URL location, ResourceBundle resources) {}
 
     /**
      * Loads the next Phase.
